@@ -464,7 +464,9 @@ package classes.Scenes.Dungeons
 			if (player.isTaur()) {
 				 outputText(images.showImage("gangbang-loss-centaur"));
 			}
+			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("gangbang-loss-human-preg"));
 			else outputText(images.showImage("gangbang-loss-human"));
+
 			//(ORGAZMO)
 			outputText("As one, the crowd of demons orgasm.  Hot spunk gushes into your ass, filling you with uncomfortable pressure.  ");
 			if (player.hasVagina()) outputText("A thick load bastes your pussy with whiteness, and you can feel it seeping deeper inside your fertile womb.  ");
@@ -509,6 +511,8 @@ package classes.Scenes.Dungeons
 			outputText("  Your eyes cross at the pleasure as your mind struggles to figure out why it feels so good.\n\n");
 			
 			outputText("Zetaz pours a few bottles into a larger container and connects a tube to an opening on the bottom of the bottle.  Your eyes trace the tube back to the gag in your mouth, and after feeling around with your tongue, you realize it's been threaded through the gag and down your throat.   Zetaz lifts up the bottle and hangs it from a hook on the ceiling, and you watch in horror as the fluid flows through the tube, helpless to stop it.  You shake your head desperately, furious at having fallen into the little fucker's hands at last.\n\n");
+			
+			
 			
 			outputText("Zetaz walks up and paws at your ");
 			if (player.biggestTitSize() < 1) outputText("new");

@@ -4,16 +4,19 @@
 package classes.Scenes.Monsters
 {
 	import classes.*;
+	import classes.Scenes.Monsters.pregnancies.PlayerGoblinPregnancy;
 	import classes.BodyParts.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
 	import classes.display.SpriteDb;
 	import classes.internals.*;
+	import classes.Scenes.PregnancyProgression;
 
 	public class GoblinScene extends BaseContent
 	{
-		public function GoblinScene()
+		public function GoblinScene(pregnancyProgression:PregnancyProgression, output:GuiOutput)
 		{
+			new PlayerGoblinPregnancy(pregnancyProgression, output);
 		}
 
 		/*Goblins
@@ -111,7 +114,6 @@ package classes.Scenes.Monsters
 				outputText(".  ");
 			}
 			if (player.hasVagina()) {
-				outputText(images.showImage("goblin-loss-female-raped"));
 				if (player.vaginas[0].vaginalWetness <= VaginaClass.WETNESS_NORMAL) outputText("The lips of your sex engorge, becoming almost as puffy as the goblin's.  ");
 				else if (player.vaginas[0].vaginalWetness < VaginaClass.WETNESS_DROOLING) outputText("Feminine lubricant soaks into the back of your " + player.armorName + ".  ");
 				else outputText("It rapidly forms into a puddle as your " + player.vaginaDescript(0) + " does its best to show just how ready you are.  ");
@@ -176,23 +178,51 @@ package classes.Scenes.Monsters
 			}
 			//[FEMALEZ]
 			else {
-				outputText("The goblin says, \"<i>Baby we're both horny, but fingers and tongues just aren't enough for me. Lucky for you, I've got just the thing.</i>\"\n\n");
-				outputText("She reaches into a tiny bulging pouch on her hip and pulls out a dildo that flops about in her hand as if was glad to be free.  Slapping you on the cheek and grinning impishly, she offers, \"<i>Why don't we bury one end in each of our cunts?  Just open your mouth and help me get it warmed up for us, OK?</i>\"\n\n");
-				if (player.cor < 33) outputText("You shake your head violently, clearly indicating 'No', but when you open your mouth to vocalize your complaint, your lips are swiftly plugged with bulging sex-toy.");
-				else if (player.cor < 66) outputText("You open your mouth to stammer out your concerns, but she plugs the hole with the floppy artificial dong, turning your speech into surprised muffles.");
-				else outputText("You lick your lips coyly then open your mouth into a welcoming 'O'.  The sex-toy slips straight into the hole, muffling the sounds of your happiness with the arrangement.");
-				outputText("  It 'plumps' up somehow - perhaps in reaction to your spit - forcing your jaw open and pinning your tongue to the bottom of your mouth.  A trickle of fluid escapes its tip, nearly gagging you before your throat reflexively drinks it down.  What did you just swallow?\n\n");
-				outputText("\"<i>Yummy yummy isn't it?  I made this myself.  It's made up of the best stuff – it reacts with fluids to puff up and fill ANY hole perfectly.  Even better, it has a reservoir stuffed with aphrodisiacs that'll slowly leak out.  Do you feel warm yet hun?</i>\" she asks.\n\n");
-				outputText("You sputter a bit when she pulls the thick spit-soaked dong out of your mouth.  The part that was stuffed down your throat is swollen up nearly twice as wide as the half in her hand.  The goblin slurps the other half into her throat, taking at least eight inches into her mouth with no sign of discomfort.  She pulls it out, watching it begin to puff up and blushing, turning her slightly-dimpled cheeks purple.   The dildo slaps your twat cruelly as she drops part of it onto your mons.  With a few expert motions, she shoves it inside you, stuffing you full of artificial cock.  The goblin giggles again and slaps the outer half of the dong, making it flop about and sending vibrations directly to your core.\n\n");
-				outputText("The green slut stands up and steps over your crotch, positioning herself at a ninety degree angle to you.   The warm wetness of her readiness splashes your thighs when she works the free end of the double-dong into her own aching twat.  She slides down its length, easily taking the remaining length up her juicy cunt.  Your " + player.vaginaDescript(0) + " squelches against hers wetly as they meet in the middle.  The goblin twists, grinding and scissoring her thighs, the hard bud of her clit rubbing back and forth over your " + player.clitDescript() + ".\n\n");
-				if (player.getClitLength() >= 7) outputText("Of course, the sheer size of your clit makes it difficult for the goblin to handle in the normal way - it keeps slipping between up her breasts.  The tiny green tart's eyes light up with a devilish idea.  She pulls out a vial of pink slime and dumps it over her breasts, pushing them around your clit and smothering them in slippery flesh.   You cry out in delight, overwhelmed by the feelings radiating from your over-sized pleasure-buzzer as it is mercilessly worked by the tiny woman.\n\n");
-				outputText("By now your passage feels as stuffed as it ever has been, crammed totally full of the squishy expanded double-dong.  Every motion the tiny slut makes is amplified directly into the fuck-stick plugging your " + player.vaginaDescript(0) + ".  Judging by how wonderful it feels rubbing and twisting against your sensitive walls, the aphrodisiac is definitely having an effect.  You moan and spread your legs wide, giving the tiny dominatrix free reign over your body.  She wiggles against you harder, throwing her head back and running her fingers through her " + monster.hair.color + " hair, shouting out encouragement all the while, \"<i>Mmmm, you like this, don't you slut?  Doesn't my dildo just fill you up perfectly?  Keep wiggling those hips – the aphrodisiac is gravity fed, and with you on the bottom you'll be blissed into unconsciousness soon.  Just don't cum before me hun, I want to feel release with you.</i>\"\n\n");
-				outputText("You lose yourself to the sweet sensations of the bloated dildo that joins your simmering groins.  Rocking back and forth, scissoring relentlessly against your green mistress, you moan, drowning yourself in a sea of drug-enhanced pleasure. The goblin cries out and thrashes in sudden orgasm, twisting the fat dildo violently around inside your " + player.vaginaDescript(0) + ".   The juices of her orgasm react with the toy, stretching you almost painfully and pushing you past the point of no return.  Your bodies thrash together, wracked by twin orgasms that leave you smeared with a mixture of sweat and girl-cum.\n\n");
-				outputText("Later, the wet goblin audibly pops off the dildo.  She stumbles, bow-legged, before teasing your " + player.clitDescript() + " and yanking her toy free.  Your lips ");
-				if (player.vaginas[0].vaginalLooseness <= VaginaClass.LOOSENESS_GAPING) outputText("gape apart momentarily");
-				else outputText("gape wider than ever, but only for a moment");
-				outputText(".\n\n");
-				outputText("She plants a kiss on your lips and mutters, \"<i>Can't forget this,</i>\" as she puts her dildo away.  You find yourself smiling and watching her strap-covered form jiggle pleasantly as she bounds away from you into the distance.  Your eyelids drift closed and your lips go numb as her drugged lipstick puts you out.  ");
+				if (monster.hasCock()) {
+
+					outputText("The goblin saunters up to you, a stiffening cock bobbing from side to side with each step.  Firmly grasping her " + monster.cockDescript(0) + ", she says, \"<i>I don't know what's in the water around here, but I've been meaning to give this bad boy a try!</i>\" A wicked grin appearing across her face. \n\n");
+					outputText("She begins lewdly stroking her penis until fully erect at nearly a foot long!  Quickly hopping over to straddle you, she slaps you on the cheek with her monster dong. Grinning impishly, she offers, \"<i>I want to know what this thing feels like in your cunt.  Just open your mouth and help me get it warmed up for us, OK?</i>\"\n\n");
+					if (player.cor < 33) outputText("You shake your head violently, clearly indicating 'No', but when you open your mouth to vocalize your complaint, your lips are swiftly plugged with bulging phallus.");
+					else if (player.cor < 66) outputText("You open your mouth to stammer out your concerns, but she plugs the hole with her stiff dong, turning your speech into surprised muffles.");
+					else outputText("You lick your lips coyly then open your mouth into a welcoming 'O'.  The cock slips straight into the hole, muffling the sounds of your happiness with the arrangement.");
+					outputText("  It 'plumps' up more somehow - perhaps in reaction to your spit - forcing your jaw open and pinning your tongue to the bottom of your mouth.  A trickle of fluid escapes its tip, nearly gagging you before your throat reflexively drinks it down. \n\n");
+					outputText("\"<i>How does my new cock taste hun?</i>\" she asks. \"<i>I've only ever taken these things, but being on the giving end feels nice for a change.</i>\" \n\n");
+					outputText("You sputter a bit when she pulls the thick spit-soaked dong out of your mouth.  The part that was stuffed down your throat is swollen up nearly twice as wide as the half in her hand.  She kneels down smiling at your " + player.vaginaDescript(0) + ", turning her slightly-dimpled cheeks purple.   Her cock slaps your twat cruelly as she drops part of it onto your mons.  With a few expert motions, she shoves it inside you, stuffing you full of newly-minted cock.  The goblin giggles again, fully withdrawing her cock before slamming it back in, and sending vibrations directly to your core.\n\n");
+					outputText("The green slut grabs you underneath your " + player.assDescript() + " and with surprising strength picks up your lower half with her as she stands, positioning your legs behind you spread eagle.   She regrips your thighs to give herself better leverage and repositions her cock now at ninety degree angle to you.  She slides in its length, forcefully pushing in the remaining inches.  Your " + player.vaginaDescript(0) + " squelches wetly against her cock as it forces its way in.  The goblin bucks, grinding the hard cock along the roof your pussy and across your g-spot.\n\n");
+					outputText("By now your passage feels as stuffed as it ever has been, crammed totally full of mean, green dick.  Every motion the tiny slut makes is amplified directly into her fuck-stick plugging your " + player.vaginaDescript(0) + ". You moan and spread your legs wide, giving the tiny dominatrix free reign over your body.  She humps against you harder, throwing her head back and running her fingers through her " + monster.hair.color + " hair, shouting out encouragement all the while, \"<i>Mmmm, you like this, don't you slut?  Doesn't my cock just fill you up perfectly?  Keep wiggling those hips – I want to bury this as deep as possible. Just don't cum before me hun, I want to release right into your womb.</i>\"\n\n");
+					
+					if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("goblin-loss-female-raped-preg"));
+					else outputText(images.showImage("goblin-loss-female-raped"));
+					
+					outputText("You lose yourself to the sweet sensations of the bloated globin cock pistoning your groin.  Getting rocked back and forth, relentlessly pounded by your green mistress, you moan, drowning yourself in a sea of pleasure. The goblin grips on to your " + player.hipDescript() + " like a rutting dog.  Her thrusts become short and violent, and her balls slapping against your backside echo the clapping flesh all around you.  Suddenly she cries out, in sudden orgasm, brutally forcing her fat cockhead past your cervix.   The sudden intrusion causes you to yelp as you are stretched painfully and pushes you past the point of no return.  Embedded deep in your cunt, the goblin's balls tighten as she releases a torrent of thick spunk directly into your waiting womb.  Simultaneously, your vaginal muscles tighten around the exploding cock milking it for every drop. \n\n");
+					outputText("Later, the wet goblin audibly pops out her cock, releasing the dam of semen that floods the ground below.  She stumbles, hefting her oversized member, before teasing your " + player.clitDescript() + ".  Your lips ");
+					if (player.vaginas[0].vaginalLooseness <= VaginaClass.LOOSENESS_GAPING) outputText("gape apart momentarily");
+					else outputText("gape wider than ever, but only for a moment");
+					outputText(".\n\n");
+					outputText("She plants a kiss on your lips and says, [if (isPregnant = false)\"<i>You know we goblins have been trying to rebuild our kind the old fashioned way for a long time, but this is much easier</i>\"][if (isPregnant = true)\"<i>Maybe next time I can put one in ya'</i>\"]as she pats you on your bulging belly.  You find yourself smiling and watching her form jiggle pleasantly as she bounds away from you into the distance.  Your eyelids drift closed and your lips go numb as her drugged lipstick puts you out.  ");
+
+				}
+				else {
+					outputText("The goblin says, \"<i>Baby we're both horny, but fingers and tongues just aren't enough for me. Lucky for you, I've got just the thing.</i>\"\n\n");
+					outputText("She reaches into a tiny bulging pouch on her hip and pulls out a dildo that flops about in her hand as if was glad to be free.  Slapping you on the cheek and grinning impishly, she offers, \"<i>Why don't we bury one end in each of our cunts?  Just open your mouth and help me get it warmed up for us, OK?</i>\"\n\n");
+					if (player.cor < 33) outputText("You shake your head violently, clearly indicating 'No', but when you open your mouth to vocalize your complaint, your lips are swiftly plugged with bulging sex-toy.");
+					else if (player.cor < 66) outputText("You open your mouth to stammer out your concerns, but she plugs the hole with the floppy artificial dong, turning your speech into surprised muffles.");
+					else outputText("You lick your lips coyly then open your mouth into a welcoming 'O'.  The sex-toy slips straight into the hole, muffling the sounds of your happiness with the arrangement.");
+					outputText("  It 'plumps' up somehow - perhaps in reaction to your spit - forcing your jaw open and pinning your tongue to the bottom of your mouth.  A trickle of fluid escapes its tip, nearly gagging you before your throat reflexively drinks it down.  What did you just swallow?\n\n");
+					outputText("\"<i>Yummy yummy isn't it?  I made this myself.  It's made up of the best stuff – it reacts with fluids to puff up and fill ANY hole perfectly.  Even better, it has a reservoir stuffed with aphrodisiacs that'll slowly leak out.  Do you feel warm yet hun?</i>\" she asks.\n\n");
+					outputText("You sputter a bit when she pulls the thick spit-soaked dong out of your mouth.  The part that was stuffed down your throat is swollen up nearly twice as wide as the half in her hand.  The goblin slurps the other half into her throat, taking at least eight inches into her mouth with no sign of discomfort.  She pulls it out, watching it begin to puff up and blushing, turning her slightly-dimpled cheeks purple.   The dildo slaps your twat cruelly as she drops part of it onto your mons.  With a few expert motions, she shoves it inside you, stuffing you full of artificial cock.  The goblin giggles again and slaps the outer half of the dong, making it flop about and sending vibrations directly to your core.\n\n");
+					outputText("The green slut stands up and steps over your crotch, positioning herself at a ninety degree angle to you.   The warm wetness of her readiness splashes your thighs when she works the free end of the double-dong into her own aching twat.  She slides down its length, easily taking the remaining length up her juicy cunt.  Your " + player.vaginaDescript(0) + " squelches against hers wetly as they meet in the middle.  The goblin twists, grinding and scissoring her thighs, the hard bud of her clit rubbing back and forth over your " + player.clitDescript() + ".\n\n");
+					if (player.getClitLength() >= 7) outputText("Of course, the sheer size of your clit makes it difficult for the goblin to handle in the normal way - it keeps slipping between up her breasts.  The tiny green tart's eyes light up with a devilish idea.  She pulls out a vial of pink slime and dumps it over her breasts, pushing them around your clit and smothering them in slippery flesh.   You cry out in delight, overwhelmed by the feelings radiating from your over-sized pleasure-buzzer as it is mercilessly worked by the tiny woman.\n\n");
+					outputText("By now your passage feels as stuffed as it ever has been, crammed totally full of the squishy expanded double-dong.  Every motion the tiny slut makes is amplified directly into the fuck-stick plugging your " + player.vaginaDescript(0) + ".  Judging by how wonderful it feels rubbing and twisting against your sensitive walls, the aphrodisiac is definitely having an effect.  You moan and spread your legs wide, giving the tiny dominatrix free reign over your body.  She wiggles against you harder, throwing her head back and running her fingers through her " + monster.hair.color + " hair, shouting out encouragement all the while, \"<i>Mmmm, you like this, don't you slut?  Doesn't my dildo just fill you up perfectly?  Keep wiggling those hips – the aphrodisiac is gravity fed, and with you on the bottom you'll be blissed into unconsciousness soon.  Just don't cum before me hun, I want to feel release with you.</i>\"\n\n");
+					outputText("You lose yourself to the sweet sensations of the bloated dildo that joins your simmering groins.  Rocking back and forth, scissoring relentlessly against your green mistress, you moan, drowning yourself in a sea of drug-enhanced pleasure. The goblin cries out and thrashes in sudden orgasm, twisting the fat dildo violently around inside your " + player.vaginaDescript(0) + ".   The juices of her orgasm react with the toy, stretching you almost painfully and pushing you past the point of no return.  Your bodies thrash together, wracked by twin orgasms that leave you smeared with a mixture of sweat and girl-cum.\n\n");
+					outputText("Later, the wet goblin audibly pops off the dildo.  She stumbles, bow-legged, before teasing your " + player.clitDescript() + " and yanking her toy free.  Your lips ");
+					if (player.vaginas[0].vaginalLooseness <= VaginaClass.LOOSENESS_GAPING) outputText("gape apart momentarily");
+					else outputText("gape wider than ever, but only for a moment");
+					outputText(".\n\n");
+					outputText("She plants a kiss on your lips and mutters, \"<i>Can't forget this,</i>\" as she puts her dildo away.  You find yourself smiling and watching her strap-covered form jiggle pleasantly as she bounds away from you into the distance.  Your eyelids drift closed and your lips go numb as her drugged lipstick puts you out.  ");
+				}
+				player.knockUp(PregnancyStore.PREGNANCY_GOBLIN, PregnancyStore.INCUBATION_GOBLIN - 14);
+			
 				player.cuntChange(player.vaginalCapacity(), true);
 				player.orgasm('Vaginal');
 				combat.cleanupAfterCombat();

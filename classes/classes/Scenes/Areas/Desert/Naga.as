@@ -114,8 +114,7 @@ import classes.internals.*;
 			this.drop = new WeightedDrop().
 					add(null,1).
 					add(consumables.REPTLUM,5).
-					add(consumables.SNAKOIL, 4).
-					add(armors.NAGASLK,1);
+					add(consumables.SNAKOIL,4);
 			this.special1 = nagaPoisonBiteAttack;
 			this.special2 = nagaConstrict;
 			this.special3 = nagaTailWhip;

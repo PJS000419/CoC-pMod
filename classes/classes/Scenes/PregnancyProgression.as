@@ -286,11 +286,20 @@ package classes.Scenes
 			if (hasRegisteredVaginalScene(PregnancyStore.PREGNANCY_PLAYER, player.pregnancyType)) {
 				var scene:VaginalPregnancy = vaginalPregnancyScenes[player.pregnancyType] as VaginalPregnancy;
 				LOGGER.debug("Updating vaginal birth for mother {0}, father {1} by using class {2}", PregnancyStore.PREGNANCY_PLAYER, player.pregnancyType, scene);
+				
+				
 				scene.vaginalBirth();
+				
+				// Imp Horde pregnancy carries multiple in a brood
+				if (player.pregnancyType === PregnancyStore.PREGNANCY_IMP_HORDE) {					
+					for (var i:int = rand(3) + 3; i > 0; i--) {
+						giveBirth();					
+					}
+				}
 				
 				// TODO find a cleaner way to solve this
 				// ignores Benoit pregnancy because that is a special case
-				if (player.pregnancyType !== PregnancyStore.PREGNANCY_BENOIT) {
+				else if (player.pregnancyType !== PregnancyStore.PREGNANCY_BENOIT) {
 					giveBirth();
 				}
 			} else {

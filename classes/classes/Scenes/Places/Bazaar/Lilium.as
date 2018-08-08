@@ -52,8 +52,9 @@ private function approachLilium():void {
 	//#########REPEAT INTRODUCTION#########
 	else {
 		outputText("Lilium stands before you.  Her two nearly foot-long horns grow up and out of her forehead, one of which is adorned with a shiny, silver band.  Her dark hair spills across her bare shoulders in loose coils and her black lipstick and heavy eyeshadow contrast with the paleness of her skin.  A black underbust corset wraps around her waist, leaving her breasts exposed and long black gloves cling to her arms up to her shoulders.  She also wears a crinoline skirt with an opening at the front which reveals her smooth bare legs, a tail which wraps around her thigh like a garter, and her crotch which sports her average cock curiously clad in her lacy cock sock in spite of her otherwise brazen exposure.\n\n");
-
-		outputText("\"<i>Back again?  I thought I was finally rid of you!</i>\"  Lilium teases, but you can see the eager smile on her face.  \"<i>Is this visit business or pleasure?  I'm hoping both.</i>\"\n\n");
+		
+		if ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) && player.gender == 2) outputText("\"<i>Well you're just a cute little slut aren't you?  Knocked up and still coming to see me!</i>\"  Lilium teases, but you can see the eager smile on her face.  \"<i>Is this visit business or pleasure?  I'm hoping both.</i>\"\n\n");
+		else outputText("\"<i>Back again?  I thought I was finally rid of you!</i>\"  Lilium teases, but you can see the eager smile on her face.  \"<i>Is this visit business or pleasure?  I'm hoping both.</i>\"\n\n");
 	}
 	menu();
 	if (player.gems < 50) {
@@ -180,15 +181,18 @@ private function liliumDickRidah():void {
 	//(if player has long hair)
 	if (player.hair.length >= 15) outputText("You can feel Lilium shudder slightly beneath you as your hair tickles her nipples.  ");
 	outputText("First you begin to circle her navel with the tip of your tongue, following up with long licks beginning at the base of her belly and trailing up and into her belly button. Lilium's breathing begins to quicken and her hips start to dart back and forth beneath you as you continue to tongue her navel. As you become more conscious of the hardened cock poking into your own chest you draw your head back, leaving a long shiny strand of saliva that joins your mouth to her smooth tummy.\n\n");
-
+	
 	outputText("You draw yourself up and position yourself above Lilium's twitching cock.  Your fingers part the lips of your " + player.vaginaDescript(0) + " which are slick with your own arousal.  ");
 	//(If virgin/tight)
 	if (player.vaginalCapacity() < 25) outputText("Gingerly you lower yourself down onto Lilium's cock, your breath tight in your chest as the head strains against your moist inner walls.  Each inch is easier than the last and soon you release a long slow exhale as your crotch meets hers and the pleasurable feeling of fullness washes over you.  ");
 	//(if loose or produce lots of lube)
-	else outputText("Without a second thought you plunge yourself down on Lilium's fuckrod, your " + player.buttDescript() + " jiggling from the sudden impact.  ");
+	else outputText("Without a second thought you plunge yourself down on Lilium's fuckrod, your " + player.buttDescript() + " [if (isPregnant = true) and plump belly] jiggling from the sudden impact.  ");
 	outputText("You pull yourself up until only the head of the demon girl's dick remains within you, before sliding back down to let her fill you again.  Up and down you bounce on top of her, your speed and force increasing with every stroke.  You let out a contented half moan, half grunt each time your " + player.hipDescript() + " collide with hers as her stiff cock stimulates your insides.  Lilium's own search for more pleasure brings her hands to her breasts and she begins to finger-fuck her nipples.  Before long she has two and then three fingers furiously plunging in and out of her gaping nipplecunts and you can see her eyes rolled back in her head as her mouth hangs open in testament to the excitement flowing through her body.");
 	player.cuntChange(14,true,true,false);
 	outputText("\n\n");
+	
+	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("lilium-fuck-female-preg"));
+	else outputText(images.showImage("lilium-fuck-female"));
 
 	//(if player has breasts)
 	if (player.biggestTitSize() >= 1) {
@@ -204,9 +208,9 @@ private function liliumDickRidah():void {
 		outputText("\n\n");
 	}
 
-	outputText("With several fingers still inside her nipples, Lilium bites her lip and forcefully pushes her breasts together as her hips begin bucking to meet your own " + player.hipDescript() + ".  Seeing that her orgasm is near, you begin flexing your internal muscles in addition to pumping up and down on her cock.  With a sudden burst of movement that surprises you, Lilium tears her hands from her breasts and roughly grabs your " + player.buttDescript() + ", her fingers digging into your buttcheeks as she attempts to hold you down tight upon her.  Her eyes bulge wide and she lets out a loud cry as you feel her pump load after load of demonic cum into you, flooding your " + player.vaginaDescript(0) + ".  Lilium drops her arms to her sides with eyes half-lidded as she pants heavily.\n\n");
+	outputText("With several fingers still inside her nipples, Lilium bites her lip and forcefully pushes her breasts together as her hips begin bucking to meet your own " + player.hipDescript() + ".  Seeing that her orgasm is near, you begin flexing your internal muscles in addition to pumping up and down on her cock.  With a sudden burst of movement that surprises you, Lilium tears her hands from her breasts and roughly grabs your [if (isPregnant = true) undulating belly before digging into your] " + player.buttDescript() + ", her fingers digging into your buttcheeks as she attempts to hold you down tight upon her.  Her eyes bulge wide and she lets out a loud cry as you feel her pump load after load of demonic cum into you, flooding your " + player.vaginaDescript(0) + ".  Lilium drops her arms to her sides with eyes half-lidded as she pants heavily.\n\n");
 
-	outputText("Not finished with her yet, you draw yourself up off her wilting willy, clenching your lower muscles to keep as much of her cum inside you as possible as you flip yourself around and position your body above her face.  Lilium quickly catches on to what you're doing and you think you can see her gulp nervously as you lower your cum-stuffed pussy to her mouth.  Rolling your " + player.hipDescript() + " back and forth you begin grinding your " + player.vaginaDescript(0) + " into the demon woman's face as her tongue worms and tickles inside you, beginning its task of cleaning out the remnants of her ecstasy from your love hole.  While Lilium's tongue gently strokes your insides with lips occasionally sucking gently on your labia, you turn your attention to your clit.  ");
+	outputText("Not finished with her yet, you draw yourself up off her wilting willy, clenching your lower muscles to keep as much of her cum inside you as possible as you flip yourself around and position your body above her face.  Lilium quickly catches on to what you're doing and you think you can see her gulp nervously as you lower your cum-stuffed pussy to her mouth.  Rolling your " + player.hipDescript() + " back and forth you begin grinding your " + player.vaginaDescript(0) + " into the demon woman's face as her tongue worms and tickles inside you, beginning its task of cleaning out the remnants of her ecstasy from your love hole.  While Lilium's tongue gently strokes your insides with lips occasionally sucking gently on your labia, you [if (isPregnant = true) reach under your pregnant paunch and] turn your attention to your clit.  ");
 	//(if little clit)
 	if (player.getClitLength() < 2) outputText("With one finger you begin to knead your " + player.clitDescript() + ", which instantly increases the pleasure emanating from your lower body.");
 	//(else if big clit)

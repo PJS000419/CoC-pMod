@@ -470,7 +470,7 @@ package classes.Scenes.Areas.Swamp
 			outputText(".");
 			player.buttChange(50, true, true, false);
 			outputText("\n\n");
-
+			
 			outputText(images.showImage("cDrider-loss-butt"));
 			outputText("Shivering, you glance back up at the defeated woman; she has a passionate, prideful look plastered on her face, though it seems to waver each time another inch of ovipositor pushes past your stretched-out ring.\n\n");
 

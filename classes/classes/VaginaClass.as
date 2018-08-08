@@ -131,7 +131,6 @@
 		 */
 		public function stretch(cArea:Number, bonusCapacity:Number = 0, hasFeraMilkingTwat:Boolean = false):Boolean {
 			var stretched:Boolean = false;
-			LOGGER.debug("Vaginal stretch check, cock area {0} vs vagina capacity {1}", cArea, capacity(bonusCapacity));
 			if (!hasFeraMilkingTwat || vaginalLooseness <= VaginaClass.LOOSENESS_NORMAL) {
 				//cArea > capacity = autostreeeeetch.
 				if (cArea >= capacity(bonusCapacity)) {

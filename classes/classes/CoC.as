@@ -228,7 +228,7 @@ package classes
 		public var lumi:Lumi = new Lumi();
 		public var giacomoShop:Giacomo = new Giacomo();
 		// Scenes/Monsters/
-		public var goblinScene:GoblinScene = new GoblinScene();
+		public var goblinScene:GoblinScene;
 		public var goblinAssassinScene:GoblinAssassinScene = new GoblinAssassinScene();
 		public var goblinWarriorScene:GoblinWarriorScene = new GoblinWarriorScene();
 		public var goblinShamanScene:GoblinShamanScene = new GoblinShamanScene();
@@ -271,11 +271,11 @@ package classes
 		public var urtaHeatRut:UrtaHeatRut = new UrtaHeatRut();
 		public var urtaPregs:UrtaPregs;
 		public var valeria:Valeria = new Valeria();
-		public var vapula:Vapula = new Vapula();
+		public var vapula:Vapula;
 		// Scenes/Places/
 		public var bazaar:Bazaar = new Bazaar();
 		public var boat:Boat = new Boat();
-		public var farm:Farm;
+		public var farm:Farm = new Farm();
 		public var owca:Owca = new Owca();
 		public var telAdre:TelAdre;
 		public var ingnam:Ingnam = new Ingnam();
@@ -458,9 +458,10 @@ package classes
 			desert = new Desert(pregnancyProgression, output);
 			
 			telAdre = new TelAdre(pregnancyProgression);
-			farm = new Farm(output);
 			
 			impScene = new ImpScene(pregnancyProgression, output);
+			vapula = new Vapula(pregnancyProgression, output);
+			goblinScene = new GoblinScene(pregnancyProgression, output);
 			anemoneScene = new AnemoneScene(pregnancyProgression, output);
 			marbleScene = new MarbleScene(pregnancyProgression, output);
 			jojoScene = new JojoScene(pregnancyProgression, output);
@@ -556,7 +557,7 @@ package classes
 			 * Debug, Version, etc
 			 */
 			debug = false; //DEBUG, used all over the place
-			ver = "1.0.2_mod_1.4.14"; //Version NUMBER
+			ver = "1.0.2_mod_1.4.13b"; //Version NUMBER
 			version = ver + " (<b>Weapon Upgrading!</b>)"; //Version TEXT
 			
 			//Indicates if building for mobile?

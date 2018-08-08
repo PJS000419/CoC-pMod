@@ -1224,15 +1224,18 @@ private function loppeWorshipsDicks():void {
 //Get Vagina-Fucked: (edited)
 private function getFuckedInYerTwatYaCunt():void {
 	clearOutput();
-	outputText(images.showImage("loppe-sticks-it-in-your-vagoo"));
+	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("loppe-sticks-it-in-your-vagoo-preg"));
+	else outputText(images.showImage("loppe-sticks-it-in-your-vagoo"));
 	outputText("As you contemplate the delicious possibilities that the herm presents, your eyes are drawn to her admirable piece of horse-meat.  With a half-grin, you settle yourself on her bed, ");
 	//[(mans)
 	if (!player.isTaur()) outputText("spreading your labia in an invitation that needs no words.");
 	else outputText("exposing your rump and spreading your hind legs in your best effort to make her feel welcome.");
-
 	outputText("\n\nLoppe smirks at you and winks.  \"<i>Don't worry; I'll treat you like a ");
+
+	//(if preggo)
+	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText("pregnant queen.  A sexy, curvaceous queen");
 	//[(femininity <= 40)
-	if (player.femininity > 50) outputText("princess.  A sexy, smoking hot princess");
+	else if (player.femininity > 50) outputText("princess.  A sexy, smoking hot princess");
 	else outputText("prince.  A dashing, dandy prince");
 	outputText(" that I intend to fill up with my laquine love.</i>\"  She wastes no time and pounces on the bed, ready to bury her face between your [legs], licking her lips while taking deep breaths to inhale as much of your pheromones as she can.  You blink at the speed with which she moves, but smile, repositioning yourself to give her better access");
 	//[(herm non-horse)
@@ -1240,6 +1243,9 @@ private function getFuckedInYerTwatYaCunt():void {
 		outputText(", though she needs to move aside " + player.sMultiCockDesc() + " ");
 		if (player.balls > 0) outputText("and [balls] ");
 		outputText("to really get at your cunt");
+	}
+	else if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) {
+		outputText(", though you need to hold up your belly to really get at your cunt");
 	}
 	outputText(".");
 
@@ -1278,7 +1284,8 @@ private function getFuckedInYerTwatYaCunt():void {
 	else outputText(" bumps against your cervix");
 	outputText(". You moan in delight as she sinks into you");
 	if (player.vaginas[0].virgin) outputText(", repressing a shiver of pain as she tears through your hymen, taking your virginity");
-	else if (player.vaginalCapacity() < 35) outputText(", forcing your entrance wide to accommodate herself");
+	else if (player.vaginalCapacity() < 35) outputText(", forcing your entrance wide to accommodate herself ");
+	if ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) && player.thickness >= 39) outputText(", the mass of her girth causing a shockwave to ripple through your pregnant belly and ample assets ");
 	outputText(".");
 	//cuntchange, but suppress standard messages
 	player.cuntChange(35,true,true,false);
@@ -1291,6 +1298,7 @@ private function getFuckedInYerTwatYaCunt():void {
 
 	outputText("\n\nYou hiss and shudder, writhing across the bedsheets as your lover works her magic on you, filling you with pleasure.  Juices flow wet and thick from your pussy");
 	if (player.hasCock()) outputText(", precum begins to drool from your " + player.multiCockDescriptLight());
+	else if (player.lactationQ() > 0 && player.biggestTitSize() > 2) outputText(", milk begins to seep from your " + player.breastDescript(0));
 	outputText(".");
 
 	//Not Centaur:
@@ -1307,12 +1315,18 @@ private function getFuckedInYerTwatYaCunt():void {
 		outputText("\n\nYou can't reach Loppe to play with her using your fingers, so instead you try talking dirty, alternately teasing the horse-dicked hybrid about her inadequacies and praising her skills.  \"<i>Keep talking, sugar.  I'm going to stuff this wonderful pussy of yours full of laquine love!</i>\"  Loppe grunts, redoubling her pace.  Apparently she's not too shamed; the cock inside you is swollen and hard, and something about the way it twitches tells you that the dancer will be finishing soon.");
 		outputText("\n\nWith a pointed comment about her not being enough of a stallion to please a proper mare and a laugh for emphasis, you push your hips back with extra force, moaning at the feeling of her horse-cock inside your mare's cunt.  The lusty half-breed doesn't bother replying, she just thrusts against you as hard as she can, pistoning in and out of your [vagina] with abandon.  Each slap of your hips sends pleasure rippling through you.  You gasp and moan, flicking your fingers across your [nipples] for further stimulus.  You rut back against your hybrid herm lover as hard as you can... just a little more, oh, you're so close!");
 	}
-	outputText("\n\nLoppe gasps and screams, almost neighing, as you feel her cock bulge right before the first of many ropes of cum splatter against the walls of your womb.  You cry out in delight as the sensation of steaming hot spunk gushing into you sets your inflamed nerves alight; your cunt squeezes down on her cock rapturously as you shudder and heave your way to your own climax");
+	outputText("\n\nLoppe gasps and screams, almost neighing, as you feel her cock bulge right before the first of many ropes of cum splatter against the walls of your" + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? ", already heavily impregnated " : "") + "womb.  You cry out in delight as the sensation of steaming hot spunk gushing into you sets your inflamed nerves alight; your cunt squeezes down on her cock rapturously as you shudder and heave your way to your own climax");
 	if (player.hasCock()) {
 		outputText(", neglected cock fountaining cum ");
 		if (player.cumQ() < 500) outputText("between you and painting you both");
 		else outputText("gushing onto the bedsheets and smearing your belly");
 		outputText(" with this aspect of your dual-sexed orgasm");
+	}
+	else if (player.lactationQ() > 0) {
+		outputText(", neglected tits fountaining milk ");
+		if (player.lactationQ() < 500) outputText("between you and painting you both");
+		else outputText("gushing onto the bedsheets and smearing your belly");
+		outputText(" with this sweet orgasm");
 	}
 	outputText(".");
 
@@ -1320,13 +1334,14 @@ private function getFuckedInYerTwatYaCunt():void {
 
 	outputText("\n\nYou smile, stroke her cheek, and give her a kiss.  Loppe grins happily at you. \"<i>... Let's not waste any time and get started with round 2!</i>\" She says excitedly");
 	if (!player.isTaur() && player.hasCock()) outputText(", giving you a quick peck on the cheek and licking a small gob of cum that seems to have stuck to your chin");
+	else if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(", giving you a quick peck on the cheek and smearing a streak of cum that has basted your swollen abdomen");
 	outputText(".");
 
 	outputText("\n\nAlready...?  Loppe smiles and gives you a kiss, straight on the lips; as the two of you lock lips you can feel her cock, still buried inside you, hardening once more.  It throbs as it fills you up again, still leaking cum.  Breaking the kiss, Loppe gives you a seductive glance and says as innocently as she can.  \"<i>You did say anytime, sugar... and the time is now!</i>\"  You barely have time to protest before she begins humping you once more, droplets of your previous session splattering about with each slap of your hips...");
 
 	outputText("\n\n<b>One hour and some orgasms later...</b>");
 
-	outputText("\n\nYou gasp and moan, heaving in lungfuls of air as if they might be the last ones you'll ever take.  Your whole body is slack, nerves still tingling with pleasure even despite the all-consuming fog of exhaustion sweeping you.  There's not a muscle in you that hasn't been fucked loose with a mixture of fatigue and overwhelming pleasure.  Your stomach bulges obscenely, bigger than any normal sized pregnancy, jiggling and audibly sloshing with each breath you take as your movement jostles the laquine cream that has been crammed into you until you can't take any more.  You've gone numb from the waist down, but you're dimly aware of the slow slurping noise as Loppe's cum oozes steadily from your cunt.");
+	outputText("\n\nYou gasp and moan, heaving in lungfuls of air as if they might be the last ones you'll ever take.  Your whole body is slack, nerves still tingling with pleasure even despite the all-consuming fog of exhaustion sweeping you.  There's not a muscle in you that hasn't been fucked loose with a mixture of fatigue and overwhelming pleasure.  Your stomach bulges obscenely, " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) ? "twice the size of a pregnancy you had before" : "the size of a pregnancy") +  ", jiggling and audibly sloshing with each breath you take as your movement jostles the laquine cream that has been crammed into you until you can't take any more.  You've gone numb from the waist down, but you're dimly aware of the slow slurping noise as Loppe's cum oozes steadily from your cunt.");
 
 	outputText("\n\nLoppe wipes the sweat off her brow.  \"<i>Phew... I guess this is what they call ridden hard and put away wet.  I'm totally spent!</i>\"  She rolls to the side, giving you a peck on the cheek before she asks, \"<i>So... are you satisfied, sugar?  I mean... I might be limp now, but I can always whip up another erection if you want to go again.  I know it won't be hard with a hottie like you laying beside me.</i>\"  She smiles.");
 
@@ -2166,3 +2181,4 @@ private function teaseLoppeKissRun():void {
 }
 }
 }
+

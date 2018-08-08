@@ -262,7 +262,8 @@ public class ErlKingScene extends BaseContent implements Encounter {
 			outputText("The fog swallows the Erlking as you drop to the ground.  The impact against the mossy forest floor doesn’t injure you, but it <b>does</b> knock the wind from you.  As you struggle to regain your breath, you inhale the icy fog, and a cascade of terror... and something else... runs through you.\n\n");
 			outputText("This fear doubles as the two hounds waste no time.  They are on you in the space of a heartbeat, ripping the net from around you, their powerful hands shoving you to all fours as they snarl and bark.  Their red, shiny dog cocks slip from their heavy sheaths, throbbing with thin, purple veins.  The fog has definitely done something to you, because you can’t help but lick your lips at the sight.\n\n");
 			outputText("Growling, the first Hound grabs you by your [ass], his muscular fingers sinking roughly into your flesh.  He roughly rips your [armor] from you, growling.  You feel a rush of warmth as a canine mouth presses against your [ass],");
-			if (player.hasVagina()) outputText(" long tongue touching the bottom edge of your [vagina]");
+			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(" long tongue running up the curve of your pregnant stomach to the bottom edge of your [vagina]");
+			else if (player.hasVagina()) outputText(" long tongue touching the bottom edge of your [vagina]");
 			else if (player.balls > 0) outputText(" long tongue lapping at the base of your balls");
 			else if (player.hasCock()) outputText(" long tongue lapping at the base of your cock");
 			else outputText(" long tongue slapping warmly against your taint");
@@ -280,7 +281,8 @@ public class ErlKingScene extends BaseContent implements Encounter {
 			else outputText(" chin");
 			outputText(", turning it toward his massive, slimy dog cock.  You get a brief glimpse of a crystal-clear bead of pre before the tip is forced between your lips.\n\n");
 			if (player.hasVagina()) {
-				if (player.tail.type == Tail.WOLF || player.tail.type == Tail.DOG || player.tail.type == Tail.FOX) outputText(images.showImage("wildhunt-catched-female-canine"));
+			  if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) (images.showImage("wildhunt-catched-female-preg"));
+				else if (player.tail.type == Tail.WOLF || player.tail.type == Tail.DOG || player.tail.type == Tail.FOX) outputText(images.showImage("wildhunt-catched-female-canine"));
 				else if (player.isGoo()) outputText(images.showImage("wildhunt-catched-female-goo"));
 				else if (player.tail.type == Tail.DRACONIC) outputText(images.showImage("wildhunt-catched-female-dragon"));
 				else if (player.tail.type == Tail.SHARK) outputText(images.showImage("wildhunt-catched-female-shark"));
@@ -301,11 +303,12 @@ public class ErlKingScene extends BaseContent implements Encounter {
 			player.buttChange(12 * 3, true, false, false);
 			outputText(" You yelp, realizing what’s to come, and try to wriggle away, but, pinned between the two Hounds, there’s no escape.  The Hounds growl in unison and you freeze, cowed by the two powerful males who want their way with your frightened, vulnerable body.\n\n");
 			outputText("After all, comes a thought in your fog-addled head, they’ve earned the right to do whatever they want to their prey.\n\n");
-			outputText("It doesn’t take the two dog men long.  They rock back and forth, shoving their thick cocks in and out of your submissive, helpless body.  The one in front grabs your head, burying your [face] into his crotch, so deep that your tongue licks against the throbbing bulge of his knot, your nose buried in the thick fur above his shaft.");
+
+			outputText("It doesn’t take the two dog men long.  They rock back and forth, shoving their thick cocks in and out of your submissive, helpless body" + ((player.biggestTitSize() >= 3 && player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) ? "causing your hanging pregnant belly and " + player.breastDescript(0) + " to swing in tandem." : ".") +  "  The one in front grabs your head, burying your [face] into his crotch, so deep that your tongue licks against the throbbing bulge of his knot, your nose buried in the thick fur above his shaft.");
 			if (player.tail.type != Tail.NONE) outputText("  The Hound behind grabs you by [onetail], using it as a handhold as he thrusts over and over into your [asshole].");
 			else outputText("  The Hound behind grabs you by your [ass], thrusting into you again and again.");
 			outputText("  You tremble, completely dominated by the two powerful males as they make you their prey-bitch.\n\n");
-			outputText("They cum within moments of each other, the one in front driving his huge knot into your mouth, leaving your jaw aching.  You groan in protest as his cock shoots hot seed down your throat.  Nearly gagging on the canine dick already, there’s little you can do but swallow the Hound’s cum.  As you gurgle it down, you feel the Hound behind you painfully shove his thick knot into your ass.  You try to scream, but with a mouth full of cock and cum, there’s little you can do but take it like prey.  Your body quakes, belly swelling as you’re filled with cum at both ends leaving you warm, bloated, and strangely satisfied.\n\n");
+			outputText("They cum within moments of each other, the one in front driving his huge knot into your mouth, leaving your jaw aching.  You groan in protest as his cock shoots hot seed down your throat.  Nearly gagging on the canine dick already, there’s little you can do but swallow the Hound’s cum.  As you gurgle it down, you feel the Hound behind you painfully shove his thick knot into your ass.  You try to scream, but with a mouth full of cock and cum, there’s little you can do but take it like prey.  Your body quakes, " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) ? "heavily pregnant gut distending yet further" : "belly swelling") +  " as you’re filled with cum at both ends leaving you warm, bloated, and strangely satisfied.\n\n");
 			outputText("You shiver, breathing in the cold, mind-altering fog, waiting obediently for the two Hounds to tire of you.  Oddly enough, with their seeds spent, they’re strangely affectionate, and you find your back, face, and ass covered in warm, languid licks from the savage men.  Eventually their knots shrink, and the two Hounds withdraw from you, letting you slump to the ground as they pad off into the woods.\n\n");
 			outputText("As the fog recedes, your mind quickly returns.  Blinking, you wobble to your [feet], wiping cum from your lips and gathering your scattered gear from around the clearing before setting back for camp.  You find a shiny, red pepper in the clearing, but appear to have dropped some gems in your failed flight from the Hunt.\n\n");
 			var gemLoss:int = 10 + rand(15);

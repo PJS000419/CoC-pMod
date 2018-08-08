@@ -266,6 +266,7 @@ private function hairDresserRepeatGreeting():void {
 private function gloryholeImp():void {
 	player.slimeFeed();
 	clearOutput();
+	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("salon-preg"));
 	outputText("You walk over to the hole in the wall, looking at the erect demon-member you'll have to service.  Judging by the height and constant bobbing up and down it does, the imp must be hovering on the other side, trying pretty damn hard to stay in the hole.\n\n");
 	if (Math.max(player.cor, player.lib, player.lust) < 33) {
 		outputText("You struggle to force your mouth onto the abomination in front of you, wondering why you chose to do such a thing.  Your head bobs up and down, trying to match the motions of the thick demonic tool as you grab hold and guide it into your mouth.  It's hot, hotter than you'd expect, and dripping with sickly sweet pre-cum that makes you tingle.  You throw yourself into the wretched task, intent on finishing it as quickly as possible.  You circle your tongue over the nodules, holding on as it swells in your mouth, unloading a sticky batch of spooge into your throat.  You cough and sputter, swallowing most of it, but you manage to hang on to enough for your pay.\n\n");
@@ -276,7 +277,9 @@ private function gloryholeImp():void {
 		dynStats("lus", 35, "cor", 1);
 	}
 	else {
-		outputText("You immediately dive forwards, relishing the idea of taking in another load of demonic cum.  Your groin tingles as your lips make their way down the oddly textured shaft, engulphing nearly 10 inches of demon-cock, feeling it press down your throat.  You curl your tongue around and begin sliding back and forth, immediately rewarded with a thick dribble of pre-cum.  The imp on the other end loses it immediately, blasting waves of cum directly into your belly as you shove forwards, taking him into the hilt.  You feel him pulsing and pull back in time to take the last few loads in your mouth, saving your payment for the goblins.\n\n");
+		// 
+		outputText("You immediately dive forwards, relishing the idea of taking in another load of demonic cum. Your groin" + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? " and brood-belly" : "") + " tingles as your lips make their way down the oddly textured shaft, engulphing nearly 10 inches of demon-cock, feeling it press down your throat" + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? "--you wonder if this could be the cock that delivered the monster spawn into your womb" : "") + ".");
+		outputText(" You curl your tongue around and begin sliding back and forth, immediately rewarded with a thick dribble of pre-cum.  The imp on the other end loses it immediately, blasting waves of cum directly into your belly as you shove forwards, taking him into the hilt.  You feel him pulsing and pull back in time to take the last few loads in your mouth, saving your payment for the goblins.\n\n");
 		dynStats("lus", 45, "cor", 2);
 	}
 	player.orgasm('Lips',false);
@@ -290,6 +293,7 @@ private function gloryholeImp():void {
 private function gloryholeDoggie():void {
 	player.slimeFeed();
 	clearOutput();
+	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("salon-preg"));
 	outputText("You sigh and kneel down to bring yourself level with the dog-dick hanging out of the wall.  It's pointed at the tip with a swollen circular bulb at the base.  As a matter of fact, the dog-dick's owner must be pretty excited to be here - it's dripping cum and the knot has swollen so large that it can't fit back through the hole.\n\n");
 	if (Math.max(player.cor, player.lib, player.lust) < 33) {
 		outputText("It's a struggle to force your lips apart and take the strange thing in your mouth.  You feel like a freak, but make yourself get to work servicing the male who'll be covering your hair treatment today.  It tastes salty and sweaty and has a potent musky scent that excites you in spite of your better judgment.  You find yourself starting to get into it as you lick and slurp, humming with pleasure.  You reach up to touch the knot and the dog-cock jumps in your mouth, spurting a wad of thick cum into your throat.  You pull back most of the way and pump the cock, collecting the jism in your mouth.\n\n");
@@ -300,7 +304,7 @@ private function gloryholeDoggie():void {
 		dynStats("lus", 25, "cor", .25);
 	}
 	else {
-		outputText("You throw yourself onto the swollen dog-cock and easily engulf the whole thing, spreading your lips wide around the thick knot.  You can feel it bouncing the uvula in your throat around but you manage to suppress your gag reflex like a good slut while you work the sweaty dick, giving it a thorough tongue bath.  You wrap your lips around the base of the knot, feeling it start to stretch your jaws apart.  You pull back before it can lock you like that, and squeeze the knot in your hands.  It cums, unloading thick wads of gooey cum into your mouth.\n\n");
+		outputText("You throw yourself onto the swollen dog-cock and easily engulf the whole thing, spreading your lips wide around the thick knot.  You can feel it bouncing the uvula in your throat around but you manage to suppress your gag reflex like a good slut while you work the sweaty dick, giving it a thorough tongue bath.  You wrap your lips around the base of the knot, feeling it start to stretch your jaws apart" + (((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) && player.hasPerk(PerkLib.BroodMother)) ? ", you smile wickedly to yourself thinking about impaling yourself on a fat dog knot like this for your next impregnation" : "") + ".  You pull back before it can lock you like that, and squeeze the knot in your hands.  It cums, unloading thick wads of gooey cum into your mouth.\n\n");
 		dynStats("lus", 30, "cor", .3);
 	}
 	player.orgasm('Lips',false);
@@ -311,6 +315,7 @@ private function gloryholeDoggie():void {
 private function gloryholeIncubus():void {
 	player.slimeFeed();
 	clearOutput();
+	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("salon-preg"));
 	outputText("You kneel down in front of the throbbing demonic dick, ready to earn your pay.\n\n");
 	if (Math.max(player.cor, player.lib, player.lust) < 33) {
 		outputText("You picked this dick hoping that a male lust demon would be the most pleasurable to service, and judging by the pleasant spicy scent the member gives off, you're right.  You open wide and take it inside your mouth, feeling the ridges around the crown pressing back against your lips. A drop of pre-cum hits your tongue and it tastes divine, spurring you on to please the tainted member.  You grab it with both hands and pump it, feeling the corrupted nodules under your fingers as you lick and suck on the head, eager for more.  You get your reward soon enough, and you eagerly start drinking down the copious waves of fluid.  Thankfully, the incubus' orgasm seems to last forever, and when he finishes, you have a full belly and a mouth full of cream.  You manage to resist this last swallow, as you still need to pay.\n\n");
@@ -318,7 +323,8 @@ private function gloryholeIncubus():void {
 		player.lust = 99;
 	}
 	else {
-		outputText("You take the corrupted cock in your hands and guide it into your waiting mouth, eager to try a walk on the wild side.  The incubus-cock does not disappoint, quickly dripping a steady flow of wonderful tasting pre-cum that only whets your appetite for the demon's cum.  You lean forwards, taking most of the bumpy purple dick inside your mouth and running your tongue all over it, paying special attention to the ring of nodules around the bottom edge of his crown.  You're quickly rewarded with a blast of heavenly demonic seed.  You gulp it down, craving more of it, and thankfully the incubus has plenty for you.  You're shivering and horny by the time he finishes, but thankfully you have enough willpower to keep a mouthful of cum for payment.\n\n");
+		outputText("You take the corrupted cock in your hands and guide it into your waiting mouth, eager to try a walk on the wild side.  The incubus-cock does not disappoint, quickly dripping a steady flow of wonderful tasting pre-cum that only whets your appetite for the demon's cum.  You lean forwards, taking most of the bumpy purple dick inside your mouth and running your tongue all over it, paying special attention to the ring of nodules around the bottom edge of his crown.");  
+		outputText("You're quickly rewarded with a blast of heavenly demonic seed" + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? " involuntarily causing you to rub your brood-gut lost in sensations of spawning yet more of these creatures" : "") + ".  You gulp it down, craving more of it, and thankfully the incubus has plenty for you.  You're shivering and horny by the time he finishes, but thankfully you have enough willpower to keep a mouthful of cum for payment.\n\n");
 		dynStats("lus", 1, "cor", 1);
 		player.lust = 99;
 		
@@ -331,7 +337,11 @@ private function gloryholeIncubus():void {
 
 private function gloryholeMinotaur(): void {
 	player.slimeFeed();
+	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("salon-preg"));
 	outputText("Your eyes are drawn to the huge minotaur cock, and you instinctively kneel down in front of it.\n\n");
+	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216 && player.pregnancyType == PregnancyStore.PREGNANCY_MINOTAUR) outputText("Is this the one that blasted your brood-gut with the spawn you carry now?  ")
+	if (flags[kFLAGS.ADULT_MINOTAUR_OFFSPRINGS] > 3) outputText("Or is it one you births?");
+	outputText("\n\n");
 	outputText("It's the largest available member in the room by a considerable margin, and from your position on your knees, it looks even more massive; it's over two feet long, and has three rings of prepuce spaced around its length. You can just barely span your entire hand around its thickness. You open your mouth wide and lean forward, taking the thick, spongy head into your mouth. The taste is incredibly strong, and its musk is as thick as the minotaur's dick itself. You moan in pleasure, and start bobbing your head back and forth, taking more and more of the dick into your mouth. You stroke the rest of the cock in time with your sucking. You can hear muffled grunting and snorting coming from the other side of the wall, obvious sounds of approval from your partner.\n\n");
 	outputText("Driven on by the minotaur's reactions, you take more and more of the minotaur cock into your mouth. As you work your mouth around the first ring, you open up the top section of your " + player.armorName + ", freeing up your " + player.allBreastsDescript() + ". With each pass, you're able to take more and more of the bull dick down your throat. You caress your " + player.biggestBreastSizeDescript() + " while moaning around the dick. When you get your mouth around the second ring, the minotaur's cock throbs sharply, and his cum explodes in your mouth. Your eyes bulge in shock, and you pull off the cock as quickly as you can. You swallow the first several shots of thick, rich minotaur cum, while the rest shoots all over your face and tits. You ");
 	if (player.biggestTitSize() > 1) outputText("hold up ");
@@ -391,6 +401,7 @@ private function goblinHairDresserFacefuck():void {
 	hairDressingMainMenu();
 }
 private function hairDressingMainMenu():void {
+	clearOutput();
 	spriteSelect(SpriteDb.s_lynette);
 	outputText("Lynnette offers and explains their options, \"<i>So what'll it be hun?  We could cut it down or give you a lengthening treatment. Or you can get a hair-dye to use on your own.  Just remember to come back in a few days for a touchup.</i>\"");
 	if (flags[kFLAGS.SALON_MINOCUM_UNLOCKED] > 0) {

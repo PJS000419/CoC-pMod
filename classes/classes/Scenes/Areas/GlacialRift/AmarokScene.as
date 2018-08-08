@@ -45,13 +45,52 @@ package classes.Scenes.Areas.GlacialRift {
 			clearOutput();
 			spriteSelect(SpriteDb.s_amarok);
 			credits.authorText = "Foxwells";
-			if (player.gender > 1) outputText(images.showImage("amarok-chompo-female"));
-			else outputText(images.showImage("amarok-chompo-male"));
-			outputText("It lets out a soft bark as you close your eyes and skips to the other side of you. You remain still in fear of what it plans to do. It picks you by your neck. Its grip isn't hard enough to even break your skin, but firm enough that it won't drop you. It then begins to drag you somewhere. Something in your mind tells you to struggle, but you can't seem to muster the will to try. It'd just bite through your neck and kill you anyway. The feeling of its hot breath running down your back is oddly soothing. You open your eyes long enough to make sense of your surroundings, then pass out.");
-			outputText("\n\nYou awaken some time later to a chorus of yips. You've stopped moving. You're on the ground, with small paws and dull teeth prodding you all over. They don't hurt you outside of being uncomfortable, but you're sure you'll be left with bruises. You focus your vision and slowly make out where you are-- the side of a short cliff, protected from snow by tall trees. You're laying atop of pine needles and dead leaves. A strong scent of feces causes you to jolt upright in disgust, and something that'd been gnawing on your ear fell to the ground with a squeak. You look back at it. It's a black wolf pup, likely the Amarok's. You spot three others scattered about the den. You must have been left as food for them. The pups, however, seem much more interested in using you as a toy than a meal. You get to your feet, shaking off the pups. You don't feel like sticking around for them to change their minds.");
-			outputText("\n\nYou spot your " + player.armorName + " a bit away. It must've been ripped off you when you were passed out. You scramble to it and put it back on, then head back to camp as fast as you can.");
+			if (player.lust >= player.maxLust()) outputText("Overcome by sexual desire, you submit to the powerful wolfn\n");
+			else outputText("Too weak to continue fighting, you fall to your knees face in the ground.\n\n");
+			
+			outputText("\n\nLooking back under your spread legs, you notice the bright red tip of his crimson cock poking out from his and sheath. A thick rope of clear pre-slime dangles from the pointed tip of animal flesh. You notice a massive pair of nuts, each one could easily fill your hands and more. You watch those taut looking orbs bounce when he shifts in closer.")
+			outputText(" You feel the canine tip touched your slit. For a moment, he teases the seam of your " + player.vaginaDescript(0) + " with what feels like a hot iron rod.")
+			
+			outputText("\n\nHe waits a moment, drooling into your exposed crack before brutally burrying his rock hard length into your slot with a primal snarl. You can only grunt as it skewers far too deeply in your passage. His hips are a blur while he savagely fucks your hole, growling into your ear from pleasure while churning his cock in your wet slot. ")
+			if (player.vaginalCapacity() < monster.cockArea(0)) outputText("You feel an intense mixture of sensations in your lower body as your " + player.vaginaDescript(0) + " is filled with an intense pleasure at being filled with the beast's member.  ");
+			else outputText("Your lower body explodes with pain as the wolf forces himself in too quickly for your " + player.vaginaDescript(0) + " to handle.  ");
+			if (player.cuntChange(monster.cockArea(0), false)) outputText("The beast howls as your " + player.vaginaDescript(0) + " is stretched to accommodate the large shaft.  ");
+			outputText("\n\nYour entire body is jolted under him with each brutal connection of his hips to your ass cheeks with a muffled whump. The raw power of each hard strike sends deep ripples racing down your curves. His heavy nuts swinging like pendulums between his legs and smacking so hard into your pussy lips and clit it makes harsh bolts of pleasure burst between your quivering legs.  You can feel his cock pushing at the walls of your passage as it expands to fill you completely.");
+			outputText("You can keenly feel the numerous veins in his shaft giving his bloated cock an erratic bumpy texture while he rakes it against your slick walls. Your moans grew louder and more desperate when you feel your pussy straining to handle his growing member. You feel his thick knot spreading your already loose fuck hole");
+			
+			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) outputText(images.showImage("amarok-loss-vag-preg"));
+			else outputText(images.showImage("amarok-loss-vag"));
+			outputText("\n\nSlick with your mixed fluids, the beast forces his knot into your pussy an explosion of pain ripping through you. As it subsides you are overwhelmed by cascading pleasure to match the sensations rising from your " + player.vaginaDescript(0) + ".  You climax, hard. ")
+				//Cum
+			outputText("As you reach your peak, the beast howls and you begin to feel a hot throbbing coming from the beasts member as his embeded knot seals you to him.  You know what comes next.  In an instant, you feel jets of incredibly hot seed pour into you. Your belly begins to balloon as your womb is overfilled with the beast's seed, knot plugging the entrance.");
+			player.orgasm('Vaginal', true);
+			outputText("\n\nHe continues to pump rope after rope of beastial cum until you appear like a heavily pregnant woman.  It feels like ages before his knot deflates enough to escape your abused hole with a wet pop - followed by a flood of wolf seed.");
+			outputText("\n\nThe mixture of pleasure and pain is too much and you pass out.")
+			
+			if ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) && player.biggestTitSize() >= 3){
+				doNext(amaroksBitch);
+			}
+			else{
+				outputText("\n\nYou awaken sometime later and spot your " + player.armorName + " a bit away. It must've been ripped off you when you were passed out. You scramble to it and put it back on, then head back to camp as fast as you can.");
+				combat.cleanupAfterCombat();
+			}
+		}
+		
+		private function amaroksBitch(): void {
+			clearOutput();
+			spriteSelect(SpriteDb.s_amarok);
+			outputText("Fading in and out of conciousness, you hear him let out a soft bark as you close your eyes and skips to the other side of you. You remain still in fear of what it plans to do. He picks you by your neck. His grip isn't hard enough to even break your skin, but firm enough that it won't drop you. It then begins to drag you somewhere, leaving a trail of wolf cum behind you as it continues to seep out of your " + player.vaginaDescript(0) + ". Something in your mind tells you to struggle, but you can't seem to muster the will to try. It'd just bite through your neck and kill you anyway. The feeling of its hot breath running down your back is oddly soothing. You open your eyes long enough to make sense of your surroundings, then pass out.");
+			outputText("\n\nYou awaken some time later to a chorus of yips. You've stopped moving. You're on the ground, with small paws and dull teeth prodding you all over. You push yourself up off the ground on to all fours, your " + ((player.biggestTitSize() >= 3) ? "milk undders dangling freely" : "breasts hanging below") + ", you feel sharp little teeth latch unto your " +((player.lactationQ() > 0) ? "dripping" : "") + " nipples and paws leaning against your brood-filled belly causing you to jolt out of your stupor. You focus your vision and slowly make out where you are-- the side of a short cliff, protected from snow by tall trees. You're sprawled atop of pine needles and dead leaves.")
+			outputText(images.showImage("amarok-feed-litter"));
+			outputText("\n\nYou finally look at the sensations coming from your body.  They're black wolf pups, likely the Amarok's. You spot three others scattered about the den. You must have been left as the brood mother to feed the pups.");
+			if (player.cor < 40) outputText("You get to your feet, shaking off the pups. You don't feel like sticking around.");
+			else outputText("The litter sucking at your [tits], like the breeding bitch you are, brings you a pleasure you had not expected; your tingling tits feel like they are alight with their true purpose. You rub your hands over your bulging belly, lost in the sensations of motherhood. It is an incredible experience, one that you don't think you could have had if it wasn't for the power of corruption that you've gained since you got here. Too soon, you realize that you can't stay to feed these pups");
+			if (player.cor > 60) outputText(" you have your own brood to sire.")
+			else outputText(" your own path to follow.")
+			if (player.cor > 40) dynStats("lust", 15, "cor", 1.5);
 			combat.cleanupAfterCombat();
 		}
+		
 		//Hungry Hungry Hipp-- err, Wolves
 		public function amarokBadEnd():void {
 			clearOutput();

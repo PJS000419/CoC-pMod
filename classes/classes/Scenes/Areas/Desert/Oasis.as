@@ -130,10 +130,10 @@ internal function oasisSexing():void {
 		//Girlies only!
 		else outputText("The demons quickly find your " + player.vaginaDescript(0) + " and tussle eagerly for position at your entrance, first with hands and then with a wide range of demonic dicks.  ");
 		//gaping cunners!
-		if (player.vaginas[0].vaginalLooseness >= VaginaClass.LOOSENESS_LEVEL_CLOWN_CAR) outputText("However all of this fighting for place is in vain, as the leader with the huge cock has already marked you for his own. The broad demon shoves the smaller ones roughly to the side at the sight of your freakishly large pussy and carefully lowers his gigantic dick to the entrance of your gargantuan fuck hole. Without pause or ceremony the leader plunges his enormous phallus into you and although it takes all the muscles in his body he begins to drive it back and forth, filling every possible inch of your " + player.vaginaDescript(0) + ". You feel a curious pain that you've not felt in a long time and realize that your " + player.vaginaDescript(0) + " is stretching around his frankly frightening tool. As he withdraws the walls spring back with a curious elasticity, and it occurs to you that it may not actually be possible to stretch further with any permanence. Before long the huge demon begins to shudder and shake and he cums. His trio of heavy balls pump load after load into your waiting cunt until your belly bulges and spunk begins to spurt back out of your pussy from the sheer amount of cum being loaded into you.");
+		if (player.vaginas[0].vaginalLooseness >= VaginaClass.LOOSENESS_LEVEL_CLOWN_CAR) outputText("However all of this fighting for place is in vain, as the leader with the huge cock has already marked you for his own. The broad demon shoves the smaller ones roughly to the side at the sight of your freakishly large pussy and carefully lowers his gigantic dick to the entrance of your gargantuan fuck hole. Without pause or ceremony the leader plunges his enormous phallus into you and although it takes all the muscles in his body he begins to drive it back and forth, filling every possible inch of your " + player.vaginaDescript(0) + ". You feel a curious pain that you've not felt in a long time and realize that your " + player.vaginaDescript(0) + " is stretching around his frankly frightening tool. As he withdraws the walls spring back with a curious elasticity, and it occurs to you that it may not actually be possible to stretch further with any permanence. Before long the huge demon begins to shudder and shake and he cums. His trio of heavy balls pump load after load into your waiting cunt until your " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? "already heavily pregnant belly begins to bulge yet more" : "belly bulges") +  " and spunk begins to spurt back out of your pussy from the sheer amount of cum being loaded into you.");
 		//Not gaping!
 		else {
-			outputText("Eventually one of the demons wins out and sets the tip of his hefty dog-cock at the entrance to your pussy. He rams his member into your " + player.vaginaDescript(0) + " with one swift thrust and begins to pump himself in and out of your cunt. However, the other demons will not be denied. You feel a pressure at your lips and without warning a second slightly smaller dick shoves itself into your already-stuffed " + player.vaginaDescript(0) + ".  ");
+			outputText("Eventually one of the demons wins out and sets the tip of his hefty dog-cock at the entrance to your pussy. He rams his member into your " + player.vaginaDescript(0) + " with one swift thrust and begins to pump himself in and out of your cunt. However, the other demons will not be denied. You feel a pressure at your lips and without warning a second slightly smaller dick shoves itself into your already-stuffed " + player.vaginaDescript(0) + "" + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? "; clearly, your already impregnated womb is of no concern to them" : "") +  ".  ");
 			//vaginal streeeetch
 			player.cuntChange(40, true);
 			outputText("The two cocks pump you hard until you feel one of them shooting your " + player.vaginaDescript(0) + " full of hot demon cum. Eventually both the dicks release inside you and slip out one after the other, but each time another takes their place so that your pussy is never empty.");
@@ -146,6 +146,7 @@ internal function oasisSexing():void {
 		player.knockUp(PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP, 90);
 	}
 	if (player.gender == 3) outputText(images.showImage("demonmob-surround-herm"));
+	else if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("demonmob-surround-female-preg"));
 	else if (player.gender == 2) outputText(images.showImage("demonmob-surround-female"));
 	else outputText(images.showImage("demonmob-surround-male"));
 	//Buttbutt buuuuuttt
@@ -163,6 +164,10 @@ internal function oasisSexing():void {
 			outputText("  Demonic hands grab and squeeze at your " + player.allBreastsDescript() + " and lips fasten around your " + player.nippleDescript(0) + " and begin to lick and suck like there's no tomorrow.");
 		}
 	}
+	// demon cum on your belly
+	if ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) && player.cor > 60) {
+		outputText("  Still others begin to cum thick ropes across your pregnant belly with little regard they might be the father of the brood you're carrying now!");
+	}
 	//Newline for oral!
 	outputText("\n\nSoon even your mouth is taken by a demoness lowering her slick honeypot down onto your lips. You lick and suck as she moans like a whore atop your head. It's impossible to count how many times she comes and so you just relax into a rhythm of licking and sucking, interrupted only by your own bone-creaking orgasms as the demonic attentions to the rest of your body drive you over the edge time and time again.");
 	//Non-preggers text!
@@ -170,6 +175,12 @@ internal function oasisSexing():void {
 		//Newline for potential preggers?
 		outputText("\n\n");
 		outputText("You do your best to keep a vague mental catalogue of what has been in where, but eventually it becomes impossible to remember the type or number of demonic dicks that have filled you with their cum. The sand below your ass is wet with seed that has spilled out of your overflowing " + player.vaginaDescript(0) + " and there is every indication of more to come.\n\n");
+	}
+	//preggers text
+	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) {
+		outputText("\n\n");
+		outputText(images.showImage("demonmob-surround-female-preg"));
+				outputText("You were already stuffed pregnant coming into this, but the number of demonic dicks that have filled you with their cum has pushed your brood-mother gut out to an obscene size. The sand below your ass is wet with seed that has spilled out of your overflowing " + player.vaginaDescript(0) + " and there is every indication of more to come.\n\n");
 	}
 	//If you got here by winning combat!
 	if ((monster.HP < 1 || monster.lust >= monster.maxLust()) && getGame().inCombat) {
