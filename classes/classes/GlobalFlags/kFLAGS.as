@@ -2378,7 +2378,7 @@ public static const AIKO_BOSS_INTRO:int												= 2369;	//1=Yamata scene intr
 public static const AIKO_BOSS_COMPLETE:int											= 2370;	//1=Yamata is dead 2 Yamata is released
 public static const AIKO_BOSS_OUTRO:int												= 2371;	//
 public static const YAMATA_MASOCHIST:int											= 2372;	//counter increases to 100, if not defeated before reaching 100, gain masochist perk.
-public static const UNKNOWN_FLAG_NUMBER_02373:int                                   = 2373;
+public static const VAPULA_HIDING_DICK:int                                   		= 2373;
 public static const UNKNOWN_FLAG_NUMBER_02374:int                                   = 2374;
 public static const UNKNOWN_FLAG_NUMBER_02375:int                                   = 2375;
 public static const UNKNOWN_FLAG_NUMBER_02376:int                                   = 2376;

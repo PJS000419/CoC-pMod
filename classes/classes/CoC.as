@@ -228,7 +228,7 @@ package classes
 		public var lumi:Lumi = new Lumi();
 		public var giacomoShop:Giacomo = new Giacomo();
 		// Scenes/Monsters/
-		public var goblinScene:GoblinScene = new GoblinScene();
+		public var goblinScene:GoblinScene;
 		public var goblinAssassinScene:GoblinAssassinScene = new GoblinAssassinScene();
 		public var goblinWarriorScene:GoblinWarriorScene = new GoblinWarriorScene();
 		public var goblinShamanScene:GoblinShamanScene = new GoblinShamanScene();
@@ -271,8 +271,8 @@ package classes
 		public var urtaHeatRut:UrtaHeatRut = new UrtaHeatRut();
 		public var urtaPregs:UrtaPregs;
 		public var valeria:Valeria = new Valeria();
-		public var vapula:Vapula = new Vapula();
-		// Scenes/Places/
+		public var vapula:Vapula;
+		// Scenes/Places/;
 		public var bazaar:Bazaar = new Bazaar();
 		public var boat:Boat = new Boat();
 		public var farm:Farm;
@@ -461,8 +461,10 @@ package classes
 			farm = new Farm(output);
 			
 			impScene = new ImpScene(pregnancyProgression, output);
+			goblinScene = new GoblinScene(pregnancyProgression, output);
 			anemoneScene = new AnemoneScene(pregnancyProgression, output);
 			marbleScene = new MarbleScene(pregnancyProgression, output);
+			vapula = new Vapula(pregnancyProgression, output);
 			jojoScene = new JojoScene(pregnancyProgression, output);
 			amilyScene = new AmilyScene(pregnancyProgression, output);
 			izmaScene = new IzmaScene(pregnancyProgression, output);

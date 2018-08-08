@@ -68,6 +68,7 @@ import classes.StatusEffects.CombatStatusEffect;
 		public static const Heat:StatusEffectType = mk("heat");
 		public static const HorseWarning:StatusEffectType = mk("horse warning");
 		public static const ImmolationSpell:StatusEffectType = mk("Immolation Spell");
+		public static const ImpHordeBrood:StatusEffectType = mk("Imp Horde Brood");
 		public static const ImpGangBang:StatusEffectType = mk("Imp GangBang");
 		public static const Infested:StatusEffectType = mk("infested");
 		public static const IzmaBlowing:StatusEffectType = mk("IzmaBlowing");
