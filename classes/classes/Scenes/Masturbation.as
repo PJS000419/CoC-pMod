@@ -326,6 +326,8 @@ package classes.Scenes {
 			var nippleFuck:Boolean = false;
 			//Early prep
 			doStripCheck();
+			//Preg prep
+			pregPrep();
 			//Tit foreplay
 			titForeplay();
 			
@@ -373,6 +375,7 @@ package classes.Scenes {
 				}
 			}
 				if (player.gender == 3) outputText(images.showImage("masti-herm"));
+				else if(player.gender == 2 && player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("masti-female-preg"));
 				else if (player.gender == 2) outputText(images.showImage("masti-female"));
 				else outputText(images.showImage("masti-male"));
 
@@ -946,6 +949,9 @@ package classes.Scenes {
 					outputText(" Satisfied, you roll over and drift off to sleep. Your hole remains warm, ready for another round.");
 				else outputText(" Satisfied, you roll over and drift off to sleep.");
 			}
+		}
+		public function pregPrep():void {
+			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText("To start, you find somewhere comfortable you can lay down and hoist up your considerable gut to gain access to your " + player.vaginaDescript() + ".  ");
 		}
 		
 		public  function titForeplay():void {
@@ -2032,7 +2038,7 @@ package classes.Scenes {
 					//(+sensitivity by 3 & intellect -2 & libido +1	)
 				}
 				//Option Jojo veyeurism?
-				if (getGame().jojoScene.isJojoCorrupted() && flags[kFLAGS.JOJO_DEAD_OR_GONE] == 0) {
+				if (flags[kFLAGS.JOJO_STATUS] >= 5 && flags[kFLAGS.JOJO_DEAD_OR_GONE] == 0) {
 					outputText("\n\nAs you stand and try to clean up you manage to spot Jojo off in the woods, ");
 					if (player.hasStatusEffect(StatusEffects.TentacleJojo))
 						outputText("his tentacles splattering mouse-jizz everywhere as he gets off from your show.");

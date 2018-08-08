@@ -355,7 +355,9 @@ package classes.Scenes.Areas.Forest
 			outputText(((willing) ? "You decide to let her have her fun, focusing your attention instead on her two lovely sisters.  While you were distracted with the redhead's \"assets\", it appears the precocious blonde and ravenette went ahead and started without you!" : "Your slurred protests fall on deaf ears, your head swimming with the haze of the many decanters of liquor you imbibed.  You move to push her away, but she catches your tipsy assault and gently leans up to give you a disarming peck on the cheek.  Though you try to mentally cling to the dispute, you find your cares gradually slipping away, until all you can focus on is the girl's two sisters, who appear to have started without you.") + "  The black-haired girl lies back, her face buried deep in the rippling flesh of the blonde's behind, slurping away at her dripping folds, while the blonde reciprocates from on top, pounding her sister's puffy pussy with her first two fingers.\n\n");
 			outputText("The blonde's prodigious posterior bounces and jiggles as she pumps her hips up and down instinctively.  The quivering cheeks entice you, drawing you in almost hypnotizingly, and before you know it your " + player.cockDescript(player.biggestCockIndex()) + " is already " + ((player.balls > 0) ? "balls" : "hip") + "-deep in her slippery snatch.\n\n");
 			outputText("The voluptuous fox-woman groans in pleasure as your " + player.cockDescript(player.biggestCockIndex()) + " plunges into her deepest fathoms, her warm flesh enveloping your hot prick and squeezing tightly as a rush of feminine fluids spills over the black-haired girl's face." + ((player.biggestCockArea() > 50) ? "  Her folds seem to stretch forever, swallowing your engorged tool like a bottomless pit of warmth and pleasure." : "") + "  Your hands sink deep into the pillowy mounds of her mountainous ass, mashing them together as you knead her cheeks like warm dough.\n\n");
-			outputText("Slender fingers close around your " + player.hipDescript() + " as the redhead pulls herself tight against your [butt], attempting to line up against you while your pelvis mashes wildly against her sister's rippling rump.  Her cock slides up between your cheeks, dripping pre-cum that tingles on your flesh, and she finally manages to align herself to your ");
+			outputText("Slender fingers close around your ");
+			outputText(player.hipDescript());
+			outputText(" as the redhead pulls herself tight against your [butt], attempting to line up against you while your pelvis mashes wildly against her sister's rippling rump.  Her cock slides up between your cheeks, dripping pre-cum that tingles on your flesh, and she finally manages to align herself to your ");
 			if (player.gender >= 2) outputText(player.vaginaDescript());
 			else outputText(player.assholeDescript());
 			outputText(" and thrust in, spearing you on twelve inches of throbbing futa rod.  Buried to the hilt in your ");
@@ -408,7 +410,7 @@ package classes.Scenes.Areas.Forest
 			outputText("  As your twitching cock relieves itself of the last of your seed inside the blonde's " + ((player.biggestCockArea() > 80) ? "pussy" : "ass") + ", you feel your strength slipping away from you with each spasm, your eyelids growing heavy with an uncommon weariness.\n\n");
 			player.orgasm('Anal');
 			doNext(kitsuneStillHungryMansion);
-		} //End letHer() 	
+		} //End letHer()
 
 //Formerly shoveHer()
 		private function kitsuneShoveHerMansion(willing:Boolean = true):void
@@ -541,7 +543,13 @@ package classes.Scenes.Areas.Forest
 			kitsuneSprite();
 			outputText(((willing) ? "You decide to let the girl have her fun, allowing her to shift positions to begin rubbing her throbbing shaft against your " + ((player.gender == 2) ? player.vaginaDescript() : "featureless groin") + " eagerly." : "You shake your head sluggishly, but your slurred protests fall on deaf ears.  She easily sidesteps your " + player.leg() + " as you try to shove her away, sliding forward to lay a disarming kiss on your cheek.  A bright blue wisp of flame crackles from her lips, and that is that - the resulting spark of pleasure that arcs up your spine shatters the last of your resistance, and your cares melt like butter.") + "  While she grinds her pulsating shaft against you slowly, her sisters close in around you to join in the fun.\n\n");
 			outputText("Your head is drawn into the blonde's lap, fingers softly gliding " + ((player.hair.length > 0) ? "through your " + player.hairDescript() : "across the sides of your face") + ", brushing you lightly with her mystical flames.  A pair of large, shapely ass cheeks emblazoned with a sun-shaped tattoo enters your field of vision, and soon your view is entirely blocked by the black-haired girl's expansive behind, save for a sliver of light filtering down between her and the blonde.  Her slick pussy glides across your lips, coaxing your tongue from your mouth as she bends down, pulling the redhead's cock into her mouth for a moment to slather it with saliva, spreading your " + ((player.gender == 2) ? "labia" : "butt cheeks") + " with her first two fingers, egging her on.\n\n");
-			outputText("The redhead wastes no time taking the invitation, spearing your " + ((player.gender >= 2) ? player.vaginaDescript() : player.assholeDescript() ) + " in a single thrust.  Her thick rod pierces your waiting hole, bringing with it a distinctive effervescent tingle.  Her hands close around your " + player.hipDescript() + ", and she begins to thrust wantonly, playing up her pleasure with an exaggerated moan as her breasts jiggle to and fro with each buck of her hips.");
+			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("kitsune-fuck-preg"));
+			outputText("The redhead wastes no time taking the invitation, spearing your " + ((player.gender >= 2) ? player.vaginaDescript() : player.assholeDescript() ) + " in a single thrust.  Her thick rod pierces your waiting hole, bringing with it a distinctive effervescent tingle.  Her hands close around your ");
+
+			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText("heavy, brood-mother belly");
+			else outputText(player.hipDescript());
+
+			outputText(", and she begins to thrust wantonly, playing up her pleasure with an exaggerated moan as her breasts jiggle to and fro with each buck of her hips.");
 			if (player.gender >= 2) player.cuntChange(14, true, true, false);
 			else player.buttChange(14, true, true, false);
 
@@ -550,10 +558,16 @@ package classes.Scenes.Areas.Forest
 			outputText("The victor is decided when you feel a pair of golden tails slithering around the black-haired girl's legs, a surprised yelp proclaiming their penetration into the girl's ass and pussy.  With a haughty smirk, the blonde settles into position, her tails alternatingly pistoning into her sister's holes as she rides your face passionately, stroking the top of your head.\n\n");
 			outputText("As her innards are pummeled by her sister's tails, the hungry ravenette crawls her way down your form, lowering her head to your groin and letting her tongue slide out around the redhead's cock.  It wraps around the base, twisting and cinching tight to act as a cock ring.  As blood pumps to her shaft and becomes trapped, it swells up, thick ribs and veins becoming more pronounced and stimulating your " + ((player.gender >= 2) ? player.vaginaDescript() : player.assholeDescript() ) + " to even further levels of ecstasy.\n\n");
 			outputText("Your tongue swirls and twists within the blonde's pussy, drawing out wave after wave of salty-sweet femjuice.  The aromatic juices mist your tongue and face, your moans muffled by the weight of her cushiony cheeks pressing down.  She is thoughtful enough to give you space to breathe every few moments, rocking her hips back gently to look down into your eyes, her expression halfway between that of a doting mother and a dominatrix.  Her hips lower against your lips again, and she resumes her passionate grinding, closing her thighs around the sides of your head.\n\n");
-			outputText("The rhythmic thumping of the redhead's hips against your own increases its pace, her tongue hanging out of her mouth lewdly.  Her thick rod spears you again and again, each thrust bringing with it an even more euphoric moan from the horny redhead.  Her sisters groan in unison with her, as though feeding off of her animalistic desire to fuel their own lusts, and as your endurance is stretched to its breaking point, it seems like you'll all cross the line together.\n\n");
+			outputText("The rhythmic thumping of the redhead's hips against your own" + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? " sloshing your distended abdomen to and fro" : " increases in pace") + ", her tongue hanging out of her mouth lewdly.  Her thick rod spears you again and again, each thrust bringing with it an even more euphoric moan from the horny redhead.  Her sisters groan in unison with her, as though feeding off of her animalistic desire to fuel their own lusts, and as your endurance is stretched to its breaking point, it seems like you'll all cross the line together.\n\n");
 
-			outputText("The base of the redhead's shaft swells with a vast load, backing up just behind her sister's tongue.  She pumps into your " + ((player.gender >= 2) ? player.vaginaDescript() : player.assholeDescript() ) + " once, twice, thrice more before the black-haired girl releases the tension around the base, though whether by choice or due to the furious orgasm roaring through her loins, it is hard to tell.  You have only a split-second to muse on the subject before a tingling glut of seed comes rushing into your " + ((player.gender == 2) ? "womb" : "intestines") + ", sending you into a shivering fit.  Saliva and sexual fluids flow in rivers, the blonde's soaked cunt drenching your face as her pussy quivers and squeezes around your tongue.  The ravenette begins to rise upward, lifted by your expanding abdomen as she twitches in ecstasy, the blonde's tails deeply embedded in her holes.\n\n");
-			outputText("Passionate moans from all four of you fill the air as you ride the waves of pleasure, finally collapsing together in ecstasy after what feels like ages.  Each twitching tremble of your muscles sees you a bit more fatigued, your eyelids feeling as though they weigh a thousand pounds each." + ((player.gender == 3) ? "  A flood of seed begins to spill from your abused pussy, gushing over the redhead's groin and spreading into the water.  The flow is soon stemmed by the introduction of the black-haired girl's tongue, plush lips pressed against your cunt as she hungrily sucks down the outpouring of semen.  She gulps loudly and gluttonously, spreading your lips with her thumbs and swallowing every last delicious salty morsel, her stomach swelling and quivering as your own overfull abdomen begins to deflate in equal measure." : "") + "  Hands resting on your" + ((player.gender == 0) ? " swollen" : " deflating") + " belly, you begin to succumb to exhaustion, your strength fading as you are overcome with an uncommon weariness.\n\n");
+			outputText("The base of the redhead's shaft swells with a vast load, backing up just behind her sister's tongue.  She pumps into your " + ((player.gender >= 2) ? player.vaginaDescript() : player.assholeDescript() ) + " once, twice, thrice more before the black-haired girl releases the tension around the base, though whether by choice or due to the furious orgasm roaring through her loins, it is hard to tell.  You have only a split-second to muse on the subject before a tingling glut of seed comes rushing into your ");
+			if (player.gender == 2 && player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(" already impregnated ");
+			outputText(((player.gender == 2) ? "womb" : "intestines") + ", sending you into a shivering fit.  Saliva and sexual fluids flow in rivers, the blonde's soaked cunt drenching your face as her pussy quivers and squeezes around your tongue.  The ravenette begins to rise upward, lifted by your expanding abdomen as she twitches in ecstasy, the blonde's tails deeply embedded in her holes.\n\n");
+			outputText("Passionate moans from all four of you fill the air as you ride the waves of pleasure, finally collapsing together in ecstasy after what feels like ages.  Each twitching tremble of your muscles sees you a bit more fatigued, your eyelids feeling as though they weigh a thousand pounds each.");
+			if (player.gender == 3 || (player.gender == 2 && player.pregnancyIncubation > 0)) outputText("  A flood of seed begins to spill from your abused pussy, gushing over the redhead's groin and spreading into the water.  The flow is soon stemmed by the introduction of the black-haired girl's tongue, plush lips pressed against your cunt as she hungrily sucks down the outpouring of semen.  She gulps loudly and gluttonously, spreading your lips with her thumbs and swallowing every last delicious salty morsel, her stomach swelling and quivering");
+				if (player.pregnancyIncubation <= 150) outputText(" as your overstuffed, brood-full abdomen continues to seep cum in equal measure.  Hands resting on your");
+				else outputText("as your own overfull abdomen begins to deflate in equal measure.  Hands resting on your");
+			outputText(((player.gender == 0 || (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150)) ? " swollen" : " deflating") + " belly, you begin to succumb to exhaustion, your strength fading as you are overcome with an uncommon weariness.\n\n");
 			doNext(createCallBackFunction(genderlessKitsuneStillHungry, willing));
 		} // end letHer()
 
@@ -594,15 +608,16 @@ package classes.Scenes.Areas.Forest
 		{
 			clearOutput();
 			kitsuneSprite();
-			outputText("Just as you are about to slip out of consciousness, you are roused by the feeling of the black-haired kitsune pulling you from her sister's grasp, sliding you onto your back, and bending low over you.\n\n");
+			outputText("Just as you are about to slip out of consciousness, you are roused by the feeling of the black-haired kitsune pulling you from her sister's grasp, sliding you" + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) ? ", craddling your own pregnant belly," : "") +  "onto your back, and bending low over you.\n\n");
 			outputText("\"<i>Still hungry...</i>\" she says softly, rubbing her chubby stomach gently, a quiet rumble issuing forth.\n\n");
 			outputText("She exposes her upturned palms, rubbing them together for a moment and then blowing into them lightly.  With a snapping crackle, a bright blue flame bursts to life in her hands, and she presses her palms to your [chest], massaging gently.  As the cooling tingle of her mystical flame spreads across your chest, you can feel a tense pressure building up, pleasure coursing through you.  Your " + ((player.biggestTitSize() < 3) ? ((player.biggestTitSize() == 0) ? "flat chest begins" : "breasts begin") + " to swell, jiggling titflesh spilling out with a tense tingle until you are the proud new owner of a sizeable pair of C cups" : "breasts seem to plump up a bit, your nipples growing hard as a tense tingle spreads through them.") + "  You arch your back, clutching your chest as the tingling intensifies, an inferno of pleasure burning in your chest.  At the height of ecstasy, your milk begins to spurt from your nipples, flying into the air like a lewd fountain.\n\n");
+			if (player.biggestTitSize() >= 3) outputText(images.showImage("kitsune-milk"));
 			outputText("Your rock-hard nipples are immediately engulfed in the soft embrace of the girl's lips, entrapped by the moist prison of her warm mouth.  A tongue of improbable length slides out, slathering saliva across your swollen breasts and coiling around one of them with a tight squeeze.  Her plush pink pillows caress your nipples with a sensual suckling, drawing them inward and nibbling on the flesh delicately as your milk begins to flow down her throat.\n\n");
 			if (flags[kFLAGS.redheadIsFuta] > 0) {
 				outputText("A trembling moan shudders through your breasts as the redhead wades by to join in the fun, giving her sister a light spank.  Her cock slides up between the busty ravenette's expansive buttocks, and then with a swift thrust, plunges into her soaked pussy.  Each time she thrusts forward, the black-haired girl groans with pleasure, the humming sensation vibrating through your nipples pleasantly.  Ropes of spittle begin to slide down her chin as she is manhandled by her sister, her head thrust into your cleavage as she presses her own chest against you sensually.\n\n");
 			}
 			else {
-				outputText("Fingers trail delicately across your [chest] as the redhead slides in next to you, sparks flying from her fingertips as she encircles your free " + player.nippleDescript(0) + ", eliciting a moan.  Her body presses against yours softly, one leg draping over your waist as she lays her head down and begins to run her tongue along the outer edge, warming you up for her sister.\n\n");
+				outputText("Fingers trail delicately across your " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) ? "impregnated tummy, lightly fingering your navel, before tracing up to your " : "") +  "[chest] as the redhead slides in next to you, sparks flying from her fingertips as she encircles your free " + player.nippleDescript(0) + ", eliciting a moan.  Her body presses against yours softly, one leg draping over your " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) ? player.hipDescript() : "waist") + " as she lays her head down and begins to run her tongue along the outer edge, warming you up for her sister.\n\n");
 			}
 			outputText("A shock of pleasure jolts through you as six golden tails press against your body, azure embers sensually sizzling against your skin.  The blonde giggles lightly as she teases you, her eyes full of mischief, one finger lightly tracing the underside of your jaw.  It's a simple gesture, but the way she does it makes you practically melt into her arms, more a slave to pleasure now than ever.\n\n");
 			if (flags[kFLAGS.redheadIsFuta] > 0) {
@@ -613,10 +628,111 @@ package classes.Scenes.Areas.Forest
 			outputText("As the four of you ride the waves of pleasure for what feels like ages, each passing second finds you more and more fatigued, and your eyelids grow heavier and heavier, muscles growing weak.\n\n");
 
 			outputText("Exhausted by the ordeal, you relax into a blissful stupor, only vaguely aware of the feeling of being dragged onto the deck.  The last thing you recall before slipping into unconsciousness is the three sisters crawling up alongside you, proffering their twisted magics on your spent body.");
+			if (player.hasPerk(PerkLib.BroodMother)){
+				kitsuneBreedingRitual();
+			}
 			//Increase PC milk production slightly due to residual effects from the kitsunes' magic. Note: The breast size boost was temporary and shouldn't actually result in a permanent change.
-			outro();
+			else {
+				outro();
+			}
 		} // end stillHungry();
 
+		private function kitsuneBreedingRitual():void
+		{
+			clearOutput();
+			kitsuneSprite();
+			outputText("In your blissful haze you can barely make out the conversation as they talk amongst each other, but upon narrowing your senses the content of their private talk becomes clear.\n\n");
+			outputText(" <i>“This one finds great pleasure in carrying brood.”</i>  You recognize the black-haired Kitsune speaking to one of her sisters.\n\n ");
+			outputText(" Next you hear the blonde one, <i>“She is blessed by the Gods for this purpose.  To spawn, again and again.”</i> \n\n ");
+			outputText(" At this notion you become fully awake, yet still barely able to move. At this, the red-haired Kitsune notices your departure from your restful state and walks toward you.  She grasps one of your heavy tits, still dripping milk, before saying to her sisters, <i>“And she will feed the children well.”</i> \n\n ");
+			outputText(" The red-haired Kitsune roughly squeezes your breast causing you to moan in pleasure and sending a plume of milk into the air.  The sensations disipates and you realize you are now surrounded on all sides by the sisters who begin chanting some kind of incantation as magic energy swirls around you. \n\n ");
+			outputText(" Your body becomes weightless as you are levitated into the air and begin moving deeper into their retreat.  What little movement you could muster before is now totally restrained. \n\n ");
+			outputText(" They've moved you perhaps fifty feet before you are set down again on a short alter where your hands are bound up and out behind you.  Your feet are placed on stirrups while your head and body are slightly elevated so as to allow you the ability to see the scene unfolding before you. \n\n ");
+			
+			outputText(" The redhead begins casting a new incantation causing similar energy to be swirling around her body.  Her cock instantly hardens, dripping pre before the vortex of energy begins to expand and branch out to the other sisters.  \n\n ");
+			outputText(" During this process, both the blonde and black-haired Kitsune's begin to drink some sort of thick concoction of what origin you haven't the slightest clue, but the intention soon becomes evident as the two sisters begin to double over in a mixture of pleasure and agony, the skin around their crotches seem to fold back as a fully formed demon-cocks burst forth from their loins, drizzling hot cum everywhere.  The two sister regain their composure and stand to face you.  \n\n ");
+			outputText(" Once their transformation completes, the cyclone of energy enters all three of the sisters simultaneously lighting up their eyes and opaque runes along their body.  They lean into each other for support and stand bow-legged as a pair of heavy testicles drop between each of their legs.  The veins on their cocks bulge, accentuating their hardness and appear to thicken and lengthen yet more. Cum seeping from the tips of their penises, their heavy balls churn and flex foreshadowing just how much they are carrying. \n\n ");
+			outputText(images.showImage("kitsune-breeding"));
+			outputText(" The red-haired Kitsune, centered on your bodyline, approaches you flanked by her sisters.  With an overbearing smirk on her face, she plants he left hand on your hip and with the other hefts her cock on to your belly.  Easily reaching and pass your navel, it twitches in anticpation squirting a thick line of cum up to your neck.  Leaning up to your face she whispers, <i>“A brood for the brood-mother.”</i> \n\n ");
+			outputText(" Withdrawing, the Kitsune begins to align her cock with your pussy as her sisters spread your " + player.vaginaDescript() + ".  Slowly pushing the entire length of her cock into your waiting hole, you release an exasperated gasp.  You are given no time to adjust before the firey Kitsune pulls back and pushes back into you for another stroke.  She regrips your " + player.hipDescript() + " and begins pummeling your hole with enthusiasm.   Meanwhile, her sisters take turns fondling your tits and shoving their cocks into your mouth. \n\n ");
+			outputText(" Smushing her sheath up against your puffy lips, the red headed Kitsune repeatedly smacks her hips against your own, her steamy sex dripping girl-lube down the back of her balls into a thick puddle on your blanket.  SLAP!  The sweaty nutsack slaps loud enough to be heard all over as she plunges again and again into your pussy, with a determined and all-consuming fervor. The ever-dripping pre of the Kitsune's cock splatters across the inside of your thighs with each withdrawl and subsequent deposit.\n\n ");
+			
+			outputText(" The Kitsune impaling your snatch tightens her grip.  Arching back, she closes her eyes, slack-jawed, her rythmic penetrations become chaotic and wild.  The audible, squishing-wet sounds coming from her cock ramming down your canal echo the change in pace. \n\n ");
+			outputText("\n\n\"<i>Progenitor! </i>\" she cries, arching her back further, tits jiggling over top of you as she climaxes.  Her slick sack begins to twitch again and again.  It feels like it's vibrating against your [butt], actually shuddering as liquid weight shifts and moves, pumping through the cock-bitch's interior.  The length inside you distorts slightly, the fat shaft stretching your lips even wider as a huge wad of cum travels through the cock and directly into your waiting womb.");
+			outputText("\n\nThere's an audible gurgle from inside you, and you feel the sticky, slippery spooge spreading through every nook and cranny of your [vagina], some even dripping into your womb.  The Kitsune continues to pump as she crams herself even further inside you, butting her fat, cockhead right up against your cervix.  The next cum-wave hits you with such pressure that most of it floods directly into your uterus, shooting straight through your slightly-dilated cervix without too much resistance.  You can feel it sloshing around, the heavy weight of the liquid love filling you fuller and fuller, while the frothy, wasted sperm drips out of your wide-spread fuckhole.  Again and again, her orgasm inseminates your womb, seemingly without limit, rounding your belly with the slightest bump.  As the pressure builds, more and more of her baby batter slops out and you climax yet again. ");
+			
+			outputText("\n\nThe Fox girl pulls out her still stiff cock with an audible <i>POP!</i> causing a gullet of semen to waterfall down the contraption you sit upon.  The three sisters stand between your widespread legs, smiles across all their faces.  As you stare at them slightly dazed you watch in shock as your paunch begins to grow.  Within no-time, your belly begins to protrude obscenely, stretching your abdomen to that of a nine-month long pregnancy. Panic sets in as the intense, familiar pressure builds in your gut.  Whatever the Kitsune just put inside you, it's developing fast.");
+			
+			//[Next]
+			menu();
+			addButton(0,"Next",kitsuneBreedingRitualII);
+			getGame().time.days++;
+			getGame().time.hours = 7;
+
+			
+			
+		} // end breeding session
+		
+		private function kitsuneBreedingRitualII():void
+		{
+			clearOutput();
+			kitsuneSprite();
+			outputText("Pangs of labor and an unmistakable, forceful pushing emanating from within you.  Loudly, you yell, \"<i>How?</i>\" which brings the sisters in closer.  Your water breaks, gushing from your [vagina] and soaking the floor ahead of you with the clear, amniotic fluids.  One contraction after another begins to hit you, causing you no small amount of pain as your cervix dilates, preparing to disgorge the new life within you.");
+			outputText("\n\nFor several hours, you're kept waiting, clenching for support whenever the pain becomes too much.  However, the Kitsune's magic turns that pain into sweet pleasure making the experience much more bareable.  The time passes with agonizing slowness, as your labor drags on.  You begin to feel it moving, travelling down your canal as your body compels you to push, to squeeze as hard as you've ever tried.  Then, with a tremendous, sucking, wrenching changing of pleasure, it slips free.");
+			player.cuntChange(40, true, true, false);
+			
+			outputText("\n\nSlick with birthing fluids, a ball of fur, skin, and bones rolls out onto gathered blankets.  Exhaustion tries to claim you, but you pull yourself up on your forearms and squint at it, wondering just what everybody is so excited about - it looks little and messy, like any other newborn.  It strikes you as odd that you feel no motherly affection for the little bundle.");
+
+			outputText("\n\nHowever, that feeling is quickly replaced by shock as the red-haired Kitsunes scoops up the newborn into a waiting blanket and carts it off.  You can do little more than stare before your attention is brought back to your center.  The black-haired Kitsune now stands between your legs, stroking her stiff cock already dripping with cum.  You can't believe what's happening.");
+			outputText("\n\nBefore you can finish the thought, she pierces into your raw pussy, spearing you to the hilt, no doubt made easier by the recently vacated brood.  Pain sears your battered pussy as the Kitsune ploughs your used folds.  Her heavy balls slapping against your backdoor punctuate just how much fluid you are covered in, squelching with each meaty slap.");
+			outputText("\n\nDazed by the events so far, this breeding seems to pass much more quickly as you can soon feel the Kitsune beginning her climaxing throes.  Arching her back, the fox-morph pulls your spread thighs into her arched crotch, piercing your dialated cervix.  Embeded deep inside, you feel the familiar glut of hot liquid pouring into your womb. ");
+			outputText(images.showImage("kitsune-breeding"));
+			outputText("\n\nYou can only close your eyes and submit as you are bred.  Again.");
+			if (player.cor >= 50) {
+				outputText("\n\nYou remember your fantasy of becoming breeding cattle to the denizens of this world, sending you over the edge."); 
+				player.orgasm('Vaginal');			
+			}
+			
+			outputText("\n\nYour belly gurgles and rounds slightly as the Kitsune saturates your insides with her seed. ");
+			outputText("\n\nSpent, the Kitsune withdraws her cock with a slurp and, like before, your mound continues to grow as the hyper-pregnancy takes hold.  In minutes, you are the size of a woman nine-months pregnant. ");
+			outputText("\n\nSoon, you are in labor.  Soon, you feel this unholy spawn moving through your birth canal. ");
+			
+			if (player.cor >= 60) {
+				outputText("\n\nSurrendering to the Kitsune magic, you embrace your role as 'Birthing-Queen'.  The one you deliver now is merely one of hundreds you will create. "); 		
+			}
+			
+			output.text("\n\nThe pain begins to subside as your delivery continues... replaced with a building sensation of pleasure.  Arousal spikes through you as the contractions intensify, and as you feel something pass you have a tiny orgasm.\n\nYet you feel more within you, and the contractions spike again, pushing you to orgasm as you pass something else.  It repeats, over and over, nearly a dozen times you birth and orgasm.  After an eternity of procreation and pleasure, you fall unconscious.");
+			player.orgasm('Vaginal');
+			
+			output.text("\n\nIn mere moments, you are awakened yet again. ");
+			if (Utils.rand(2) === 0) {
+				player.hips.rating++;
+				output.text("<b>You feel a strange sensation as if the magic has widened your hips in anticipation of delivering again.</b> ");
+			}
+			
+			if (player.cor < 40) {
+				output.text("To your horror,");
+			}
+				
+			if (player.cor >= 40 && player.cor < 75) {
+				output.text("Unsurprising,");
+			}
+				
+			if (player.cor >= 75) {
+				output.text("Fortunately,");
+			}
+			
+			output.text(" the last Kitsune sister, the blonde, also wishes to impregnate you. ");
+			output.text("\n\nFor the third time you are fucked, filled and finished.  Once more, you grow uncomfortably before the contractions set in. ");
+			output.text("\n\nFamiliar pains and pressures in your gut signal the coming brith. However, by now, you are well-oiled birthing machine.  This child takes merely a fraction of the time the others did.  With the last of them delievered you immediately dirft off into unencumbered sleep. ");
+			player.cuntChange(55, true, true, false);
+			if (player.vaginas[0].vaginalLooseness < VaginaClass.LOOSENESS_GAPING_WIDE) {
+				player.vaginas[0].vaginalLooseness++;
+				output.text("\n\n<b>Your cunt is painfully stretched from the ordeal, permanently enlarged.</b>");
+			}
+
+			outro();
+		}
 
 //3+ Tentacle cocks of 30" or longer
 		private function tentacleKitsuneWingWangs():void
@@ -1099,46 +1215,46 @@ package classes.Scenes.Areas.Forest
 			//[Vaginal] - requires cock
 			if (player.hasCock())
 				addButton(button++, "FuckHerVag", fuckAKitsuneVaginally);
-			else 
+			else
 				addDisabledButton(button++, "FuckHerVag", "This scene requires you to have cock.", "Fuck Her Vag");
-			
+
 			if (player.cockThatFits(144) != -1) {
 				addButton(button++, "FuckAss", putItInAKitsunesAssWin);
 			} else
 				addDisabledButton(button++, "FuckAss", "This scene requires you to have fitting cock.", "Fuck Her Ass");
-			
+
 			if (player.hasVagina()) {
 				addButton(button++, "Tribbing", tribbingWithAKitsune);
 			} else
 				addDisabledButton(button++, "Tribbing", "This scene requires you to have vagina.");
-				
+
 			if (player.hasCock()) {
 				addButton(button++, "Tailjob", tailJobKitsuneWin);
 			} else
 				addDisabledButton(button++, "Tailjob", "This scene requires you to have cock.");
-			
+
 			//[Tentacles] - requires 3+ tentacles of 30" or longer
 			if (player.countCocksOfType(CockTypesEnum.TENTACLE) >= 3) {
 				addButton(button++, "Tentacles...", kitsunesGetBonedBy3PlusTentacles);
 			} else
 				addDisabledButton(button++, "Tentacles...", "This scene requires you to have at least 3 tentacle cocks.");
-				
+
 			//Blonde-exclusive
 			if (monster.hair.color == "blonde") {
 				//[Fuck Draft]
 				if (player.hasItem(consumables.F_DRAFT)) {
 					addButton(button++, "Use F.Draft", fuckDraftBlond, undefined, undefined, undefined, "You could dose her with a fuck draft...");
-				} else 
+				} else
 					addDisabledButton(button++, "Use F.Draft", "This scene requires you to have cock and a bottle of fuck draft.", "Use Fuck Draft");
 				//[Lactaid]
 				if (player.hasItem(consumables.LACTAID)) {
 					addButton(button++, "Use L-Aid", lactaidDoseAKitSune, undefined, undefined, undefined, "You could dose her with lactad...");
-				} else 
+				} else
 					addDisabledButton(button++, "Use L-Aid", "This scene requires you to have cock and a bottle of lactaid.", "Use LactAid");
 				//[Ovi Elixir]
 				if (player.hasItem(consumables.OVIELIX) && player.isMaleOrHerm()) {
 					addButton(button++, "Use OviElix", doseAKitsuneWithOviElixirs, undefined, undefined, undefined, "You could use an oviposition elixir on her...");
-				} else 
+				} else
 					addDisabledButton(button++, "Use OviElix", "This scene requires you to have cock and a bottle of ovi elixir.", "Use Ovi Elixir");
 			}
 			//Black-hair-exclusive
@@ -1146,24 +1262,24 @@ package classes.Scenes.Areas.Forest
 				//[Hotdog Anal] - replaces regular Anal option only for the black-haired girl.
 				if (player.cockThatFits(144) >= 0) {
 					addButton(1, "HotDogAnal", hotdogAnalInKitsuneButtDontLetTailTickleYourNose);
-				} else 
+				} else
 					addDisabledButton(1, "HotDogAnal", "This scene requires you to have fitting cock.", "Hot Dog Anal");
 				//[GetLicked] - requires a vagina
 				if (player.hasVagina()) {
 					addButton(button++, "GetLicked", getLickedByKitsunes);
-				} else 
+				} else
 					addDisabledButton(button++, "GetLicked", "This scene requires you to have vagina.", "Get Licked");
 				//[GetBJ] - requires cock 108 area or less
 				if (player.cockThatFits(108) >= 0) {
 					addButton(button++, "Get BJ", getABJFromAFoxGirl);
-				} else 
+				} else
 					addDisabledButton(button++, "Get BJ", "This scene requires you to have fitting cock.");
 			}
 			if (monster.hair.color == "red") {
 				//Non-futa Redhead: [Bondage] - requires a cock with area <= 144 due to some anal
 				if (player.cockThatFits(144) >= 0) {
 					addButton(button++, "Bondage", nonFutaRedHeadBondageIGuessYouTieHerUpWithYourPenisThenHuh);
-				} else 
+				} else
 					addDisabledButton(button++, "Bondage", "This scene requires you to have fitting cock.");
 				//Non-Futa Redhead: [Some sort of lapsitting handjob thing, I don't know]
 				if (flags[kFLAGS.redheadIsFuta] == 0 && player.hasCock()) {
@@ -1190,12 +1306,12 @@ package classes.Scenes.Areas.Forest
 				if (flags[kFLAGS.redheadIsFuta] > 0 && player.hasVagina() && player.biggestTitSize() >= 4 && player.armorName == "lusty maiden's armor")
 					addButton(button++, "B.Titfuck", (player.armor as LustyMaidensArmor).lustyMaidenPaizuri);
 			}
-			
+
 			//[Feeder]
 			if (player.findPerk(PerkLib.Feeder) >= 0 || player.lactationQ() >= 2000) {
 				addButton(button++, "Breastfeed", feederTheKitsunes);
 			} else addDisabledButton(button++, "Breastfeed", "This scene requires you to have very high milk amount.");
-			
+
 			//Remove buttons in SFW mode. No rapes!
 			if (flags[kFLAGS.SFW_MODE] > 0) {
 				removeButton(0);
@@ -2381,7 +2497,7 @@ package classes.Scenes.Areas.Forest
 					//Apply Nine-Tails perk if applicable.
 					player.tail.venom = 9;
 					player.createPerk(PerkLib.EnlightenedNinetails, 0, 0, 0, 0);
-					
+
 					// Nine tail kitsunes have their fur/hair color golden, silver or pure white
 					if (!InCollection(player.hair.color, ColorLists.ELDER_KITSUNE)) // wrong hair color
 						if (player.hasFur() && InCollection(player.skin.furColor, ColorLists.ELDER_KITSUNE)) { // right fur color
@@ -2404,7 +2520,7 @@ package classes.Scenes.Areas.Forest
 							player.skin.furColor = player.hair.color;
 							outputText("\n\Now you have " + player.skin.furColor + " fur matching your hair, like true kitsune elder. You look really regal!");
 						}
-					
+
 					outputText("\n\nYou pause for a moment to reflect on your newfound wisdom, and with a renewed vigor for your quest, you stand and set off for camp.");
 					dynStats("int", 2, "lus", -20, "cor", -2);
 				}
@@ -2467,3 +2583,4 @@ package classes.Scenes.Areas.Forest
 		}
 	}
 }
+

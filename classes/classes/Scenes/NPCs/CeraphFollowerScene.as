@@ -143,6 +143,7 @@ package classes.Scenes.NPCs
 			addDisabledButton(3, "NippleFuck");
 			addDisabledButton(4, "Penis Magic");
 			addDisabledButton(5, "Lay Eggs");
+			addDisabledButton(6, "Ride Her");
 			
 			if (player.hasCock() && player.lust >= 33) {
 				addButton(0, "Fuck Pussy", fuckFollowerCeraphsVagoo, undefined, undefined, undefined, "You could fuck her pussy.");
@@ -161,6 +162,9 @@ package classes.Scenes.NPCs
 			}
 			if (player.canOviposit()) {
 				addButton(5, "Lay Eggs", layEggsInSlaveCeraph);
+			}
+			if (player.hasVagina() && player.lust >= player.maxLust()) {
+				addButton(6, "Ride Her", rideFollowerCeraphsCock, undefined, undefined, undefined, "You could ride her cock.");
 			}
 			addButton(14, "Back", ceraphFollowerAppearance);
 		}
@@ -601,7 +605,7 @@ package classes.Scenes.NPCs
 			player.orgasm('Dick');
 			dynStats("sen", -2, "cor", .25);
 			doNext(camp.returnToCampUseOneHour);
-		}
+		}		
 
 //*Ceraph TongueFucks The PC (Zeddited)
 		private function followerCeraphTongueFucking():void
@@ -651,6 +655,106 @@ package classes.Scenes.NPCs
 			flags[kFLAGS.CERAPH_LICKED_YOU_OUT]++;
 			player.orgasm('Vaginal');
 			dynStats("sen", -2 ,"cor", .25);
+			doNext(camp.returnToCampUseOneHour);
+		}
+		
+		//[Female] Ride 'Dat Cawk
+		private function rideFollowerCeraphsCock():void
+		{
+			spriteSelect(SpriteDb.s_ceraph);
+			clearOutput();
+			outputText("Quickly stripping off your " + player.armorName + " you command Ceraph to lie down on the ground. A shit-eating grin appears on her face as she gazes up at you.  Her voice dripping with seductive intent she says, \"<i>Oh but, " + player.mf("Master", "Mistress") + ", I thought we weren't going to do this anymore?</i>\" unable to hide the eagerness in her tone.");
+			//lust
+			outputText("\n\nIgnoring her exuding smugness, you force Ceraph onto her back, oogling her perky breasts, indecent cock, and soaked cunt.  She looks up at you hungrily, but remains silent playing along with the air of \"Not doing this again\". The demon grinds her crotch against your " + player.leg() + ", spreading her thighs apart into a near split and giving you a world-class view of her pulsating black demon-cock.\n\n");
+
+			outputText("Ceraph licks her lips and gazes up at you, begging with a voice that drips with seductive intent, ");
+			
+			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150)
+			{
+			outputText(" \"<i>Mistress, your belly is so beautifully pregnant already, how could I fill you anymore?</i>\"\n\n");
+			}
+
+			else
+			{
+			outputText(" \"<i>We must be careful Mistress, you don't want me to impregnate that fertile womb of yours!</i>\"\n\n");
+			}
+			
+			outputText("The powerful sensations emanating from your " + player.vaginaDescript() + " have pushed you beyond reason");
+			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150)
+			{
+			outputText(" and if anything, the sensations of motherhood have made it that much stronger.");
+			}
+
+			else
+			{
+			outputText(". There is no choice in the matter, you need to get fucked at the camp.  Right now.");
+			}
+			outputText("\n\nIt's too late for her to have any hope of swaying you anyway.");
+			outputText("\n\n");
+
+			outputText("Still standing, you step over her straddling the demon slut and " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) ? "lift your brood-swollen belly to " : "") + "begin touching your " + player.vaginaDescript(0) + ", getting yourself ready for what is to come.");
+			
+			outputText("You sink down, "); 			
+			if (flags[kFLAGS.PC_FETISH] >= 1) outputText("getting an exhibitionist thrill, ");
+			outputText("feeling yourself part around the hot demon - tool, its ring of crown - nubs stroking your walls as you slide down, and the bumpy texture of its shaft makes your " + player.legs() + " feel weak.  You drop the rest of the way down in one smooth, wet slide, ");
+			if (player.vaginalCapacity() < 12) outputText("unable to take the entire exquisite cock inside you.  The nubs squirm and wiggle, practically vibrating and massaging your internal muscles, and you're unable to stop yourself from bouncing on top of her, spearing yourself repeatedly upon the thick rod.\n\n");
+			else outputText("able to take the entire exquisite cock inside you.  The nubs squirm and wiggle, practically vibrating and massaging your internal muscles, and you're unable to stop yourself from bouncing on top of her, spearing yourself repeatedly upon the thick rod.\n\n");
+			
+			outputText("Ceraph cries in mock protest, ");
+			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150)
+			{
+			outputText("\"<i>Oh, Mistress, please spare my pure sensibilities!  I could not bare to see your fat, brood gut overflowing with my seed!</i>\"\n\n");
+			}
+
+			else
+			{
+			outputText("\"<i>No, don't make me cum inside you!  Please Mistress, I swore not to spill my seed, lest I father a bastard child!</i>\"\n\n");
+			outputText(images.showImage("ceraph-female-ride"));
+			}
+			
+			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) outputText(images.showImage("ceraph-female-ride-preg"));
+			else outputText(images.showImage("ceraph-female-ride"));
+			
+			outputText("The sensations of her vibrating nodules ensure you don't have the will or the strength to pull off of her, and what little power your " + player.legs() + " have is used to keep bouncing and grinding on top of her, filling the air with wet squelches and slippery squishes.  You fall forwards, barely catching yourself before you slam into the sultry demoness.  Your ");
+			if (player.biggestTitSize() < 1) outputText("chest ");
+			else if (player.lactationQ() > 0) outputText("milk udders ");
+			else outputText("tits ");
+			
+			outputText("squish against hers, squeezing " + ((player.lactationQ() > 0) ? "milk from the mashed tit sandwich" : "a gout of milk from her nipples") + ".  Both pairs of ");
+			if (player.biggestTitSize() < 1) outputText("nipples");
+			else outputText("jiggling mounds");
+			outputText(" feel wonderful as they're pressed between you, sliding back and forth in time with your body's urgent grinding.\n\n");
+			
+			outputText("Now breathing heavily, your " + player.hipDescript() + " begin trembling, aching atop the invading member, fuck it, mate with it; anything to sate your growing desires.  Ceraph gives you a knowing wink and slams her demon cock inward, sliding the last several inches through your spread nether-lips into the velvety embrace of your " + player.vaginaDescript() + ".  You can feel it, throbbing, filling you completely, expanding your pussy with a slow, maddening purpose.  From time to time it brushes your cervix, but never hard, never painfully.  At the same time, it seems to always be in contact with your most sensitive places.  You begin to ponder the anatomy of her demon cock and how it can achieve this.\n\n");
+
+			outputText("A jolt of pleasure blasts the thoughts from your mind and nearly takes your " + player.legs() + " out from under you.  With a start, you realize Ceraph has somehow pierced your cervix and landed her demon cock directly into your womb. ");
+			outputText("You start to shudder, trying to stave off what you know is coming.  You don't want Ceraph to get too uppity, thinking she can get you off this fast, but you're dangerously close, and her pumping cock is relentless.\n\n");
+
+			outputText("You grab Ceraph's head and mash it against your " + player.breastDescript(0) + ", as you command, \"<i>Drink my milk, bitch.  Swallow all of your Mistress' cream.  And don't think for a minute I won't punish you if you miss any.</i>\"\n\n");
+
+			outputText("Ceraph closes her eyes and hums, her cock redoubling its efforts inside you.  Every nerve ending inside your climaxing quim seems to explode at once, and with your back arched, you cum on your slave's cock.  Ceraph gurgles in happiness, her voice muffled by the plush, feminine flesh quivering in her mouth.  She happily swallows every ounce of fluid you produce");
+			if (player.lactationQ() >= 10000) outputText(", even though her cheeks are bulging and her throat struggles to devour all of the fountaining breast milk,");
+			else if (player.lactationQ() >= 5000) outputText(", even though her cheeks are slightly bulged and she's gulping it down.");
+			else if (player.lactationQ() >= 2000) outputText(", even though she has to gulp it down from time to time.");
+			else if (player.lactationQ() >= 500) outputText(", even though you produce enough for her to gulp.");
+			else outputText(", even though your breasts don't gush like most of the corrupted creatures in this realm.");
+			outputText("The omnibus' facade of feigned innocence drops under the force of the hot, wet fuck.  Her mouth opens into an 'o' of pleasure, and you feel her rod thicken as it begins pumping the proof of her ecstasy inside you.  The nodules that cover Ceraph's demonic erection wildly vibrate as she orgasms.  Demon-seed floods your womb, squeezed inside it by your body's orgasmic contractions.  You shudder with the demon as you both begin calming down.\n\n");
+			outputText("  Still shaking and clenching, you start to come down, still holding Ceraph in her proper place.  She doesn't show any sign of discomfort, and as a matter of fact, once you deign to look down at her, her eyes are twinkling happily and her face is flushed.  ");
+
+			outputText("With a cute chuckle she teases you, \"<i>Ooooh... Mistress why did you make me despoil your womb?  ");
+			if (player.pregnancyIncubation == 0) outputText("You're only feeding the swarms of imps that are despoiling this land.");
+			else outputText("I'm sure whatever baby you have in there won't enjoy being so soaked in corruption.");
+			outputText("</i>\"\n\n");
+			
+			outputText("Shuddering, you begin to stand, a gush of demon cum seeping from your abused pussy.  Ceraph helps you stand and with a knowing smile.\n\n\"<i>I'll never get tired of that, " + player.mf("Master", "Mistress") + ",</i>\" she quips.\n\n");
+			
+			outputText("With a smile, you lean into her and rub your belly while whispering in her ear, \"<i>Like mother, like child.</i>\"\n\n");
+			outputText("Ceraph smiles, genuinely returning the expression, still a bit shaky from her own orgasm.");
+			
+			player.cuntChange(monster.cockArea(0), true);
+			player.orgasm('Vaginal');
+			dynStats("lib", 3, "sen", 3,"cor", 1);
+			player.knockUp(PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 32, 61); //Ceraph causes faster pregnancies
 			doNext(camp.returnToCampUseOneHour);
 		}
 
@@ -1807,6 +1911,7 @@ package classes.Scenes.NPCs
 			player.orgasm('Ovi');
 			doNext(camp.returnToCampUseOneHour);
 		}
+		
 
 
 //Ceraph Pegging + Bonus Petplay!
@@ -2212,3 +2317,4 @@ package classes.Scenes.NPCs
 		}
 	}
 }
+

@@ -54,17 +54,17 @@ package classes.Scenes.Camp
 			initLibSensCor(55, 35, 100);
 			this.weaponName = "claws";
 			this.weaponVerb="claw";
-			this.weaponAttack = 10;
+			this.weaponAttack = 10 + (player.statusEffectv1(StatusEffects.BirthedImps) / 5);
 			this.armorName = "leathery skin";
 			this.armorDef = 3;
-			this.bonusHP = 300;
+			this.bonusHP = 300 + (12 * player.statusEffectv1(StatusEffects.BirthedImps));
 			this.lust = 30;
 			this.lustVuln = .65;
 			this.temperment = TEMPERMENT_LUSTY_GRAPPLES;
 			this.level = 10;
 			this.gems = rand(15) + 25;
 			this.drop = NO_DROP;
-			this.special1 = lustMagicAttack;
+			this.special1 = lustMagicAttackGang;
 			checkMonster();
 		}
 		

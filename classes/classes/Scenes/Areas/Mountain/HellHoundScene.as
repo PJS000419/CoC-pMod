@@ -59,7 +59,8 @@ package classes.Scenes.Areas.Mountain
 			if (player.vaginas.length > 0 && player.lowerBody.type != LowerBody.NAGA) outputText("slamming his twin dicks into your " + player.vaginaDescript(0) + " and your " + player.assholeDescript() + ".  ");
 			else outputText("slamming his lower dick into your " + player.assholeDescript() + ", while rubbing the other between the cheeks of your " + player.buttDescript() + ".  ");
 			if (player.vaginas.length > 0 && player.lowerBody.type != LowerBody.NAGA) {
-				outputText(images.showImage("hellhound-loss-vag"));
+				if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("hellhound-loss-vag-preg"));
+				else outputText(images.showImage("hellhound-loss-vag"));			
 				if (player.vaginalCapacity() < monster.cockArea(0)) outputText("You feel an intense mixture of sensations in your lower body as your " + player.assholeDescript() + " feels like it is being torn apart, while your " + player.vaginaDescript(0) + " is filled with an intense pleasure at being filled with the creature's large member.  ");
 				else outputText("Your lower body explodes with pain as the hellhound forces himself in too quickly for either your " + player.assholeDescript() + " or your " + player.vaginaDescript(0) + " to handle.  ");
 				if (player.vaginas[0].virgin) outputText("<b>You are no longer a virgin!  </b>");
