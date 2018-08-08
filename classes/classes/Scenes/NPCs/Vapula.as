@@ -4,14 +4,23 @@ package classes.Scenes.NPCs
 	import classes.BodyParts.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
+	import classes.Scenes.Monsters.pregnancies.PlayerImpHordePregnancy;
 	import classes.display.SpriteDb;
+	import classes.internals.GuiOutput;
+	import classes.Scenes.PregnancyProgression;
 
 	public class Vapula extends NPCAwareContent implements TimeAwareInterface
-	{
-		public function Vapula()
+	{	
+		
+		public var pregnancy:PregnancyStore;
+
+		public function Vapula(pregnancyProgression:PregnancyProgression, output:GuiOutput)
 		{
 			CoC.timeAwareClassAdd(this);
+			
+			new PlayerImpHordePregnancy(pregnancyProgression, output);
 		}
+		
 		
 		//Implementation of TimeAwareInterface
 		public function timeChange():Boolean
@@ -278,6 +287,13 @@ package classes.Scenes.NPCs
 			} else {
 				addDisabledButton(5, "Spank");
 			}
+			
+			if (flags[kFLAGS.VAPULA_HIDING_DICK] == 0) {
+				addButton(9, "Go Female", cawkTawgle);
+			} else {
+				addButton(9, "Go Herm", cawkTawgle);
+			}
+			
 			addButton(14, "Leave", camp.campSlavesMenu);
 					
 			if (flags[kFLAGS.FOLLOWER_AT_FARM_VAPULA] == 0 && flags[kFLAGS.FARM_CORRUPTION_STARTED] == 1) addButton(6, "Farm Work", sendToFarm);
@@ -355,7 +371,8 @@ package classes.Scenes.NPCs
 			clearOutput();
 			outputText("Vapula is a 6 foot 1 inch-tall succubus with a voluptuously curvy build.  Her entire skin is purple, only growing darker whenever she's aroused.  She has a fairly human face with a surprising lack of horns; were it not for her skin, the only sign betraying her demonic origins would be her pair of fangs that are revealed whenever she smiles.  Her eyes are purple as well, often glinting with lust.  Her dark-purple hair grows luxuriously around her head, giving her a fierce, almost lion-like aspect, but it's offset by her majestic aquiline wings, leaving you wondering about her origins.  Two normal, well-formed legs grow down from her squeezable hips, swaying hypnotically as she walks.  She is wearing rags that cover only a tiny fraction of her body, concealing just her naughty bits to make the whole display more erotic.");
 			outputText("\n\nShe has a pair of jiggly, perky H-cup breasts, each one adorned with a 1-inch nipple.");
-			outputText("\n\nShe has a pink, wet pussy, although you know it can be stretched to take members of any size.  Drops of fem-juice often drip from her lush fuck-hole, leaving a trail behind her as she walks.");
+			if (flags[kFLAGS.VAPULA_HIDING_DICK] == 0) outputText("\n\nHer demonic prick forms a ridge in the tight fabric, its head peeking ever-so-slightly over the top");
+			else outputText("\n\nShe has a pink, wet pussy, although you know it can be stretched to take members of any size.  Drops of fem-juice often drip from her lush fuck-hole, leaving a trail behind her as she walks.");
 			outputText("\n\nVapula has a tight asshole, placed right between her plush buttcheeks where it belongs.");
 
 			if (kGAMECLASS.farm.farmCorruption.hasTattoo("vapula"))
@@ -482,7 +499,7 @@ package classes.Scenes.NPCs
 				if (amilyScene.amilyFollower() && amilyScene.amilyCorrupt() && player.hasCock()) {
 					addButton(0, "Amily", vapulaAndAmilyThreesome);
 				}
-				if (ceraphFollowerScene.ceraphIsFollower() && player.hasCock()) {
+				if (ceraphFollowerScene.ceraphIsFollower()) {
 					addButton(1, "Ceraph", vapulaCeraphThreesome);
 				}
 				if (sophieBimbo.bimboSophie()) {
@@ -510,8 +527,18 @@ package classes.Scenes.NPCs
 			//Plz both - requires dick
 			//Option: Butt-fuck train. Requires Ceraph to be herm.
 			menu();
-			addButton(0, "Please Both", vapulaCeraphThreesomePleaseBoth);
-			addButton(1, "AnalTrain", vapulaAndCeraphButtfuckTrainYeehaw);
+			if (player.hasCock()) {
+				addButton(0, "Please Both", vapulaCeraphThreesomePleaseBoth);
+				addButton(1, "AnalTrain", vapulaAndCeraphButtfuckTrainYeehaw);
+			}
+			
+			else if (player.hasVagina() && flags[kFLAGS.CERAPH_HIDING_DICK] == 0 && flags[kFLAGS.VAPULA_HIDING_DICK] == 0) {
+				addButton(0, "Please Both", vapulaCeraphThreesomePleaseBoth);
+				if (!player.isPregnant() && player.hasPerk(PerkLib.BroodMother)) {
+					addButton(1, "DoubleVag", vapulaAndCeraphFillYouUp);
+				}
+
+			}
 		}
 
 //Option: Please both.
@@ -576,6 +603,11 @@ package classes.Scenes.NPCs
 			if (player.lib100 > 70) dynStats("lib", -1);
 			flags[kFLAGS.VAPULA_DAYS_SINCE_FED] = 0;
 			flags[kFLAGS.VAPULA_TEASE_COUNT] = 0;
+			
+			if (player.hasVagina() && player.totalFertility() >= rand(45) && player.pregnancyIncubation == 0) {
+				player.knockUp(PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 32, 61); //Ceraph + Vapula impregnate player with an imp horde
+			}
+			
 			doNext(camp.returnToCampUseOneHour);
 		}
 
@@ -609,6 +641,49 @@ package classes.Scenes.NPCs
 			dynStats("sen", -2, "cor", 1);
 			flags[kFLAGS.VAPULA_DAYS_SINCE_FED] = 0;
 			flags[kFLAGS.VAPULA_TEASE_COUNT] = 0;
+			doNext(camp.returnToCampUseOneHour);
+		}
+		
+//Option: Vapula and Ceraph fill you up
+		private function vapulaAndCeraphFillYouUp():void
+		{
+			clearOutput();
+			//var x:int = player.cockThatFits(100);
+			//if (x < 0) x = player.smallestCockIndex();
+			outputText("You order your girls to come to you; you want them to fill you absolutely full.  They comply while giggling like a pair of whores, eager to drain their sacks.");
+			outputText("\n\nYou push Vapula onto the floor, making her fall on her back, legs spread.  You then grab hold of Ceraph's shoulders and put her facing you, her demon cock already fully erect.  The succubus and the omnibus naturally start stroking their members and caressing their churning balls.  You watch them giving in to their own depravity before joining the show; squatting down above Vapula, you grab her plump cock, pressing the tip to your " + player.vaginaDescript() + " it slides deeply into your waiting folds.  The unexpected intrusion makes you release a low groan, your gasps of joy only enticing the succubus to push further.  A few seconds later she's all the way in, enjoying the boiling and tight recesses of your [vagina].  You roughly seize Ceraph's demon-dick, pulling her in towards you, and deepthroating her bumpy member as you bounce on the other demon-cock below. \"<i>Ohhh... " + player.mf("Master", "Mistress") + "...feels so- AAAAAH! I won't be able to hold it like this for long...</i>\" Able to fully engulf the demon cock in your mouth, you curl your tongue around and begin sliding back and forth, immediately rewardeding you with a thick dribble of pre-cum. Under the conjugated efforts of your cock-swallowing and massaging her voluminous testicles from below, a steady stream of salty omnibus spunk spills down your throat.  Completely dominated by the pleasure you're inflicting on her, your slut starts muttering dirty words, often interrupted by sudden screams, \"<i>Fuck... fuck... I need to buusssttt.. " + player.mf("Master", "Mistress") + "...feels so- AAAAAH! Oh FUCK YEAH!  " + player.mf("Master", "Mistress") + ", let me- PLEASE!</i>\"");
+
+			outputText("\n\nFeeling generous, you suddenly pull the demon cock from your lips and girpping firmly at its base you back up the huge load of cum Ceraph is so desperate to release. Pulling her by the cock, you position Ceraph directly in front of you, straddling Vapula who is still plowing your folds from below.  Intuitively, Vapula lifts your lower body and legs while she slides farther under your thighs, exposing your pussy, she's already stuffing, to the air.  The change in postion presses her demon dick against your g-spot causing a wave of pleasure to run over you.  However, your other slut doesn't seem to care, completely consumed by the desire to plug her " + player.mf("Master", "Mistress") + ".  As Ceraph begins to position her cock at your backdoor you grab her roughly by the Cockhead, pulling her over to indicate you want BOTH of them in your pussy.  A devilish grin crosses over the omnibus' face as she angles her cock downwards and on top of Vapula's, continuously sliding in and out of your " + player.vaginaDescript() + ".  The mixture of your three fluids generously lubes up Ceraph's shaft, now being massaged by the succubus' pistoning cock.  As Ceraph grinds harder at your entrance in efforts to impale you further, the demon girls collectively moan from the hot friction of their fluid-slick cocks.  Sensations overtake your body too, as if Vapula's throbbing rob slamming your cunt wasn't enough, the added pressure from Ceraph on your clit send the sweetest sensations through to your core; despite your best efforts to hold back, you climax before the main event has even begun.");
+			
+			outputText("\n\nFeeling a soft <i>POP<\i>, a brief jolt of pain, and followed by a pleasurable stretching, you are brought back to your senses.\n\n");
+			player.cuntChange(70, true);
+			
+			outputText("\n\nWatching in ectasy, you hold your breath as the cock below you halts its thrusting and your omnibus pet begins pushing her cock into your " + player.vaginaDescript() + ". Inch after inch, the omnibus' steadily presses in her length, squeezing the other demon-girl cock to the bottom of your tunnel.  The pressure is almost unbearable, sending sequent waves of stretching pain and stuffed pleasure to your very core. Now, with a solid one and a half demon cocks firmly splitting your " + player.vaginaDescript() + " wide, Vapula resumes fucking her thick, knobbed organ into your guts.  Like a well oiled machine, as one piston withdraws the second piston slams back in to fill it's spot.  With each masterful stroke, the 2-piston cock engine burrows deeper into your combustion chamber seeping viscious, white oil all along your cyclinder.  Meaty balls clap into each other and spank your forgotten asshole with each impact. Before long, both cocks are able to fit you simultaneously sending you to levels of sensation you seldom experience.  Now panting like starving dogs, the demon-girls pump and thrust in tandem, stacking their dicks as they plough your pussy. ");
+			
+			outputText("\n\n\"<i> Oh oh ohhhh, iii caaaannn't-... HOLD IT!</i>\"  Vapula's voice goes so high pitched it trails off, letting you hear Ceraph gasping for breath above you \"<i> N-Not.. yet.. no, I gotta... gotta fill it up!</i>\"   As the demon girls approach the event horizon of their climax, a sac of cum begins to back up at the base of demon-girl's cocks.  So backed up they can only cry \"<i>" + player.mf("Master", "Mistress") + "...PLEASE! , let me- PLEASE!</i>\" In your state of delerium, as the dual cocks batter your cervix, you manage to whisper only a few words: \"<i>Cum for me.</i>\"");
+			
+			outputText("\n\nThe demon girls cry out together arching and thrusting their hips, tits jiggling over and below you as they climax.  At the same time, four beefy testiscles in their slick sacks begin to twitch.  It feels like they're vibrating against your [butt], actually shuddering as liquid weight shifts and moves, pumping through the demon-cock sandwich. The lengths inside you distort slightly, the fat shafts stretching your lips even wider as huge wads of cum travel through the turgid demon-cocks.");
+				
+					outputText("\n\nThere's an audible gurgle from inside you, and you feel the sticky, slippery spooge spreading through every nook and cranny of your [vagina], some even dripping into your womb.  Cerpah blubbers incoherently, \"<i>Oh yessssssssss, just like that... Yeah... cum... yessssssssss...</i>\", while Vapula screams into the air as she crams herself even further inside you, butting her fat, cockhead right up against your cervix.  The next cum-wave hits you with such pressure that most of it floods directly into your uterus, shooting straight through your slightly-dilated cervix without too much resistance.  You can feel it sloshing around, the heavy weight of the demon-girls' liquid love filling you fuller and fuller, while the frothy, wasted sperm drips out of your wide-spread fuckhole.  Again and again, their orgasm inseminates your womb, seemingly without limit, swelling your belly until you look ready to give birth to a full horde of imps.  As the pressure builds, more and more of her baby batter slops out your entrance onto both sets of their balls, slathering them with slick spunk. ");
+					
+			outputText(images.showImage("vapula-ceraph-fill-me-up"));
+					
+			outputText("\n\nYou feel the twin cocks, embedded impossibly tight in your cunt, continue to twitch and pulsate as they unload.  The demon-girls squirm and squeal with each cum-erruption, its unholy warmth filling you so wholly you orgasm yet again.  By now, the whole of your womb is so full and its expansion to accomodate the seed so great, you are only able to wait for your girl's cocks to shrink and release some of this spunk before you might attempt to move.");
+			
+			//end of condition
+			outputText("\n\nAt last, some 20 minutes have passed and your demon pets' cocks finally shrink enough to allow the torrent of cum to finally be released.  As Ceraphs begins to withdraw her slimy cock with a disgusting the slurp, the glorious deposit inside your guts begins to waterfall like a gyser on to the succubus below you.  Feeling the release, you shudder as your obscenely-bloated abdomen gushes out quart after quart of thick demon-cum.  The pressure of the liquid exiting your cunt is almost like being reverse fucked, especially with one of the girl's cocks still deep in your confines.  Soon, both girls, sapped of their stamina, remove their cocks to watch their handy work drain from your abused cunt.  However, as the last few gluts escape your pussy-lips you can't help, but notice being still fully stuffed with baby-batter.  So completely filled, your body can't possibly drain all the fluid contained in every nook and cranny of your body.  As you attempt to stand another glut of cum escapes your battered lips, but the nine-month pregnancy belly remains.  Having satisfied you, they relax, exhausted.  You promptly fall to the side still dribbling their residual cum. Completely soaked with dirt and spunk, your sluts just lie there, oblivious of their surroundings.");
+			
+
+			outputText("\n\nSatisfied, you kiss both of your sluts.  \"<i>Thank you " + player.mf("Master", "Mistress") + ".</i>\" they say in unison, before you pat their heads and send them on their way.");
+			//lust set to 0
+			player.orgasm('Vagina');
+			dynStats("cor", 1);
+			if (player.lib100 > 10) dynStats("lib", -1);
+			if (player.lib100 > 50) dynStats("lib", -1);
+			if (player.lib100 > 70) dynStats("lib", -1);
+			flags[kFLAGS.VAPULA_DAYS_SINCE_FED] = 0;
+			flags[kFLAGS.VAPULA_TEASE_COUNT] = 0;
+			player.knockUp(PregnancyStore.PREGNANCY_IMP_HORDE, PregnancyStore.INCUBATION_IMP_HORDE, 61); //This will cause multiple births
 			doNext(camp.returnToCampUseOneHour);
 		}
 
@@ -1191,6 +1266,31 @@ package classes.Scenes.NPCs
 			if (player.findPerk(PerkLib.Sadist) >= 0) dynStats("lus", (10 + player.lib / 7));
 			flags[kFLAGS.VAPULA_EARNED_A_SPANK] = 0;
 			doNext(camp.returnToCampUseOneHour);
+		}
+		
+		//Does she have a cock or not
+		private function cawkTawgle():void
+		{
+			clearOutput();
+			spriteSelect(SpriteDb.s_ceraphClothed);
+			//Off
+			if (flags[kFLAGS.VAPULA_HIDING_DICK] == 0) {
+				outputText("You tell Vapula that you want her to hide her demonic cock when she's around you.  Your collared demoness nods, lowering her eyelids seductively.  She slides a hand up the front of her latex panties, stroking her defiled member through the material once before concealing its form with fingers pointed down.\n\n");
+
+				outputText("She lets out a low hum, then suddenly arches her back as her hand sinks in an inch.  \"<i>O-oh-oh!</i>\" she moans, pulling it away with a small string of pre-cum tying it to her now-bulgeless panties.  Absently she licks the fluid from her fingers and asks, \"<i>Was there anything else, my " + player.mf("Master", "Mistress") + "?</i>\"\n\n");
+
+				//(set DemonDomDongDisplay to OFF)
+				flags[kFLAGS.VAPULA_HIDING_DICK] = 1;
+			}
+			else {
+				outputText("You tell Vapula that you want her to have her demonic cock on display when around you.  She nods, breaking into an eager smile, and slips a hand into the front of her latex panties.  The veneer of rapt concentration on her face is only dispelled when you glance down at her crotch and notice her vigorously fingering her clitoris under the fabric, bowing out the surface as she flexes and caresses.\n\n");
+
+				outputText("A low moan gathers in intensity as Vapula strokes, and then abruptly she jerks her hips forward as a bulge emerges between her fingertips and travels up the front of her undergarment.  It overreaches the panty line and the purple glans peeks out, smeared and dribbling with copious pre-cum.  She strokes the shaft almost automatically, as she addresses her next hopeful question to you.  \"<i>Was there anything <b>else</b> you'd like to do, " + player.mf("Master", "Mistress") + "?</i>\"  Clearly, this particular magical feat is very enjoyable to her, on a personal level.");
+				//set DemonDomDongDisplay to ON)
+				flags[kFLAGS.VAPULA_HIDING_DICK] = 0;
+			}
+			//To Ceraph follower menu
+			doNext(fapulaFapfapfapAppearance);
 		}
 	}
 }

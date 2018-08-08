@@ -122,7 +122,11 @@ package classes.Scenes.Areas.Desert {
 			if(pcCameWorms){
 				outputText("\nThe ghoul lets out a disgusted noise and vanishes without a word.");
 				doNext(game.combat.endLustLoss);
-			} else {
+			} 
+			else if (player.gender == 2){
+				game.desert.ghoulScene.ghoulGetsSome();
+			}
+			else {
 				game.desert.ghoulScene.ghoulWon();
 			}
 		}

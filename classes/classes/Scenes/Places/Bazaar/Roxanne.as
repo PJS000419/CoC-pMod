@@ -568,6 +568,8 @@ private function roxanneReamsYouNormal():void {
 	else outputText("Roxanne shifts forward slightly, heaving the smooth scales of her mammoth breasts a little further up your back.");
 	outputText("  She doubles her pace suddenly, balls slapping loudly into you while she moans and howls lustily.  You feel the telltale bulging of an impending orgasm in your gut, and her balls drag up your " + player.skin.desc + ", preparing to disgorge their steamy cargo.  The lizan grabs your hair and twists her fingers through it while she hilts you, screaming out her pleasure for all to hear.\n\n");
 	
+	outputText(images.showImage("roxanne-anals-you"));
+	
 	outputText("Your insides froth and churn while they're filled with pent-up lizan cum.  The shemale's balls bounce against you, violently relaxing and contracting in time with the bursts of cream filling your intestines.  Wetness fills you completely, but the spurts go on relentlessly.  Suddenly, small squirts of hot cum escape your tender " + player.assholeDescript() + ", running down Roxanne's still-pulsing balls.  The action smears the cummy lather everywhere, and while the discomfort of being so completely filled rises, the pleasure grows in equal measure until you're twitching and moaning with whorish delight.\n\n");
 	
 	outputText("Finishing her obscene orgasm, Roxanne sighs, depositing one last creamy dollop into your anal seed-lake.  She coos in your ear, \"<i>That was nice...  I can see you shaking.  Did you enjoy being a loser that much?</i>\"  You nod meekly, blubbering out your embarrassed agreement.  \"<i>How pathetic.  You'll probably be back here tomorrow to lose again, won't you?  Such a shameful butt-slut.</i>\"\n\n");
@@ -647,6 +649,8 @@ private function roxanneFucksYourAssOHGODITSHUGE():void {
 	outputText(", churning and swelling with the heavy load they're ready to disgorge.\n\n");
 	
 	outputText("\"<i>Oooh... ohh... so good... I don't think that stretched-out rat would feel this good anyhow,</i>\" comments Roxanne, slapping your ass-cheeks back and forth while she remains fully inserted, enjoying the inadvertent cock-massage your wriggling, dick-distorted body dispenses.  She moans and pants, \"<i>I-uh... I think I'm gonna... cum soon.  So tight... by the sea-god, I love your ass!</i>\" Her hands grab you and squeeze while her balls draw tight up against the base of the pirate's bloated dick.\n\n");
+	
+	outputText(images.showImage("roxanne-anals-you"));
 	
 	outputText("\"<i>I'm cuuuuUUUUUMMMMMMIIIIIIIING!</i>\" she wails with banshee-like volume, nearly giving you a headache from her screeching pleasure.  Her base bloats, forcing your violated backside ever-wider as her massive cum-vein engorges with seed.  You writhe on the end of the heavy cock-spear while your intestines fill with a week's worth of seedy, cursed payload, rumbling and sloshing while they're packed.  It's too much for your fragile psyche to bear, and the complete violation of your inebriated, lusty form sets off a body-wrenching orgasm.  Your eyes cross, then roll back as your body spasms around the lizan's spit-roasting shaft.  The pleasure cascades through you, washing away the discomfort and pain of the act throughout your orgasm, and before you can come back down, you slip into unconsciousness");
 	if (player.hasCock() && player.cumQ() >= 1000) outputText(", drooling spit into the huge puddle of cum you made on her bed");

@@ -72,6 +72,49 @@ package classes.Scenes.Monsters
 			else doNext(game.playerMenu);
 		}
 		
+		protected function lustMagicAttackGang():void {
+			outputText("You see " + a + short + " make sudden arcane gestures at you!\n\n");
+			var lustDmg:int = player.lib / 10 + player.cor / 10 + 10 + player.statusEffectv1(StatusEffects.BirthedImps) / 5;
+			if (player.lust100 < 30) outputText("You feel strangely warm.  ");
+			if (player.lust100 >= 30 && player.lust100 < 60) outputText("Blood rushes to your groin as a surge of arousal hits you, making your knees weak.  ");
+			if (player.lust100 >= 60 && player.hasPerk(PerkLib.BroodMother)) outputText("Images of yourself being fucked full imp-spawn and birthing them again and again assault your mind, unnaturally arousing you. ");
+			else if (player.lust100 >= 60) outputText("Images of yourself fellating and fucking the imp assault your mind, unnaturally arousing you.  ");
+			if (player.cocks.length > 0) {
+				if (player.lust100 >= 60)
+					outputText("You feel your " + player.multiCockDescriptLight() + " dribble pre-cum.");
+				else if (player.lust100 >= 30 && player.cocks.length == 1)
+					outputText("Your " + player.cockDescript(0) + " hardens, distracting you further.");
+				else if (player.lust100 >= 30 && player.cocks.length > 1)
+					outputText("Your " + player.multiCockDescriptLight() + " harden uncomfortably.");
+				if (player.hasVagina()) outputText("  ");
+			}
+			if (player.lust100 >= 60 && player.hasVagina()) {
+				switch (player.vaginas[0].vaginalWetness) {
+					case VaginaClass.WETNESS_NORMAL:
+						outputText("Your " + player.allVaginaDescript() + " dampen" + (player.vaginas.length > 1 ? "" : "s") + " perceptibly.");
+						break;
+					case VaginaClass.WETNESS_WET:
+						outputText("Your crotch becomes sticky with girl-lust.");
+						break;
+					case VaginaClass.WETNESS_SLICK:
+						outputText("Your " + player.allVaginaDescript() + " become" + (player.vaginas.length > 1 ? "" : "s") + " sloppy and wet.");
+						break;
+					case VaginaClass.WETNESS_DROOLING:
+						outputText("Thick runners of girl-lube stream down the insides of your thighs.");
+						break;
+					case VaginaClass.WETNESS_SLAVERING:
+						outputText("Your " + player.allVaginaDescript() + " instantly soak" + (player.vaginas.length > 1 ? "" : "s") + " your groin.");
+						break;
+					default: //Dry vaginas are unaffected
+						
+				}
+			}
+			player.takeLustDamage(lustDmg, true);
+			if (player.lust >= player.maxLust())
+				doNext(game.combat.endLustLoss);
+			else doNext(game.playerMenu);
+		}
+		
 		public function Imp(noInit:Boolean=false)
 		{
 			if (noInit) return;

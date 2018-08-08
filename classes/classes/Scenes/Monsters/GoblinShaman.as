@@ -129,8 +129,15 @@ package classes.Scenes.Monsters
 			this.long = "The goblin before you stands approximately three feet and a half. Her ears appear to be pierced more times than the amount of piercings a typical goblin has. Her hair is deep indigo. She’s unlike most of the goblins you’ve seen. She’s wielding a staff in her right hand. In addition to the straps covering her body, she’s wearing a necklace seemingly carved with what looks like shark teeth. She’s also wearing a tattered loincloth, unlike most goblins who would show off their pussies. From the looks of one end of her staff glowing, she’s clearly a shaman!";
 			this.race = "Goblin";
 			if (player.hasCock()) this.long += "  She's clearly intent on casting you into submission just so she can forcibly make you impregnate her.";
-			this.createVagina(false, VaginaClass.WETNESS_DROOLING, VaginaClass.LOOSENESS_NORMAL);
-			this.createStatusEffect(StatusEffects.BonusVCapacity, 40, 0, 0, 0);
+			if (flags[kFLAGS.FACTORY_SHUTDOWN] == 2 && rand(3) == 0){
+				this.createCock(rand(2) + 11, 2.5, CockTypesEnum.DEMON);
+				this.balls = 2;
+				this.ballSize = 1;
+			}
+			else{
+				this.createVagina(false, VaginaClass.WETNESS_DROOLING, VaginaClass.LOOSENESS_NORMAL);
+				this.createStatusEffect(StatusEffects.BonusVCapacity, 40, 0, 0, 0);
+			}
 			createBreastRow(Appearance.breastCupInverse("E"));
 			this.ass.analLooseness = AssClass.LOOSENESS_TIGHT;
 			this.ass.analWetness = AssClass.WETNESS_DRY;
