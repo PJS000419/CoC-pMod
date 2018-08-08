@@ -488,11 +488,17 @@
 		{
 			initedGenitals = true;
 			if (!_checkCalled) {
-				if (plural) {
+				if (this.race == "Goblin") {
+					this.pronoun1 = "she";
+					this.pronoun2 = "her";
+					this.pronoun3 = "her";
+				}
+				else if (plural) {
 					this.pronoun1 = "they";
 					this.pronoun2 = "them";
 					this.pronoun3 = "their";
-				} else {
+				} 
+				else {
 					this.pronoun1 = "he";
 					this.pronoun2 = "him";
 					this.pronoun3 = "his";

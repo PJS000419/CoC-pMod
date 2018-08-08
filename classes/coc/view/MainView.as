@@ -82,15 +82,6 @@ public class MainView extends Block {
 		ButtonBackground9,
 	];
 
-	/*
-	 * Feature switches
-	 */
-	
-	/*
-	 * Feature switch for sliding monster stat window.
-	 * Was disabled due to main text view issues.
-	 */
-	private static const FEATURE_ANIMATED_MONSTER_STATS: Boolean = false;
 
 	// Menu button names.
 	public static const MENU_NEW_MAIN:String   = 'newGame';
@@ -873,26 +864,20 @@ public class MainView extends Block {
 	public function endCombatView():void{
 		if (!monsterStatsView.moved) return;
 		else monsterStatsView.moved = false;
-		
-		if (FEATURE_ANIMATED_MONSTER_STATS) {
-			var tmr:Timer = new Timer(30, 20);
-			tmr.addEventListener(TimerEvent.TIMER, moveCombatViewBack);
-			tmr.start();
-		}else{
-			nonCombatView();
-		}
-
+		//Now animate the bar.
+		//var tmr:Timer = new Timer(30, 20);
+		//tmr.addEventListener(TimerEvent.TIMER, moveCombatViewBack);
+		//tmr.addEventListener(TimerEvent.TIMER_COMPLETE, function ():void {
+			this.mainText.x = TEXTZONE_X;
+			this.mainText.width = TEXTZONE_W;
+			this.scrollBar.x = TEXTZONE_X + TEXTZONE_W;
+			this.textBGTan.width = TEXTZONE_W;
+			this.textBGWhite.width = TEXTZONE_W;
+			this.textBGTranslucent.width = TEXTZONE_W;
+			this.monsterStatsView.x = MONSTER_X;
+		//});
+		//tmr.start();
 		this.monsterStatsView.hide();
-	}
-	
-	private function nonCombatView(): void {
-		this.mainText.x = TEXTZONE_X;
-		this.mainText.width = TEXTZONE_W;
-		this.scrollBar.x = TEXTZONE_X + TEXTZONE_W;
-		this.textBGTan.width = TEXTZONE_W;
-		this.textBGWhite.width = TEXTZONE_W;
-		this.textBGTranslucent.width = TEXTZONE_W;
-		this.monsterStatsView.x = MONSTER_X;
 	}
 
 	public function updateCombatView():void {
@@ -900,25 +885,20 @@ public class MainView extends Block {
 		monsterStatsView.show();
 		if (monsterStatsView.moved) return;
 		else monsterStatsView.moved = true;
-		
-		if (FEATURE_ANIMATED_MONSTER_STATS) {
-			var tmr:Timer = new Timer(30, 20);
-			tmr.addEventListener(TimerEvent.TIMER, moveCombatView);
-			tmr.start();
-		}else{
-			combatView();
-		}
-	}
-	
-	private function combatView(): void {
-		this.mainText.x = TEXTZONE_X;
-		this.mainText.width = TEXTZONE_W - MONSTER_W;
-		this.scrollBar.x = TEXTZONE_X + TEXTZONE_W - MONSTER_W;
-		this.textBGTan.width = TEXTZONE_W - MONSTER_W;
-		this.textBGWhite.width = TEXTZONE_W - MONSTER_W;
-		this.textBGTranslucent.width = TEXTZONE_W - MONSTER_W;
-		this.monsterStatsView.x = MONSTER_X - MONSTER_W;
-		this.monsterStatsView.refreshStats(kGAMECLASS);
+		//Now animate the bar.
+		//var tmr:Timer = new Timer(30, 20);
+		//tmr.addEventListener(TimerEvent.TIMER, moveCombatView);
+		//tmr.addEventListener(TimerEvent.TIMER_COMPLETE, function ():void {
+			this.mainText.x = TEXTZONE_X;
+			this.mainText.width = TEXTZONE_W - MONSTER_W;
+			this.scrollBar.x = TEXTZONE_X + TEXTZONE_W - MONSTER_W;
+			this.textBGTan.width = TEXTZONE_W - MONSTER_W;
+			this.textBGWhite.width = TEXTZONE_W - MONSTER_W;
+			this.textBGTranslucent.width = TEXTZONE_W - MONSTER_W;
+			this.monsterStatsView.x = MONSTER_X - MONSTER_W;
+			this.monsterStatsView.refreshStats(kGAMECLASS);
+		//});
+		//tmr.start();
 	}
 }
 }

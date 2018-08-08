@@ -690,7 +690,7 @@ package classes
 		}
 
 		//Create a perk
-		public function createPerk(ptype:PerkType, value1:Number = 0, value2:Number = 0, value3:Number = 0, value4:Number = 0):void
+		public function createPerk(ptype:PerkType, value1:Number, value2:Number, value3:Number, value4:Number):void
 		{
 			var newKeyItem:PerkClass = new PerkClass(ptype);
 			//used to denote that the array has already had its new spot pushed on.
@@ -830,25 +830,6 @@ package classes
 			}
 			return false;
 		}
-
-		/**
-		 * Creates a perk only, if the creature (usually the player) doesn't already have that perk
-		 * @param   ptype   The perk to be created
-		 * @param   value1  Perk value 1
-		 * @param   value2  Perk value 2
-		 * @param   value3  Perk value 3
-		 * @param   value4  Perk value 4
-		 * @return  true, if the perk was created. false, if the creature (usually the player) already had that perk
-		 */
-		public function createPerkIfNotHasPerk(ptype:PerkType, value1:Number = 0, value2:Number = 0, value3:Number = 0, value4:Number = 0):Boolean
-		{
-			if (hasPerk(ptype)) {
-				return false;
-			}
-
-			createPerk(ptype, value1, value2, value3, value4);
-			return true;
-		}
 		
 		//Duplicate perk
 		//Deprecated?
@@ -957,16 +938,6 @@ package classes
 			return 0;
 		}
 		return perk(counter).value4;
-	}
-
-	public function hasHistoryPerk():Boolean
-	{
-		for each (var p:Object in PerkLists.HISTORY) {
-			if (hasPerk(p.perk)) {
-				return true;
-			}
-		}
-		return false;
 	}
 		
 		/*
@@ -2128,70 +2099,33 @@ package classes
 			return countCocksOfType(CockTypesEnum.WOLF);
 		}
 		
-		/**
-		 * Checks if the creature has a cock that is <b>not</b> of the given type.
-		 * @param	ctype Cock type to ignore
-		 * @return true if the creature has a cock that is <b>not</b> of the given type
-		 */
-		public function hasCockNotOfType(ctype:CockTypesEnum):Boolean
-		{
-			if (!hasCock())
-				return false;
-
-			for each (var cock:Cock in cocks) {
-				if (cock.cockType != ctype) {
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		/**
-		 * Find and return the first cock that is <b>not</b> of the give type.
-		 * @param	ctype cock type to ignore
-		 * @return The first cock that is <b>not</b> of the given type, or -1 if none are found
-		 */
-		public function findFirstCockNotOfType(ctype:CockTypesEnum):Number
-		{
-			for (var i:int = 0; i < cocks.length; i++) {
-				if (cocks[i].cockType != ctype)
-					return i;
-			}
-			return -1;
-		}
-
-		/**
-		 * Set the first cock that does <b>not</b> not of the given type to the new type.
-		 * If all cocks are of the ignored type, this function does nothing.
-		 * @param	ctype the cock type ignore
-		 * @param	newType the cock type to set the first non-ignored cock to
-		 * @return true if a cock was changed
-		 */
-		public function setFirstCockNotOfType(ctype:CockTypesEnum, newType:CockTypesEnum = null):Boolean
-		{
-			var wrongCock:Number = findFirstCockNotOfType(ctype);
-
-			if (wrongCock === -1)
-				return false;
-
-			if (newType === null)
-				newType = ctype;
-
-			cocks[wrongCock].cockType = newType;
-			return true;
-		}
-
 		public function findFirstCockType(ctype:CockTypesEnum):Number
 		{
 			var index:Number = 0;
+			//if (cocks[index].cockType == ctype)
+			//	return index;
 			for (index = 0; index < cocks.length; index++) {
 				if (cocks[index].cockType == ctype)
 					return index;
 			}
-			LOGGER.debug("Creature.findFirstCockType ERROR - searched for cocktype: {0} and could not find it.", ctype);
-			return -1;
+			//trace("Creature.findFirstCockType ERROR - searched for cocktype: " + ctype + " and could not find it.");
+			return 0;
 		}
+		
+		/*public function findFirstCockType(type:Number = 0):Number
+		{
+			var index:Number = 0;
+			if (cocks[index].cockType == type)
+				return index;
+			while (index < cocks.length)
+			{
+				index++;
+				if (cocks[index].cockType == type)
+					return index;
+			}
+			//trace("Creature.findFirstCockType ERROR - searched for cocktype: " + type + " and could not find it.");
+			return 0;
+		}*/
 		
 		//Change first normal cock to horsecock!
 		//Return number of affected cock, otherwise -1
@@ -2794,11 +2728,6 @@ package classes
 			return [Face.BEAK, Face.COCKATRICE].indexOf(face.type) != -1;
 		}
 
-		public function hasClaws():Boolean
-		{
-			return arms.claws.type !== Claws.NORMAL;
-		}
-
 		public function hasGills():Boolean
 		{
 			return gills.type != Gills.NONE;
@@ -3001,12 +2930,9 @@ package classes
 
 			switch (arms.claws.type) {
 				case Claws.NORMAL: return "fingernails";
+				case Claws.LIZARD: return "short curved" + toneText + "claws";
 				case Claws.DRAGON: return "powerful, thick curved" + toneText + "claws";
 				case Claws.IMP:    return "long" + toneText + "claws";
-				case Claws.CAT:    return "long, thin curved" + toneText + "claws";
-				case Claws.LIZARD:
-				case Claws.DOG:
-				case Claws.FOX:    return "short curved" + toneText + "claws";
 				default: // Since mander and cockatrice arms are hardcoded and the others are NYI, we're done here for now
 			}
 			return "fingernails";

@@ -11,19 +11,15 @@ package classes.Scenes.Places{
 	use namespace kGAMECLASS;
 
 	public class Farm extends BaseContent{
-	public var keltScene:KeltScene;
-	public var kelly:Kelly;
-	public var farmCorruption:FarmCorruption;
-
-	public function Farm(output:GuiOutput){
-		keltScene = new KeltScene(output);
-		kelly = new Kelly();
-		farmCorruption = new FarmCorruption();
-	}
-	
-	private function get marbleScene():MarbleScene
-	{
+	public var keltScene:KeltScene = new KeltScene();
+	public var kelly:Kelly = new Kelly();
+	private function get marbleScene():MarbleScene {
 		return kGAMECLASS.marbleScene;
+	}
+	public var farmCorruption:FarmCorruption = new FarmCorruption();
+
+	public function Farm(){
+
 	}
 //const FARM_DISABLED:int = 464;
 
@@ -1325,4 +1321,3 @@ private function centaurToysHoooooo():void {
 }
 }
 }
-

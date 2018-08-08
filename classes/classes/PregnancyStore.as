@@ -45,6 +45,8 @@ package classes
 		public static const PREGNANCY_BEHEMOTH:int				=  35;
 		public static const PREGNANCY_PHOENIX:int				=  36;
 		public static const PREGNANCY_ANDY:int                  =  37; //This is functionally the same as Satyr but less corrupt. 10% chance of fauns, if ever implemented.
+		public static const PREGNANCY_GOBLIN:int                =  38;
+		public static const PREGNANCY_IMP_HORDE:int          	=  39; //This will cause multiple births
 		
 		public static const PREG_NOT_PREGANT:int                =   0; //The PREG_* consts are returned by the size function
 		public static const PREG_NO_SIGNS_UNKNOWN:int           =   1; //NPC has conceived but doesn’t know she’s pregnant, no visible signs
@@ -62,7 +64,9 @@ package classes
 //Old Value, replaced in Saves.unFuckSave()		public static const PREGNANCY_BUTT_SANDTRAP:int         =   5; //Sandtrap did not have fertilized eggs
 
 		public static const INCUBATION_IMP:int                  = 432; //Time for standard imps. Imp lords, Ceraph, Lilium and the imp horde cause slightly faster pregnancies
+		public static const INCUBATION_IMP_HORDE:int            = 600;
 		public static const INCUBATION_MINOTAUR:int             = 432;
+		public static const INCUBATION_GOBLIN:int             	= 433;
 		public static const INCUBATION_MOUSE:int                = 350;
 		public static const INCUBATION_OVIELIXIR_EGGS:int       =  50;
 		public static const INCUBATION_HELL_HOUND:int           = 352;

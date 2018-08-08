@@ -91,7 +91,10 @@ package classes.Items.Consumables
 			//-Lizard dick - first one
 			if (player.countCocksOfType(CockTypesEnum.LIZARD) === 0 && player.cockTotal() > 0 && changes < changeLimit && tfChance(2, 4)) {
 				//Find the first non-lizzy dick
-				temp2 = player.findFirstCockNotOfType(CockTypesEnum.LIZARD);
+				for (temp2 = 0; temp2 < player.cocks.length; temp2++) {
+					//Stop loopahn when dick be found
+					if (player.cocks[temp2].cockType !== CockTypesEnum.LIZARD) break;
+				}
 				outputText("\n\nA slow tingle warms your groin.  Before it can progress any further, you yank back your " + player.armorName + " to investigate.  Your " + player.cockDescript(temp2) + " is changing!  It ripples loosely from ");
 				if (player.hasSheath()) outputText("sheath ");
 				else outputText("base ");
@@ -115,9 +118,12 @@ package classes.Items.Consumables
 			}
 			//(CHANGE OTHER DICK)
 			//Requires 1 lizard cock, multiple cocks
-			if (player.cockTotal() > 1 && player.countCocksOfType(CockTypesEnum.LIZARD) > 0 && player.hasCockNotOfType(CockTypesEnum.LIZARD) && tfChance(2, 4) && changes < changeLimit) {
+			if (player.cockTotal() > 1 && player.countCocksOfType(CockTypesEnum.LIZARD) > 0 && player.cockTotal() > player.countCocksOfType(CockTypesEnum.LIZARD) && tfChance(2, 4) && changes < changeLimit) {
 				outputText("\n\nA familiar tingle starts in your crotch, and before you can miss the show, you pull open your " + player.armorName + ".  As if operating on a cue, ");
-				temp2 = player.findFirstCockNotOfType(CockTypesEnum.LIZARD);
+				for (temp2 = 0; temp2 < player.cocks.length; temp2++) {
+					//Stop loopahn when dick be found
+					if (player.cocks[temp2].cockType !== CockTypesEnum.LIZARD) break;
+				}
 				if (player.cockTotal() === 2) outputText("your other dick");
 				else outputText("another one of your dicks");
 				outputText(" starts to change into the strange reptilian shape you've grown familiar with.  It warps visibly, trembling and radiating pleasurable feelings back to you as the transformation progresses.  ");
