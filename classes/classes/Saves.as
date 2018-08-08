@@ -5,7 +5,6 @@
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
 	import classes.Items.*;
-	import classes.Scenes.NPCs.Jojo;
 	import classes.internals.LoggerFactory;
 	import classes.internals.SerializationUtils;
 	import classes.lists.BreastCup;
@@ -91,14 +90,14 @@ public function loadSaveDisplay(saveFile:Object, slotName:String):String
 		holding += saveFile.data.short;
 		holding += "</b> - <i>" + saveFile.data.notes + "</i>\r";
 		holding += "    Days - " + saveFile.data.days + " | Gender - ";
-		if (saveFile.data.cocks.length > 0 && saveFile.data.vaginas.length > 0)
-			holding += "H";
-		else if (saveFile.data.cocks.length > 0)
-			holding += "M";
-		else if (saveFile.data.vaginas.length > 0)
-			holding += "F";
-		else
+		if (saveFile.data.gender == 0)
 			holding += "U";
+		if (saveFile.data.gender == 1)
+			holding += "M";
+		if (saveFile.data.gender == 2)
+			holding += "F";
+		if (saveFile.data.gender == 3)
+			holding += "H";
 		if (saveFile.data.flags != undefined) {
 			holding += " | Difficulty - ";
 			if (saveFile.data.flags[kFLAGS.GAME_DIFFICULTY] != undefined) { //Handles undefined
@@ -739,11 +738,6 @@ public function loadPermObject():void {
 			LOGGER.debug("PermObj internal versionID updated:{0}", getGame().permObjVersionID);
 		}
 	}
-	else { //Defaults certain settings for first-time startup.
-		flags[kFLAGS.IMAGEPACK_ENABLED] = 1;
-		flags[kFLAGS.SHOW_SPRITES_FLAG] = 2;
-		flags[kFLAGS.ANIMATE_STATS_BARS] = 1;
-	}
 }
 
 /*
@@ -965,8 +959,6 @@ public function saveGameObject(slot:String, isFile:Boolean):void
 		
 		saveFile.data.cocks = SerializationUtils.serializeVector(player.cocks as Vector.<*>);
 		saveFile.data.vaginas = SerializationUtils.serializeVector(player.vaginas as Vector.<*>);
-		
-		saveNPCs(saveFile);
 		
 		//NIPPLES
 		saveFile.data.nippleLength = player.nippleLength;
@@ -1262,20 +1254,6 @@ public function saveGameObject(slot:String, isFile:Boolean):void
 		addButton(9, "Restore", restore, slot);
 	}
 	
-}
-
-/**
- * Save NPCs to the save file. The NPC data is placed in the 'npcs' object (saveFile.data.npcs).
- * This method is protected instead of private to allow for testing.
- * @param	saveFile the file to save the NPC data to.
- */
-protected function saveNPCs(saveFile:*): void {
-	saveFile.data.npcs = [];
-	var npcs:* = saveFile.data.npcs;
-	
-	npcs.jojo = [];
-	
-	SerializationUtils.serialize(npcs.jojo, new Jojo());
 }
 
 public function restore(slotName:String):void
@@ -1927,8 +1905,6 @@ public function loadGameObject(saveData:Object, slot:String = "VOID"):void
 		player.vaginas = new Vector.<VaginaClass>();
 		SerializationUtils.deserializeVector(player.vaginas as Vector.<*>, saveFile.data.vaginas, VaginaClass);
 		
-		loadNPCs(saveFile);
-		
 		if (player.hasVagina() && player.vaginaType() != 5 && player.vaginaType() != 0)
 			player.vaginaType(0);
 		
@@ -2336,27 +2312,6 @@ public function loadGameObject(saveData:Object, slot:String = "VOID"):void
 		}
 		doNext(playerMenu);
 	}
-}
-
-/**
- * Load NPCs from the save file. The NPC data is loaded from the 'npcs' object (saveFile.data.npcs).
- * Creates empty dummy structure if the NPC data is missing, to avoid errors on loading.
- * This method is protected instead of private to allow for testing.
- * @param	saveFile the file to save the NPC data to.
- */
-protected function loadNPCs(saveFile:*):void 
-{
-	var npcs:* = saveFile.data.npcs;
-	//TODO change safeFile structure with versioning of the saveFile itself.
-	if (npcs === undefined) {
-		npcs = [];
-	}
-	
-	if (npcs.jojo === undefined) {
-		npcs.jojo = [];
-	}
-	
-	SerializationUtils.deserialize(npcs.jojo, new Jojo());
 }
 
 public function unFuckSave():void

@@ -382,6 +382,8 @@ package classes
 		// Achievement perks
 		public static const BroodMother:PerkType = mk("Brood Mother", "Brood Mother",
 				"Pregnancy moves twice as fast as a normal woman's.");
+		public static const GoblinQueen:PerkType = mk("Goblin Queen Birther", "Goblin Queen Birther",
+				"Increase pregnancy incubation for goblin offspring.");
 		public static const SpellcastingAffinity:SpellcastingAffinityPerk = new SpellcastingAffinityPerk();
 
 		// Mutation perks

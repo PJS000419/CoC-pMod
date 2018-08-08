@@ -178,6 +178,9 @@ package classes
 			if (flags[kFLAGS.ADULT_MINOTAUR_OFFSPRINGS] > 0)
 				childStats += "<b>Number of Adult Minotaur Offspring:</b> " + flags[kFLAGS.ADULT_MINOTAUR_OFFSPRINGS] + "\n";
 			
+			if (player.hasStatusEffect(StatusEffects.BirthedImps))
+				childStats += "<b>Number of Imps spawned:</b> " + player.statusEffectv1(StatusEffects.BirthedImps) + "\n";	
+				
 			if (childStats != "")
 				outputText("\n<b><u>Children</u></b>\n" + childStats);
 			// End Children Stats
@@ -586,12 +589,6 @@ package classes
 					interpersonStats += "<b>Urta's Affection:</b> " + Math.round(flags[kFLAGS.URTA_PC_AFFECTION_COUNTER] * 3.3333) + "%\n";
 				else
 					interpersonStats += "<b>Urta's Status:</b> Ready To Confess Love\n";
-			}
-			
-			if (flags[kFLAGS.AIKO_TIMES_MET] > 0) {
-				interpersonStats  += "<b>Aiko affection</b>: "+flags[kFLAGS.AIKO_AFFECTION]+"\n";
-				if (flags[kFLAGS.AIKO_CORRUPTION_ACTIVE] > 0)
-					interpersonStats  += "<b>Aiko corruption</b>: "+flags[kFLAGS.AIKO_CORRUPTION]+"\n";
 			}
 			
 			if (interpersonStats != "")

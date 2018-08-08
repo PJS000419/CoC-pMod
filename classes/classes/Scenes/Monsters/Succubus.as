@@ -47,6 +47,9 @@ package classes.Scenes.Monsters
 			this.race = "Demon";
 			this.createVagina(false, VaginaClass.WETNESS_WET, VaginaClass.LOOSENESS_NORMAL);
 			this.createStatusEffect(StatusEffects.BonusVCapacity, 40, 0, 0, 0);
+			this.createCock(rand(2) + 11, 2.5, CockTypesEnum.DEMON);
+			this.balls = 2;
+			this.ballSize = 1;
 			createBreastRow(Appearance.breastCupInverse("G"));
 			this.ass.analLooseness = AssClass.LOOSENESS_TIGHT;
 			this.ass.analWetness = AssClass.WETNESS_NORMAL;

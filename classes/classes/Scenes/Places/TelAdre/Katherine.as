@@ -4320,7 +4320,8 @@ private function letKatKnotYouCommonDialogue(inAlleyBehindBar:Boolean):void {
 public function letKatKnotYourCuntPussyFuck():void {
 	//Scene can happen in the streets or at Kath's apartment
 	clearOutput();
-	outputText(images.showImage("katherine-fucks-you-knottily-in-the-vagoo"));
+	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) (images.showImage("katherine-fucks-you-knottily-in-the-vagoo-preg"));
+	else outputText(images.showImage("katherine-fucks-you-knottily-in-the-vagoo"));
 	if (isAt(KLOC_BAR) || isAt(KLOC_BAR_DRUNK) || isAt(KLOC_BAR_URTA_REFUSED)) letKatKnotYouCommonDialogue(true); //At the bar
 	outputText("You indicate to Katherine that you want it in your " + player.vaginaDescript() + ".\n\n");
 

@@ -65,6 +65,9 @@ package classes.Scenes.Areas.Forest
 			this.long = "The dryad before you is brimming with corruption, her hair is composed of dark brown leaves. Her skin looks to be made of corrupted wood, especially her fingers which are shaped like sharp claws. Her clothing is nothing more than leaves and straw put into a gown. Her eyes are a deep and hungry dark red. Her bark-like skin seeps a thick pink substance.  ";
 			this.race = "Dryad";
 			this.createVagina(false, VaginaClass.WETNESS_DRY, VaginaClass.LOOSENESS_NORMAL);
+			this.createCock(15,2.5,CockTypesEnum.DOG);
+			this.balls = 2;
+			this.ballSize = 4;
 			this.createStatusEffect(StatusEffects.BonusVCapacity, 40, 0, 0, 0);
 			createBreastRow(Appearance.breastCupInverse("C"));
 			this.ass.analLooseness = AssClass.LOOSENESS_TIGHT;
