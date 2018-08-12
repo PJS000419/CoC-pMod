@@ -441,7 +441,7 @@ package classes.Scenes.Areas.HighMountains
 
 			if (player.tallness < 108)
 			{
-				outputText("“<i>You know, you’re pretty cute.  Did I already say that?  Well even if I did, it’s true.  I like brave people.  I like people who challenge themselves.  You’re pretty brave, surviving in a place like this all alone, you know?</i>”  Without warning, she leans forwards over the dying fire, the ruddy light from the coals illuminates her face from below, giving her a decidedly sinister air.\n\n");
+				outputText("“<i>You know, you’re pretty cute.  Did I already say that?  Well even if I did, it’s true.  I like brave people.  I like people who challenge themselves.  You’re pretty brave, surviving in a place like this all alone,[if (isPregnant = true) especially as knocked up as you are,] you know?</i>”  Without warning, she leans forwards over the dying fire, the ruddy light from the coals illuminates her face from below, giving her a decidedly sinister air.\n\n");
 
 				outputText("“<i>I think it’s about time you repaid me for my hospitality.</i>”  She says, her eyes glittering dangerously in the firelight.  “<i>After all, you came into my camp uninvited... that’s pretty rude, you know?  I think I might take offence to that.</i>”  As she speaks, she slinks closer to you on all fours like some kind of predatory cat, about to make the final killing leap upon its helpless prey... Her personality has changed completely from the gentle giant you were speaking with a second ago.  You suddenly wonder if perhaps the smoke is somehow affecting her.\n\n");
 
@@ -830,7 +830,11 @@ package classes.Scenes.Areas.HighMountains
 
 				outputText("“<i>Not so fast, I’ve never really had a chance to play with a girl before.  I wanna take my time on this one...</i>” She says.  Smiling suggestively, she reaches out and slowly divests you of your [armorname].");
 				if (player.cor <= 33) outputText("  You can’t help but feel a crippling sense of embarrassment as the strange woman undresses you, and you look away, embarrassed, while Izumi’s hands explore your body.");
-				else if (player.cor >= 66) outputText("  As Izumi slowly reveals your naked body to the world, you begin to feel an oh-so-familiar heat building up inside of you.  You look down at Izumi with pride as she inspects your body, running a skillful hand over your chest with a thoughtful look on her face.");
+				else if (player.cor >= 66) {
+					outputText("  As Izumi slowly reveals your naked body to the world, you begin to feel an oh-so-familiar heat building up inside of you.  You look down at Izumi with pride as she inspects your");
+					if (player.isVisiblyPregnant() && player.butt.rating >= 13 && player.tone < 80) outputText(" voluptuous, pregnant");
+					outputText(" body, running a skillful hand over your chest with a thoughtful look on her face.");
+				}
 				outputText("\n\n");
 
 				// Big knockers!
@@ -853,8 +857,11 @@ package classes.Scenes.Areas.HighMountains
 						outputText("You smile and nod proudly as Izumi examines your breasts, experiencing a giddy little thrill at the feeling of her soft palms rolling across your endowments.  She bites her bottom lip, glaring intently at you, and you return her gaze with amused indifference.  Although the Oni woman’s palms are surprisingly soft, her treatment of your breasts is not - she practically mauls you, squeezing, groping, even pinching the soft flesh. The rough treatment is deliciously arousing, and you can’t help but let out a few soft moans at being manhandled so forcefully - much to Izumi’s obvious annoyance.\n\n");
 
 						outputText("“<i>Let me guess, you intentionally made them grow this big?</i>”  She scowls.  She reaches out and pinches one of your nipples between her thumb and forefinger, causing you to let out another excited little groan.\n\n");
-
-						outputText("You respond with a shrug, teasingly, not entirely wanting Izumi’s abuse to stop.  Izumi’s frown deepens and she tweaks your nipple, twisting it painfully to the side, eliciting another gasp from you.\n\n");
+						
+						outputText("You respond ");
+						if (player.isVisiblyPregnant()) outputText("by rubbing your hands over your bulging belly and looking up at her with a devilish innocence.");
+						else outputText("with a shrug, teasingly, not entirely wanting Izumi’s abuse to stop. ")
+						outputText("  Izumi’s frown deepens and she tweaks your nipple, twisting it painfully to the side, eliciting another gasp from you " + ((player.lactationQ() > 0) ? "and spraying breastmilk across the cave" : "") + ".\n\n");
 
 						
 					}
@@ -877,6 +884,7 @@ package classes.Scenes.Areas.HighMountains
 				outputText("Izumi grunts in surprise as she surveys your dripping folds");
 				if (player.hasCock()) outputText(", your [cock] slowly thickening under her scrutiny");
 				outputText(".  You shift in place,");
+				if (player.isVisiblyPregnant() && player.cor >= 50) outputText(" lifting your pregnant belly up over your pussy,");
 				if (player.isNaga()) outputText(" wriggling atop your [legs]");
 				else outputText(" subtly parting your [legs] and even ");
 				if (player.isTaur()) outputText(" rolling your butt upward");
@@ -907,7 +915,7 @@ package classes.Scenes.Areas.HighMountains
 				else outputText("  She takes hold of your shoulders and forces you lower to the ground, forced to slither more and more of your tail out from under yourself, until Izumi towers over you.  She circles behind you, a cruel smirk the only hint of her intentions.");
 				outputText("\n\n");
 
-				outputText("Izumi reaches around from behind you and you half turn to look at her, but she grips you by the chin and firmly turns your head away from her.  Your gaze flits nervously around the cave at random as you feel Izumi’s other hand glide slowly across your [skinfurscales], running along your stomach and down towards your");
+				outputText("Izumi reaches around from behind you and you half turn to look at her, but she grips you by the chin and firmly turns your head away from her.  Your gaze flits nervously around the cave at random as you feel Izumi’s other hand glide slowly across your [skinfurscales], running along your [if (isPregnant = true)pregnant] stomach and down towards your");
 				if (player.isNaga()) outputText(" [leg]");
 				else outputText(" thighs");
 				outputText(".\n\n");
@@ -916,7 +924,7 @@ package classes.Scenes.Areas.HighMountains
 
 				outputText("Struggling helplessly against the enormous Oni’s iron-hard muscles, you stagger over to the mouth of the cave.  A gust of cold mountain air blows over you, chilling your skin and causing you to shiver as your nipples harden.  Izumi halts, stopping your wobbling advance dead. You gaze out at the scenery for a moment, the vast mountain range spread out below you, and for a moment you’re filled with an irrational fear that she intends to simply hurl you off the cliffside and leave you to fend for yourself without your gear.  Then, suddenly, Izumi kicks your legs out from under you.\n\n");
 
-				outputText("You cry out in surprise and terror, then let out a grunt as you find yourself being yanked backwards into Izumi’s lap.  Her legs entwine with yours, yanking them apart painfully, exposing your [vagina] to the cold mountain winds.  At the same time, she grips both your wrists with one hand, pulling them behind your back, forcing you to arch backward, and thrusting your [fullchest] out for inspection.  You gasp in surprise as you feel her other hand reach around to grope at your breasts, squeezing and massaging them experimentally.  Despite yourself, you can’t help but let out a yelp as she squeezes a [nipple] between thumb and forefinger.\n\n");
+				outputText("You cry out in surprise and terror, then let out a grunt as you find yourself being yanked backwards into Izumi’s lap.  Her legs entwine with yours, yanking them apart painfully, exposing your [vagina] to the cold mountain winds.  At the same time, she grips both your wrists with one hand, pulling them behind your back, forcing you to arch backward, and thrusting your [fullchest] [if (isVisiblyPregnant = true)and heavy belly] out for inspection.  You gasp in surprise as you feel her other hand reach around to grope at your breasts, squeezing and massaging them experimentally.  Despite yourself, you can’t help but let out a yelp as she squeezes a [nipple] between thumb and forefinger.\n\n");
 
 				outputText("As you squirm in Izumi’s grip, it begins to dawn on you that you’re not getting away from this.  Your resistance begins to lessen until eventually you begin to relax, finally admitting to yourself that this really doesn’t feel half bad...\n\n");
 			}
@@ -1067,13 +1075,15 @@ package classes.Scenes.Areas.HighMountains
 		protected function surrenderFemaleExhibitionVariant():void
 		{
 			clearOutput();
-
+			
 			outputText("For some reason, you find that idea to be quite possibly the hottest thought you’ve ever had.  You’re surrounded by a ring of barely-unseen onlookers, all waiting to see you get fucked, many of them already masturbating just at the sight of your naked form.  Without a moment’s hesitation");
 			if (player.isBiped()) outputText(", you spread your legs a little wider,");
 			outputText(" you");
 			outputText(" arch your back a little further, muscles straining as you struggle to present a better view to your audience.  You moan with greater enthusiasm, hoping to draw in a larger crowd.  You feel Izumi’s breasts shake, pressed up against your back, as she chuckles to herself.\n\n");
 
-			outputText("“<i>Get off on being watched, huh?  That’s kinda slutty, you know?  Well, I don’t mind playing you in front of a crowd,</i>” She purrs into your ear.  “<i>But if you’re <b>that</b> kind of kinky, maybe you wanna try a little... Audience participation?</i>”\n\n");
+			if (player.isVisiblyPregnant()) outputText("“<i>Knocked up fat like a cow and still getting off out here?  You're a total slut, you know?  Well, I don’t mind playing you in front of a crowd,</i>”");
+			else outputText("“<i>Get off on being watched, huh?  That’s kinda slutty, you know?  Well, I don’t mind playing you in front of a crowd,</i>”");
+			outputText(" She purrs into your ear.  “<i>But if you’re <b>that</b> kind of kinky, maybe you wanna try a little... Audience participation?</i>”\n\n");
 
 			menu();
 			addButton(0, "Yes", surrenderFemaleLookitYouTheCenterOfAttentionYouSlut);
@@ -1082,12 +1092,14 @@ package classes.Scenes.Areas.HighMountains
 
 		// Female surrender, Exhibitionist variant scene body
 		protected function surrenderFemaleLookitYouTheCenterOfAttentionYouSlut():void
-		{
+		{		
 			outputText("You nod your head vigorously at the idea of getting some of your beloved audience actually involved.  Izumi chuckles again.\n\n");
 
 			outputText("“<i>Alright. Let’s get this party started, then.</i>”  Izumi releases you and stands.  You start to follow, thankful of the opportunity to stretch out your strained muscles, but Izumi places a hand firmly on your head and pushes you back down.  “<i>Oh no,</i>” she says, smiling at you. “<i>No, you just sit right back down. You’re going to be staying on your knees for a while, "+ this.heightDesc() +".</i>”  Her words send a chill of excitement rushing through you, so you obediently adopt a kneeling position, waiting patiently.  Izumi’s smirk only grows wider as she pats you on the head.  Then she turns towards the assembled crowd of lurking masturbators.\n\n");
 
-			outputText("“<i>Hey out there!  Turns out my friend here is just too big a slut to resist the smell of some juicy cock, and you got her all riled up.  So, with that in mind,</i>” She announces, loudly.  “<i>She’s up for public use.  Who’s first?</i>”\n\n");
+			outputText("“<i>Hey out there!  Turns out my friend here is just too big a slut to resist the smell of some juicy cock, and you got her all riled up.  So, with that in mind,</i>” She announces, loudly.  ");
+			
+			outputText("“<i>"+ ((player.isVisiblyPregnant()) ? "She's a pregnant breeding cow, but don't worry about that.  " : "") +"She’s up for public use.  Who’s first?</i>”\n\n");
 
 			outputText("There’s a moment of deathly silence that seems to stretch for minutes.  Then, suddenly, an imp comes hurtling out of cover, already reaching for his loincloth, casting a wary glance at Izumi.  She gives him a winning smile, like a shopkeeper welcoming a client.  You realize that would make you the merchandise in this situation, and for some reason it just turns you on even more.\n\n");
 
@@ -1100,7 +1112,7 @@ package classes.Scenes.Areas.HighMountains
 			if (player.isBiped()) outputText(" and on your knees");
 			outputText(", sucking on an imp’s cock like it was candy.  Suddenly, it doesn’t seem nearly so bad.\n\n");
 
-			outputText("“<i>You wanted to give them a show, right?</i>”  Izumi whispers to you, still grinning.  You nod your head as best you can around the stiff phallus invading your mouth.  “<i>Well then, in that case...  do it right, you stupid slut!</i>”  She roars suddenly, grabbing you by the back of the neck and forcing your face down onto the imp’s cock.  You gag and squeak in surprise as you find your nose suddenly pressed up against his stomach, his thick meat invading your throat, cutting off your air.\n\n");
+			outputText("“<i>You wanted to give them a show, right?</i>”  Izumi whispers to you, still grinning.  You nod your head as best you can around the stiff phallus invading your mouth.  “<i>Well then, in that case...  do it right, you " + ((player.isVisiblyPregnant()) ? "pregnant" : "stupid") + " slut!</i>”  She roars suddenly, grabbing you by the back of the neck and forcing your face down onto the imp’s cock.  You gag and squeak in surprise as you find your nose suddenly pressed up against his stomach, his thick meat invading your throat, cutting off your air.\n\n");
 
 			outputText("“<i>This crowd came here to see a whore getting fucked, not to see some amateur try her best.  If you aren’t gonna try, I’ll do it for you.</i>”  Izumi’s expression is almost feral with lust as she forces you into a brutal");
 			if (player.hasMuzzle()) outputText(" muzzle");
@@ -1112,6 +1124,9 @@ package classes.Scenes.Areas.HighMountains
 			outputText("“<i>Hope you’re ready for round two.</i>” Izumi mutters.  You can’t help but nod, smiling hungrily as you eye the approaching crowd.\n\n");
 
 			outputText("An hour later, after having licked, sucked, deepthroated and fucked your way through an endless parade of harpies, goblins and imps, the crowd finally disperses.  Of course by that point, you’re barely aware of it, having lost track of pretty much everything aside from the ‘client’ currently employing your services some time ago in a haze of wanton sluttery.  Izumi swims blearily into focus, shaking her head in amusement.\n\n");
+			
+			if (player.isVisiblyPregnant()) outputText(images.showImage("izumi-exhibitionist-female-fuck-preg"));
+			else outputText(images.showImage("izumi-exhibitionist-female-fuck"));
 
 			outputText("“<i>Well, that was certainly quite the performance,</i>” she says, archly. “<i>I kinda wish I’d just kept you to myself now.</i>”  She tuts, then shakes her head again.  “<i>Geez, you’re in no condition to be walking around alone.  I’d feel pretty bad if I let you wander off like this and let something happen to you, so I guess...</i>”  She reaches down and grips you by the wrist, pulling you to your feet and wrapping an arm around your waist to support you. “I’ll<i> have to take you home.</i>”\n\n");
 
@@ -1454,8 +1469,8 @@ package classes.Scenes.Areas.HighMountains
 			outputText("Before you can protest, you find yourself being spun effortlessly upside down by the oversized Oni, suspended by your");
 			if (player.isNaga()) outputText(" tail");
 			else outputText(" ankle");
-			outputText(" in an extremely uncomfortable position.  Izumi’s grin becomes positively feral as she tears your clothing free before");
-			if (!player.isNaga()) outputText(" grabbing onto your other ankle, forcibly spreading your legs apart and leaving you creating a very undignified Y-shape");
+			outputText(" in an extremely uncomfortable position.  Izumi’s grin becomes positively feral as she tears your clothing free " + (((player.isVisiblyPregnant()) && player.lactationQ() > 1000) ? "and exposing your round, pregnant belly to the cold mountain air as it flops free from its woven confines, flinging perpetually dribbling milk on to the cave walls." : "before") + " ");
+			if (!player.isNaga()) outputText(" " + ((player.isVisiblyPregnant()) ? "The giant-woman quickly grabs onto your other ankle before" : "grabbing onto your other ankle,") + "  forcibly spreading your legs apart and leaving you creating a very undignified Y-shape");
 			outputText(".\n\n");
 
 			outputText("“<i>Oh, calm down.</i>”  Izumi seems quite unphased by your protests, having her sights clearly set on something else entirely.  “<i>I just wanna try something.  Besides, it’ll be fun!  Promise!</i>” She beams down at you, then rears back, opens her mouth and lunges her face forwards into your crotch!  You yelp in surprise as Izumi’s tongue suddenly slams into your [vagina] as though it held a grudge against it, flickering back and forth, up and down, darting this way and that as she slathers your nethers with her saliva.\n\n");
@@ -1474,7 +1489,7 @@ package classes.Scenes.Areas.HighMountains
 
 			outputText("Izumi is gracious or wracked by her guilty conscious enough to let you rest up quietly in her cave without further molestation until the pounding in your head fades away.  As you carefully pick your way back down the mountain, you muster up a half-hearted wave of goodbye back to the cheerfully waving giantess.  While you’re not sure if you’d exactly describe what you just experienced as fun... at the very least, you’re glad she didn’t <i>actually</i> try to eat you.  Deep down though, part of you can’t help wondering if she really would...\n\n");
 
-			player.orgasm('Dick');
+			player.orgasm('Vaginal');
 			combat.cleanupAfterCombat();
 		}
 
