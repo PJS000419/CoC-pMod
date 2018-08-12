@@ -50,7 +50,7 @@ package classes.Scenes.Areas.Forest
 		
 		public  function loseTodryad(fromBattle:Boolean = true):void {
 			clearOutput();
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("dryad-loss-female-preg"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("dryad-loss-female-preg"));
 			else outputText(images.showImage("dryad-loss-female"));
 			if (fromBattle) outputText("Too badly " + (player.HP <= 0 ? "injured" : "aroused") + " by the dryad, you give in  and let her she wants to you.\n\n");
 			if (player.hasCock()) {
@@ -70,7 +70,7 @@ package classes.Scenes.Areas.Forest
 				
 				outputText("The dryad rushes towards you and wraps her arms around you.   Her bark-like skin is cold and rough.   Your bodies entangle as her sap rubs onto your person.    She places a hand behind your head and locks eyes with you.   Her glowing red eyes burn desire into your skull.   Her lips part and she frenchs you deeply.\n\n"); 
 				outputText("Seeing you suitablely aroused, she tears into your clothing until your [vagina]  is exposed.\n"); 
-				outputText("Spinning your limp body around, she pushes you down across a nearby stump." + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? " The dryad rubs your plump, pregnant belly from behind. Smiling wickedly she says, <i>“You have already been pollinated, but you can still take mine”" : " <i>Now I pollinate you") + "</i>! \n");
+				outputText("Spinning your limp body around, she pushes you down across a nearby stump." + ((player.isVisiblyPregnant()) ? " The dryad rubs your plump, pregnant belly from behind. Smiling wickedly she says, <i>“You have already been pollinated, but you can still take mine”" : " <i>Now I pollinate you") + "</i>! \n");
 				outputText("She places her hand on her " + monster.cockDescript(0) + " and sticky sap oozes from her palm lubricates her member.\n");
 				outputText("Greedily, she spreads your " + player.assDescript() + " and places her cock at your entrance before slamming into your [vagina] with a single stroke. \n");
 				player.cuntChange(16, true, true, false);

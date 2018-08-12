@@ -464,7 +464,7 @@ package classes.Scenes.Dungeons
 			if (player.isTaur()) {
 				 outputText(images.showImage("gangbang-loss-centaur"));
 			}
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("gangbang-loss-human-preg"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("gangbang-loss-human-preg"));
 			else outputText(images.showImage("gangbang-loss-human"));
 
 			//(ORGAZMO)

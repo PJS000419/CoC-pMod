@@ -176,10 +176,11 @@ private function goNextWrapped(timeAmt:Number, needNext:Boolean):Boolean  {
 		//IMP GANGBAAAAANGA
 		//The more imps you create, the more often you get gangraped.
 		temp = player.statusEffectv1(StatusEffects.BirthedImps) * 2;
-		if (temp > 7) temp = 7;
+		//if (temp > 7) temp = 7;
 		if (player.findPerk(PerkLib.PiercedLethite) >= 0) temp += 4;
 		if (player.inHeat) temp += 2;
 		if (vapula.vapulaSlave()) temp += 7;
+		if (player.hasPerk(PerkLib.BroodMother)) temp += 7;
 		//Reduce chance
 		var scarePercent:Number = 0;
 		scarePercent += flags[kFLAGS.CAMP_WALL_SKULLS] + flags[kFLAGS.CAMP_WALL_STATUES] * 4;

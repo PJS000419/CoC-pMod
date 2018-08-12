@@ -53,7 +53,7 @@ private function approachLilium():void {
 	else {
 		outputText("Lilium stands before you.  Her two nearly foot-long horns grow up and out of her forehead, one of which is adorned with a shiny, silver band.  Her dark hair spills across her bare shoulders in loose coils and her black lipstick and heavy eyeshadow contrast with the paleness of her skin.  A black underbust corset wraps around her waist, leaving her breasts exposed and long black gloves cling to her arms up to her shoulders.  She also wears a crinoline skirt with an opening at the front which reveals her smooth bare legs, a tail which wraps around her thigh like a garter, and her crotch which sports her average cock curiously clad in her lacy cock sock in spite of her otherwise brazen exposure.\n\n");
 		
-		if ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) && player.gender == 2) outputText("\"<i>Well you're just a cute little slut aren't you?  Knocked up and still coming to see me!</i>\"  Lilium teases, but you can see the eager smile on her face.  \"<i>Is this visit business or pleasure?  I'm hoping both.</i>\"\n\n");
+		if ((player.isVisiblyPregnant()) && player.gender == 2) outputText("\"<i>Well you're just a cute little slut aren't you?  Knocked up and still coming to see me!</i>\"  Lilium teases, but you can see the eager smile on her face.  \"<i>Is this visit business or pleasure?  I'm hoping both.</i>\"\n\n");
 		else outputText("\"<i>Back again?  I thought I was finally rid of you!</i>\"  Lilium teases, but you can see the eager smile on her face.  \"<i>Is this visit business or pleasure?  I'm hoping both.</i>\"\n\n");
 	}
 	menu();
@@ -191,7 +191,7 @@ private function liliumDickRidah():void {
 	player.cuntChange(14,true,true,false);
 	outputText("\n\n");
 	
-	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("lilium-fuck-female-preg"));
+	if (player.isVisiblyPregnant()) outputText(images.showImage("lilium-fuck-female-preg"));
 	else outputText(images.showImage("lilium-fuck-female"));
 
 	//(if player has breasts)

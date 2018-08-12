@@ -1224,7 +1224,7 @@ private function loppeWorshipsDicks():void {
 //Get Vagina-Fucked: (edited)
 private function getFuckedInYerTwatYaCunt():void {
 	clearOutput();
-	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("loppe-sticks-it-in-your-vagoo-preg"));
+	if (player.isVisiblyPregnant()) outputText(images.showImage("loppe-sticks-it-in-your-vagoo-preg"));
 	else outputText(images.showImage("loppe-sticks-it-in-your-vagoo"));
 	outputText("As you contemplate the delicious possibilities that the herm presents, your eyes are drawn to her admirable piece of horse-meat.  With a half-grin, you settle yourself on her bed, ");
 	//[(mans)
@@ -1233,7 +1233,7 @@ private function getFuckedInYerTwatYaCunt():void {
 	outputText("\n\nLoppe smirks at you and winks.  \"<i>Don't worry; I'll treat you like a ");
 
 	//(if preggo)
-	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText("pregnant queen.  A sexy, curvaceous queen");
+	if (player.isVisiblyPregnant()) outputText("pregnant queen.  A sexy, curvaceous queen");
 	//[(femininity <= 40)
 	else if (player.femininity > 50) outputText("princess.  A sexy, smoking hot princess");
 	else outputText("prince.  A dashing, dandy prince");
@@ -1244,7 +1244,7 @@ private function getFuckedInYerTwatYaCunt():void {
 		if (player.balls > 0) outputText("and [balls] ");
 		outputText("to really get at your cunt");
 	}
-	else if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) {
+	else if (player.isVisiblyPregnant()) {
 		outputText(", though you need to hold up your belly to really get at your cunt");
 	}
 	outputText(".");
@@ -1285,7 +1285,7 @@ private function getFuckedInYerTwatYaCunt():void {
 	outputText(". You moan in delight as she sinks into you");
 	if (player.vaginas[0].virgin) outputText(", repressing a shiver of pain as she tears through your hymen, taking your virginity");
 	else if (player.vaginalCapacity() < 35) outputText(", forcing your entrance wide to accommodate herself ");
-	if ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) && player.thickness >= 39) outputText(", the mass of her girth causing a shockwave to ripple through your pregnant belly and ample assets ");
+	if ((player.isVisiblyPregnant()) && player.thickness >= 39) outputText(", the mass of her girth causing a shockwave to ripple through your pregnant belly and ample assets ");
 	outputText(".");
 	//cuntchange, but suppress standard messages
 	player.cuntChange(35,true,true,false);
@@ -1315,7 +1315,7 @@ private function getFuckedInYerTwatYaCunt():void {
 		outputText("\n\nYou can't reach Loppe to play with her using your fingers, so instead you try talking dirty, alternately teasing the horse-dicked hybrid about her inadequacies and praising her skills.  \"<i>Keep talking, sugar.  I'm going to stuff this wonderful pussy of yours full of laquine love!</i>\"  Loppe grunts, redoubling her pace.  Apparently she's not too shamed; the cock inside you is swollen and hard, and something about the way it twitches tells you that the dancer will be finishing soon.");
 		outputText("\n\nWith a pointed comment about her not being enough of a stallion to please a proper mare and a laugh for emphasis, you push your hips back with extra force, moaning at the feeling of her horse-cock inside your mare's cunt.  The lusty half-breed doesn't bother replying, she just thrusts against you as hard as she can, pistoning in and out of your [vagina] with abandon.  Each slap of your hips sends pleasure rippling through you.  You gasp and moan, flicking your fingers across your [nipples] for further stimulus.  You rut back against your hybrid herm lover as hard as you can... just a little more, oh, you're so close!");
 	}
-	outputText("\n\nLoppe gasps and screams, almost neighing, as you feel her cock bulge right before the first of many ropes of cum splatter against the walls of your" + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? ", already heavily impregnated " : "") + "womb.  You cry out in delight as the sensation of steaming hot spunk gushing into you sets your inflamed nerves alight; your cunt squeezes down on her cock rapturously as you shudder and heave your way to your own climax");
+	outputText("\n\nLoppe gasps and screams, almost neighing, as you feel her cock bulge right before the first of many ropes of cum splatter against the walls of your" + ((player.isVisiblyPregnant()) ? ", already heavily impregnated " : "") + "womb.  You cry out in delight as the sensation of steaming hot spunk gushing into you sets your inflamed nerves alight; your cunt squeezes down on her cock rapturously as you shudder and heave your way to your own climax");
 	if (player.hasCock()) {
 		outputText(", neglected cock fountaining cum ");
 		if (player.cumQ() < 500) outputText("between you and painting you both");
@@ -1334,7 +1334,7 @@ private function getFuckedInYerTwatYaCunt():void {
 
 	outputText("\n\nYou smile, stroke her cheek, and give her a kiss.  Loppe grins happily at you. \"<i>... Let's not waste any time and get started with round 2!</i>\" She says excitedly");
 	if (!player.isTaur() && player.hasCock()) outputText(", giving you a quick peck on the cheek and licking a small gob of cum that seems to have stuck to your chin");
-	else if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(", giving you a quick peck on the cheek and smearing a streak of cum that has basted your swollen abdomen");
+	else if (player.isVisiblyPregnant()) outputText(", giving you a quick peck on the cheek and smearing a streak of cum that has basted your swollen abdomen");
 	outputText(".");
 
 	outputText("\n\nAlready...?  Loppe smiles and gives you a kiss, straight on the lips; as the two of you lock lips you can feel her cock, still buried inside you, hardening once more.  It throbs as it fills you up again, still leaking cum.  Breaking the kiss, Loppe gives you a seductive glance and says as innocently as she can.  \"<i>You did say anytime, sugar... and the time is now!</i>\"  You barely have time to protest before she begins humping you once more, droplets of your previous session splattering about with each slap of your hips...");

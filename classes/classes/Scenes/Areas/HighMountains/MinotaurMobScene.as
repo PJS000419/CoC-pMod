@@ -96,7 +96,7 @@ public function meetMinotaurSons():void {
 				else outputText("A flood of wetness soaks your " + player.armorName + " and " + player.legs() + " with feminine drool almost immediately as your body reflects the obscene lust coursing through your veins.");
 				outputText("\n\nThis could be a bit difficult.\n\nThe largest folds his arms across his broad, well-defined chest and smirks before grunting, \"<i>");
 				if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216 && player.pregnancyType == PregnancyStore.PREGNANCY_MINOTAUR) outputText("Pregnant with another brother for us, and already you come back for more?");
-				else if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText("Huh... Looks like Mommy couldn't keep her legs closed, and she got knocked up by some vermin.  You're such a disappointment to your beloved family.  Don't worry, though, mom, we'll still fuck you.");
+				else if (player.isVisiblyPregnant()) outputText("Huh... Looks like Mommy couldn't keep her legs closed, and she got knocked up by some vermin.  You're such a disappointment to your beloved family.  Don't worry, though, mom, we'll still fuck you.");
 				else outputText("Hey mom, come back so we could all have another whack at you?  We could use another brother.");
 				outputText("</i>\"\n\n");
 				outputText("\"<i>Nah, she's just back to finish getting addicted, aren't you mother-dear?  You came back to visit your sons and guzzle our cum until you're scooping the dregs of it from your ");
@@ -113,7 +113,7 @@ public function meetMinotaurSons():void {
 				outputText("  You absentmindedly tweak your nipple and lick your lips in anticipation.\n\n");
 				outputText("The largest folds his arms across his broad, well-defined chest and smirks before grunting, \"<i>");
 				if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216 && player.pregnancyType == PregnancyStore.PREGNANCY_MINOTAUR) outputText("Pregnant with another brother for us, and you're already back for another fix?  Why even leave in the first place?");
-				else if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText("Huh... you couldn't keep your legs closed, eh, mom?  Looks like you're all knocked up with vermin, too!  You're a disappointment to our family... don't worry, though, we'll still give you a fix.");
+				else if (player.isVisiblyPregnant()) outputText("Huh... you couldn't keep your legs closed, eh, mom?  Looks like you're all knocked up with vermin, too!  You're a disappointment to our family... don't worry, though, we'll still give you a fix.");
 				else outputText("Hey, mom!  You come back so we could have another go at knocking you up?  Heh.  Knowing you, you're probably just here for another cum fix.");
 				outputText("</i>\"\n\n");
 				outputText("\"<i>Dear brother, how could you say such slanderous things about our mother?  She's a beautiful and wondrous cum-dump – a veritable saint of semen-swallowing,</i>\" taunts the next-largest minotaur.  \"<i>The only question we should be asking is if she's going to put her rump in the air like a good bitch, or make us work for it.</i>\"\n\n");
@@ -248,7 +248,7 @@ internal function minotaurDeFeet():void {
 		outputText("The beast-men remove their terribly-tended loincloths and discard them, though one smears his over your face before he tosses it aside, the musky aroma sending your body into overdrive.\n\n");
 	}
 	if (flags[kFLAGS.ADULT_MINOTAUR_OFFSPRINGS] >= 25 && player.minotaurNeed()) minotaurGangBadEnd();
-	else if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) {
+	else if (player.isVisiblyPregnant()) {
 		if (player.pregnancyIncubation > 120) analSpearSemiPregMinotaurGangbang();
 		else loseToMinoMobVeryPregnant()
 	}

@@ -262,7 +262,7 @@ public class ErlKingScene extends BaseContent implements Encounter {
 			outputText("The fog swallows the Erlking as you drop to the ground.  The impact against the mossy forest floor doesn’t injure you, but it <b>does</b> knock the wind from you.  As you struggle to regain your breath, you inhale the icy fog, and a cascade of terror... and something else... runs through you.\n\n");
 			outputText("This fear doubles as the two hounds waste no time.  They are on you in the space of a heartbeat, ripping the net from around you, their powerful hands shoving you to all fours as they snarl and bark.  Their red, shiny dog cocks slip from their heavy sheaths, throbbing with thin, purple veins.  The fog has definitely done something to you, because you can’t help but lick your lips at the sight.\n\n");
 			outputText("Growling, the first Hound grabs you by your [ass], his muscular fingers sinking roughly into your flesh.  He roughly rips your [armor] from you, growling.  You feel a rush of warmth as a canine mouth presses against your [ass],");
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(" long tongue running up the curve of your pregnant stomach to the bottom edge of your [vagina]");
+			if (player.isVisiblyPregnant()) outputText(" long tongue running up the curve of your pregnant stomach to the bottom edge of your [vagina]");
 			else if (player.hasVagina()) outputText(" long tongue touching the bottom edge of your [vagina]");
 			else if (player.balls > 0) outputText(" long tongue lapping at the base of your balls");
 			else if (player.hasCock()) outputText(" long tongue lapping at the base of your cock");
@@ -281,7 +281,7 @@ public class ErlKingScene extends BaseContent implements Encounter {
 			else outputText(" chin");
 			outputText(", turning it toward his massive, slimy dog cock.  You get a brief glimpse of a crystal-clear bead of pre before the tip is forced between your lips.\n\n");
 			if (player.hasVagina()) {
-			  if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) (images.showImage("wildhunt-catched-female-preg"));
+			  if (player.isVisiblyPregnant()) (images.showImage("wildhunt-catched-female-preg"));
 				else if (player.tail.type == Tail.WOLF || player.tail.type == Tail.DOG || player.tail.type == Tail.FOX) outputText(images.showImage("wildhunt-catched-female-canine"));
 				else if (player.isGoo()) outputText(images.showImage("wildhunt-catched-female-goo"));
 				else if (player.tail.type == Tail.DRACONIC) outputText(images.showImage("wildhunt-catched-female-dragon"));

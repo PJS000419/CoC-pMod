@@ -364,7 +364,26 @@ package classes
 		public function isPregnant():Boolean { return _pregnancyType != 0; }
 
 		public function isButtPregnant():Boolean { return _buttPregnancyType != 0; }
-	
+		
+		/**
+		 * Check how far along (how big) the character is
+		 * used for descriptive purposes
+		 */
+		
+		public function isVisiblyPregnant():Boolean {
+			
+			if (isPregnant()){
+				if (_pregnancyType == PregnancyStore.INCUBATION_IMP_HORDE ||
+				_pregnancyType == PregnancyStore.PREGNANCY_BEHEMOTH) {
+					return true; }
+				else if (_pregnancyIncubation <= 216 || _buttPregnancyIncubation <= 216) {
+					return true; }
+				else {
+					return false; }
+				}
+			}
+			return false;
+		}
 		
 		/**
 		 * Impregnate the character with the given pregnancy type if the total fertility 

@@ -338,6 +338,7 @@ public function nomOnMommaIzzysTits():void {
 			outputText("  ");
 		}
 		if (player.hasVagina()) {
+			outputText(images.showImage("isabella-drinkmilk"));
 			if (player.hasCock()) outputText("Even y");
 			else outputText("Y");
 			outputText("our " + player.vaginaDescript(0) + " ");

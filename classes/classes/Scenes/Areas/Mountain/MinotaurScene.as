@@ -364,7 +364,7 @@ private function girlRapeAMinotaur():void {
 	minoRapeIntro();
 	player.slimeFeed();
 	minoCumAddiction(5);
-	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("minotaur-won-female-preg"));
+	if (player.isVisiblyPregnant()) outputText(images.showImage("minotaur-won-female-preg"));
 	else if (player.cowScore() >=4) outputText(images.showImage("minotaur-won-female-cow"));
 	else if (player.catScore() >= 4) outputText(images.showImage("minotaur-won-female-cat"));
 	else outputText(images.showImage("minotaur-won-female"));
@@ -499,9 +499,9 @@ public function getRapedByMinotaur(autoRape:Boolean = false):void {
 	}
 	if (player.vaginas.length > 0) {
 		if (player.lib + rand(15) > 50) { //BUTTSECKS!
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("minotaur-loss-butt-female-preg"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("minotaur-loss-butt-female-preg"));
 			else outputText(images.showImage("minotaur-loss-butt-female"));	
-			outputText("The bull-man roughly grabs " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? " under the heft of your pregnant belly " : "your hair ") + "and repositions himself to press against your asshole, slowly building the pressure until suddenly, the flared head pops into you.  ");
+			outputText("The bull-man roughly grabs " + ((player.isVisiblyPregnant()) ? " under the heft of your pregnant belly " : "your hair ") + "and repositions himself to press against your asshole, slowly building the pressure until suddenly, the flared head pops into you.  ");
 			player.buttChange(monster.cockArea(0), true);
 			minoCumAddiction(15);
 			if (player.isTaur()) outputText("\n\nHe positions himself behind your rear legs, and roughly impales you onto his shaft, forcing himself as far into you as he can manage. You cry out, and you feel your stomach distending to accommodate his incredible size. Grabbing your ass, he begins to violently pound your backside with his massive member.  ");
@@ -513,7 +513,7 @@ public function getRapedByMinotaur(autoRape:Boolean = false):void {
 			}
 			if (player.cockTotal() == 1) outputText("The bull-man bends forward a little, and grabs your " + player.cockDescript(0) + " in a crushing grip. He makes short jerking motions as he keeps thrusting into you.");
 			if (player.cockTotal() > 1) outputText("The bull-man bends forward a little, and grabs one of your " + player.cockDescript(0) + "s in a crushing grip. He makes short jerking motions as he keeps thrusting into you.");
-			outputText("\n\nFinally, you can feel he's ready to cum. His thrusts become shorter and faster, and just when you think you can't stand it anymore he starts shooting his sperm into you. Your " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? "already impregnated, brood-mother gut begins to distend further " : "stomach begins to round out ") + " from the sheer amount of bull seed being pumped into your belly.  ");
+			outputText("\n\nFinally, you can feel he's ready to cum. His thrusts become shorter and faster, and just when you think you can't stand it anymore he starts shooting his sperm into you. Your " + ((player.isVisiblyPregnant()) ? "already impregnated, brood-mother gut begins to distend further " : "stomach begins to round out ") + " from the sheer amount of bull seed being pumped into your belly.  ");
 			dynStats("lib", 1, "sen", -.5, "cor", 1);
 			if (player.cockTotal() > 0 && (player.sens + rand(40) > 50)) {
 				outputText("You orgasm, ");
@@ -530,14 +530,14 @@ public function getRapedByMinotaur(autoRape:Boolean = false):void {
 			if (player.deerScore() >= 4) outputText(images.showImage("minotaur-loss-vag-deer"));
 			else if (player.cowScore() >= 4) outputText(images.showImage("minotaur-loss-vag-cow"));
 			else if (player.catScore() >= 4) outputText(images.showImage("minotaur-loss-vag-cat"));
-			else if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("minotaur-loss-vag-preg"));
+			else if (player.isVisiblyPregnant()) outputText(images.showImage("minotaur-loss-vag-preg"));
 			else outputText(images.showImage("minotaur-loss-vag"));
 			outputText("The bull-man roughly grabs your hair and begins rubbing the flared head of his penis along your " + player.vaginaDescript(0) + ".  ");
 			if (player.averageVaginalWetness() < 2) outputText("You aren't very wet, and fear the damage this beast will inflict on your " + player.vaginaDescript(0) + ".  ");
 			else outputText("You're shamefully wet by this point, and your knees are ready to buckle.  ");
 			minoCumAddiction(5);
 			if (player.isTaur()) outputText("\n\nHe positions himself behind your rear legs, and roughly impales you onto his shaft, forcing himself as far into you as he can manage. You cry out, and you feel your stomach distending to accommodate his incredible size. Grabbing your ass , he begins to violently pound your backside with his massive member.  ");
-			else outputText("\n\nHe lifts you into the air, hefting your insignificant weight with little effort, and roughly impales you onto his shaft, " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? "caring nothing for the brood you incubate, and " : " ") + "forcing himself as far into you as he can manage. You cry out, and looking down you can see your stomach distending to accommodate his incredible size. " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? "Using your pregnant gut as an anchor" : "Using you like a human cock-sleeve") + ", he simply holds you by the torso and begins lifting you up and down.  ");
+			else outputText("\n\nHe lifts you into the air, hefting your insignificant weight with little effort, and roughly impales you onto his shaft, " + ((player.isVisiblyPregnant()) ? "caring nothing for the brood you incubate, and " : " ") + "forcing himself as far into you as he can manage. You cry out, and looking down you can see your stomach distending to accommodate his incredible size. " + ((player.isVisiblyPregnant()) ? "Using your pregnant gut as an anchor" : "Using you like a human cock-sleeve") + ", he simply holds you by the torso and begins lifting you up and down.  ");
 			player.cuntChange((24 * 3), true, false, true); //vag stretch texts
 			//Continue
 			if (player.biggestTitSize() > 0 && player.mostBreastsPerRow() > 1 && player.breastRows.length > 0) {
@@ -549,7 +549,7 @@ public function getRapedByMinotaur(autoRape:Boolean = false):void {
 			if (player.vaginalCapacity() < monster.cockArea(0)) outputText("\n\nYou clench your teeth in pain as his thick ribbed cock ravages your tight pussy. After a while, a kind of numbness sets in, and you start to feel dim waves of pleasure piercing through the curtain of pain. You hear grunts of pleasure and satisfaction coming from the beast's mouth.");
 			if (player.vaginalCapacity() >= monster.cockArea(0) && player.vaginalCapacity() < monster.cockArea(0) * 1.5) outputText("\n\nYou feel his monstrous ribbed cock deliciously rubbing against your love-canal, sending maddening waves of pleasure to your brain as the beast keeps shoving into you. Oblivious to anything but your own enjoyment, you moan loudly like a whore, as the beast chuckles and grunts from his own pleasure.");
 			if (player.vaginalCapacity() >= monster.cockArea(0) *1.5) outputText("\n\nYou feel his monstrous cock sliding easily in and out of your wide fuck-hole, hearing the beast grunt in dissatisfaction. He suddenly clouts your left buttock, which makes you tense your muscles, including your vagina's, and you start to feel the ribs on his cock rubbing against your wall. The pleasure it procures you makes you tense your muscles harder, causing the pleasure to swell again. The minotaur grunts in approval, and continues his violent pounding as you start moaning.");
-			outputText("\n\nFinally, you can feel he's ready to cum. His thrusts become shorter and faster, and just when you think you can't stand it anymore he starts shooting his sperm into you. Your " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? "already impregnated, brood-mother gut begins to distend further " : "stomach begins to round out ") + "from the sheer amount of bull seed being pumped into your belly.  ");
+			outputText("\n\nFinally, you can feel he's ready to cum. His thrusts become shorter and faster, and just when you think you can't stand it anymore he starts shooting his sperm into you. Your " + ((player.isVisiblyPregnant()) ? "already impregnated, brood-mother gut begins to distend further " : "stomach begins to round out ") + "from the sheer amount of bull seed being pumped into your belly.  ");
 			dynStats("lib", 1, "sen", -.5, "cor", 1);
 			//Impregnation
 			if (player.averageVaginalWetness() >= 2) {

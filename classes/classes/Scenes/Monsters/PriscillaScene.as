@@ -39,6 +39,14 @@ package classes.Scenes.Monsters
 			}
 			//Repeat Intro - Cell Chambers
 			else {
+				// If character is also a (rival?) goblin birther
+				if (flags[kFLAGS.GOBLIN_ELDER_RELATION_COUNTER] == 1){
+					
+				}
+				// Later condition
+				if (monster.hasCock()) {
+					
+				}
 				outputText("As you walk, the familiar sight of a powerful goblin catches your eye.  You have encountered " + (flags[kFLAGS.GOBLIN_ELDER_TALK_COUNTER] > 0 ?  "Priscilla" : "the goblin elder") + " again!");
 				if (player.hasCock()) {
 					if (player.isPureEnough(60)) outputText("\n\n\"<i>Hello again" + (player.hasCock() ?  ", stud.  Ready to knock me up with your cum?  Or are you here to duel?" : ",") + "</i>\" she says.");
