@@ -42,7 +42,7 @@ package classes.Scenes.Monsters.pregnancies
 			var displayedUpdate:Boolean = false;
 			
 			if (player.pregnancyIncubation === 500) {
-				output.text("\n<b>Your belly is still massive.  Long after getting spilled full of cum by Ceraph and Vapula..</b>\n");
+				output.text("\n<b>Your belly is still massive.  Long after getting plugged full of cum by Ceraph and Vapula..</b>\n");
 				displayedUpdate = true;
 			}
 			
@@ -112,11 +112,13 @@ package classes.Scenes.Monsters.pregnancies
 			
 			//Add imp birth status - used to control frequency of night imp gangbag
 			if (player.hasStatusEffect(StatusEffects.BirthedImps)) {
-				player.addStatusValue(StatusEffects.BirthedImps,1,1);
+				for (var i:int = Utils.rand(3) + 3; i > 0; i--) {
+				player.addStatusValue(StatusEffects.BirthedImps, 1, 1);
+				}
 			}
 			
 			else {					
-				for (var i:int = Utils.rand(3) + 3; i > 0; i--) {
+				for (var j:int = Utils.rand(3) + 3; j > 0; j--) {
 					player.createStatusEffect(StatusEffects.BirthedImps,1,0,0,0);				
 				}
 			}

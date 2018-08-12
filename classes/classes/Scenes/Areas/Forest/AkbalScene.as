@@ -612,7 +612,7 @@ public class AkbalScene extends BaseContent implements Encounter
 			//[Defeat via Lust]
 			if (!player.isTaur())
 			{
-				if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("akbal-deepwoods-losslust-analed-preg"));
+				if (player.isVisiblyPregnant()) outputText(images.showImage("akbal-deepwoods-losslust-analed-preg"));
 				else outputText(images.showImage("akbal-deepwoods-losslust-analed"));
 				outputText("You fall to your knees and begin to feverishly masturbate.  Akbal rises onto his two hind legs, his body shifting into a more humanoid form as he stands.  His long cock swings ominously between his legs as he walks towards you.  The first thing he does is pull his massive 15-inch cock to your lips, slapping the shaft against your chin.\n\n");
 				outputText("Like a whore in heat, you open your mouth and lewdly lick the jaguar demon's cock head, feeling odd barbs rub against your tongue.  Your mouth opens wide, but can't even get past the head before the sheer girth of Akbal's massive sex organ halts its advance.  Akbal is content to let you orally fumble with the head for only a few moments before he pushes down onto your back. His claws tickle your thighs as he forces your " + player.legs() + " up over your head, bringing your " + player.assholeDescript() + " into plain view.\n\n");
@@ -977,11 +977,11 @@ public class AkbalScene extends BaseContent implements Encounter
 			}
 
 
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("akbal-deepwoods-sumbitanal-preg"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("akbal-deepwoods-sumbitanal-preg"));
 			else outputText(images.showImage("akbal-deepwoods-sumbitanal"));
 			outputText("After thinking for a minute, you nod to Akbal.  The deep voice in your head commands you to disrobe.  You obediently take off your " + player.armorName + " and set it aside just before the demon is upon you.\n\n");
 
-			outputText("Akbal pushes you face-first into the ground and places his forward paws on your back, pinning your chest " + ((player.gender == 2 || (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216)) ? "and pregnant belly" : "") +  " against the ground.  He removes them after a few seconds and you attempt to reposition yourself, only for you to be pushed back down again: a silent yet forceful command for you to stay in this position.\n\n");
+			outputText("Akbal pushes you face-first into the ground and places his forward paws on your back, pinning your chest " + ((player.gender == 2 || (player.isVisiblyPregnant())) ? "and pregnant belly" : "") +  " against the ground.  He removes them after a few seconds and you attempt to reposition yourself, only for you to be pushed back down again: a silent yet forceful command for you to stay in this position.\n\n");
 
 			outputText("His paws slide to your waist, changing into hands along the way.  You look back and watch as his body starts morphing into a more humanoid shape, his muscles shifting themselves beneath his skin as his body changes to something better suited to dominate you.\n\n");
 
@@ -990,7 +990,7 @@ public class AkbalScene extends BaseContent implements Encounter
 			//[Player has a vagina]
 			if (player.hasVagina())
 			{
-				outputText("Akbal slurps his way down to your " + player.vaginaDescript(0) + ((player.gender == 2 || (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216)) ? ", then traces down to cup the curve of your thick paunch, before returning to your mound" : ""));
+				outputText("Akbal slurps his way down to your " + player.vaginaDescript(0) + ((player.gender == 2 || (player.isVisiblyPregnant())) ? ", then traces down to cup the curve of your thick paunch, before returning to your mound" : ""));
 				outputText(", twisting his face and drilling his tongue into you, mercilessly attacking your " + player.clitDescript() + " as you scream, howl and cringe from the stimulation.  He then gently sucks your " + player.clitDescript() + " into his mouth and twirls his tongue around it, making you grind your swollen sex against his jaguar lips.");
 			}
 			//[Player has balls]
@@ -999,7 +999,7 @@ public class AkbalScene extends BaseContent implements Encounter
 				outputText("Akbal slurps his way down to your " + player.sackDescript() + ", slathering his heated saliva over your orbs and making you groan as your sensitive " + player.ballsDescriptLight() + " are teased and gently juggled by Akbal's masterful tongue.  Your body continually twitches with pleasure from the sensations.  ");
 			}
 
-			outputText(" His oral ministrations end when a sudden warmth heats your innards, and you shiver in ecstasy as the demon rises to mount you.  A single paw-like hand shoves your lifted chest" + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? ", belly" : "") + " and face back into the dirt, causing cold earth to cling to your face as Akbal gets into position above you.\n\n");
+			outputText(" His oral ministrations end when a sudden warmth heats your innards, and you shiver in ecstasy as the demon rises to mount you.  A single paw-like hand shoves your lifted chest" + ((player.isVisiblyPregnant()) ? ", belly" : "") + " and face back into the dirt, causing cold earth to cling to your face as Akbal gets into position above you.\n\n");
 
 			outputText("You feel him poking around your " + player.assholeDescript() + ", learning quickly that not only is his member insanely large, but its head is covered in dozens of tiny barbs.  ");
 			//[Small/virgin pucker]
@@ -1028,7 +1028,7 @@ public class AkbalScene extends BaseContent implements Encounter
 				outputText("The weird spit he slathered your insides with instantly heats up, and the barbs covering his cock head suddenly start vibrating.  The vibrating barbs feel like slimy sex beads, spinning and shaking as they are pushed inside you.  Akbal wastes no time and begins forcibly fucking your " + player.assholeDescript() + " with reckless abandon, his every brutal thrust causing your body to slide forward through the dirt.  You try to meet his deep thrusts, but the jaguar is fucking you with speed and force befitting a cheetah. The constantly vibrating barbs make your body shiver with each hammering blow to your insides.\n\n");
 			}
 
-			outputText("Akbal works his hips fast, piston-pumping his long demon cat-dick in and out of your " + player.assholeDescript() + ".  The rampant babbling coming from your mouth breaks with his every thrust," + ((player.lactationQ() > 0) ? " milk spurts from your swollen tits," : "") +  " and your body is racked by orgasm after orgasm. You're soon on your" + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? " sagging belly" : " chest") +  " and knees ");
+			outputText("Akbal works his hips fast, piston-pumping his long demon cat-dick in and out of your " + player.assholeDescript() + ".  The rampant babbling coming from your mouth breaks with his every thrust," + ((player.lactationQ() > 0) ? " milk spurts from your swollen tits," : "") +  " and your body is racked by orgasm after orgasm. You're soon on your" + ((player.isVisiblyPregnant()) ? " sagging belly" : " chest") +  " and knees ");
 			if (player.hasVagina() || player.totalCocks() > 0)
 				outputText("in a pool of your own love juices");
 			else
@@ -1118,21 +1118,21 @@ public class AkbalScene extends BaseContent implements Encounter
 		private function akbalBigButtSubmit():void
 		{
 			clearOutput();
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("akbal-deepwoods-bigbuttanaled-preg"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("akbal-deepwoods-bigbuttanaled-preg"));
 			else outputText(images.showImage("akbal-deepwoods-bigbuttanaled"));
-			outputText("Smiling in anticipation of servicing the jaguar-lord once more, you remove your [armor] and drop down to all fours, slowly lowering your face down to the ground.  " + ((player.gender == 0 || (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216)) ? " Sagging brood-gut dragging against the ground, you" : " You") + " give your [butt] a slow back-and-forth wiggle as your cheek comes to rest on the dirt, degrading yourself for your demon-god's enjoyment.");
+			outputText("Smiling in anticipation of servicing the jaguar-lord once more, you remove your [armor] and drop down to all fours, slowly lowering your face down to the ground.  " + ((player.gender == 0 || (player.isVisiblyPregnant())) ? " Sagging brood-gut dragging against the ground, you" : " You") + " give your [butt] a slow back-and-forth wiggle as your cheek comes to rest on the dirt, degrading yourself for your demon-god's enjoyment.");
 			outputText("\n\nA deep-timbred voice resounds through your open mind, purring, \"<i>A suitable offering.</i>\"  The pleased undertones leave no doubt as to your feline master's opinion - he likes how you look back there.  The panther's softly-padded paws land on your [butt] almost immediately, though as they squeeze and explore the spacious expanse, they gradually twist and lengthen, forming into human digits.  Bones crack and tendons creak as the angle of Akbal's butt-groping pressure changes, suggesting a taller, bipedal shape.  You flick your eyes down submissively, but for a second, you get to see your panther-lord looming over you, fascinated by your bubbly butt.  His body is muscular and toned, sheathed in a veneer of silky black fur that shines like oil.  He is, in a word, glorious.");
 			outputText("\n\nA psychic snarl of approval echoes through your skull as Akbal nestles himself between the comfy cushions you've offered him, opening his maw to lap at your [asshole]");
 			if (player.balls > 0)
 				outputText(" and [balls]");
 			else if (player.hasVagina())
-				outputText(((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? ", [vagina] and pregnant belly" : " and [vagina]"));
+				outputText(((player.isVisiblyPregnant()) ? ", [vagina] and pregnant belly" : " and [vagina]"));
 			outputText(".  You cannot help but squirm from the attention, feeling the slippery-hot length of his muscle probing your sensitive ring.  In its wake, the panther's flexible tongue leaves behind copious amounts of his slick saliva that makes your skin tingle pleasantly.  You don't have long to wonder at this as he broadens his roving attentions to slather each of your cheeks with love, licking and lapping over your " + player.skinFurScales() + " in what could only be described as worship.  A tremor of gleeful pride works through your mind - your master approves of his servant's body!");
 			outputText("\n\nWith your ass in the air, you pant in relaxed pleasure, allowing Akbal to work your [butt] into a glorious shine.  Only after every inch of your pillowy derriere has been slathered with panther-spit does he return to his real intent, spreading your cheeks wide to expose your saliva-glossed asshole.  Your pucker twitches hungrily, tingling from your god's perverse fluids, sensitive and desirous of affection.  He does not deny your body's unspoken request, and the long, wriggling tongue slides through, twisting into your back door to deck your interior with more of his lovely juices.  You cannot help but moan at this - it feels better than it should, like a hot, slippery massage for your insides.");
 			if (player.hasCock())
 				outputText("  Bobbing beneath you, [eachCock] makes no secret of how much you're enjoying this, with thin drops of pre-cum dangling precariously below.");
 			else if (player.hasVagina())
-				outputText("  Your vulva have long since grown bigger and puffier, visibly aroused and glistening with the moisture of your lust" + (((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) && player.lactationQ() > 0) ? " alongside your breasts that swollenly ache and leak sweet milk in kind" : "") + ".");
+				outputText("  Your vulva have long since grown bigger and puffier, visibly aroused and glistening with the moisture of your lust" + (((player.isVisiblyPregnant()) && player.lactationQ() > 0) ? " alongside your breasts that swollenly ache and leak sweet milk in kind" : "") + ".");
 			outputText("\n\nThat tongue goes so deep inside you that after a moment, you stop trying to judge just how far he's going.  Who are you to question HIM?  Your [asshole] is his to do with as he pleases, and the thought brings a happy squeeze through the muscles of your heiny.  His fingers squeeze and caress the feast of butt that you've placed before him, kneading as he licks and kisses, slobbering more and more of his bubbly, tingly spit everywhere.  It feels so good that it robs the strength from your [legs], but you fight to stay upright, trembling.  You must continue to present yourself to him!  That thought, alien as it seems at first, feels too right to resist, and you do as you always do with your lord - obey.");
 			outputText("\n\nOnce he sees your [legs] shaking, Akbal gives your [asshole] a kiss and retracts his tongue, leaving you achingly empty, void of anything but a tingle and a hunger for something to enter you.  He does not keep you waiting.  Strong hands sink into the dirt on either side of you, and tufts of his fur skim along your moistened backside as he gets in position.  You shiver again, not struggling to remain ass-up as before, but in eagerness.  Something hot, something simply wondrously warm, presses up against you.  Every single nerve in your [butt] is demanding you push back and take him, smother him with your plush posterior.  You know what is expected of you, however.  You are his to claim, to take, and you will await his pleasure.");
 			outputText("\n\nAkbal gives a few gentle pokes and prods, testing you, or perhaps, simply enjoying the feel of his barbed girth sliding through the slobbery valley of your butt-cleavage.  In any case, you wait for your god to finish, and he rewards you.  Throbbingly thick panther-cock plunges into your [asshole], sliding through your spit-soaked ring with ease.  The barbs that cover his cock don't hurt in the slightest, softening as they contact his spit so that they become little more than nubs of pleasure - the prize for obedience.  You moan, low and loud as you are taken, and soon, his furry sack comes to rest on your backside, his length hilted within.  Your rump tingles with the thrill of it all, hot and warm from his corrupt saliva and gleefully massaging his member with instinctive, muscular contractions throughout.");

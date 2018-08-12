@@ -612,7 +612,7 @@ package classes.Scenes.Monsters
 			//Clear arrays in preparation
 			monster = new ImpGang();
 			outputText("\n");
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("event-impGang-preg"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("event-impGang-preg"));
 			else outputText(images.showImage("event-impGang"));
 			if (!loss) outputText("<b>You sleep uneasily. A small sound near the edge of your camp breaks into your rest and you awaken suddenly to find yourself surrounded by " + monster.a + monster.short + "</b>!\n\n");
 			if (flags[kFLAGS.CAMP_BUILT_CABIN] > 0 && flags[kFLAGS.CAMP_CABIN_FURNITURE_BED] > 0 && (flags[kFLAGS.SLEEP_WITH] == "Marble" || flags[kFLAGS.SLEEP_WITH] == "")) {
@@ -980,6 +980,7 @@ package classes.Scenes.Monsters
 			}
 			//NOT CENTAUR
 			else {
+				//Non-Female
 				if (rand(2) == 0 && (player.cockTotal() == 0 || player.gender == 3)) {
 					//(First encounter)
 					if (!player.hasStatusEffect(StatusEffects.ImpGangBang)) {
@@ -1007,8 +1008,6 @@ package classes.Scenes.Monsters
 					//(High corruption)
 					else outputText("You buck your hips, trying to capture his " + monster.cockDescriptShort(0) + " with your " + player.vaginaDescript(0) + ".  ");
 					outputText("Before he can thrust into you, the imp is shoved aside by the biggest imp you've ever seen.\n\n");
-					if (player.pregnancyType === PregnancyStore.PREGNANCY_IMP_HORDE || (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216)) outputText(images.showImage("gangbang-loss-human-preg"));
-					else outputText(images.showImage("gangbang-loss-human"));
 					outputText("Four feet tall and broader and healthier looking than any imp you've seen before, with a face as much bull as imp, this new imp has mottled grey skin, broad purple demon wings, two curving bull-horns on his head, and a " + Appearance.cockNoun(CockTypesEnum.HORSE) + " big enough to choke a minotaur. The mushroom-like head of it bobs just below his mouth, and his snake-tongue darts out to flick a bit of pre-cum off the head and onto your groin. You shudder as the hot fluid stings the sensitive skin of your " + player.vaginaDescript(0));
 					//(If the player has a dick)
 					if (player.cockTotal() > 0) outputText(" and " + player.multiCockDescriptLight());
@@ -1137,6 +1136,9 @@ package classes.Scenes.Monsters
 					else outputText("You writhe in the grasp of the imps, reveling in the sensations of being spread open and completely at the mercy of these demons. Tiny hands slide over your face and you lick and suck at the fingers");
 					outputText(".\n\n");
 					
+					if (player.isVisiblyPregnant()) outputText(images.showImage("gangbang-loss-human-preg"));
+					else outputText(images.showImage("gangbang-loss-human"));
+					
 					//(If the player has breasts)
 					if (player.biggestTitSize() > 0) {
 						outputText("Hands slide over your " + player.allBreastsDescript() + ", pinching and pulling at your nipples. The imp riding your " + player.biggestBreastSizeDescript() + " licks your tit-flesh, slowly working his tongue up towards your " + player.nippleDescript(0) + ". Finally the imp's tongue reaches your nipple, wrapping around and pulling at the tingling flesh. ");
@@ -1151,8 +1153,6 @@ package classes.Scenes.Monsters
 						player.growTits(2, player.breastRows.length, false, 1);
 						player.boostLactation(.5);
 					}
-					if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("gangbang-loss-human-preg"));
-					else outputText(images.showImage("gangbang-loss-human"));
 					outputText("The master of this " + monster.short + " steps up ");
 					if (player.isNaga()) outputText("alongside your taut tail");
 					else outputText("between your " + player.legs());
@@ -1194,8 +1194,6 @@ package classes.Scenes.Monsters
 					else outputText(player.assholeDescript());
 					outputText(". ");
 					
-					if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("gangbang-loss-human-preg"));
-					else outputText(images.showImage("gangbang-loss-human"));
 					//(If the character has breasts)
 					if (player.biggestTitSize() > 1) outputText("The rough fucking shakes your breasts, and the imp sucking your nipples clings tightly to your monstrously swollen " + player.allBreastsDescript() + ". Your " + player.biggestBreastSizeDescript() + " have grown three cup sizes since the imp pumped his venom into you.  ");
 					outputText("The imp fucking your face grabs your " + player.hairDescript() + " and jaw, forcing your head back so he can ram his cock into your throat. The obscene bulge sliding in your throat matches the bulge in your belly. The smaller imp pulls back just enough to let you gasp for air, then thrusts into your throat again. The big imp pounds the knot of his " + Appearance.cockNoun(CockTypesEnum.DOG) + " against your ");
@@ -1212,6 +1210,9 @@ package classes.Scenes.Monsters
 					//(If the character has breasts)
 					if (player.biggestTitSize() > 0) outputText("An ache starts deep in the base of your tits and works its way to your sore " + player.nippleDescript(0) + ". Your already bloated nipples swell as your rider suckles and you gasp as the first rush of milk spills into his mouth. Your rider milks your udders, moving his hands between your " + player.allBreastsDescript() + " and forcing out more milk than he could ever drink. Other imps lick the milk from the shiny skin of your swollen breasts.\n\n");
 					
+					if (player.isVisiblyPregnant()) outputText(images.showImage("gangbang-loss-human-preg"));
+					else outputText(images.showImage("gangbang-loss-human"));
+					outputText("\n\n");
 					
 					outputText("The smaller imp slams his cock as deep into your throat as it will go, slapping his " + monster.ballsDescriptLight() + " against your face. He cums, balls twitching as they pump spunk down your throat. You can feel your stomach stretching, but you're more worried about breathing. The imp cums for an impossibly long time, streams of jism pouring into you. The edge of your vision starts to go red and your chest heaves as you fight for air. Finally the imp draws his cock out of your throat, spraying his last gobs of cum over your face as you gasp in huge lungfuls of air. The sudden rush of oxygen pushes you over the edge and you cum hard. Your body arches and your eyes roll back in your head as you twist around the demonic " + Appearance.cockNoun(CockTypesEnum.DOG) + " pounding into you. You shriek as your ");
 					//(If the player has a vagina)
@@ -1240,8 +1241,9 @@ package classes.Scenes.Monsters
 		
 					}
 					
-					if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("gangbang-loss-human-preg-partII"));
+					if (player.isVisiblyPregnant()) outputText(images.showImage("gangbang-loss-human-preg-partII"));
 					else outputText(images.showImage("gangbang-loss-human-partII"));
+					outputText("\n\n")
 					outputText("The imp-cock in your throat spasms and its owner rams as deep into you as he can get. He floods your already swollen stomach with inhuman amounts of cum. Again you feel yourself about to black out as the demon pumps jism into you. He pulls out and again you orgasm as you wheeze for air. Another imp forces his cock down your throat as you moan and gasp. Your body shakes in pleasure on the big imp's " + Appearance.cockNoun(CockTypesEnum.DOG) + ".  Tightening his grip on your " + player.hipDescript() + " the master imp howls and slams his shaft into your ");
 					//(If the player has a vagina)
 					if (player.hasVagina()) outputText(player.vaginaDescript(0));
@@ -1361,7 +1363,7 @@ package classes.Scenes.Monsters
 					if (player.gender == 3) outputText("\n\nThe rough fucking becomes more and more pleasurable as time passes, until you cannot help but stroke your " + player.cockDescript(0) + " along with each plunge he takes in your " + player.vaginaDescript(0) + ".  You feel yourself clench around him as your sexual organs release, erupting spurts of cum and milking the demon's cock like your life depended on it.");
 					if (player.gender == 2) outputText("\n\nThe rough fucking becomes more and more pleasurable as time passes.  You moan loudly and lewdly with each thrust, hips squeezing around the demon-cock, relishing the feeling of fullness.  Before long you cannot help but cum all over him, " + player.vaginaDescript(0) + " locking around his cock like a vice, muscles rippling, milking him for his cum.");
 					outputText("  The imp's " + monster.cockDescriptShort(0) + " explodes inside you, pumping huge loads of hot demon-seed inside you with each eruption.  You swoon, feeling it fill your womb and distend your belly as the imp's orgasm fills you with an unnatural quantity of corrupted semen.\n\nWith a sigh, he pulls his dick free, and you flop back on your back, cum surging out onto the ground from your well-fucked hole.  ");
-					if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) {
+					if (player.isVisiblyPregnant()) {
 						outputText("You wonder what this will do to whatever is growing in your womb...  ");
 					}
 					else {
@@ -1967,28 +1969,28 @@ package classes.Scenes.Monsters
 		private function impLordRapeFemale(overlord:Boolean):void {
 			clearOutput();
 			if      (doSFWloss())  return;
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("implord-loss-female-preg"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("implord-loss-female-preg"));
 			else if (overlord)     outputText(images.showImage("impoverlord-loss-female"));
 			else                   outputText(images.showImage("implord-loss-female"));
 
 			outputText("You collapse from exhaustion, your [vagina] beginning to soak your [armor].  You groan loudly, desperately trying to continue the fight, or flee, but the exhaustion is too much.  You close your eyes for a moment, but hearing a loud thud near your face causes you to painfully open your eyes.  You see a large bestial hoof near your face, while the other hoof is used to roll you onto your back.");
-			outputText("\n\nYou try to move, but before you can even begin to squirm a hoof presses hard between your " + player.breastDescript(0) + ".  You gasp as the air is temporarily knocked out of your lungs.  The demon chuckles at your last feeble attempt to free yourself.  He holds his " + monster.cockDescript(0) + "" + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? " against your impregnated mound" : " stroking it lewdly") + ", a cruel smirk stretching across his face.  You watch as several beads of pre begin to drip from his tip onto your stomach.");
+			outputText("\n\nYou try to move, but before you can even begin to squirm a hoof presses hard between your " + player.breastDescript(0) + ".  You gasp as the air is temporarily knocked out of your lungs.  The demon chuckles at your last feeble attempt to free yourself.  He holds his " + monster.cockDescript(0) + "" + ((player.isVisiblyPregnant()) ? " against your impregnated mound" : " stroking it lewdly") + ", a cruel smirk stretching across his face.  You watch as several beads of pre begin to drip from his tip onto your stomach.");
 			outputText("\n\nThe imp steps between your legs, gently kicking them apart, until the wet spot on your [armor] is painfully obvious.  He chuckles, and leans down, ripping your [armor] off.  He casually tosses it to the side, and leans towards your [vagina].");
 			
 			// Balls?
 			if (player.balls > 0)  outputText("\n\nThe imp pulls your [balls] up, revealing your [vagina].  Unceremoniously, he presses his lips towards your crotch forcing his tongue into your [vagina], making you gasp in pleasure.  He gives your [balls] a rough squeeze, making your [vagina] even wetter than it was.  The imp moans in delight, licking up all your girl juices.");
-			else                   outputText("\n\nThe imp roughly " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? "presses your pregnant belly down holding you to the ground and" : "") + " forces his tongue into your [vagina] making you gasp in pleasure.  Your [vagina] clenches around the demonic tongue, squirting some of your girl juices around the wet flesh as it delves deeper into you.  You writhe and squirm trying to fight against the forced pleasure.");
+			else                   outputText("\n\nThe imp roughly " + ((player.isVisiblyPregnant()) ? "presses your pregnant belly down holding you to the ground and" : "") + " forces his tongue into your [vagina] making you gasp in pleasure.  Your [vagina] clenches around the demonic tongue, squirting some of your girl juices around the wet flesh as it delves deeper into you.  You writhe and squirm trying to fight against the forced pleasure.");
 			outputText("\n\nYou mewl pitifully as the imp removes his tongue. He smirks at your [vagina] and kneels"); 
 
 			// Biped?
 			if (player.isBiped())  outputText(" between your legs");
 			else                   outputText(" before you");
-			outputText(", draping his " + monster.cockDescript(0) + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? " on the bottom of your portruding brood-gut" : " across your wet crotch") + ".  You groan, and unintentionally thrust against the magnificent tool between your legs.  The imp chuckles evilly as you coat his " + monster.cockDescript(0) + " in your girl juice, but he doesn't wait long before he slowly presses his head down against your [vagina].  His head slowly spreads your lips; the pleasure is unmistakable, and forces a loud moan from your lips.");
+			outputText(", draping his " + monster.cockDescript(0) + ((player.isVisiblyPregnant()) ? " on the bottom of your portruding brood-gut" : " across your wet crotch") + ".  You groan, and unintentionally thrust against the magnificent tool between your legs.  The imp chuckles evilly as you coat his " + monster.cockDescript(0) + " in your girl juice, but he doesn't wait long before he slowly presses his head down against your [vagina].  His head slowly spreads your lips; the pleasure is unmistakable, and forces a loud moan from your lips.");
 			outputText("\n\nWith a soft pop, the " + monster.cockDescript(0) + " pops into your [vagina], and both of you moan in unison, the demon beginning to thrust wildly into you.  His hips pumps back and forth into you.  The loud slapping sound of flesh on flesh echoes around you, drowning out the grunts of the vicious demon above you.");
 
 			player.cuntChange(monster.cockArea(0),true,true,false);
 			
-			outputText("\n\nYou mewl softly as you're viciously fucked by the beast above you " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? ", causing your belly and tits to quake with each thrust" : "") + ".  It doesn't take long before your [vagina] clenches tightly around the " + monster.cockDescript(0) + " as you orgasm.  You scream in pleasure as your inner walls begin to milk the imp's " + monster.cockDescript(0) + " of its seed.  The imp quickly succumbs and cums, his swollen balls tightening up against his crotch.  The hot jizz continues to pump into you for what feels like several painfully long minutes, until your " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) ? "already impregnated belly distends further" : "belly bulges slightly") + ", and your " + player.vaginaDescript(0) + " begins to leak the white demonic fluid.");
+			outputText("\n\nYou mewl softly as you're viciously fucked by the beast above you " + ((player.isVisiblyPregnant()) ? ", causing your belly and tits to quake with each thrust" : "") + ".  It doesn't take long before your [vagina] clenches tightly around the " + monster.cockDescript(0) + " as you orgasm.  You scream in pleasure as your inner walls begin to milk the imp's " + monster.cockDescript(0) + " of its seed.  The imp quickly succumbs and cums, his swollen balls tightening up against his crotch.  The hot jizz continues to pump into you for what feels like several painfully long minutes, until your " + ((player.isVisiblyPregnant()) ? "already impregnated belly distends further" : "belly bulges slightly") + ", and your " + player.vaginaDescript(0) + " begins to leak the white demonic fluid.");
 			outputText("\n\nThe imp pulls out, and gives himself a few final strokes, sending one last shot of cum across your face.  You blush in embarrassment and wipe the sticky seed from your nose and lips.  Standing up, the imp presses a hoof down hard on your distended stomach, making you gasp loudly as the demon's thick cum is forced back out of your [vagina], pooling between your legs. The imp gives a satisfied smirk and flies off, leaving you to clean up.");
 			outputText("\n\nYou stand up weakly after several moments, and gather your [armor].  It takes you a while to get dressed in your defeated state, but you manage to crawl back towards your camp.  Your [vagina] is still leaking some of the demonic cum, but you try not to worry about it as you arrive, collapsing almost immediately.");
 

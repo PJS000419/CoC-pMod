@@ -700,7 +700,7 @@ package classes.Scenes.Areas.Bog
 				outputText("  You hear the " + phoukaName() + " say <i>“Now line me up with yer cunt lass, or I'll lay down on top of ya and have a nap.”</i> Not wanting to be crushed under that kind of bulk, you reach [if (isNaga = true)up][if (isNaga = false)behind you] and grab his member.  You place his cock at the entrance to your [vagina] and the stallion steps forward.  [if (vagCapacity < 50)His cock bends and then snaps free of your cunt, slapping against his belly. <i>“Again! And do it right this time!”</i> he shouts.  You line it up once more and press against it with your hands so it has nowhere to go but in.]");
 			}
 			outputText("  You're convinced you're going to be split in half by this monster horse cock.\n\n");
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("phouka-sex-horse-preg"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("phouka-sex-horse-preg"));
 			else outputText(images.showImage("phouka-sex-horse"));
 			if (player.hasVirginVagina())
 				outputText("You scream as the " + phoukaName() + "'s cock tears your hymen apart.  He stops mid-thrust and asks <i>“A virgin? Here? Good goddess missy ya should have told me.”</i> In a lower tone he adds <i>“so I could have enjoyed it more.”</i> Your whole vagina burns as every fold is stretched and widened by the passage of the " + phoukaName() + "'s huge horse cock.  You think he's delighted to have taken a woman from virgin to gaping in just one thrust.  ");

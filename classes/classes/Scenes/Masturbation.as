@@ -951,7 +951,7 @@ package classes.Scenes {
 			}
 		}
 		public function pregPrep():void {
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText("To start, you find somewhere comfortable you can lay down and hoist up your considerable gut to gain access to your " + player.vaginaDescript() + ".  ");
+			if (player.isVisiblyPregnant()) outputText("To start, you find somewhere comfortable you can lay down and hoist up your considerable gut to gain access to your " + player.vaginaDescript() + ".  ");
 		}
 		
 		public  function titForeplay():void {
