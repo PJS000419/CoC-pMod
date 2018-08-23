@@ -1781,13 +1781,17 @@
 				<ImageFile>./img/gangbang-loss-human-partII</ImageFile>
 				<ImageFile>./img/gangbang-loss-human-partII_1</ImageFile>
 			</ImageSet>
-			<ImageSet id="gangbang-loss-human-preg">
-				<ImageFile>./img/gangbang-loss-human-preg</ImageFile>
-				<ImageFile>./img/gangbang-loss-human-preg_1</ImageFile>
-			</ImageSet>
 			<ImageSet id="gangbang-loss-human-preg-partII">
 				<ImageFile>./img/gangbang-loss-human-preg-partII</ImageFile>
 				<ImageFile>./img/gangbang-loss-human-preg-partII_1</ImageFile>
+			</ImageSet>
+			<ImageSet id="gangbang-loss-human-partIII">
+				<ImageFile>./img/gangbang-loss-human-partIII</ImageFile>
+				<ImageFile>./img/gangbang-loss-human-partIII_1</ImageFile>
+			</ImageSet>
+			<ImageSet id="gangbang-loss-human-preg-partIII">
+				<ImageFile>./img/gangbang-loss-human-preg-partIII</ImageFile>
+				<ImageFile>./img/gangbang-loss-human-preg-partIII_1</ImageFile>
 			</ImageSet>
 			<ImageSet id="gargoyle-cathedral">
 				<ImageFile>./img/gargoyle-cathedral</ImageFile>
@@ -2956,6 +2960,10 @@
 			<ImageSet id="kiha-loss-female">
 				<ImageFile>./img/kiha-loss-female</ImageFile>
 				<ImageFile>./img/kiha-loss-female_1</ImageFile>
+			</ImageSet>
+			<ImageSet id="kiha-loss-female-preg">
+				<ImageFile>./img/kiha-loss-female-preg</ImageFile>
+				<ImageFile>./img/kiha-loss-female-preg_1</ImageFile>
 			</ImageSet>
 			<ImageSet id="kiha-loss-herm">
 				<ImageFile>./img/kiha-loss-herm</ImageFile>

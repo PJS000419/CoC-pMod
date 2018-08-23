@@ -3005,5 +3005,8 @@ public static const ITS_EVERY_DAY:int                                           
 public static const LOW_STANDARDS_FOR_ALL:int                                       = 2997;
 public static const HYPER_HAPPY:int                                                 = 2998;
 public static const GRIMDARK_MODE:int                                               = 2999; // Grimdark CoC! Do you wanna have a bad time?
+public static const ADULT_GOBLIN_OFFSPRINGS:int                                     = 3000; // Number of grown up goblin offspring - player contribution to population
+public static const GOBLIN_DAUGHTERS_PENDING:int                                    = 3001; // Number of minotaur daughters pending growing up
+public static const GOBLIN_DAUGHTERS_GROWUP_COUNTER:int                             = 3002; // Grow up countdown
 	}    
 }

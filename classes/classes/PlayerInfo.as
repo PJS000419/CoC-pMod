@@ -177,7 +177,10 @@ package classes
 			//Mino sons
 			if (flags[kFLAGS.ADULT_MINOTAUR_OFFSPRINGS] > 0)
 				childStats += "<b>Number of Adult Minotaur Offspring:</b> " + flags[kFLAGS.ADULT_MINOTAUR_OFFSPRINGS] + "\n";
-			
+			//Imps spawned
+			if (flags[kFLAGS.ADULT_MINOTAUR_OFFSPRINGS] > 0)
+				childStats += "<b>Number of Imps spawned:</b> " + player.statusEffectv1(StatusEffects.BirthedImps) + "\n";
+				
 			if (childStats != "")
 				outputText("\n<b><u>Children</u></b>\n" + childStats);
 			// End Children Stats

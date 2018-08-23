@@ -58,7 +58,7 @@ package classes.Scenes.Areas.GlacialRift {
 			outputText("\n\nYour entire body is jolted under him with each brutal connection of his hips to your ass cheeks with a muffled whump. The raw power of each hard strike sends deep ripples racing down your curves. His heavy nuts swinging like pendulums between his legs and smacking so hard into your pussy lips and clit it makes harsh bolts of pleasure burst between your quivering legs.  You can feel his cock pushing at the walls of your passage as it expands to fill you completely.");
 			outputText("You can keenly feel the numerous veins in his shaft giving his bloated cock an erratic bumpy texture while he rakes it against your slick walls. Your moans grew louder and more desperate when you feel your pussy straining to handle his growing member. You feel his thick knot spreading your already loose fuck hole");
 			
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) outputText(images.showImage("amarok-loss-vag-preg"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("amarok-loss-vag-preg"));
 			else outputText(images.showImage("amarok-loss-vag"));
 			outputText("\n\nSlick with your mixed fluids, the beast forces his knot into your pussy an explosion of pain ripping through you. As it subsides you are overwhelmed by cascading pleasure to match the sensations rising from your " + player.vaginaDescript(0) + ".  You climax, hard. ")
 				//Cum
@@ -67,7 +67,7 @@ package classes.Scenes.Areas.GlacialRift {
 			outputText("\n\nHe continues to pump rope after rope of beastial cum until you appear like a heavily pregnant woman.  It feels like ages before his knot deflates enough to escape your abused hole with a wet pop - followed by a flood of wolf seed.");
 			outputText("\n\nThe mixture of pleasure and pain is too much and you pass out.")
 			
-			if ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) && player.biggestTitSize() >= 3){
+			if ((player.isVisiblyPregnant()) && player.biggestTitSize() >= 3){
 				doNext(amaroksBitch);
 			}
 			else{

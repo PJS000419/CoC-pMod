@@ -375,7 +375,7 @@ package classes.Scenes {
 				}
 			}
 				if (player.gender == 3) outputText(images.showImage("masti-herm"));
-				else if(player.gender == 2 && player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216) outputText(images.showImage("masti-female-preg"));
+				else if(player.gender == 2 && player.isVisiblyPregnant()) outputText(images.showImage("masti-female-preg"));
 				else if (player.gender == 2) outputText(images.showImage("masti-female"));
 				else outputText(images.showImage("masti-male"));
 
@@ -3685,3 +3685,4 @@ package classes.Scenes {
 		}
 	}
 }
+
