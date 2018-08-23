@@ -18,6 +18,30 @@ package classes.Scenes.Monsters
 		{
 			new PlayerGoblinPregnancy(pregnancyProgression, output);
 		}
+		
+		public function timeChange():Boolean {
+			//3000 Number of children grown
+			//3001 Number of children pending
+			//3002 growup countdown
+			//If it gets glitched somehow
+			if (flags[kFLAGS.GOBLIN_DAUGHTERS_GROWUP_COUNTER] > 30) flags[kFLAGS.GOBLIN_DAUGHTERS_GROWUP_COUNTER] = 30;
+			if (flags[kFLAGS.MINOTAUR_SONS_GROWUP_COUNTER] < 0) flags[kFLAGS.GOBLIN_DAUGHTERS_GROWUP_COUNTER] = 0;
+			//Countdown for goblin child growing up
+			if (flags[kFLAGS.GOBLIN_DAUGHTERS_GROWUP_COUNTER] > 0) {
+				flags[kFLAGS.GOBLIN_DAUGHTERS_GROWUP_COUNTER]--;
+				//Hit zero, move kid to grown up pile!
+				if (flags[kFLAGS.GOBLIN_DAUGHTERS_GROWUP_COUNTER] <= 0 && flags[kFLAGS.GOBLIN_DAUGHTERS_PENDING] > 0) {
+					flags[kFLAGS.GOBLIN_DAUGHTERS_PENDING]--;
+					flags[kFLAGS.ADULT_GOBLIN_OFFSPRINGS]++;
+				}
+			}
+			//NEXT KID!
+			if (flags[kFLAGS.GOBLIN_DAUGHTERS_PENDING] > 0 && flags[kFLAGS.GOBLIN_DAUGHTERS_GROWUP_COUNTER] == 0)
+				flags[kFLAGS.GOBLIN_DAUGHTERS_GROWUP_COUNTER] = 30;
+			return false;
+		}
+		public function timeChangeLarge():Boolean { return false; }
+		//End of Interface Implementation
 
 		/*Goblins
 		 Gender: Female
@@ -776,3 +800,4 @@ package classes.Scenes.Monsters
 		}
 	}
 }
+

@@ -1138,6 +1138,7 @@ package classes.Scenes.Monsters
 					
 					if (player.isVisiblyPregnant()) outputText(images.showImage("gangbang-loss-human-preg"));
 					else outputText(images.showImage("gangbang-loss-human"));
+					outputText("\n\n");
 					
 					//(If the player has breasts)
 					if (player.biggestTitSize() > 0) {
@@ -1210,8 +1211,8 @@ package classes.Scenes.Monsters
 					//(If the character has breasts)
 					if (player.biggestTitSize() > 0) outputText("An ache starts deep in the base of your tits and works its way to your sore " + player.nippleDescript(0) + ". Your already bloated nipples swell as your rider suckles and you gasp as the first rush of milk spills into his mouth. Your rider milks your udders, moving his hands between your " + player.allBreastsDescript() + " and forcing out more milk than he could ever drink. Other imps lick the milk from the shiny skin of your swollen breasts.\n\n");
 					
-					if (player.isVisiblyPregnant()) outputText(images.showImage("gangbang-loss-human-preg"));
-					else outputText(images.showImage("gangbang-loss-human"));
+					if (player.isVisiblyPregnant()) outputText(images.showImage("gangbang-loss-human-preg-partII"));
+					else outputText(images.showImage("gangbang-loss-human-partII"));
 					outputText("\n\n");
 					
 					outputText("The smaller imp slams his cock as deep into your throat as it will go, slapping his " + monster.ballsDescriptLight() + " against your face. He cums, balls twitching as they pump spunk down your throat. You can feel your stomach stretching, but you're more worried about breathing. The imp cums for an impossibly long time, streams of jism pouring into you. The edge of your vision starts to go red and your chest heaves as you fight for air. Finally the imp draws his cock out of your throat, spraying his last gobs of cum over your face as you gasp in huge lungfuls of air. The sudden rush of oxygen pushes you over the edge and you cum hard. Your body arches and your eyes roll back in your head as you twist around the demonic " + Appearance.cockNoun(CockTypesEnum.DOG) + " pounding into you. You shriek as your ");
@@ -1241,9 +1242,9 @@ package classes.Scenes.Monsters
 		
 					}
 					
-					if (player.isVisiblyPregnant()) outputText(images.showImage("gangbang-loss-human-preg-partII"));
-					else outputText(images.showImage("gangbang-loss-human-partII"));
-					outputText("\n\n")
+					if (player.isVisiblyPregnant()) outputText(images.showImage("gangbang-loss-human-preg-partIII"));
+					else outputText(images.showImage("gangbang-loss-human-partIII"));
+					outputText("\n\n");
 					outputText("The imp-cock in your throat spasms and its owner rams as deep into you as he can get. He floods your already swollen stomach with inhuman amounts of cum. Again you feel yourself about to black out as the demon pumps jism into you. He pulls out and again you orgasm as you wheeze for air. Another imp forces his cock down your throat as you moan and gasp. Your body shakes in pleasure on the big imp's " + Appearance.cockNoun(CockTypesEnum.DOG) + ".  Tightening his grip on your " + player.hipDescript() + " the master imp howls and slams his shaft into your ");
 					//(If the player has a vagina)
 					if (player.hasVagina()) outputText(player.vaginaDescript(0));

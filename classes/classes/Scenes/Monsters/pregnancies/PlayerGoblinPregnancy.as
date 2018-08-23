@@ -1,6 +1,7 @@
 package classes.Scenes.Monsters.pregnancies 
 {
 	import classes.GlobalFlags.kGAMECLASS;
+	import classes.GlobalFlags.kFLAGS;
 	import classes.Player;
 	import classes.PregnancyStore;
 	import classes.Scenes.PregnancyProgression;
@@ -128,7 +129,7 @@ package classes.Scenes.Monsters.pregnancies
 				output.text("\n\n<b>Your cunt is painfully stretched from the ordeal, permanently enlarged.</b>");
 			}
 
-			output.text("\n\nWhen you wake you find a large number of tiny goblin tracks... and a spattering of cum on your clothes and body.  They must be born close to fully-formed.");
+			output.text("\n\nWhen you wake you find a number of tiny goblin tracks... and a spattering of cum on your clothes and body.  It must be born close to fully-formed.");
 			
 			if (player.averageLactation() > 0 && player.averageLactation() < 5) {
 				output.text("  Your breasts won't seem to stop dribbling milk, lactating more heavily than before.");
@@ -172,6 +173,17 @@ package classes.Scenes.Monsters.pregnancies
 				output.text("\n\nAfter the birth your " + player.armorName + " fits a bit more snugly about your " + player.hipDescript() + ".");
 			}
 			output.text("\n");
+			
+			player.knockUpForce(); //Clear Pregnancy
+			output.text("\n");
+			//3000 Number of children grown
+			//3001 Number of children pending
+			//3002 growup countdown
+			kGAMECLASS.flags[kFLAGS.GOBLIN_DAUGHTERS_PENDING]++;
+			
+			if (kGAMECLASS.flags[kFLAGS.GOBLIN_DAUGHTERS_GROWUP_COUNTER] === 0) {
+				kGAMECLASS.flags[kFLAGS.GOBLIN_DAUGHTERS_GROWUP_COUNTER] = 150;
+			}
 		}
 	}
 }

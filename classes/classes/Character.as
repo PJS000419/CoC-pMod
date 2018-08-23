@@ -374,9 +374,9 @@ package classes
 			
 			if (isPregnant()){
 				if (_pregnancyType == PregnancyStore.INCUBATION_IMP_HORDE || _pregnancyType == PregnancyStore.PREGNANCY_BEHEMOTH) return true; 
-				else if (_pregnancyIncubation <= 216 || _buttPregnancyIncubation <= 216) return true; 
+				else if (_pregnancyIncubation <= 300 || _buttPregnancyIncubation <= 300) return true; 
 				else return false; 
-				}
+			}
 
 			return false;
 		}
