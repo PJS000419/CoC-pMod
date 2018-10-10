@@ -339,7 +339,7 @@ private function gloryholeMinotaur(): void {
 	player.slimeFeed();
 	if (player.isVisiblyPregnant()) outputText(images.showImage("salon-preg"));
 	outputText("Your eyes are drawn to the huge minotaur cock, and you instinctively kneel down in front of it.\n\n");
-	if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216 && player.pregnancyType == PregnancyStore.PREGNANCY_MINOTAUR) outputText("Is this the one that blasted your brood-gut with the spawn you carry now?  ")
+	if (player.isVisiblyPregnant() && player.pregnancyType == PregnancyStore.PREGNANCY_MINOTAUR) outputText("Is this the one that blasted your brood-gut with the spawn you carry now?  ")
 	if (flags[kFLAGS.ADULT_MINOTAUR_OFFSPRINGS] > 3) outputText("Or is it one you births?");
 	outputText("\n\n");
 	outputText("It's the largest available member in the room by a considerable margin, and from your position on your knees, it looks even more massive; it's over two feet long, and has three rings of prepuce spaced around its length. You can just barely span your entire hand around its thickness. You open your mouth wide and lean forward, taking the thick, spongy head into your mouth. The taste is incredibly strong, and its musk is as thick as the minotaur's dick itself. You moan in pleasure, and start bobbing your head back and forth, taking more and more of the dick into your mouth. You stroke the rest of the cock in time with your sucking. You can hear muffled grunting and snorting coming from the other side of the wall, obvious sounds of approval from your partner.\n\n");
