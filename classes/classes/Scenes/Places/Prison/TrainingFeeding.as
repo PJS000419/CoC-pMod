@@ -177,7 +177,7 @@ package classes.Scenes.Places.Prison
 				}
 				
 				outputText(", stoking your fire and making you think for a moment that she must still be squatting on the floor in front of you. Then a rustling in a corner of your cell makes you wonder your desire has run away with your imagination, but either way you heed the reminder of the humiliating thing your Mistress has asked you to do. Having finally stabilized yourself, you pull your arms back inwards, timidly crossing your hands on your [chest], then slowly forcing them to descend over your prickly flesh, ");
-				if (player.pregnancyType > 0 && player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 280)
+				if (player.pregnancyType > 0 && player.isVisiblyPregnant())
 				{
 					outputText("relishing the curves of your distended belly");
 				}
@@ -3015,7 +3015,7 @@ package classes.Scenes.Places.Prison
 				outputText("\"<i>Oh dear, so modest. ");
 				if (player.cor < 30)
 				{
-					if (player.pregnancyType > 0 && player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 280)
+					if (player.isVisiblyPregnant())
 					{
 						outputText("You shudder and blush,</i>\" she gives your swollen belly a gentle pat, \"<i>but I'd say you've had at least one cock inside of you recently. Oh, I know, it wasn't your choice -- some mean old monster attacked you, right? And when he overpowered you and took your precious virginity, you didn't enjoy yourself even for a moment. Well, don't worry darling; I'm no monster, and you <b>will</b> enjoy it with me. ");
 					}
@@ -3024,7 +3024,7 @@ package classes.Scenes.Places.Prison
 						outputText("Don't worry, baby, you'll get the hang of it. You shudder and blush now, but you'll be shocked by how much fun you'll have once you get started. ");
 					}
 				}
-				else if (player.pregnancyType > 0 && player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 280)
+				else if (player.isVisiblyPregnant())
 				{
 					outputText("It's a cute act,</i>\" she gives your swollen belly a gentle pat, \"<i>but I can see as plain as day how much you love a good cock inside of you. One day very soon you'll be begging me to put a baby in there myself, but for now you can pretend all you like. I'll even play along. ");
 				}
@@ -3114,7 +3114,7 @@ package classes.Scenes.Places.Prison
 				}
 				
 				outputText(" around my shaft like the dirty, ");
-				if (player.pregnancyType > 0 && player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 280)
+				if (player.isVisiblyPregnant())
 				{
 					outputText("pregnant, ");
 				}

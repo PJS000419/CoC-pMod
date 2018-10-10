@@ -95,7 +95,7 @@ public function meetMinotaurSons():void {
 				else if (player.wetness() <= 4) outputText("A steady flow of your juices soaks your " + player.legs() + " almost immediately, just from the scent invading your nostrils.");
 				else outputText("A flood of wetness soaks your " + player.armorName + " and " + player.legs() + " with feminine drool almost immediately as your body reflects the obscene lust coursing through your veins.");
 				outputText("\n\nThis could be a bit difficult.\n\nThe largest folds his arms across his broad, well-defined chest and smirks before grunting, \"<i>");
-				if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216 && player.pregnancyType == PregnancyStore.PREGNANCY_MINOTAUR) outputText("Pregnant with another brother for us, and already you come back for more?");
+				if (player.isVisiblyPregnant() && player.pregnancyType == PregnancyStore.PREGNANCY_MINOTAUR) outputText("Pregnant with another brother for us, and already you come back for more?");
 				else if (player.isVisiblyPregnant()) outputText("Huh... Looks like Mommy couldn't keep her legs closed, and she got knocked up by some vermin.  You're such a disappointment to your beloved family.  Don't worry, though, mom, we'll still fuck you.");
 				else outputText("Hey mom, come back so we could all have another whack at you?  We could use another brother.");
 				outputText("</i>\"\n\n");
@@ -112,7 +112,7 @@ public function meetMinotaurSons():void {
 				else outputText("A flood of wetness soaks your " + player.armorName + " and " + player.legs() + " with feminine drool almost immediately as your body reflects the obscene lust coursing through your veins.");
 				outputText("  You absentmindedly tweak your nipple and lick your lips in anticipation.\n\n");
 				outputText("The largest folds his arms across his broad, well-defined chest and smirks before grunting, \"<i>");
-				if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 216 && player.pregnancyType == PregnancyStore.PREGNANCY_MINOTAUR) outputText("Pregnant with another brother for us, and you're already back for another fix?  Why even leave in the first place?");
+				if (player.isVisiblyPregnant() && player.pregnancyType == PregnancyStore.PREGNANCY_MINOTAUR) outputText("Pregnant with another brother for us, and you're already back for another fix?  Why even leave in the first place?");
 				else if (player.isVisiblyPregnant()) outputText("Huh... you couldn't keep your legs closed, eh, mom?  Looks like you're all knocked up with vermin, too!  You're a disappointment to our family... don't worry, though, we'll still give you a fix.");
 				else outputText("Hey, mom!  You come back so we could have another go at knocking you up?  Heh.  Knowing you, you're probably just here for another cum fix.");
 				outputText("</i>\"\n\n");
@@ -375,6 +375,7 @@ private function loseToMinoMobVeryPregnant():void {
 	if (player.horns.value > 0) outputText("horns");
 	else outputText("hair");
 	outputText(" and pulls you back, your tongue dragging over the underside of his shaft.  Then, with an abrupt shift, he plunges back in.  Once he bottoms out, he once more reverses direction - never stopping, never slowing.  He face-fucks you hard and fast while your ass is repeatedly smacked.");
+	outputText(images.showImage("minomob-pregfuck"));
 	outputText("\n\nThe frantic face-humping comes to a final, explosive end with an eruption of stringy seed falling into your already-full belly.  This beast-man withdraws coolly.  He pulls out quickly enough that the bulk of his cum is added to your frosted face and " + player.hairDescript() + ".  Much of it falls down to soak your " + player.chestDesc() + " and huge, pregnant belly.  You look more like a creme-covered doughnut than a person at this point, and you nearly climax from the mental picture of your huge, pregnant form lying in a puddle of minotaur goo while the beast-men use your face as a cum-receptacle.\n\n");
 	outputText("\"<i>You've got a nice tight throat, Mom... for a whore,</i>\" says the minotaur as he steps back.  You beam in happiness from the tone of praise in his voice, too high to register the insult for what it really is.  A moment later you forget even that, as the next dick is pressed between your lips.  ");
 	if (flags[kFLAGS.ADULT_MINOTAUR_OFFSPRINGS] < 8) { //short

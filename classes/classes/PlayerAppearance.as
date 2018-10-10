@@ -1175,6 +1175,38 @@ package classes
 						outputText("It feels like it’s full of thick syrup or jelly.</b>");
 					else outputText("It still feels like there’s a solid ball inside your womb.</b>");    
 				}
+								//URTA PREG
+				else if (player.pregnancyType == PregnancyStore.PREGNANCY_IMP_HORDE) 
+				{
+					if (player.pregnancyIncubation <= 1100 && player.pregnancyIncubation > 800)
+					{
+						outputText("<b>Your belly makes you look 9 months pregnant.</b>\n");
+					}
+					if (player.pregnancyIncubation <= 800 && player.pregnancyIncubation > 576) 
+					{
+						outputText("<b>Your belly is obscenely distended making normal functions more difficult.</b>");
+					}
+					if (player.pregnancyIncubation <= 576 && player.pregnancyIncubation > 288) 
+					{
+						outputText("<b>Your pregnancy bulge is larger than you ever seen.  You can feel multiple kicks happening daily</b>");
+					}
+					if (player.pregnancyIncubation <= 288 && player.pregnancyIncubation > 144) 
+					{
+						outputText("<b>Your belly is absurdly large and very obviously pregnant to anyone who looks at you.  It's gotten heavy enough to impact your physical abilities</b>");
+					}
+					if (player.pregnancyIncubation <= 144 && player.pregnancyIncubation > 72) 
+					{
+						outputText("<b>Your massive abdomen overshadows your entire frame.  Moving quickly is almost impossible.</b>");
+					}
+					if (player.pregnancyIncubation <= 72 && player.pregnancyIncubation > 48) 
+					{
+						outputText("<b>Your stomach is stretched beyond in reason, bulging perhaps four feet or more in front of you.</b>");
+					}
+					if (player.pregnancyIncubation <= 48) 
+					{
+						outputText("\n<b>Your belly protrudes so unnaturally far forward that you're sure there has to be an entire litter in there.</b>");
+					}
+				}
 				else 
 				{
 					if (player.pregnancyIncubation <= 336 && player.pregnancyIncubation > 280)

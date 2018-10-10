@@ -669,7 +669,7 @@ package classes.Scenes.NPCs
 
 			outputText("Ceraph licks her lips and gazes up at you, begging with a voice that drips with seductive intent, ");
 			
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150)
+			if (player.isVisiblyPregnant())
 			{
 			outputText(" \"<i>Mistress, your belly is so beautifully pregnant already, how could I fill you anymore?</i>\"\n\n");
 			}
@@ -680,7 +680,7 @@ package classes.Scenes.NPCs
 			}
 			
 			outputText("The powerful sensations emanating from your " + player.vaginaDescript() + " have pushed you beyond reason");
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150)
+			if (player.isVisiblyPregnant())
 			{
 			outputText(" and if anything, the sensations of motherhood have made it that much stronger.");
 			}
@@ -692,7 +692,7 @@ package classes.Scenes.NPCs
 			outputText("\n\nIt's too late for her to have any hope of swaying you anyway.");
 			outputText("\n\n");
 
-			outputText("Still standing, you step over her straddling the demon slut and " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) ? "lift your brood-swollen belly to " : "") + "begin touching your " + player.vaginaDescript(0) + ", getting yourself ready for what is to come.");
+			outputText("Still standing, you step over her straddling the demon slut and " + ((player.isVisiblyPregnant()) ? "lift your brood-swollen belly to " : "") + "begin touching your " + player.vaginaDescript(0) + ", getting yourself ready for what is to come.");
 			
 			outputText("You sink down, "); 			
 			if (flags[kFLAGS.PC_FETISH] >= 1) outputText("getting an exhibitionist thrill, ");
@@ -701,7 +701,7 @@ package classes.Scenes.NPCs
 			else outputText("able to take the entire exquisite cock inside you.  The nubs squirm and wiggle, practically vibrating and massaging your internal muscles, and you're unable to stop yourself from bouncing on top of her, spearing yourself repeatedly upon the thick rod.\n\n");
 			
 			outputText("Ceraph cries in mock protest, ");
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150)
+			if (player.isVisiblyPregnant())
 			{
 			outputText("\"<i>Oh, Mistress, please spare my pure sensibilities!  I could not bare to see your fat, brood gut overflowing with my seed!</i>\"\n\n");
 			}
@@ -712,7 +712,7 @@ package classes.Scenes.NPCs
 			outputText(images.showImage("ceraph-female-ride"));
 			}
 			
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) outputText(images.showImage("ceraph-female-ride-preg"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("ceraph-female-ride-preg"));
 			else outputText(images.showImage("ceraph-female-ride"));
 			
 			outputText("The sensations of her vibrating nodules ensure you don't have the will or the strength to pull off of her, and what little power your " + player.legs() + " have is used to keep bouncing and grinding on top of her, filling the air with wet squelches and slippery squishes.  You fall forwards, barely catching yourself before you slam into the sultry demoness.  Your ");

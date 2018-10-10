@@ -614,6 +614,7 @@ package classes.Scenes.Monsters
 			outputText("\n");
 			if (player.isVisiblyPregnant()) outputText(images.showImage("event-impGang-preg"));
 			else outputText(images.showImage("event-impGang"));
+			outputText("\n\n");
 			if (!loss) outputText("<b>You sleep uneasily. A small sound near the edge of your camp breaks into your rest and you awaken suddenly to find yourself surrounded by " + monster.a + monster.short + "</b>!\n\n");
 			if (flags[kFLAGS.CAMP_BUILT_CABIN] > 0 && flags[kFLAGS.CAMP_CABIN_FURNITURE_BED] > 0 && (flags[kFLAGS.SLEEP_WITH] == "Marble" || flags[kFLAGS.SLEEP_WITH] == "")) {
 				outputText("You look at the door to see that it's open. Shit. You forgot to lock the door before you've went to sleep!\n\n");
@@ -1245,7 +1246,8 @@ package classes.Scenes.Monsters
 					if (player.isVisiblyPregnant()) outputText(images.showImage("gangbang-loss-human-preg-partIII"));
 					else outputText(images.showImage("gangbang-loss-human-partIII"));
 					outputText("\n\n");
-					outputText("The imp-cock in your throat spasms and its owner rams as deep into you as he can get. He floods your already swollen stomach with inhuman amounts of cum. Again you feel yourself about to black out as the demon pumps jism into you. He pulls out and again you orgasm as you wheeze for air. Another imp forces his cock down your throat as you moan and gasp. Your body shakes in pleasure on the big imp's " + Appearance.cockNoun(CockTypesEnum.DOG) + ".  Tightening his grip on your " + player.hipDescript() + " the master imp howls and slams his shaft into your ");
+					
+					outputText("\n\nThe imp-cock in your throat spasms and its owner rams as deep into you as he can get. He floods your already swollen stomach with inhuman amounts of cum. Again you feel yourself about to black out as the demon pumps jism into you. He pulls out and again you orgasm as you wheeze for air. Another imp forces his cock down your throat as you moan and gasp. Your body shakes in pleasure on the big imp's " + Appearance.cockNoun(CockTypesEnum.DOG) + ".  Tightening his grip on your " + player.hipDescript() + " the master imp howls and slams his shaft into your ");
 					//(If the player has a vagina)
 					if (player.hasVagina()) outputText(player.vaginaDescript(0));
 					//If the player doesn't have a vagina)
@@ -1308,9 +1310,9 @@ package classes.Scenes.Monsters
 			clearOutput();
 			if (doSFWloss()) return;
 			if ((player.findPerk(PerkLib.BimboBrains) >= 0 || player.findPerk(PerkLib.FutaFaculties) >= 0) && !player.isTaur() && player.hasVagina()) {
-				if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) outputText(images.showImage("imp-loss-female-fuck-preg"));
+				if (player.isVisiblyPregnant()) outputText(images.showImage("imp-loss-female-fuck-preg"));
 				else outputText(images.showImage("imp-loss-female-fuck-preg"));
-				outputText("You sink to the ground, assuming a position that feels all too natural to you now, leaning forward to let your " + player.allBreastsDescript() + " " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) ? "and heavily pregnant belly " : "") +  "hang down slightly. The imp looks you up and down, wickedly eyeing your ready, slightly open lips. He drops his loin-cloth to reveal a hardening cock. Your eyes bulge as it grows larger... and larger... and larger! The imp's cock finally bulges to a full twelve inches... and it's moving closer. You struggle to think... but you just can't! You want that in your mouth, like, so bad!\n\n");
+				outputText("You sink to the ground, assuming a position that feels all too natural to you now, leaning forward to let your " + player.allBreastsDescript() + " " + ((player.isVisiblyPregnant()) ? "and heavily pregnant belly " : "") +  "hang down slightly. The imp looks you up and down, wickedly eyeing your ready, slightly open lips. He drops his loin-cloth to reveal a hardening cock. Your eyes bulge as it grows larger... and larger... and larger! The imp's cock finally bulges to a full twelve inches... and it's moving closer. You struggle to think... but you just can't! You want that in your mouth, like, so bad!\n\n");
 				outputText("Your " + player.vaginaDescript(0) + " drips in anticipation, and you find yourself involuntarily moving your knees farther apart to prepare yourself to be filled. He smiles and presses his cock against your " + player.vaginaDescript(0) + ", pushing you back to get a better angle. You try to make words, but your brain can only think of so much at once! Right now, it's thinking of cock, which, naturally, makes you open your mouth and let out a slutty moan.\n\n");
 		
 				outputText("The imp pushes into you violently, ramming his cock in to the hilt, leaving you gasping in pain and surprise. He leaves it in your slutty pussy, giving you a second to... oh who is he kidding... he can tell by your air-headed look that you've done nothing but take cocks your whole life. He fucks you hard, slapping your " + player.buttDescript() + " to remind you who is in charge. You can't help but think about, like, how you just love it when a man takes charge. Less thinking!");
@@ -1340,7 +1342,7 @@ package classes.Scenes.Monsters
 				//Female or Futa
 				if (player.gender == 2 || player.gender == 3) {
 					player.slimeFeed();
-					if (player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) outputText(images.showImage("imp-loss-female-fuck-preg"));
+					if (player.isVisiblyPregnant()) outputText(images.showImage("imp-loss-female-fuck-preg"));
 					else outputText(images.showImage("imp-loss-female-fuck"));
 					outputText("You sink to the ground, leaning forward to let your " + player.allBreastsDescript() + " " + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) ? "and heavily pregnant belly " : "") +  "hang down slightly.  Too overcome by lust and desire to fight.  The imp smiles, a wicked look glinting in his eyes.  He drops his loincloth to reveal a hardening cock.  Your eyes bulge a bit as it grows...and grows...and grows!  That imp has a twelve inch cock..and he's walking towards you.   Your " + player.vaginaDescript(0) + " practically juices itself in anticipation, and you find yourself spreading your " + player.legs() + " in preparation.");
 					outputText("\n\nHe smiles and presses his cock against your " + player.vaginaDescript(0) + ".  Your lust-driven mind is speechless, leaving you panting and moaning like a whore.");
@@ -1358,7 +1360,7 @@ package classes.Scenes.Monsters
 					}
 					else {
 						outputText("  He plunges in violently, ramming his " + monster.cockDescriptShort(0) + " in to the hilt, leaving you gasping in pain and surprise.  He leaves it there, giving you a second to get used to him, and then begins fucking you hard, slapping your ass every few thrusts to remind you who is in charge. ");
-						if ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) && player.biggestTitSize() >= 3) outputText(" Your " + player.allBreastsDescript() + " and brood-mother gut jiggling with each impact" + ((player.lactationQ() > 0) ? ", the imp's rough fucking causes spurts milk from your pregnant udders soaking the ground beneath you" : "") + ".");
+						if ((player.isVisiblyPregnant()) && player.biggestTitSize() >= 3) outputText(" Your " + player.allBreastsDescript() + " and brood-mother gut jiggling with each impact" + ((player.lactationQ() > 0) ? ", the imp's rough fucking causes spurts milk from your pregnant udders soaking the ground beneath you" : "") + ".");
 						player.cuntChange(monster.cockArea(0),true,true,false);
 					}
 					if (player.gender == 3) outputText("\n\nThe rough fucking becomes more and more pleasurable as time passes, until you cannot help but stroke your " + player.cockDescript(0) + " along with each plunge he takes in your " + player.vaginaDescript(0) + ".  You feel yourself clench around him as your sexual organs release, erupting spurts of cum and milking the demon's cock like your life depended on it.");

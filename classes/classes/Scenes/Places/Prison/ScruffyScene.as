@@ -186,7 +186,7 @@ package classes.Scenes.Places.Prison
 			var reject:Function = prisonCaptorRandomEventJizzJanitorReject;
 			var perform:Function = prisonCaptorRandomEventJizzJanitorPerform;
 			outputText("You look up as the door squeaks open and see a skinny imp enter the room with a mop and a bucket.  He's wearing a janitor's scrub top with a nametag that reads \"Scruffy\" but you doubt it originally belonged to him since it is about five sizes too large and he is very noticeably not wearing the matching scrub pants that should go with it. He flatly ignores you as he begins the unenviable task of cleaning your cell, but after a few minutes of lackadaisical cleaning he turns and seems to notice your presence for the first time. ");
-			outputText("\n\n\"<i>Well, aren't you a tasty little thing?  The " + prison.prisonCaptor.captorTitle + " sure knows how to pick em'.</i>\" he growls, looking you up and down appraisingly. You notice his not insubstantial cock begin to stir and start to get a sinking feeling.\n\n");
+			outputText("\n\n\"<i>Well, aren't you a tasty little thing? [if (isPregnant = true)Fact that you got a bun in the oven could even be a turn on - more to grab on to.]  The " + prison.prisonCaptor.captorTitle + " sure knows how to pick em'.</i>\" he growls, looking you up and down appraisingly. You notice his not insubstantial cock begin to stir and start to get a sinking feeling.\n\n");
 			outputText("\"<i>Anyway, don't ever let me hear you complainin' about " + prison.prisonCaptor.captorPronoun2 + ", 'cause ");
 			if (flags[kFLAGS.PRISON_DIRT_ENABLED] > 0)
 			{
@@ -290,7 +290,8 @@ package classes.Scenes.Places.Prison
 				{
 					outputText("assume a friendly posture and communicate your refusal by shaking your head. ");
 				}
-				outputText(images.showImage("prison-scruffy-fuck"));
+				if (player.isVisiblyPregnant()) outputText(images.showImage("prison-scruffy-fuck-preg"));
+				else outputText(images.showImage("prison-scruffy-fuck"));
 				outputText("\n\nBefore you can even begin to react, you see his face turn to a mask of rage as he hammers you over the head with the bucket he was so recently using to clean up your filth. You momentarily black out, and when you come to you realize that he has bound your hands behind your back and used them to hang you by a chain to an eyelet in the ceiling. Your body is suspended in a fashion such that your back is arched suggestively, your head is hanging at knee height, and your feet are only touching the ground with the tips of your toes. [if (isBiped = true) \"What's more, he has used his mop as a makeshift spreader bar to hold your ankles as far apart as they will go leaving your [vagOrAss] completely exposed between the parted cheeks of your [ass]\"][if (isBiped = false) \"With your [legs] hanging as they are your [vagOrAss] is completely exposed between the cheeks of your [ass]\"].");
 				outputText("\n\n(Placeholder) Scruffy then fucks your [vagOrAss], makes you lick up the cum pool to 'feed' you, leaves you hogtied with a stern warning to improve your behavior.");
 				if (player.hasVagina())
