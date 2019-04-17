@@ -70,7 +70,7 @@ package classes.Scenes
 			if (flags[kFLAGS.DISCOVERED_HIGH_MOUNTAIN] > 0) addButton(10, "High Mountain", kGAMECLASS.highMountains.explore).hint("Visit the high mountains where basilisks and harpies are found. \n\nRecommended level: 10" + (debug ? "\n\nTimes explored: " + flags[kFLAGS.DISCOVERED_HIGH_MOUNTAIN] : ""));
 			if (flags[kFLAGS.BOG_EXPLORED] > 0) addButton(11, "Bog", kGAMECLASS.bog.explore).hint("Visit the dark bog. \n\nRecommended level: 14" + (debug ? "\n\nTimes explored: " + flags[kFLAGS.BOG_EXPLORED] : ""));
 			if (flags[kFLAGS.DISCOVERED_GLACIAL_RIFT] > 0) addButton(12, "Glacial Rift", kGAMECLASS.glacialRift.explore).hint("Visit the chilly glacial rift. \n\nRecommended level: 16" + (debug ? "\n\nTimes explored: " + flags[kFLAGS.DISCOVERED_GLACIAL_RIFT] : ""));
-			if (flags[kFLAGS.DISCOVERED_VOLCANO_CRAG] > 0) addButton(13, "Volcanic Crag", kGAMECLASS.volcanicCrag.explore).hint("Visit the infernal volcanic crag. \n\nRecommended level: 20" + (debug ? "\n\nTimes explored: " + flags[kFLAGS.DISCOVERED_VOLCANO_CRAG] : ""));
+			//if (flags[kFLAGS.DISCOVERED_VOLCANO_CRAG] > 0) addButton(13, "Volcanic Crag", kGAMECLASS.volcanicCrag.explore).hint("Visit the infernal volcanic crag. \n\nRecommended level: 20" + (debug ? "\n\nTimes explored: " + flags[kFLAGS.DISCOVERED_VOLCANO_CRAG] : ""));
 			if (debug) addButton(9, "Debug", exploreDebug.doExploreDebug);
 			//addButton(4, "Next", explorePageII);
 			addButton(14, "Back", playerMenu);
@@ -155,10 +155,7 @@ package classes.Scenes
 						spriteSelect(SpriteDb.s_imp);
 					}
 					//Unlock if haven't already.
-					if (flags[kFLAGS.CODEX_ENTRY_IMPS] <= 0) {
-						flags[kFLAGS.CODEX_ENTRY_IMPS] = 1;
-						outputText("\n\n<b>New codex entry unlocked: Imps!</b> ");
-					}
+					unlockCodexEntry("Imps", kFLAGS.CODEX_ENTRY_IMPS);
 				}
 				return;
 			}
@@ -166,26 +163,14 @@ package classes.Scenes
 			else {
 				var goblinChooser:int = rand(100);
 				//Level modifier
-				if (player.level < 20) goblinChooser += player.level;
-				else goblinChooser += 20;
+				goblinChooser += Math.min(player.level, 20);
 				//Limit chooser range
 				if (goblinChooser > 100) goblinChooser = 100;
-				if (player.level < 10 && goblinChooser >= 20) goblinChooser = 29;
-				else if (player.level < 12 && goblinChooser >= 60) goblinChooser = 49;
-				else if (player.level < 16 && goblinChooser >= 80) goblinChooser = 79;
+				if (player.level < 8 && goblinChooser >= 30) goblinChooser = 29;
+				else if (player.level < 14 && goblinChooser >= 80) goblinChooser = 79;
 				//Goblin assassin!
-				if (goblinChooser >= 30 && goblinChooser < 50) {
-					kGAMECLASS.goblinAssassinScene.goblinAssassinEncounter();
-					return;
-				}
-				//Goblin warrior! (Equal chance with Goblin Shaman)
-				else if (goblinChooser >= 50 && goblinChooser < 65) {
-					kGAMECLASS.goblinWarriorScene.goblinWarriorEncounter();
-					return;
-				}
-				//Goblin shaman!
-				else if (goblinChooser >= 65 && goblinChooser < 80) {
-					kGAMECLASS.goblinShamanScene.goblinShamanEncounter();
+				if (goblinChooser >= 30 && goblinChooser < 80) {
+					kGAMECLASS.goblinSpecialScene.goblinSpecialEncounter();
 					return;
 				}
 				//Goblin elder!
@@ -197,10 +182,7 @@ package classes.Scenes
 					clearOutput();
 					outputText(images.showImage("monster-goblin"));
 					outputText("A goblin saunters out of the bushes with a dangerous glint in her eyes.\n\nShe says, \"<i>Time to get fucked, " + player.mf("stud", "slut") + ".</i>\"");
-					if (flags[kFLAGS.CODEX_ENTRY_GOBLINS] <= 0) {
-						flags[kFLAGS.CODEX_ENTRY_GOBLINS] = 1;
-						outputText("\n\n<b>New codex entry unlocked: Goblins!</b>");
-					}
+					unlockCodexEntry("Goblins", kFLAGS.CODEX_ENTRY_GOBLINS);
 					startCombat(new Goblin());
 					spriteSelect(SpriteDb.s_goblin);
 					return;
@@ -208,10 +190,7 @@ package classes.Scenes
 				else {
 					clearOutput();
 					outputText("A goblin saunters out of the bushes with a dangerous glint in her eyes.\n\nShe says, \"<i>Time to get fuc-oh shit, you don't even have anything to play with!  This is for wasting my time!</i>\"");
-					if (flags[kFLAGS.CODEX_ENTRY_GOBLINS] <= 0) {
-						flags[kFLAGS.CODEX_ENTRY_GOBLINS] = 1;
-						outputText("\n\n<b>New codex entry unlocked: Goblins!</b>");
-					}
+					unlockCodexEntry("Goblins", kFLAGS.CODEX_ENTRY_GOBLINS);
 					startCombat(new Goblin());
 					spriteSelect(SpriteDb.s_goblin);
 					return;
@@ -268,11 +247,11 @@ package classes.Scenes
 						call  : game.glacialRift.discover,
 						when  : fn.all(fn.not(game.glacialRift.isDiscovered), game.swamp.isDiscovered, fn.ifLevelMin(10)),
 						chance: 0.25
-					}, {
+					/*}, { //This content is sealed away due to subpar quality.
 						name  : "volcanic_crag",
 						call  : game.volcanicCrag.discover,
 						when  : fn.all(fn.not(game.volcanicCrag.isDiscovered), game.swamp.isDiscovered, fn.ifLevelMin(15)),
-						chance: 0.25
+						chance: 0.25*/
 					}, {
 						name  : "cathedral",
 						call  : gargoyle,

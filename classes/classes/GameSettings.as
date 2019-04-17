@@ -138,6 +138,10 @@ package classes
 					["ON", createCallBackFunction(toggleSetting, kFLAGS.WATERSPORTS_ENABLED, true), "Watersports are enabled. You kinky person.", flags[kFLAGS.WATERSPORTS_ENABLED] == true],
 					["OFF", createCallBackFunction(toggleSetting, kFLAGS.WATERSPORTS_ENABLED, false), "You won't see watersports scenes.", flags[kFLAGS.WATERSPORTS_ENABLED] == false]
 				]);
+				pane.addOrUpdateToggleSettings("Addictions", [
+					["ON", createCallBackFunction(toggleSetting, kFLAGS.ADDICTIONS_ENABLED, true), "You can get addicted to certain substances such as Marble's Milk and Minotaur Cum.", flags[kFLAGS.ADDICTIONS_ENABLED] == true],
+					["OFF", createCallBackFunction(toggleSetting, kFLAGS.ADDICTIONS_ENABLED, false), "You cannot get addicted at all. Doesn't remove existing addictions, you'll need to cure them first.", flags[kFLAGS.ADDICTIONS_ENABLED] == false]
+				]);
 				pane.addOrUpdateToggleSettings("Worms", [
 					["ON", createCallBackFunction(setWorms, true, false), "You have chosen to encounter worms as you find the mountains.", player.hasStatusEffect(StatusEffects.WormsOn) && !player.hasStatusEffect(StatusEffects.WormsHalf)],
 					["ON (Half)", createCallBackFunction(setWorms, true, true), "You have chosen to encounter worms as you find the mountains, albeit at reduced rate.", player.hasStatusEffect(StatusEffects.WormsHalf)],

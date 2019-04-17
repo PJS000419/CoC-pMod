@@ -47,9 +47,15 @@ package classes.Items.Consumables
 			if (rand(5) === 0) {
 				mutations.updateOvipositionPerk(tfSource);
 			}
-			//Remove Incorporeality Perk
+			//Remove ghost legs
+			if (player.lowerBody.incorporeal && changes < changeLimit && rand(4) === 0) {
+				outputText("\n\nYou feel a strange sensation in your [legs] as they start to feel more solid. They become more opaque until finally, you can no longer see through your [legs].");
+				player.lowerBody.incorporeal = false;
+				changes++;
+			}
+			//Remove Incorporeality Perk, if not permanent
 			if (player.hasPerk(PerkLib.Incorporeality) && player.perkv4(PerkLib.Incorporeality) === 0 && changes < changeLimit && rand(4) === 0) {
-				outputText("\n\nYou feel a strange sensation in your [legs] as they start to feel more solid. They become more opaque until finally, you can no longer see through your [legs]. \n<b>(Perk Lost: Incorporeality!)</b>");
+				outputText("\n\nYour body somehow feels more solid, more substantial than it did a moment ago, and the constant hum of ghostly spiritual imagery in your mind's eye has vanished as well. You concentrate for a few seconds, trying to push yourself back into an incorporeal state, but you just can't seem to do it anymore. \n<b>(Perk Lost: Incorporeality!)</b>");
 				player.removePerk(PerkLib.Incorporeality);
 				changes++;
 			}

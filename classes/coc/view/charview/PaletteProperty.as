@@ -1,37 +1,37 @@
 /**
- * Coded by aimozg on 28.07.2017.
+ * Coded by aimozg on 06.01.2019.
  */
 package coc.view.charview {
-import coc.script.Eval;
 import coc.view.Color;
+import coc.view.composite.IKeyColorProvider;
 
 public class PaletteProperty {
 	public var name:String;
-	private var srcfn:Eval;
+	private var palette:Palette;
 	private var defaultt:uint;
 	private var lookupNames:/*String*/Array;
-
-	public function PaletteProperty(name:String, expr:String, defaultt:uint, lookupNames:/*String*/Array) {
+	public function PaletteProperty(palette:Palette, name:String, defaultt:uint, lookupNames:/*String*/Array) {
+		this.palette = palette;
 		this.name = name;
-		this.srcfn = Eval.compile(expr);
 		this.defaultt = defaultt;
 		this.lookupNames = lookupNames.slice(0);
 	}
-
-	public function sourceValue(src:Object):* {
-		return srcfn.call(src);
+	public function colorName(layerName:String, src:Object):* {
+		if (src is IColorNameProvider) return (src as IColorNameProvider).getKeyColor(layerName,name);
+		if (name in src) return src[name];
+		return undefined;
 	}
-	public function colorValue(src:Object,lookupObjects:Object):uint {
-		var sv:String = String(sourceValue(src));
-		return lookup(sv,lookupObjects);
-	}
-	public function lookup(sv:String,lookupObjects:Object):uint {
-		if (sv.charAt(0) == '$') return Color.convertColor(sv.substr(1));
+	public function lookup(layerName:String,colorName:String):uint {
+		if (colorName.charAt(0) == '$') return Color.convertColor(colorName.substr(1));
 		for each (var ln:String in lookupNames) {
-			var lookup:Object = lookupObjects[ln];
-			if (lookup && sv in lookup) return Color.convertColor(lookup[sv]);
+			var lookup:Object = palette.lookupObjects[ln];
+			if (lookup && colorName in lookup) return Color.convertColor(lookup[colorName]);
 		}
 		return defaultt;
+	}
+	public function colorValue(layerName:String,src:Object):uint {
+		var sv:String = String(colorName(layerName,src));
+		return lookup(layerName,sv);
 	}
 }
 }

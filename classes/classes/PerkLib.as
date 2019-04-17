@@ -188,18 +188,27 @@ package classes
 		public static const ImprovedSelfControl3:PerkType = mk("Improved Self-Control 3", "Improved Self-Control 3",
 				"Increases maximum lust by further 10.",
 				"You choose the 'Improved Self-Control 2' perk. Thanks to your superior mental conditioning, your maximum lust has been increased by further 10!</b>");
+		public static const ImprovedVision:PerkType = mk("Improved Vision", "Improved Vision",
+				"Improves your vision allowing you to see openings most wouldn't (+3% Crit)",
+				"You've chosen the 'Improved Vision' perk, which raises your critical strike chance by 3%.");
+		public static const ImprovedVision2:PerkType = mk("Improved Vision 2", "Improved Vision 2",
+				"Improves your vision allowing you to see openings most wouldn't (+7% Crit)",
+				"You've chosen the 'Improved Vision 2' perk, which raises your critical strike chance by 7%.");
+		public static const ImprovedVision3:PerkType = mk("Improved Vision 3", "Improved Vision 3",
+				"Improves your vision allowing you to see openings most wouldn't (+10% Crit)",
+				"You've chosen the 'Improved Vision 3' perk, which raises your critical strike chance by 10%.");
 		public static const Indefatigable:PerkType = mk("Indefatigable", "Indefatigable",
 				"Can no longer lose by lust. Can still submit manually at maximum lust via Fantasize.",
 				"You choose the 'Indefatigable' perk. Thanks to your sheer willpower, you can no longer lose when your lust reaches maximum. (Choosing Fantasize at maximum lust still allows you to submit.)")
 		public static const IronFists:PerkType = mk("Iron Fists", "Iron Fists",
 				"Hardens your fists to increase attack rating by 5.",
-				"You choose the 'Iron Fists' perk, hardening your fists. This increases attack power by 5.");
+				"You choose the 'Iron Fists' perk, hardening your fists. This increases attack power of unarmed attacks by 5 and gauntlets by 2.");
 		public static const IronFists2:PerkType = mk("Iron Fists 2", "Iron Fists 2",
 				"Further hardens your fists to increase attack rating by another 3.",
-				"You choose the 'Iron Fists 2' perk, further hardening your fists. This increases attack power by another 3.");
+				"You choose the 'Iron Fists 2' perk, further hardening your fists. This increases attack power of unarmed attacks by another 3 and gauntlets by 1.");
 		public static const IronFists3:PerkType = mk("Iron Fists 3", "Iron Fists 3",
 				"Even more hardens your fists to increase attack rating again by 3.",
-				"You choose the 'Iron Fists 3' perk, even further hardening your fists. This increases attack power again by 3.");				
+				"You choose the 'Iron Fists 3' perk, even further hardening your fists. This increases attack power of unarmed attacks again by another 3 and gauntlets by 1.");				
 		public static const IronMan:PerkType = mk("Iron Man", "Iron Man",
 				"Reduces the fatigue cost of physical specials by 50%.",
 				"You choose the 'Iron Man' perk, reducing the fatigue cost of physical special attacks by 50%");
@@ -302,11 +311,11 @@ package classes
 				"You choose the 'Strong Back 2: Strong Harder' perk, enabling a fifth item slot.");
 		public static const Tactician:PerkType = mk("Tactician", "Tactician",
 				"[if (player.inte>=50)" +
-						"Increases critical hit chance by up to 10% (Intelligence-based)." +
+						"Increases critical hit chance by 1% per 5 points intelligence above 50." +
 						"|" +
 						"<b>You are too dumb to gain benefit from this perk.</b>" +
 						"]",
-				"You choose the 'Tactician' perk, increasing critical hit chance by up to 10% (Intelligence-based).");
+				"You choose the 'Tactician' perk, increasing critical hit chance by 1% per 5 points intelligence above 50.");
 		public static const Tank:PerkType = mk("Tank", "Tank",
 				"Raises max HP by 50.",
 				"You choose the 'Tank' perk, giving you an additional 50 HP!");
@@ -364,9 +373,9 @@ package classes
 				"Increases the gems awarded from victory in battle.");
 		public static const PentUp:PentUpPerk = new PentUpPerk();
 		public static const PhallicPotential:PerkType = mk("Phallic Potential", "Phallic Potential",
-				"Increases the effects of penis-enlarging transformations.");
+				"Increases the effects of penis-enlarging transformations. This only affects cocks covered by scarlet cock-socks.");
 		public static const PhallicRestraint:PerkType = mk("Phallic Restraint", "Phallic Restraint",
-				"Reduces the effects of penis-enlarging transformations.");
+				"Reduces the effects of penis-enlarging transformations. This only affects cocks covered by cobalt cock-socks.");
 
 		// Armor perks
 		public static const BloodMage:PerkType = mk("Blood Mage", "Blood Mage",
@@ -767,6 +776,13 @@ package classes
 			Survivalist2.requireLevel(12)
 						.requirePerk(Survivalist)
 						.requireHungerEnabled();
+			//Other Misc Perks
+			ImprovedVision.requireLevel(30)
+			          .requirePerk(Tactician);
+			ImprovedVision2.requireLevel(60)
+			          .requirePerk(ImprovedVision);
+			ImprovedVision3.requireLevel(90)
+			          .requirePerk(ImprovedVision2);
 		}
 		{
 			initRequirements();

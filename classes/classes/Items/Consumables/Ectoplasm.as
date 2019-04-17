@@ -63,9 +63,9 @@ package classes.Items.Consumables
 			}
 			//Appearnace Change
 			//Hair
-			if (rand(4) === 0 && changes < changeLimit && player.hair.type !== 2) {
+			if (rand(4) === 0 && changes < changeLimit && player.hair.type !== Hair.GHOST) {
 				outputText("\n\nA sensation of weightlessness assaults your scalp. You reach up and grab a handful of hair, confused. Your perplexion only heightens when you actually feel the follicles becoming lighter in your grasp, before you can hardly tell you're holding anything.  Plucking a strand, you hold it up before you, surprised to see... it's completely transparent!  You have transparent hair!");
-				player.hair.type = 2;
+				player.hair.type = Hair.GHOST;
 				changes++;
 			}
 			//Skin
@@ -89,11 +89,23 @@ package classes.Items.Consumables
 				changes++;
 			}
 			//Legs
-			if (changes < changeLimit && player.findPerk(PerkLib.Incorporeality) < 0 && (player.skin.tone === "white" || player.skin.tone === "sable") && player.hair.type === 2) {
+			if (player.hasPerk(PerkLib.Incorporeality) && !player.lowerBody.incorporeal) {
+				// Silently fix, if the player has the perk but the legs aren't incorporeal.
+				player.lowerBody.incorporeal = true;
+			}
+			if (changes < changeLimit && !player.hasPerk(PerkLib.Incorporeality) && (player.skin.tone === "white" || player.skin.tone === "sable") && player.hair.type === Hair.GHOST) {
 				//(ghost-legs!  Absolutely no problem with regular encounters, though! [if you somehow got this with a centaur it'd probably do nothing cuz you're not supposed to be a centaur with ectoplasm ya dingus])
-				outputText("\n\nAn otherworldly sensation begins in your belly, working its way to your " + player.hipDescript() + ". Before you can react, your " + player.legs() + " begin to tingle, and you fall on your rump as a large shudder runs through them. As you watch, your lower body shimmers, becoming ethereal, wisps rising from the newly ghost-like " + player.legs() + ". You manage to rise, surprised to find your new, ghostly form to be as sturdy as its former corporeal version. Suddenly, like a dam breaking, fleeting visions and images flow into your head, never lasting long enough for you to concentrate on one. You don't even realize it, but your arms fly up to your head, grasping your temples as you groan in pain. As fast as the mental bombardment came, it disappears, leaving you with a surprising sense of spiritual superiority.  <b>You have ghost legs!</b>\n\n");
+				outputText("\n\nAn otherworldly sensation begins in your belly, working its way to your [hips]. Before you can react, your [legs]"
+				          +" begin to tingle, and you fall on your rump as a large shudder runs through them. As you watch, your lower body shimmers,"
+				          +" becoming ethereal, wisps rising from the newly ghost-like [legs]. You manage to rise, surprised to find your new,"
+				          +" ghostly form to be as sturdy as its former corporeal version. Suddenly, like a dam breaking,"
+				          +" fleeting visions and images flow into your head, never lasting long enough for you to concentrate on one."
+				          +" You don't even realize it, but your arms fly up to your head, grasping your temples as you groan in pain."
+				          +" As fast as the mental bombardment came, it disappears, leaving you with a surprising sense of spiritual superiority."
+				          +"  <b>You have ghost legs!</b>\n\n");
 				outputText("<b>(Gained Perk:  Incorporeality</b>)");
 				player.createPerk(PerkLib.Incorporeality, 0, 0, 0, 0);
+				player.lowerBody.incorporeal = true;
 			}
 			//Effect Script 8: 100% chance of healing
 			if (changes === 0) {

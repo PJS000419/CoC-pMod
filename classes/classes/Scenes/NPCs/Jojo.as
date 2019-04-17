@@ -1,4 +1,4 @@
-﻿package classes.Scenes.NPCs
+package classes.Scenes.NPCs
 {
 	import classes.*;
 	import classes.BodyParts.*;
@@ -86,8 +86,8 @@ if (lust >= maxLust()) {
 			this.cumMultiplier = 1;
 			this.hoursSinceCum = 1000;
 			createBreastRow(0);
-			this.ass.analLooseness = AssClass.LOOSENESS_TIGHT;
-			this.ass.analWetness = AssClass.WETNESS_NORMAL;
+			this.ass.analLooseness = Ass.LOOSENESS_TIGHT;
+			this.ass.analWetness = Ass.WETNESS_NORMAL;
 			this.tallness = 4*12;
 			this.hips.rating = Hips.RATING_SLENDER;
 			this.butt.rating = Butt.RATING_TIGHT;
@@ -159,36 +159,28 @@ if (lust >= maxLust()) {
 			}
 		}
 		
-		public function serialize(relativeRootObject:*):void 
+		override public function serialize(relativeRootObject:*):void 
 		{
 			
 		}
 		
-		public function deserialize(relativeRootObject:*):void 
+		override public function deserialize(relativeRootObject:*):void 
 		{
 			
 		}
 		
-		public function upgradeSerializationVersion(relativeRootObject:*, serializedDataVersion:int):void 
+		override public function upgradeSerializationVersion(relativeRootObject:*, serializedDataVersion:int):void 
 		{
-			switch(serializedDataVersion) {
-				case 0:
-					LOGGER.debug("Converting jojo from legacy save");
-					
-					if (flags[kFLAGS.JOJO_STATUS] === 5) {
-						LOGGER.info("Correcting jojo status (slave status is now 6)");
-						flags[kFLAGS.JOJO_STATUS] = 6;
-					}
-					
-				default:
-					/*
-					 * The default block is left empty intentionally,
-					 * this switch case operates by using fall through behavior.
-					 */
+			if (serializedDataVersion == 0) { //Changed to eliminate blocker code smell.
+				LOGGER.debug("Converting jojo from legacy save");
+				if (flags[kFLAGS.JOJO_STATUS] === 5) {
+					LOGGER.info("Correcting jojo status (slave status is now 6)");
+					flags[kFLAGS.JOJO_STATUS] = 6;
+				}
 			}
 		}
 		
-		public function currentSerializationVerison():int 
+		override public function currentSerializationVerison():int 
 		{
 			return SERIALIZATION_VERSION;
 		}

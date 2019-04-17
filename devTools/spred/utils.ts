@@ -87,3 +87,179 @@ function drawImage(src: TDrawable, srcdx: number, srcdy: number, srcw: number, s
 	if (dy + sh > dsth) sh = dsth - dy;
 	dst.drawImage(src, sx, sy, sw, sh, dx * scale, dy * scale, sw * scale, sh * scale);
 }
+
+namespace utils {
+	export const basedir                 = window['spred_basedir'] || '../../';
+	export const canAjax                 = location.protocol != 'file:';
+	
+	namespace FileAsker {
+		let fileReaders = {} as Dict<(data: File) => any>;
+		
+		export function filename(f: string): string {
+			let j = f.lastIndexOf('/');
+			if (j >= 0) return f.substring(j + 1);
+			return f;
+		}
+		
+		export function wantFile(f: string) {
+			return filename(f) in fileReaders;
+		}
+		
+		function checkFiles(e: Event) {
+			let filesArray = (e.target as HTMLInputElement).files;
+			for (let i = 0; i < filesArray.length; i++) {
+				let file    = filesArray[i];
+				let name    = filename(file.name);
+				let handler = fileReaders[name];
+				if (handler) {
+					delete fileReaders[name];
+					handler(file);
+				}
+			}
+			
+		}
+		
+		export function askFile(url: string, handler: (File) => any) {
+			let fileinput = $new('input').attr('type', 'file').attr('multiple', 'true').change(checkFiles);
+			let dropzone  = $new('p',
+				'Please select manually the ',
+				$new('code', url),
+				' file:',
+				fileinput);
+			$('#LoadingList').append(dropzone);
+			$('#Loading').show();
+			fileReaders[filename(url)] = (file) => {
+				dropzone.remove();
+				$('#Loading').toggle($('#LoadingList>*').length > 0);
+				handler(file);
+			}
+		}
+	}
+	export function url2img(src: string): Promise<HTMLImageElement> {
+		return new Promise<HTMLImageElement>((resolve, reject) => {
+			let img    = document.createElement('img');
+			img.onload = (e) => {
+				resolve(img);
+			};
+			img.src    = src;
+		});
+	}
+	
+	export function loadFile(url: string, format: 'xml'): Promise<XMLDocument>;
+	export function loadFile(url: string, format: 'text'): Promise<string>;
+	export function loadFile(url: string, format: 'img'): Promise<HTMLImageElement>;
+	export function loadFile(url: string, format: string): Promise<any> {
+		
+		return new Promise<any>((resolve, reject) => {
+			if (!canAjax) {
+				FileAsker.askFile(url, file => {
+					if (format == 'img') {
+						url2img(URL.createObjectURL(file)).then(resolve);
+					} else {
+						let fr    = new FileReader();
+						fr.onload = () => {
+							if (format == 'xml') {
+								resolve($.parseXML(fr.result as string));
+							} else {
+								resolve(fr.result);
+							}
+							return;
+						};
+						fr.readAsText(file);
+					}
+				});
+			} else if (format != 'img') {
+				$.ajax(url, {dataType: format}).then(resolve).fail(reject);
+			} else url2img(url).then(resolve);
+		});
+	}
+	export function xmlget(x:Element,query:string):string|undefined {
+		let m:string[];
+		let orig = query;
+		while (query && x) {
+			if ((m = query.match(/^ *>? *([\w_-]+) */))) {
+				x = Array.from(x.children).find(e => e.tagName.toUpperCase() == m[1].toUpperCase());
+				query = query.substring(m[0].length);
+			} else if ((m = query.match(/^ *@ *([\w_-]+) *$/))) {
+				query = query.substring(m[0].length);
+				let a = x.getAttribute(m[1]);
+				if (a === null) return undefined;
+				return a;
+			} else {
+				throw 'Bad selector "'+orig+'", halted on "'+query+'"';
+			}
+		}
+		if (!x) return undefined;
+		return x.innerHTML;
+	}
+	export function unindent(s:string|undefined):string|undefined {
+		if (s === undefined) return undefined;
+		let m = s.match(/^(\n\s+)/);
+		if (m) s = s.replace(new RegExp(m[1],'g'),'\n').substr(1);
+		s = s.replace(/(\n\s+)$/,'');
+		return s;
+	}
+	export function xmlgeti(x:Element,query:string):number|undefined {
+		let s = xmlget(x,query);
+		if (s === undefined) return undefined;
+		return (+s)|0;
+	}
+	export function xmlgetf(x:Element,query:string):number|undefined {
+		let s = xmlget(x,query);
+		if (s === undefined) return undefined;
+		return +s;
+	}
+	export function parseLength(s:string|number):number;
+	export function parseLength(s:undefined):undefined;
+	export function parseLength(s:string|number|undefined):number|undefined {
+		if (typeof s === 'undefined') return undefined;
+		if (typeof s === 'number') return s;
+		if (!isNaN(+s)) return +s;
+		let m: RegExpMatchArray;
+		if ((m = s.match(/^(?:(\d+)')(?:(\d+)")?$/))) {
+			return (+m[1])*12+ +m[2];
+		} else if ((m = s.match(/^(?:(\d+)m)?\s*(?:(\d+)cm)$/))) {
+			let cm:number = (+m[1])*100 + +m[2];
+			return +(cm/2.54);
+		} else {
+			throw "Not a valid length: " + JSON.stringify(s);
+		}
+	}
+	export function lengthString(n:number|undefined):string|undefined {
+		if (n === undefined) return undefined;
+		if (n > -0.05 && n < +0.05) return '0';
+		let s = '';
+		if (n < 0) {
+			s = '-';
+			n = -n;
+		}
+		let ft = (n/12)|0;
+		if (ft>0) s += ft+"'";
+		let ic = (((n - ft*12)*10)|0)/10;
+		if (ic != (ic|0)) s += ic.toFixed(1)+'"';
+		else if (ic != 0) s += ic.toFixed(0)+'"';
+		return s;
+	}
+	export function dictLookup(dict:any, s:string|undefined):number|undefined {
+		if (typeof s === 'undefined') return undefined;
+		if (s in dict) return dict[s];
+		if (!isNaN(+s)) return +s;
+		throw "Not a valid number or enum constant: "+JSON.stringify(s);
+	}
+	export function dictLookupName(dict:any, s:number|undefined):string|undefined {
+		if (s === undefined) return undefined;
+		if (s in dict) return dict[s];
+		return ""+s;
+	}
+	export function enumNames(E:any):string[] {
+		return Object.keys(E).filter(k => typeof E[k as any] === "number");
+	}
+	export function enumValues(E:any):string[] {
+		return enumNames(E).map(k => E[k as any]);
+	}
+	export function enumAsOptions(E:any):HTMLOptionElement[] {
+		return enumNames(E).map(k=>
+			$('<option>').val(E[k]).html(k)[0] as HTMLOptionElement
+		)
+	}
+}

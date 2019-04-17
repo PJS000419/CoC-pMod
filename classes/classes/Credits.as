@@ -12,6 +12,7 @@ package classes
 	{
 		public var headline:String = 'Scene by:';
 		public var authorText:String = '';
+		public var modContent:Boolean = false;
 
 		private static var _instance:Credits = new Credits();
 
@@ -32,10 +33,9 @@ package classes
 
 		public function show():void
 		{
-			if (authorText === '')
-				return;
-
-			creditsBox.htmlText = '<font face="Georgia"><b>' + headline + '</b></font>\n' + authorText;
+			creditsBox.htmlText = "";
+			if (authorText !== '') creditsBox.htmlText += '<font face="Palatino Linotype"><b>' + headline + '</b></font> ' + authorText + '\n';
+			if (modContent) creditsBox.htmlText += '<font face="Palatino Linotype"><b>Mod Content</b></font>';
 		}
 
 		public function clear():void
@@ -43,6 +43,7 @@ package classes
 			creditsBox.htmlText = '';
 			headline = 'Scene by:';
 			authorText = '';
+			modContent = false;
 		}
 	}
 }

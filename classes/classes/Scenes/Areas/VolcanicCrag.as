@@ -80,7 +80,7 @@ package classes.Scenes.Areas {
 		private function lootDrakHrt():void {
 			clearOutput();
 			outputText(images.showImage("item-dHeart"));
-			outputText("While you're minding your own business, you spot a flower. You walk over to it, pick it up and smell it. By Marae, it smells amazing! It looks like Drake's Heart as the legends foretold. ");
+			outputText("While you're minding your own business, you spot a flower. You walk over to it, pick it up and smell it. By Marae, it smells amazing! It looks like Drake's Heart as the legends foretold. Now the question is, how did the flower survive the extreme cold anyway? ");
 			inventory.takeItem(consumables.DRAKHRT, camp.returnToCampUseOneHour);
 		}
 

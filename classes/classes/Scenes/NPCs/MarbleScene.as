@@ -158,7 +158,7 @@ Special abilities: A lightly corrupted creature with most of the corruption cent
 				}			
 			}
 			//Go into withdrawl if your addicted and don't have a reason not to be withdrawn.
-			if (player.statusEffectv3(StatusEffects.Marble) > 0 && player.findPerk(PerkLib.MarbleResistant) < 0 && player.findPerk(PerkLib.MarblesMilk) < 0 && player.statusEffectv2(StatusEffects.Marble) > 25) {
+			if (player.statusEffectv3(StatusEffects.Marble) > 0 && player.findPerk(PerkLib.MarbleResistant) < 0 && player.findPerk(PerkLib.MarblesMilk) < 0 && player.statusEffectv2(StatusEffects.Marble) > 25 && flags[kFLAGS.ADDICTIONS_ENABLED] > 0) {
 				//If player does not have marble's milk or bottled milk, go into withdrawl
 				if (!player.hasStatusEffect(StatusEffects.MarblesMilk) && !player.hasStatusEffect(StatusEffects.BottledMilk)) {
 					//If player is not yet in withdrawl
@@ -272,8 +272,7 @@ Special abilities: A lightly corrupted creature with most of the corruption cent
 						outputText("Behavior: <i>The behavior of Lacta Minotaurs varies greatly between each individual.  The only major unifying piece of behavior is their desire to give milk to almost any living creature, and their high libido, common to all corrupted creatures.</i>\n");
 						outputText("Special abilities: <i>A lightly corrupted creature, most of the corruption is centered on their breast milk.  It is addictive to those that drink it repeatedly, eventually making them dependent on the one from whom it was drank from.  The milk also strengthens the drinker, makes them better able to find the one who nursed them, and grants limited powers of control over them to the Lacta Minotaur that nursed them.  Finally, the breasts of Lacta Minotaurs are incredibly resilient, healing from almost any damage, even being cut off; they are able to produce milk for their entire life without fail.</i>\n");
 						outputText("\nUnderneath the entry is a single line, written in a crude and unsteady hand:     <i>No one will ever drink my milk again.  I'm sorry, sweetie.</i>\n");
-						flags[kFLAGS.CODEX_ENTRY_LABOVINES] = 1;
-						outputText("\n\n<b>New codex entry unlocked!</b>");
+						unlockCodexEntry("Lacta Bovines/Cowgirl", kFLAGS.CODEX_ENTRY_LABOVINES);
 						player.createStatusEffect(StatusEffects.NoMoreMarble,0,0,0,0);
 					}
 					//Affection 30-69, version 2
@@ -389,25 +388,16 @@ Special abilities: A lightly corrupted creature with most of the corruption cent
 						marbleAddictionSex(false);
 						outputText("\n");
 						//(Marble now appears at the camp)
-						player.createStatusEffect(StatusEffects.CampMarble, 0, 0, 0, 0);
-						flags[kFLAGS.FOLLOWER_AT_FARM_MARBLE] = 0;
-						if (kGAMECLASS.isabellaFollowerScene.isabellaFollower() && flags[kFLAGS.FOLLOWER_AT_FARM_ISABELLA] == 0) flags[kFLAGS.ISABELLA_MURBLE_BLEH] = 1;
-						player.createStatusEffect(StatusEffects.NoMoreMarble,0,0,0,0);
-						//(every morning, the player goes to Marble for milk, since she is at the camp, it does not cost them the first hour of the day)
-						//if amily is there, tag it for freakout
-						if (flags[kFLAGS.AMILY_FOLLOWER] > 0 && flags[kFLAGS.FOLLOWER_AT_FARM_AMILY] == 0) {
-							flags[kFLAGS.MARBLE_OR_AMILY_FIRST_FOR_FREAKOUT] = 2;
-						}
-						else flags[kFLAGS.MARBLE_OR_AMILY_FIRST_FOR_FREAKOUT] = 1;
-						//if Izma is there, tag for freakout!
-						if (flags[kFLAGS.IZMA_FOLLOWER_STATUS] == 1 && flags[kFLAGS.FOLLOWER_AT_FARM_IZMA] == 0) {
-							flags[kFLAGS.IZMA_MARBLE_FREAKOUT_STATUS] = 1;
-						}
+						setMarbleMovedToCamp();
 					}
 				}
 				outputText("\n(You gain the <b>Marble's Milk</b> perk.  It boosts your strength and toughness, but requires that you drink Marble's Milk every day.)\n");
 				doNext(playerMenu);
 				return true;
+			}
+			//Help wanted: Alternate route, just need high affection to move Marble in camp.
+			if (flags[kFLAGS.ADDICTIONS_ENABLED] <= 0 && 9999 == 0) {
+				setMarbleMovedToCamp();
 			}
 			if (checkedMarbleMilk++ == 0 && getGame().time.hours == 6 && player.findPerk(PerkLib.MarblesMilk) >= 0) {
 				//In prison
@@ -471,6 +461,23 @@ public function marbleBreastSize():String
 	}
 }
 
+private function setMarbleMovedToCamp():void {
+	player.createStatusEffect(StatusEffects.CampMarble, 0, 0, 0, 0);
+	flags[kFLAGS.FOLLOWER_AT_FARM_MARBLE] = 0;
+	if (kGAMECLASS.isabellaFollowerScene.isabellaFollower() && flags[kFLAGS.FOLLOWER_AT_FARM_ISABELLA] == 0) flags[kFLAGS.ISABELLA_MURBLE_BLEH] = 1;
+	player.createStatusEffect(StatusEffects.NoMoreMarble,0,0,0,0);
+	//(every morning, the player goes to Marble for milk, since she is at the camp, it does not cost them the first hour of the day)
+	//if amily is there, tag it for freakout
+	if (flags[kFLAGS.AMILY_FOLLOWER] > 0 && flags[kFLAGS.FOLLOWER_AT_FARM_AMILY] == 0) {
+		flags[kFLAGS.MARBLE_OR_AMILY_FIRST_FOR_FREAKOUT] = 2;
+	}
+	else flags[kFLAGS.MARBLE_OR_AMILY_FIRST_FOR_FREAKOUT] = 1;
+	//if Izma is there, tag for freakout!
+	if (flags[kFLAGS.IZMA_FOLLOWER_STATUS] == 1 && flags[kFLAGS.FOLLOWER_AT_FARM_IZMA] == 0) {
+		flags[kFLAGS.IZMA_MARBLE_FREAKOUT_STATUS] = 1;
+	}
+}
+
 //Initial encounter (1 hour duration) - comes up in the barn volunteering to help milk:
 public function encounterMarbleInitially():void {
 	spriteSelect(SpriteDb.s_marble);
@@ -480,10 +487,7 @@ public function encounterMarbleInitially():void {
 	outputText("Whitney tells you that one of her barn's residents, a cow-girl named Marble, is sore from overusing the milk machines.  She asks you to go and give the cow-girl a gentler touch from a living being.\n\n");
 	//(description of barn may need to be edited, I don't know what it's supposed to look like)
 	outputText("You walk in to Whitney's barn and head over to a series of small rooms for the cow-girls.  You find Marble's room and knock on the door. A friendly earthy female voice calls out in response and invites you in.  Inside is a rather pleasant little room.  There are several shelves on the walls and a small sitting table in the corner with seating for two.  A large portion of the room is dominated by a large bed, the owner filling most of it.  Lastly, you notice a mini-dresser next to the bed.  The room's owner looks over at you and starts, \"<i>Oh, I've never met you before.</i>\"\n\nAs she gets up, you are given a chance to get a good look at her.  She is over six feet tall, with long brown hair tipped with two cow horns and a pair of cow ears in place of normal human ones.  Rounding out her relatively unchanged face are a pair of deep, brown eyes.  She is wearing only a short plain skirt, so you get a full frontal view of her two HH-cup assets. They look rather sore right now, with big red circles around her puffy nipples.  Her hands and arms appear mostly human save for thick-looking nails.  A soft 'clop' brings your eyes down to see that she is covered in thick, dark blond fur going from at least mid-way down her thighs to where a human's feet normally would be, in place of which are hooves.  A cow tail with a bow tied on it swings between her legs.\n\n");
-	if (flags[kFLAGS.CODEX_ENTRY_LABOVINES] <= 0) {
-		flags[kFLAGS.CODEX_ENTRY_LABOVINES] = 1;
-		outputText("<b>New codex entry unlocked: Lacta Bovines/Cowgirl!</b>\n\n")
-	}
+	unlockCodexEntry("Lacta Bovines/Cowgirl", kFLAGS.CODEX_ENTRY_LABOVINES, false, true);
 	//(if player height is under 5 feet)
 	if (player.tallness < 60) {
 		outputText("She looks down at you with a smile and says \"<i>Aww, you're so cute!  Did you come for my milk?  I'm always happy to give it, but since I'm kinda sore right now, you'll have to be gentle. Okay little one?</i>\"  She moves towards you and tries to pick you up.");
@@ -844,7 +848,7 @@ private function drinkMarbleMilk():void {
 	//(first increase addiction by 10,
 	marbleStatusChange(0,10);
 	//if addiction is now over 50, skip straight to addiction event without doing anything else)
-	if (player.statusEffectv2(StatusEffects.Marble) >= 50) {
+	if (player.statusEffectv2(StatusEffects.Marble) >= 50 && flags[kFLAGS.ADDICTIONS_ENABLED] > 0) {
 		marbleAddiction(false);
 		//(increase affection by 5)
 		marbleStatusChange(8,0);
@@ -1937,7 +1941,7 @@ public function marbleStatusChange(affection:Number, addiction:Number, isAddicte
 	//Values only change if not brought to conclusion
 	if (player.findPerk(PerkLib.MarblesMilk) < 0 && player.findPerk(PerkLib.MarbleResistant) < 0) {
 		player.addStatusValue(StatusEffects.Marble,1,affection);
-		player.addStatusValue(StatusEffects.Marble,2,addiction);
+		if (flags[kFLAGS.ADDICTIONS_ENABLED] > 0) player.addStatusValue(StatusEffects.Marble,2,addiction);
 	}
 	if (isAddicted != -1) player.changeStatusValue(StatusEffects.Marble, 3, isAddicted);
 	
@@ -2705,8 +2709,8 @@ private function marbleCampSexNew():void {
 			//if Player has a vagina
 			if (player.vaginas.length > 0) {
 				//Select one based on vagina wetness, similarly to the cum production, you should do the logic for this part
-				if (player.vaginas[0].vaginalWetness < VaginaClass.WETNESS_WET) outputText("  As you recover, you see that a small amount of your girly fluids has leaked onto Marble's breasts.");
-				else if (player.vaginas[0].vaginalWetness <= VaginaClass.WETNESS_SLICK) outputText("  As you recover, you see that Marble has been covered fairly liberally with your girly fluids.");
+				if (player.vaginas[0].vaginalWetness < Vagina.WETNESS_WET) outputText("  As you recover, you see that a small amount of your girly fluids has leaked onto Marble's breasts.");
+				else if (player.vaginas[0].vaginalWetness <= Vagina.WETNESS_SLICK) outputText("  As you recover, you see that Marble has been covered fairly liberally with your girly fluids.");
 				else if (player.vaginas[0].vaginalWetness <  5) outputText("  As you recover, you see that Marble is decently drenched in your girly fluids.");
 				else outputText("  It takes you a minute to recover, but upon doing so, you blush and realize just how soaked with fluid you've become.");
 			}

@@ -2378,11 +2378,11 @@ public static const AIKO_BOSS_INTRO:int												= 2369;	//1=Yamata scene intr
 public static const AIKO_BOSS_COMPLETE:int											= 2370;	//1=Yamata is dead 2 Yamata is released
 public static const AIKO_BOSS_OUTRO:int												= 2371;	//
 public static const YAMATA_MASOCHIST:int											= 2372;	//counter increases to 100, if not defeated before reaching 100, gain masochist perk.
-public static const VAPULA_HIDING_DICK:int                                   		= 2373;
-public static const UNKNOWN_FLAG_NUMBER_02374:int                                   = 2374;
-public static const UNKNOWN_FLAG_NUMBER_02375:int                                   = 2375;
-public static const UNKNOWN_FLAG_NUMBER_02376:int                                   = 2376;
-public static const UNKNOWN_FLAG_NUMBER_02377:int                                   = 2377;
+public static const TOTAL_HP_VICTORIES:int                                          = 2373; //How many HP victories. If you defeat Lethice while this counter is 0 and don't kill NPCs, gain Pacifist achievement.
+public static const TENTACLE_BEASTS_KILLED:int                                      = 2374;
+public static const WORMS_MASS_KILLED:int                                           = 2375;
+public static const ACHIEVEMENT_PROGRESS_DAMAGE_SPONGE:int                          = 2376;
+public static const VAPULA_HIDING_DICK:int                                   		= 2377;
 public static const UNKNOWN_FLAG_NUMBER_02378:int                                   = 2378;
 public static const UNKNOWN_FLAG_NUMBER_02379:int                                   = 2379;
 public static const UNKNOWN_FLAG_NUMBER_02380:int                                   = 2380;
@@ -2978,7 +2978,7 @@ public static const UNKNOWN_FLAG_NUMBER_02969:int                               
 public static const UNKNOWN_FLAG_NUMBER_02970:int                                   = 2970;
 public static const UNKNOWN_FLAG_NUMBER_02971:int                                   = 2971;
 public static const UNKNOWN_FLAG_NUMBER_02972:int                                   = 2972;
-public static const UNKNOWN_FLAG_NUMBER_02973:int                                   = 2973;
+public static const ADDICTIONS_ENABLED:int                                          = 2973; // 1 by default. Can be disabled.
 public static const LEGACY_RACIAL_STATS_ENABLED:int                                 = 2974;
 public static const ENEMY_STATS_BARS_ENABLED:int                                    = 2975; // 0 if enemy sidebar is disabled.
 public static const ANIMATE_STATS_BARS:int                                          = 2976;

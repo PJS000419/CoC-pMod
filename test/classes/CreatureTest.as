@@ -7,6 +7,7 @@ package classes{
 	import classes.helper.StageLocator;
 	import classes.internals.RandomNumberGenerator;
 	import classes.internals.ActionScriptRNG;
+	import classes.internals.SerializationUtils;
 	import classes.lists.Gender;
 	import classes.lists.BreastCup;
 	import org.flexunit.asserts.*;
@@ -24,19 +25,39 @@ package classes{
 		private const DEFAULT_CLIT_LENGTH:Number = 0.5;
 		private const TEST_CLIT_LENGTH:Number = 3;
 		private const CUNT_CHANGE_VALUE:Number = 5;
-		private const VAGINAL_LOOSENESS_VALUE:Number = VaginaClass.LOOSENESS_LOOSE;
+		private const VAGINAL_LOOSENESS_VALUE:Number = Vagina.LOOSENESS_LOOSE;
 		private const VAGINAL_CAPCITY_OFFSET:Number = 2;
 		private const VAGINAL_CAPCITY_TEST_DELTA:Number = 2;
 		private const RECOVERY_COUNT:Number = 5;
 		private const ANAL_LOOSENESS:Number = 1;
 		private const ANAL_CAPACITY:Number = 6;
 		
-        	private var cut:Creature;
+		private static const MAX_HP:Number = 370;
+		
+		private static const XP:int = 7;
+		private static const LEVEL:int = 8;
+		private static const GEMS:int = 9;
+		private static const LUST:int = 10;
+		
+		private static const FEMININITY:int = 11;
+		private static const TALLNESS:int = 12;
+		
+		private static const BALLS:int = 13;
+		private static const CUMMULTIPLIER:int = 14;
+		private static const BALLSIZE:int = 15;
+		private static const HOURSSINCECUM:int = 16;
+		private static const FERTILITY:int = 17;
+		private static const NIPPLE_LENGTH:int = 18;
+			
+		private var cut:Creature;
 		private var noVagina:Creature;
 		private var oneVagina:Creature;
 		private var maxVagina:Creature;
 		private var fullEquip:Creature;
 		private var alwaysZero:RandomNumberGenerator;
+		
+		private var deserialized: Creature;
+		private var serializedClass: *;
 		
 		private function createVaginas(numberOfVaginas:Number, instance:Creature):void {
 			var i:Number;
@@ -81,6 +102,25 @@ package classes{
 			cut.ass.analLooseness = ANAL_LOOSENESS;
 						cut.tou = 100;
 			cut.HP = 1;
+			cut.XP = XP;
+			cut.level = LEVEL;
+			cut.gems = GEMS;
+			cut.lust = LUST;
+			cut.femininity = FEMININITY;
+			cut.tallness = TALLNESS;
+			
+			cut.balls = BALLS;
+			cut.cumMultiplier = CUMMULTIPLIER;
+			cut.ballSize = BALLSIZE;
+			cut.hoursSinceCum = HOURSSINCECUM;
+			cut.fertility = FERTILITY;
+			cut.nippleLength = NIPPLE_LENGTH;
+			
+			deserialized = new Creature();
+			serializedClass = [];
+
+			SerializationUtils.serialize(serializedClass, cut);
+			SerializationUtils.deserialize(serializedClass, deserialized);
 			
 			noVagina = new Creature();
 			
@@ -91,7 +131,7 @@ package classes{
 			maxVagina = new Creature();
 			createMaxVaginas(maxVagina);
 
-			for each (var vag:VaginaClass in maxVagina.vaginas){
+			for each (var vag:Vagina in maxVagina.vaginas){
 				vag.recoveryProgress = RECOVERY_COUNT;		
 			}
 			
@@ -139,24 +179,24 @@ package classes{
 		
 		[Test] 
         public function testVaginaTypeWithVagina():void {
-			assertThat(oneVagina.vaginaType(), equalTo(VaginaClass.HUMAN));
+			assertThat(oneVagina.vaginaType(), equalTo(Vagina.HUMAN));
         }
 		
 		[Test] 
         public function testSetVaginaTypeWithNoVagina():void {
-			assertThat(noVagina.vaginaType(VaginaClass.EQUINE), equalTo(-1));
+			assertThat(noVagina.vaginaType(Vagina.EQUINE), equalTo(-1));
         }
 		
 		[Test] 
         public function testSetVaginaTypeWithVagina():void {
-			assertThat(oneVagina.vaginaType(VaginaClass.EQUINE), equalTo(VaginaClass.EQUINE));
+			assertThat(oneVagina.vaginaType(Vagina.EQUINE), equalTo(Vagina.EQUINE));
         }
 		
 		[Test] 
         public function testReadVaginaTypeAfterSet():void {
-			oneVagina.vaginaType(VaginaClass.EQUINE);
+			oneVagina.vaginaType(Vagina.EQUINE);
 			
-			assertThat(oneVagina.vaginaType(), equalTo(VaginaClass.EQUINE));
+			assertThat(oneVagina.vaginaType(), equalTo(Vagina.EQUINE));
         }
 		
 		[Test] 
@@ -529,7 +569,7 @@ package classes{
 		
 		[Test] 
         public function getClitLength_oneVagina():void {
-			assertThat(oneVagina.getClitLength(), equalTo(VaginaClass.DEFAULT_CLIT_LENGTH));
+			assertThat(oneVagina.getClitLength(), equalTo(Vagina.DEFAULT_CLIT_LENGTH));
         }
 		
 		[Test] 
@@ -541,7 +581,7 @@ package classes{
 		
 		[Test] 
         public function getClitLength_multiVagina():void {
-			assertThat(maxVagina.getClitLength(1), equalTo(VaginaClass.DEFAULT_CLIT_LENGTH));
+			assertThat(maxVagina.getClitLength(1), equalTo(Vagina.DEFAULT_CLIT_LENGTH));
         }
 		
 				
@@ -552,12 +592,12 @@ package classes{
 		
 		[Test] 
         public function changeClitLength_increase():void {
-			assertThat(oneVagina.changeClitLength(1), equalTo(VaginaClass.DEFAULT_CLIT_LENGTH + 1));
+			assertThat(oneVagina.changeClitLength(1), equalTo(Vagina.DEFAULT_CLIT_LENGTH + 1));
         }
 		
 		[Test] 
         public function changeClitLength_decrease():void {
-			assertThat(oneVagina.changeClitLength(-0.2), equalTo(VaginaClass.DEFAULT_CLIT_LENGTH - 0.2));
+			assertThat(oneVagina.changeClitLength(-0.2), equalTo(Vagina.DEFAULT_CLIT_LENGTH - 0.2));
         }
 		
 		[Test] 
@@ -664,7 +704,7 @@ package classes{
 		public function healToMaxHP():void {
 			cut.restoreHP();
 
-			assertThat(cut.HP, equalTo(250));
+			assertThat(cut.HP, equalTo(MAX_HP));
 		}
 
 		[Test]
@@ -680,7 +720,7 @@ package classes{
 			
 			cut.restoreHP();
 
-			assertThat(cut.HP, equalTo(250));
+			assertThat(cut.HP, equalTo(MAX_HP));
 		}
 		
 		[Test(expected="RangeError")]
@@ -802,6 +842,172 @@ package classes{
 			createCocks(CockTypesEnum.HUMAN, 2, cut);
 			
 			assertThat(cut.findFirstCockType(CockTypesEnum.HORSE), equalTo(-1));
+		}
+
+		[Test]
+		public function serializeLevel():void
+		{
+			assertThat(serializedClass, hasProperty("level", LEVEL));
+		}
+
+		[Test]
+		public function serializeGems():void
+		{
+			assertThat(serializedClass, hasProperty("gems", GEMS));
+		}
+
+		[Test]
+		public function deserializeXp():void
+		{
+			assertThat(deserialized.XP, equalTo(XP));
+		}
+
+		[Test]
+		public function deserializeLevel():void
+		{
+			assertThat(deserialized.level, equalTo(LEVEL));
+		}
+
+		[Test]
+		public function deserializeGems():void
+		{
+			assertThat(deserialized.gems, equalTo(GEMS));
+		}
+
+		[Test]
+		public function serializeXp():void
+		{
+			assertThat(serializedClass, hasProperty("XP", XP));
+		}
+
+		[Test]
+		public function serializeLust():void
+		{
+			assertThat(serializedClass, hasProperty("lust", LUST));
+		}
+
+		[Test]
+		public function deserializeLust():void
+		{
+			assertThat(deserialized.lust, equalTo(LUST));
+		}
+		
+		[Test]
+		public function serializeFemininity():void
+		{
+			assertThat(serializedClass, hasProperty("femininity", FEMININITY));
+		}
+
+		[Test]
+		public function serializeTallness():void
+		{
+			assertThat(serializedClass, hasProperty("tallness", TALLNESS));
+		}
+
+		[Test]
+		public function deserializeFemininity():void
+		{
+			assertThat(deserialized.femininity, equalTo(FEMININITY));
+		}
+		
+		[Test]
+		public function deserializeFemininityUndefined():void
+		{
+			delete(serializedClass.femininity);
+			deserialized = new Creature();
+			
+			SerializationUtils.deserialize(serializedClass, deserialized);
+			
+			assertThat(deserialized.femininity, equalTo(50));
+		}
+
+		[Test]
+		public function deserializeTallness():void
+		{
+			assertThat(deserialized.tallness, equalTo(TALLNESS));
+		}
+		
+		[Test]
+		public function serializeBalls():void
+		{
+			assertThat(serializedClass, hasProperty("balls", BALLS));
+		}
+
+		[Test]
+		public function serializeCummultiplier():void
+		{
+			assertThat(serializedClass, hasProperty("cumMultiplier", CUMMULTIPLIER));
+		}
+
+		[Test]
+		public function serializeBallsize():void
+		{
+			assertThat(serializedClass, hasProperty("ballSize", BALLSIZE));
+		}
+
+		[Test]
+		public function serializeHourssincecum():void
+		{
+			assertThat(serializedClass, hasProperty("hoursSinceCum", HOURSSINCECUM));
+		}
+
+		[Test]
+		public function serializeFertility():void
+		{
+			assertThat(serializedClass, hasProperty("fertility", FERTILITY));
+		}
+
+		[Test]
+		public function deserializeBalls():void
+		{
+			assertThat(deserialized.balls, equalTo(BALLS));
+		}
+
+		[Test]
+		public function deserializeCummultiplier():void
+		{
+			assertThat(deserialized.cumMultiplier, equalTo(CUMMULTIPLIER));
+		}
+
+		[Test]
+		public function deserializeBallsize():void
+		{
+			assertThat(deserialized.ballSize, equalTo(BALLSIZE));
+		}
+
+		[Test]
+		public function deserializeHourssincecum():void
+		{
+			assertThat(deserialized.hoursSinceCum, equalTo(HOURSSINCECUM));
+		}
+
+		[Test]
+		public function deserializeFertility():void
+		{
+			assertThat(deserialized.fertility, equalTo(FERTILITY));
+		}
+		
+		[Test]
+		public function serializeNippleLength():void
+		{
+			assertThat(serializedClass, hasProperty("nippleLength", NIPPLE_LENGTH));
+		}
+		
+		[Test]
+		public function deserializeNippleLength():void
+		{
+			assertThat(deserialized.nippleLength, equalTo(NIPPLE_LENGTH));
+		}
+		
+		[Test]
+		public function deserializeNippleLengthUndefined():void
+		{
+			delete(serializedClass.nippleLength);
+			deserialized = new Creature();
+			
+			SerializationUtils.deserialize(serializedClass, deserialized);
+			
+			assertThat(deserialized.nippleLength, equalTo(0.25));
 		}
 	}
 }

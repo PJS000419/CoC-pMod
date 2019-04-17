@@ -7,22 +7,13 @@
 
 
 namespace spred {
-	export const basedir                 = window['spred_basedir'] || '../../';
-	export const canAjax                 = location.protocol != 'file:';
+	import loadFile = utils.loadFile;
+	import basedir = utils.basedir;
+	import url2img = utils.url2img;
 	export let g_model: Model;
 	export let g_composites: Composite[] = [];
 	export let g_selsprite: string       = '';
 	export let g_selpart: Part           = null;
-	export let rng_skippables            = {
-		'tail': 1, 'wings': 1, 'antennae': 1, 'horns': 1, 'hair': 1, 'neck': 1
-	};
-	export let rng_symmetrical           = {
-		'wings_bg': 'wings',
-		'horns_bg': 'horns',
-		'hair_bg' : 'hair',
-		'ears_bg' : 'ears',
-		'arms_bg' : 'arms'
-	};
 	
 	export function tfcolor(tc: tinycolorInstance, name: string, value: number): tinycolorInstance {
 		let hsl = tc.clone().toHsl();
@@ -45,8 +36,15 @@ namespace spred {
 			if (l instanceof LogicIf) {
 				if (randint(2) != 0) q.push(...l.then);
 			} else if (l instanceof LogicShow) {
-				//o[l.partExpr.split('/')[0]] = l.partExpr;
 				o.push(l.partExpr);
+			} else if (l instanceof LogicHide) {
+				let m:string[];
+				let part = l.partExpr;
+				if ((m = part.match(/^([^*]+)\*$/))) {
+					o = o.filter(e => !e.startsWith(m[1]));
+				} else {
+					o = o.filter(e => e!=part);
+				}
 			} else if (l instanceof LogicSwitch) {
 				let i = randint(l.cases.length + 1) - 1;
 				if (i < 0) q.push(...l.default);
@@ -57,79 +55,6 @@ namespace spred {
 	}
 	
 	
-	namespace FileAsker {
-		let fileReaders = {} as Dict<(data: File) => any>;
-		
-		export function filename(f: string): string {
-			let j = f.lastIndexOf('/');
-			if (j >= 0) return f.substring(j + 1);
-			return f;
-		}
-		
-		export function wantFile(f: string) {
-			return filename(f) in fileReaders;
-		}
-		
-		function checkFiles(e: Event) {
-			let filesArray = (e.target as HTMLInputElement).files;
-			for (let i = 0; i < filesArray.length; i++) {
-				let file    = filesArray[i];
-				let name    = filename(file.name);
-				let handler = fileReaders[name];
-				if (handler) {
-					delete fileReaders[name];
-					handler(file);
-				}
-			}
-			
-		}
-		
-		export function askFile(url: string, handler: (File) => any) {
-			let fileinput = $new('input').attr('type', 'file').attr('multiple', 'true').change(checkFiles);
-			let dropzone  = $new('p',
-				'Please select manually the ',
-				$new('code', url),
-				' file:',
-				fileinput);
-			$('#LoadingList').append(dropzone);
-			$('#Loading').show();
-			fileReaders[filename(url)] = (file) => {
-				dropzone.remove();
-				$('#Loading').toggle($('#LoadingList>*').length > 0);
-				handler(file);
-			}
-		}
-	}
-	
-	
-	export function loadFile(url: string, format: 'xml'): Promise<XMLDocument>;
-	export function loadFile(url: string, format: 'text'): Promise<string>;
-	export function loadFile(url: string, format: 'img'): Promise<HTMLImageElement>;
-	export function loadFile(url: string, format: string): Promise<any> {
-		
-		return new Promise<any>((resolve, reject) => {
-			if (!canAjax) {
-				FileAsker.askFile(url, file => {
-					if (format == 'img') {
-						url2img(URL.createObjectURL(file)).then(resolve);
-					} else {
-						let fr    = new FileReader();
-						fr.onload = () => {
-							if (format == 'xml') {
-								resolve($.parseXML(fr.result));
-							} else {
-								resolve(fr.result);
-							}
-							return;
-						};
-						fr.readAsText(file);
-					}
-				});
-			} else if (format != 'img') {
-				$.ajax(url, {dataType: format}).then(resolve).fail(reject);
-			} else url2img(url).then(resolve);
-		});
-	}
 	
 	/*
 	function mkimg(colors: string[][]): HTMLCanvasElement {
@@ -212,6 +137,7 @@ namespace spred {
 		
 		private _parts: Dict<boolean>          = {};
 		private _cache: Dict<ImageBitmap>      = {};
+		private _version = 0;
 		public readonly canvas: HTMLCanvasElement;
 		public readonly colormap: Dict<string> = {};
 		
@@ -234,6 +160,7 @@ namespace spred {
 					  y: number = 0,
 					  w: number = this.model.width,
 					  h: number = this.model.height) {
+			let version = ++this._version;
 			let ctx2d                   = this.canvas.getContext('2d');
 			ctx2d.imageSmoothingEnabled = false;
 			let z                       = this.zoom;
@@ -260,6 +187,7 @@ namespace spred {
 				let part = a[i];
 				if (this._parts[part.name]) {
 					p0 = p0.then(ctx2d => {
+						if (version != this._version) return ctx2d;
 						let sprite = this.model.sprite(part.name);
 						if (part.name in this._cache) {
 							drawImage(this._cache[part.name], x, y, w, h,
@@ -275,6 +203,7 @@ namespace spred {
 								if (x == 0 && y == 0 && w == this.model.width && h == this.model.height) {
 									this._cache[part.name] = bmp;
 								}
+								if (version != this._version) return ctx2d;
 								drawImage(bmp, x, y, w, h,
 									ctx2d,
 									part.dx + sprite.dx - this.model.originX,
@@ -351,19 +280,11 @@ namespace spred {
 			this.canvas.width  = width;
 			this.canvas.height = height;
 			this.ctx2d         = this.canvas.getContext('2d');
+			this.ctx2d.imageSmoothingEnabled = false;
 			this.ctx2d.drawImage(src, srcX, srcY, width, height, 0, 0, width, height);
 		}
 	}
 	
-	function url2img(src: string): Promise<HTMLImageElement> {
-		return new Promise<HTMLImageElement>((resolve, reject) => {
-			let img    = document.createElement('img');
-			img.onload = (e) => {
-				resolve(img);
-			};
-			img.src    = src;
-		});
-	}
 	
 	export class Spritesheet {
 		public cellwidth: number;
@@ -478,6 +399,8 @@ namespace spred {
 					return lswitch;
 				case 'show':
 					return new LogicShow(x.getAttribute('part'));
+				case 'hide':
+					return new LogicHide(x.getAttribute('part'));
 				case 'if':
 					let lif  = new LogicIf(x.getAttribute("test"));
 					lif.then = LogicStmt.parseBlock($(x));
@@ -511,6 +434,11 @@ namespace spred {
 			super();
 		}
 	}
+	export class LogicHide extends LogicStmt {
+		constructor(public partExpr: string) {
+			super();
+		}
+	}
 	
 	export class LogicIf extends LogicStmt {
 		public then: LogicStmt[] = [];
@@ -522,7 +450,8 @@ namespace spred {
 	
 	export interface ColorProp {
 		name: string;
-		src: string;
+		src?: string;
+		palette: string[];
 		def: string;
 	}
 	
@@ -590,9 +519,7 @@ namespace spred {
 			this.height       = parseInt(xmodel.attr('height'));
 			this.spritesheets = [];
 			this.spritemaps   = [];
-			this.palettes     = {
-				common: {}
-			};
+			this.palettes     = {};
 			
 			xmodel.find('colorkeys>key').each((i, e) => {
 				this.colorkeys.push({
@@ -603,21 +530,22 @@ namespace spred {
 			});
 			
 			//noinspection CssInvalidHtmlTagReference
-			xmodel.find('palette>common>color').each((i, e) => {
-				this.palettes.common[e.getAttribute('name')] = e.textContent;
-				
+			xmodel.find('palettes>palette').each((i,e)=>{
+				let palette = {};
+				$(e).find('color').each((i, e) => {
+					palette[e.getAttribute('name')] = e.textContent;
+				});
+				this.palettes[e.getAttribute('name')] = palette;
 			});
-			xmodel.find('property').each((i, e) => {
+			//noinspection CssInvalidHtmlTagReference
+			xmodel.find('properties>property').each((i, e) => {
 				let cpname = e.getAttribute('name');
 				this.colorProps.push({
 					name: cpname,
 					src : e.getAttribute('src'),
+					palette: (e.getAttribute('palette')||'common').split(','),
 					def : e.getAttribute('default')
 				});
-				let p = this.palettes[cpname] = {};
-				$(e).find('color').each((ci, ce) => {
-					p[ce.getAttribute('name')] = ce.textContent;
-				})
 			});
 			
 			xmodel.find('spritesheet').each((i, x) => {
@@ -1105,13 +1033,37 @@ namespace spred {
 				'torso/human'
 			]);
 			addCompositeView([
+				'ears_bg/elfin','ears/elfin',
+				'eyes/human',
+				'hair/0', 'hair_bg/0',
+				'head/human', 'face/human',
+				'breasts/D',
+				'arms/human', 'arms_bg/human',
+				'legs/human',
+				'torso/human',
+				'wings/scales','wings_bg/scales',
+				'horns_bg/demon', 'tail/demon'
+			]);
+			addCompositeView([
+				'ears_bg/human',
+				'eyes/human',
+				'hair/slime', 'hair_bg/slime2',
+				'head/goo', 'face/goo',
+				'neck/goocore',
+				'breasts/Dgoo',
+				'arms/goo', 'arms_bg/goo',
+				'legs/gooblob',
+				'torso/goo'
+			]);
+			addCompositeView([
 				'ears_bg/human',
 				'eyes/devil',
 				'horns/devil', 'horns_bg/devil',
 				'hair/0', 'hair_bg/0',
 				'head/human', 'face/shark',
 				'breasts/D',
-				'arms/devil', 'arms_bg/devil',
+				'arms/human', 'arms_bg/human',
+				'hands/devil', 'hands_bg/devil',
 				'legs/devil',
 				'torso/human',
 				'tail/goat'
@@ -1122,10 +1074,11 @@ namespace spred {
 				'hair/feather', 'hair_bg/feather',
 				'head/human', 'face/human_fang',
 				'breasts/D',
-				'arms/harpy', 'arms_bg/harpy',
-				'legs/harpy',
+				'arms/human', 'arms_bg/human',
+				'hands/harpy', 'hands_bg/harpy',
+				'legs/harpy_human',
 				'torso/human',
-				'wings/feather_large',
+				'wings/feather_large', 'wings_bg/feather_large',
 				'tail/harpy'
 			]);
 			addCompositeView([
@@ -1133,8 +1086,9 @@ namespace spred {
 				'eyes/orca',
 				'hair/0', 'hair_bg/0',
 				'head/orca', 'face/orca',
-				'breasts/D',
-				'arms/orca', 'arms_bg/orca', 'arms/fins-orca', 'arms_bg/fins-orca',
+				'breasts/Dskin2',
+				'arms/orca', 'arms_bg/orca',
+				'hands/fins-orca', 'hands_bg/fins-orca',
 				'legs/orca',
 				'torso/orca',
 				'tail/orca'
@@ -1146,7 +1100,7 @@ namespace spred {
 				'head/fur', 'face/fur',
 				'breasts/Dfur',
 				'arms/fur', 'arms_bg/fur',
-				'legs/furpaws',
+				'legs/fur',
 				'torso/fur',
 				'tail/cat1', 'tail/cat2'
 			]);
@@ -1156,7 +1110,7 @@ namespace spred {
 				'hair/0', 'hair_bg/0',
 				'head/human', 'face/human', 'neck/manticore',
 				'breasts/D',
-				'arms/manticore',
+				'arms/manticore_sit',
 				'legs/manticore_sit',
 				'torso/human',
 				'tail/manticore',
@@ -1165,12 +1119,12 @@ namespace spred {
 			addCompositeView([
 				'hair/gorgon', 'hair_bg/gorgon',
 				'eyes/cat',
-				'head/scales_p', 'face/human_fang',
-				'breasts/Dscales_p',
-				'arms_bg/scales_p', 'arms/scales_p',
-				'ears_bg/Naga', 'ears/Naga',
+				'head/pscales', 'face/human_fang',
+				'breasts/Dpscales',
+				'arms_bg/pscales', 'arms/pscales',
+				'ears_bg/naga', 'ears/naga',
 				'legs/naga',
-				'torso/scales_p'
+				'torso/pscales'
 			]);
 			addCompositeView([
 				'horns/2large',
@@ -1181,8 +1135,8 @@ namespace spred {
 				'legs/scales',
 				'torso/scales',
 				'tail/reptile','tail_fg/reptile_fire',
-				'wings/scales_right',
-				'wings_bg/scales_left',
+				'wings/scales',
+				'wings_bg/scales',
 			]);
 			addCompositeView([
 				'antennae/bee',
@@ -1190,7 +1144,7 @@ namespace spred {
 				'head/bee', 'face/insect',
 				'breasts/Dbee',
 				'arms/bee', 'arms_bg/bee',
-				'legs/bee',
+				'legs/chitin',
 				'torso/bee',
 				'tail/bee_abdomen',
 				'wings/bee'
@@ -1209,9 +1163,22 @@ namespace spred {
 				'eyes/cat',
 				'head/fur', 'face/mouse',
 				'breasts/Dfur_nn',
-				'arms/mouse_fire', 'arms_bg/mouse_fire',
-				'legs/mouse_fire',
+				'arms/fur', 'arms_bg/fur',
+				'hands/fire', 'hands_bg/fire',
+				'legs/fur',
+				'feet/fire',
 				'torso/fur', 'tail/mouse_fire'
+			]);
+			addCompositeView([
+				'ears_bg/weasel', 'ears/weasel',
+				'eyes/cat',
+				'head/human', 'face/human_fang', 'neck/weasel',
+				'breasts/D',
+				'arms/human', 'arms_bg/human',
+				'legs/human',
+				'torso/human',
+				'hair/raiju', 'hair_bg/raiju3',
+				'tail/weasel'
 			]);
 			$('#ClipboardGrabber').on('paste', e => {
 				e.stopPropagation();
@@ -1255,21 +1222,15 @@ namespace spred {
 	}
 	
 	export function savePalettes() {
-		saveSomething(
-			''
-			+ '        <common>'
-			+ Object.keys(g_model.palettes['common']).map(cname =>
-				`\r\n            <color name="${cname}">${g_model.palettes.common[cname]}</color>`
-			).join('')
-			+ '\r\n        </common>'
-			+ g_model.colorProps.map(cp =>
-			`\r\n        <property name="${cp.name}" src="${cp.src}" default="${cp.def}">`
-			+ Object.keys(g_model.palettes[cp.name]).map(cname =>
-				`\r\n            <color name="${cname}">${g_model.palettes[cp.name][cname]}</color>`
-			).join('')
-			+ '\r\n        </property>'
-			).join('')
-		);
+		let s = ['    <palettes>'];
+		for (let pname in g_model.palettes) {
+			s.push(`        <palette name="${pname}">`);
+			for (let cname in g_model.palettes[pname]) {
+				s.push(`            <color name="${cname}">${g_model.palettes[pname][cname]}</color>`);
+			}
+			s.push(`        </palette>`);
+		}
+		saveSomething(s.join('\r\n'));
 	}
 	
 	export function saveSpritemaps() {
@@ -1279,8 +1240,10 @@ namespace spred {
 </button>*/
 	}
 	
-	$(() => {
-		
+	export function initSpred() {
 		loadFile(basedir + 'res/model.xml', 'xml').then(loadModel);
+	}
+	$(()=>{
+		initSpred();
 	});
 }

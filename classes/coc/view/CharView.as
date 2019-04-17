@@ -4,14 +4,16 @@
 package coc.view {
 import classes.internals.LoggerFactory;
 
-import coc.view.charview.CaseBlock;
+import coc.view.charview.CharViewCompiler;
+import coc.view.charview.CharViewContext;
 import coc.view.charview.CharViewSprite;
-import coc.view.charview.IfBlock;
-import coc.view.charview.LayerPart;
-import coc.view.charview.ModelPart;
 import coc.view.charview.Palette;
-import coc.view.charview.PartList;
-import coc.view.charview.SwitchPart;
+import coc.view.charview.EvalPaletteProperty;
+import coc.view.charview.PaletteProperty;
+import coc.view.composite.CompositeImage;
+import coc.view.composite.SimpleKeyColorProvider;
+import coc.xlogic.Statement;
+import coc.xlogic.StmtList;
 
 import flash.display.BitmapData;
 import flash.display.Graphics;
@@ -26,7 +28,7 @@ public class CharView extends Sprite {
 	private static const LOGGER:ILogger = LoggerFactory.getLogger(CharView);
 	private var loading:Boolean;
 	private var sprites:Object = {}; // spritesheet/spritemap -> CharViewSprite
-	private var composite:CompositeImage;
+	public var composite:CompositeImage;
 	private var ss_total:int;
 	private var ss_loaded:int;
 	private var file_total:int;
@@ -38,9 +40,9 @@ public class CharView extends Sprite {
 	private var scale:Number;
 	private var pendingRedraw:Boolean;
 	private var loaderLocation:String;
-	private var parts:ModelPart;
+	private var parts:Statement;
 	private var _palette:Palette;
-
+	
 	public function get palette():Palette {
 		return _palette;
 	}
@@ -61,13 +63,13 @@ public class CharView extends Sprite {
 				if (success) {
 					init(XML(result));
 				} else {
-					LOGGER.warn("XML file not found: " + e);
+					LOGGER.error("XML file not found: " + e);
 					loading = false;
 				}
 			}, loaderLocation);
 		} catch (e:Error) {
 			loading = false;
-			LOGGER.error(e.message+"\n" + e.getStackTrace());
+			LOGGER.error("[ERROR]\n" + e.getStackTrace());
 		}
 	}
 	private function clearAll():void {
@@ -77,11 +79,19 @@ public class CharView extends Sprite {
 		this.ss_loaded     = 0;
 		this.file_total    = 0;
 		this.file_loaded   = 0;
-		this._width        = 1;
-		this._height       = 1;
+		this._width        = 180;
+		this._height       = 220;
 		this.scale         = 1;
 		this.pendingRedraw = false;
-		this.parts         = new PartList([]);
+		this.parts         = new StmtList();
+		clearSprite();
+	}
+	private function clearSprite():void {
+		var g:Graphics = graphics;
+		g.clear();
+		g.beginFill(0, 0);
+		g.drawRect(0, 0, _width, _height);
+		g.endFill();
 	}
 	private function init(xml:XML):void {
 		_width    = xml.@width;
@@ -92,14 +102,11 @@ public class CharView extends Sprite {
 		ss_loaded = 0;
 		ss_total  = -1;
 		/**/
-		var _parts:/*ModelPart*/Array = [];
 		loadPalette(xml);
-		var item:XML;
-		for each(item in xml.logic.*) {
-			_parts.push(loadPart(item));
-		}
-		this.parts = new PartList(_parts);
+		var compiler:CharViewCompiler = new CharViewCompiler(this);
+		this.parts = compiler.compileXMLList(xml.logic.children());
 		var n:int  = 0;
+		var item:XML;
 		for each(item in xml.spritesheet) {
 			n++;
 			loadSpritesheet(xml, item);
@@ -111,10 +118,7 @@ public class CharView extends Sprite {
 		ss_total = n;
 		if (n == 0) loadLayers(xml);
 		var g:Graphics = graphics;
-		g.clear();
-		g.beginFill(0, 0);
-		g.drawRect(0, 0, _width, _height);
-		g.endFill();
+		clearSprite();
 		scale       = parseFloat(xml.@scale);
 		this.scaleX = scale;
 		this.scaleY = scale;
@@ -123,23 +127,25 @@ public class CharView extends Sprite {
 	}
 	private function loadPalette(xml:XML):void {
 		_palette                 = new Palette();
-		var commonLookups:Object = {};
-		for each (var color:XML in xml.palette.common.color) {
-			commonLookups[color.@name.toString()] = color.text().toString();
-		}
-		_palette.addLookups("common", commonLookups);
-		for each (var prop:XML in xml.palette.property) {
+		for each (var xpal:XML in xml.palettes.palette) {
 			var lookups:Object = {};
-			for each (color in prop.color) {
+			for each (var color:XML in xpal.color) {
 				lookups[color.@name.toString()] = color.text().toString();
 			}
+			_palette.addLookups(xpal.@name.toString(),lookups);
+		}
+		for each (var prop:XML in xml.properties.property) {
 			var propname:String = prop.@name.toString();
-			_palette.addLookups(propname, lookups);
-			_palette.addPaletteProperty(
-					propname,
-					prop.@src.toString(),
-					Color.convertColor(prop.@default.toString()),
-					[propname, "common"]);
+			
+			var pp:PaletteProperty;
+			var defaultt:uint = Color.convertColor(prop.@default.toString());
+			var lookupNames:* = prop.@palette.toString().split(',');
+			if ('@src' in prop) {
+				pp = new EvalPaletteProperty(_palette,propname,defaultt,lookupNames,prop.@src.toString());
+			} else {
+				pp = new PaletteProperty(_palette,propname,defaultt,lookupNames);
+			}
+			_palette.addPaletteProperty(pp);
 		}
 		for each (var key:XML in xml.colorkeys.key) {
 			var src:uint    = Color.convertColor(key.@src.toString());
@@ -148,8 +154,8 @@ public class CharView extends Sprite {
 			_palette.addKeyColor(src, base, tf);
 		}
 	}
-	public function lookupColorValue(propname:String, colorname:String):uint {
-		return _palette.lookupColor(propname, colorname);
+	public function lookupColorValue(layername:String, propname:String, colorname:String):uint {
+		return _palette.lookupColor(layername, propname, colorname);
 	}
 	private function loadLayers(xml:XML):void {
 		file_loaded = 0;
@@ -182,14 +188,14 @@ public class CharView extends Sprite {
 			return;
 		}
 		pendingRedraw = false;
-
-
+		
+		
 		// Mark visible layers
 		composite.hideAll();
-		parts.display(_character);
-
-		var keyColors:Object = _palette.calcKeyColors(_character);
-		var bd:BitmapData    = composite.draw(keyColors);
+		parts.execute(new CharViewContext(this,_character));
+		
+		_palette.character   = _character;
+		var bd:BitmapData    = composite.draw(_palette);
 		var g:Graphics       = graphics;
 		g.clear();
 		g.beginBitmapFill(bd);
@@ -198,52 +204,13 @@ public class CharView extends Sprite {
 		this.scaleX = scale;
 		this.scaleY = scale;
 	}
-	private function loadPart(x:XML):ModelPart {
-		var item:XML;
-		switch (x.localName()) {
-			case 'show':
-				return new LayerPart(composite, x.@part, true);
-			case 'hide':
-				return new LayerPart(composite, x.@part, false);
-			case 'if':
-				var thenBlock:/*ModelPart*/Array = [];
-				for each(item in x.*) {
-					thenBlock.push(loadPart(item));
-				}
-				return new IfBlock(x.@test.toString(), thenBlock);
-			case 'switch':
-				var hasval:Boolean           = x.attribute("value").length() > 0;
-				var cases:/*CaseBlock*/Array = [];
-				for each(var xcase:XML in x.elements("case")) {
-					var caseItems:/*ModelPart*/Array = [];
-					for each(item in xcase.*) {
-						caseItems.push(loadPart(item));
-					}
-					var hasval2:Boolean = hasval && xcase.attribute("value").length() > 0;
-					var hasval3:Boolean = hasval && xcase.attribute("values").length() > 0;
-					var hastest:Boolean = xcase.attribute("test").length() > 0;
-					cases.push(new CaseBlock(
-							hastest ? xcase.@test.toString() : null,
-							hasval3 ? '[' + xcase.@values.toString() + ']' :
-									hasval2 ? '[' + xcase.@value.toString() + ']' : null,
-							caseItems));
-				}
-				var defBlock:/*ModelPart*/Array = [];
-				for each (item in x.elements("default").*) {
-					defBlock.push(loadPart(item));
-				}
-				return new SwitchPart(hasval ? x.@value.toString() : null, cases, defBlock);
-			default:
-				throw new Error("Expected <layer>, <if>, or <switch>, got " + x.localName());
-		}
-	}
 	private function loadSpritemap(xml:XML, sm:XML):void {
 		const filename:String = sm.@file;
 		var path:String       = xml.@dir + filename;
 		if (loaderLocation == "external") LOGGER.info('loading spritemap ' + path);
 		CoCLoader.loadImage(path, function (success:Boolean, result:BitmapData, e:Event):void {
 			if (!success) {
-				LOGGER.warn("Spritemap file not found: " + e);
+				LOGGER.error("Spritemap file not found: " + e);
 				ss_loaded++;
 				if (pendingRedraw) redraw();
 				return;
@@ -273,7 +240,7 @@ public class CharView extends Sprite {
 		if (loaderLocation == "external") LOGGER.info('loading spritesheet ' + path);
 		CoCLoader.loadImage(path, function (success:Boolean, result:BitmapData, e:Event):void {
 			if (!success) {
-				LOGGER.warn("Spritesheet file not found: " + e);
+				LOGGER.error("Spritesheet file not found: " + e);
 				ss_loaded++;
 				if (pendingRedraw) redraw();
 				return;
@@ -296,7 +263,7 @@ public class CharView extends Sprite {
 			if (ss_loaded == ss_total) loadLayers(xml);
 		}, loaderLocation);
 	}
-
+	
 }
 }
 

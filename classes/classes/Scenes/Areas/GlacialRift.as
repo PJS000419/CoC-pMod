@@ -59,6 +59,13 @@ package classes.Scenes.Areas {
 			chance: 1,
 			call: frostGiantEncounter
 		}, {
+			name: "drakesheart",
+			call: lootDrakHrt
+		}, {
+			name: "obsidianshard",
+			chance: 0.2,
+			call: lootObsidianShard
+		}, {
 			name: "valeria",
 			when: function ():Boolean {
 				return flags[kFLAGS.VALARIA_AT_CAMP] == 0
@@ -130,6 +137,23 @@ package classes.Scenes.Areas {
 			outputText(images.showImage("item-icicle"));
 			outputText("As you cross one of the floating ice sheets that make up the bulk of the rift, your eyes are drawn to a bright glint amidst the white backdrop.  As you eagerly approach the gleam, you discover a single tiny spire of ice, jutting from the surrounding snow.  You pluck it gently from the ground, give it a quick glance over and, satisfied that it won’t try and kill you, drop it in your bag. ");
 			inventory.takeItem(consumables.ICICLE_, camp.returnToCampUseOneHour);
+		}
+		private function lootDrakHrt():void {
+			clearOutput();
+			outputText(images.showImage("item-dHeart"));
+			outputText("While you're minding your own business, you spot a flower. You walk over to it, pick it up and smell it. By Marae, it smells amazing! It looks like Drake's Heart as the legends foretold. ");
+			inventory.takeItem(consumables.DRAKHRT, camp.returnToCampUseOneHour);
+		}
+		private function lootObsidianShard():void {
+			clearOutput();
+			outputText(images.showImage("item-dHeart"));
+			outputText("While you're minding your own business, something shiny dazes you momentarily and you turn your head to spot the shining object. You walk over to it, pick it up and look it over. It's dark purple and smooth-feeling, moving your fingers confirm that. ");
+			if (player.inte <= rand(80)) {
+				outputText("Unfortunately, you cut your fingers over the sharp edge and you quickly jerk your fingers back painfully, looking at the minor bleeding cut that formed on your finger. Ouch! ");
+				player.takeDamage(Math.max(5, player.maxHP() / 50), false);
+			}
+			outputText("You do know that the obsidian shard is very sharp, maybe someone can use it to create deadly weapons?");
+			inventory.takeItem(useables.OBSHARD, camp.returnToCampUseOneHour);
 		}
 		//Find Valeria! She can be found there if you rejected her offer initially at Tower of the Phoenix or didn't find her. She can never be Lost Forever
 		private function valeriaAtRift():void {

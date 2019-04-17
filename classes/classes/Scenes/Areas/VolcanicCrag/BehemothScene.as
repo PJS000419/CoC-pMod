@@ -29,14 +29,15 @@ package classes.Scenes.Areas.VolcanicCrag
 			else addButtonDisabled(2, "Sex", "You are not aroused enough to initiate sex with the Behemoth.");
 			if (flags[kFLAGS.BEHEMOTH_TALKED_ABOUT_CUM] > 0) addButton(3, "Get Cum", getCum).hint("Get some of Behemoth's cum!");
 			else addButtonDisabled(3, "???", "You need to have talked to the Behemoth about his cum.");
-			addButton(4, "Leave", camp.returnToCampUseOneHour);
+			addButton(4, "Leave", getGame().betaZone.betaZoneEntry);
 		}
 		
 		public function behemothIntro():void {
 			clearOutput();
 			if (flags[kFLAGS.MET_BEHEMOTH] <= 0) {
-				outputText("As you stop to take a breath, the barren landscape relentlessly hot and devoid of decent shelter, you notice you're not alone. A massive horned creature is on patrol, and you stiffen as his pointy ears prickle, listening.\n\n");
-				outputText("Mareth has made you paranoid, but you've survived this far.\n\n");
+				//outputText("As you stop to take a breath, the barren landscape relentlessly hot and devoid of decent shelter, you notice you're not alone. A massive horned creature is on patrol, and you stiffen as his pointy ears prickle, listening.\n\n");
+				outputText("As you step closer to the large tent, you notice you're not alone. A massive horned creature is on patrol, and you stiffen as his pointy ears prickle, listening.\n\n");
+				//outputText("Mareth has made you paranoid, but you've survived this far.\n\n");
 				outputText("\"<em>Howdy, stranger!</em>\" the monster calls, and you get up to greet him.  \"<em>Don't see too many people around here,</em>\" he admits, and you can't exactly say you're surprised.  \"<em>Landscape like this, ain't that many people who want to be friendly, eh?</em>\"\n\n");
 				outputText("Somehow you suspect that's not precisely it, but he likely knows that already.  You try not to stare at his hulking muscles or the spines along his back, both only barely obscured by his purple fur, and you introduce yourself, wanting to match his friendliness.\n\n");
 				outputText("As expected, he's delighted, and he claps you on the back like you're already best friends. \"<em>" + player.short + ", eh?  They call me the Behemoth; least, they did last time I had people to talk to!  What brings you out here?</em>\"\n\n");
@@ -63,6 +64,7 @@ package classes.Scenes.Areas.VolcanicCrag
 			else addButtonDisabled(3, "His Cum", "Have sex with the behemoth at least twice to unlock this.");
 			if (flags[kFLAGS.BEHEMOTH_CHILDREN] > 0) addButton(4, "Children", talkAboutHisChildren).hint("Talk to the behemoth about his son" + (flags[kFLAGS.BEHEMOTH_CHILDREN] == 1 ? "" : "s") + ".");
 			else addButtonDisabled(4, "???", "Have at least 1 child with him to unlock this.");
+			addButton(5, "Cut From Game", talkAboutCutFromGame).hint("Ask the Behemoth how he feels about being cut from the game.");
 			addButton(14, "Back", behemothMenu);
 		}
 		
@@ -101,10 +103,7 @@ package classes.Scenes.Areas.VolcanicCrag
 			clearOutput();
 			outputText("You ask the behemoth about himself. What is he, exactly?");
 			outputText("\n\n\"<i>Nobody calls me by my old name; just call me the Behemoth and that's good enough, eh?  We're a proud race known for our strength, and we love to prove it, too, but there ain't too much of us around anymore. Here, let me show you something,</i>\" the behemoth says, and he pulls out some books.");
-			if (flags[kFLAGS.CODEX_ENTRY_BEHEMOTH] <= 0) {
-				flags[kFLAGS.CODEX_ENTRY_BEHEMOTH] = 1;
-				outputText("\n\n<b>New codex entry unlocked: Behemoths!</b>");
-			}
+			unlockCodexEntry("Behemoths", kFLAGS.CODEX_ENTRY_BEHEMOTH);
 			outputText("\n\n\"<i>Check through those; they ought to answer everything you're looking for,</i>\" he says, and you thank him.");
 			outputText("\n\n\"<i>Thank <b>you,</b></i>\" he corrects, and he laughs as he pushes his hair and mane back.  You try asking him what's wrong, but he shakes his head.  \"<i>I don't want to talk about it right now,</i>\" he admits. \"<i>My past ain't the greatest; let's just worry about the now for now, okay?</i>\"");
 			outputText("You nod, and you wrap your arms around him to give him a hug, before making your farewells and your way back to camp.");
@@ -166,6 +165,17 @@ package classes.Scenes.Areas.VolcanicCrag
 			outputText("\n\nYou play with your lover and offspring for a while, then head back to camp.");
 			dynStats("lib", -1, "lus", -20, "scale", false);
 			doNext(camp.returnToCampUseOneHour);
+		}
+		private function talkAboutCutFromGame():void {
+			clearOutput();
+			outputText("You reluctantly ask the behemoth how he feels about being cut from the game due to being subpar quality.");
+			outputText("The large, muscular creature looks into your eyes and frowns when you ask the question. A tear wells in his face but he quickly swallows his pride and explains, \"<i>Cut from game, eh? It makes me upset, ya know? But to be honest, I was just one of the experimental content written by the mod author known as Kitteh6660. You see, he is more of a coder than a writer so you can see why I'm not exactly cut out to be a good content.</i>\"\n\n");
+			outputText("You slowly nod in acknowledgement and the male adds, \"<i>Don't worry. I'm pretty sure many of the areas will see the day of light. Like those dungeons. I could only explore two of those as obviously the door that supposed to lead you to the church is closed. But the other two are shaping up to be potentially great!</i>\" The behemoth points his finger to the three doors as he speaks with a smile and adds, \"<i>I am still quite optimistic to see that one day, there will be no loose ends. Utter closure to every story in the game.</i>\"\n\n");
+			outputText("You chuckle and nod. Another thing comes to your mind and ask if there's something that cannot be done.\n\n");
+			outputText("The behemoth looks down at the ground and sighs dejectedly, nodding hesitantly before explaining. \"<i>Unfortunately, yes. You know Helia and her daughter? There would have been an incest scene for " + (flags[kFLAGS.HELSPAWN_NAME] != 0 ? flags[kFLAGS.HELSPAWN_NAME] : "Helspawn") + " but Savin said no. Unlike the other content in the game, the creator doesn't have permission to add to or alter any of Savin's work and that probably will stay that way. A real damn shame. There would have been a chapter involving Gnoll hunting as hinted when Helia asked about hunting the Gnolls but that will never come to fruition.</i>\"\n\n");
+			outputText("A real shame indeed. Is there anything else?");
+			outputText("\"<i>Nothing at all for the time being. Maybe when my creator adds to what I have to say. But for now, do you have anything else to ask?</i>\" The behemoth responses as he puts his hand up to scratch his hair, sheepishly smiling at you.");
+			doNext(talkToBehemothMenu);
 		}
 		//Cum offer
 		private function getCum():void {

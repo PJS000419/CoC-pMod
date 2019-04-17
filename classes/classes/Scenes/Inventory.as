@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Created by aimozg on 12.01.14.
  */
 package classes.Scenes
@@ -6,6 +6,7 @@ package classes.Scenes
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
+	import classes.GlobalFlags.kACHIEVEMENTS;
 	import classes.Items.Armor;
 	import classes.Items.Useable;
 	import classes.Items.Weapon;
@@ -27,7 +28,8 @@ package classes.Scenes
 
 	use namespace kGAMECLASS;
 
-	public class Inventory extends BaseContent {
+	public class Inventory extends BaseContent implements Serializable {
+		private static const SERIALIZATION_VERSION:int = 1;
 		private static const LOGGER:ILogger = LoggerFactory.getLogger(Inventory);
 		
 		private static const inventorySlotName:Array = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"];
@@ -35,18 +37,36 @@ package classes.Scenes
 		//TODO refactor storage into own type?
 		public static const STORAGE_JEWELRY_BOX:String = "Equipment Storage - Jewelry Box";
 		
+		/**
+		 * Stores items that are not gear, using chests?
+		 */
 		private var itemStorage:Array;
+		/**
+		 * Stores various gear, such as armor, weapons, shields, etc. Used with different types of racks.
+		 */
 		private var gearStorage:Array;
+		/**
+		 * Stores items when in prison?
+		 */
 		private var prisonStorage:Array;
-		private var callNext:Function;		//These are used so that we know what has to happen once the player finishes with an item
-		private var callOnAbandon:Function;	//They simplify dealing with items that have a sub menu. Set in inventoryMenu and in takeItem
-		private var currentItemSlot:ItemSlotClass;	//The slot previously occupied by the current item - only needed for stashes and items with a sub menu.
+		/**
+		 * These are used so that we know what has to happen once the player finishes with an item
+		 */
+		private var callNext:Function;
+		/**
+		 * They simplify dealing with items that have a sub menu. Set in inventoryMenu and in takeItem
+		 */
+		private var callOnAbandon:Function;
+		/**
+		 * The slot previously occupied by the current item - only needed for stashes and items with a sub menu.
+		 */
+		private var currentItemSlot:ItemSlot;
 		
 		public function Inventory(saveSystem:Saves) {
 			itemStorage = [];
 			gearStorage = [];
 			prisonStorage = [];
-			saveSystem.linkToInventory(itemStorageDirectGet, gearStorageDirectGet);
+			saveSystem.linkToInventory(gearStorageDirectGet);
 		}
 		
 		public function showStash():Boolean {
@@ -207,9 +227,23 @@ package classes.Scenes
 				outputText("\n\n");
 			}
 			addButton(14, "Back", playerMenu);
+			//Achievement time!
+			var isAchievementEligible:Boolean = true;
+			var i:int = 0;
+			if (getMaxSlots() < 10) isAchievementEligible = false;
+			if (getOccupiedSlots() < 10) isAchievementEligible = false;
+			if (itemStorage.length < 14) isAchievementEligible = false; //Need to have all the chests!
+			for (i = 0; i < itemStorage.length; i++) {
+				if (itemStorage[i].quantity <= 0) isAchievementEligible = false;
+			}
+			if (gearStorage.length < 45) isAchievementEligible = false; //Need to have all the storage!
+			for (i = 0; i < gearStorage.length; i++) {
+				if (gearStorage[i].quantity <= 0) isAchievementEligible = false;
+			}
+			if (isAchievementEligible) awardAchievement("Item Vault", kACHIEVEMENTS.WEALTH_ITEM_VAULT, true);
 		}
 			
-		public function takeItem(itype:ItemType, nextAction:Function, overrideAbandon:Function = null, source:ItemSlotClass = null):void {
+		public function takeItem(itype:ItemType, nextAction:Function, overrideAbandon:Function = null, source:ItemSlot = null):void {
 			if (itype == null) {
 				CoC_Settings.error("takeItem(null)");
 				return;
@@ -316,7 +350,7 @@ package classes.Scenes
 		//Create a storage slot
 		public function createStorage():Boolean {
 			if (itemStorage.length >= 16) return false;
-			var newSlot:ItemSlotClass = new ItemSlotClass();
+			var newSlot:ItemSlot = new ItemSlot();
 			itemStorage.push(newSlot);
 			return true;
 		}
@@ -355,9 +389,9 @@ package classes.Scenes
 				gearStorage.splice(0, gearStorage.length);
 			}
 			//Rebuild a new one!
-			var newSlot:ItemSlotClass;
+			var newSlot:ItemSlot;
 			while (gearStorage.length < 45) {
-				newSlot = new ItemSlotClass();
+				newSlot = new ItemSlot();
 				gearStorage.push(newSlot);
 			}
 		}
@@ -433,7 +467,7 @@ package classes.Scenes
 			doNext(inventoryMenu);
 		}
 		
-		private function useItem(item:Useable, fromSlot:ItemSlotClass):void {
+		private function useItem(item:Useable, fromSlot:ItemSlot):void {
 			item.useText();
 			if (item is Armor) {
 				player.armor.removeText();
@@ -444,7 +478,7 @@ package classes.Scenes
 			}
 			else if (item is Weapon) {
 				player.weapon.removeText();
-				var temp:ItemSlotClass = new ItemSlotClass();
+				var temp:ItemSlot = new ItemSlot();
 				temp.quantity = - 1;
 				temp.damage = flags[kFLAGS.WEAPON_DURABILITY_DAMAGE];
 				item = player.setWeapon(item as Weapon); //Item is now the player's old weapon
@@ -484,7 +518,7 @@ package classes.Scenes
 			}
 		}
 		
-		private function takeItemFull(itype:ItemType, showUseNow:Boolean, source:ItemSlotClass):void {
+		private function takeItemFull(itype:ItemType, showUseNow:Boolean, source:ItemSlot):void {
 			outputText("There is no room for " + itype.longName + " in your inventory.  You may replace the contents of a pouch with " + itype.longName + " or abandon it.");
 			menu();
 			for (var x:int = 0; x < 10; x++) {
@@ -499,7 +533,7 @@ package classes.Scenes
 			addButton(14, "Abandon", callOnAbandon); //Does not doNext - immediately executes the callOnAbandon function
 		}
 		
-		private function useItemNow(item:Useable, source:ItemSlotClass = null):void {
+		private function useItemNow(item:Useable, source:ItemSlot = null):void {
 			clearOutput();
 			if (item.canUse()) { //If an item cannot be used then canUse should provide a description of why the item cannot be used
 				useItem(item, source);
@@ -509,7 +543,7 @@ package classes.Scenes
 			}
 		}
 		
-		private function replaceItem(itype:ItemType, slotNum:int, source:ItemSlotClass = null):void {
+		private function replaceItem(itype:ItemType, slotNum:int, source:ItemSlot = null):void {
 			clearOutput();
 			if (player.itemSlots[slotNum].itype == itype) //If it is the same as what's in the slot...just throw away the new item
 				outputText("You discard " + itype.longName + " from the stack to make room for the new one.");
@@ -645,7 +679,7 @@ package classes.Scenes
 		}
 		//Unequip!
 		private function unequipWeapon():void {
-			var temp:ItemSlotClass = new ItemSlotClass();
+			var temp:ItemSlot = new ItemSlot();
 			temp.damage = flags[kFLAGS.WEAPON_DURABILITY_DAMAGE];
 			temp.quantity = -1;
 			takeItem(player.setWeapon(WeaponLib.FISTS), inventoryMenu, null, temp);
@@ -870,12 +904,82 @@ package classes.Scenes
 			player.itemSlots[slotNum].setItemAndQty(itype, qty);
 		}
 		
-		public function generateInventoryTooltip(slot:ItemSlotClass):String {
+		public function generateInventoryTooltip(slot:ItemSlot):String {
 			var tt:String = slot.itype.description;
 			if (slot.itype.isDegradable()) {
 				tt += "\nDurability: " + (slot.itype.durability - slot.damage) + "/" + slot.itype.durability;
 			}
 			return tt;
+		}
+		
+		public function serialize(relativeRootObject:*):void 
+		{
+			relativeRootObject.itemStorage = [];
+			serializeItemStorage(relativeRootObject.itemStorage);
+		}
+		
+		private function serializeItemStorage(saveFileItemStorage:*):void
+		{
+			LOGGER.debug("Serializing {0} slots in itemStorage...", itemStorage.length);
+			for (var i:int = 0; i < itemStorage.length; i++)
+			{
+				if (itemStorage[i].itype == null) {
+					saveFileItemStorage.push(null);
+				} else {
+					saveFileItemStorage.push([]);
+					SerializationUtils.serialize(saveFileItemStorage[i], itemStorage[i]);
+				}
+			}
+		}
+		
+		public function deserialize(relativeRootObject:*):void 
+		{
+			deserializeItemStorage(relativeRootObject.itemStorage);
+		}
+		
+		private function deserializeItemStorage(saveFileItemStorage:*):void
+		{
+			LOGGER.debug("Deserializing {0} slots from itemStorage...", saveFileItemStorage.length);
+			for (var i:int = 0; i < saveFileItemStorage.length; i++)
+			{
+				createStorage();
+				var storage:ItemSlot = this.itemStorage[i];
+				var savedIS:* = saveFileItemStorage[i];
+				
+				if (savedIS.quantity>0) {
+					SerializationUtils.deserialize(savedIS, storage);
+				} else {
+					storage.emptySlot();
+				}
+			}
+		}
+		
+		public function upgradeSerializationVersion(relativeRootObject:*, serializedDataVersion:int):void 
+		{
+			switch (serializedDataVersion) {
+				case 0:
+					upgradeLegacyItemStorage(relativeRootObject);
+				
+				default:
+					/*
+					 * The default block is left empty intentionally,
+					 * this switch case operates by using fall through behavior.
+					 */
+			}
+		}
+		
+		private function upgradeLegacyItemStorage(relativeRootObject:*):void
+		{
+			LOGGER.info("Upgrading legacy item storage");
+			
+			if (relativeRootObject.itemStorage === undefined) {
+				relativeRootObject.itemStorage  = [];
+			}
+		}
+		
+		public function currentSerializationVerison():int 
+		{
+			return SERIALIZATION_VERSION;
 		}
 	}
 }

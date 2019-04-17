@@ -4,6 +4,7 @@ package classes
 	import classes.CoC;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
+	import classes.Items.ConsumableLib;
 	import classes.PerkLib;
 	import classes.Player;
 	import classes.helper.StageLocator;
@@ -15,6 +16,10 @@ package classes
 	import org.hamcrest.number.*;
 	import org.hamcrest.object.*;
 	import org.hamcrest.text.*;
+	import classes.internals.SerializationUtils;
+	import org.hamcrest.assertThat;
+	import org.hamcrest.object.equalTo;
+	import org.hamcrest.object.hasProperty;
 	import classes.Items.ArmorLib;
 
 	public class PlayerTest 
@@ -31,6 +36,9 @@ package classes
 		private var dogPlayer:Player;
 		private var mutantPlayer:Player;
 		private var cut:DummyPlayer;
+		
+		private var deserialized: Player;
+		private var serializedClass: *;
 
 		private function createVaginas(numberOfVaginas:Number, instance:Player):void
 		{
@@ -98,6 +106,24 @@ package classes
 		{
 			if (!instance.hasStatusEffect(stype))
 				instance.createStatusEffect(stype, 1, 1, 1, 1);
+		}
+		
+		private function buildLegacySaveSlots(serializedClass:*):void
+		{
+			var slotname:String = "itemSlot";
+			
+			for (var i:int = 1; i < 11; i++) {
+				var slot:String = slotname + i;
+				
+				serializedClass[slot] = [];
+				serializedClass[slot].quantity = 0;
+				serializedClass[slot].id = ItemType.NOTHING.id;
+				serializedClass[slot].damage = 0;
+				serializedClass[slot].unlocked = true;
+			}
+			
+			serializedClass[slotname + 2].id = new ConsumableLib().W_FRUIT.id;
+			serializedClass[slotname + 2].quantity = 5;
 		}
 
 		[BeforeClass]
@@ -173,8 +199,14 @@ package classes
 			cut = new DummyPlayer();
 			cut.HP = 1;
 			cut.tou = 100;
-		}
+			
+			deserialized = new Player();
+			serializedClass = [];
 
+			SerializationUtils.serialize(serializedClass, cut);
+			SerializationUtils.deserialize(serializedClass, deserialized);
+		}
+		
 		[Test]
 		public function testRedPandaScore():void
 		{
@@ -444,7 +476,8 @@ package classes
 			var catPlayer:Player = new Player();
 			createBreastRows(3, catPlayer);
 			createCock(CockTypesEnum.CAT, catPlayer);
-			catPlayer.face.type = Face.CAT;
+			catPlayer.face.setType(Face.CAT);
+			catPlayer.tongue.type = Tongue.CAT;
 			catPlayer.ears.type = Ears.CAT;
 			catPlayer.tail.type = Tail.CAT;
 			catPlayer.lowerBody.type = LowerBody.CAT;
@@ -810,7 +843,7 @@ package classes
 			var bimboPlayer:Player = new Player();
 			createPerk(PerkLib.BimboBrains, bimboPlayer);
 			createPerk(PerkLib.BimboBody, bimboPlayer);
-			bimboPlayer.createVagina(true, VaginaClass.WETNESS_SLICK);
+			bimboPlayer.createVagina(true, Vagina.WETNESS_SLICK);
 			bimboPlayer.createBreastRow(10);
 			bimboPlayer.setArmor(kGAMECLASS.armors.BIMBOSK);
 			kGAMECLASS.flags[kFLAGS.BIMBOSKIRT_MINIMUM_LUST] = 30;
@@ -984,6 +1017,49 @@ package classes
 			cut.HPChange(-HP_OVER_HEAL, false);
 			
 			assertThat(cut.HP, equalTo(0));
+		}
+		
+		[Test]
+		public function serializeItemslots():void
+		{
+			assertThat(serializedClass, hasProperty("itemSlots"));
+		}
+
+		[Test]
+		public function deserializeItemslots():void
+		{
+			assertThat(deserialized.itemSlots.length, equalTo(10));
+		}
+		
+		[Test]
+		public function upgradeLegacyItemSlots():void
+		{
+			delete serializedClass["itemSlots"];
+			delete serializedClass["serializationVersion"];
+			
+			buildLegacySaveSlots(serializedClass);
+			SerializationUtils.deserialize(serializedClass, deserialized);
+			
+			assertThat(deserialized.itemSlot(1).itype.id, equalTo(new ConsumableLib().W_FRUIT.id));
+		}
+		
+		[Test(description="Vanilla only has slots 1 to 5")]
+		public function upgradeLegacyItemSlotsFromVanilla():void
+		{
+			delete serializedClass["itemSlots"];
+			delete serializedClass["serializationVersion"];
+			
+			buildLegacySaveSlots(serializedClass);
+			
+			delete serializedClass["itemSlot6"];
+			delete serializedClass["itemSlot7"];
+			delete serializedClass["itemSlot8"];
+			delete serializedClass["itemSlot9"];
+			delete serializedClass["itemSlot10"];
+			
+			SerializationUtils.deserialize(serializedClass, deserialized);
+			
+			assertThat(deserialized.itemSlot(9).itype.id, equalTo(ItemType.NOTHING.id));
 		}
 	}
 }

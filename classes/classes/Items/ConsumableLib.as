@@ -171,6 +171,7 @@ package classes.Items
 		public const MOUSECO:Consumable = new MouseCocoa();
 		public const MINOBLO:Consumable = new MinotaurBlood();
 		public const MYSTJWL:Consumable = new FoxJewel(FoxJewel.MYSTIC);
+		public const OCULUMA:Consumable = new OculumArachnae();
 		public const P_LBOVA:Consumable = new LaBova(LaBova.PURIFIED);
 		public const PIGTRUF:Consumable = new PigTruffle(false);
 		public const PRFRUIT:Consumable = new PurpleFruit();
@@ -200,12 +201,12 @@ package classes.Items
 		public const PURHONY:Consumable = new BeeHoney(true, false);
 		public const SPHONEY:Consumable = new BeeHoney(false, true);
 		//Canine puppers, I mean peppers
-		public const CANINEP:Consumable = new CaninePepper(0);
-		public const LARGEPP:Consumable = new CaninePepper(1);
-		public const DBLPEPP:Consumable = new CaninePepper(2);
-		public const BLACKPP:Consumable = new CaninePepper(3);
-		public const KNOTTYP:Consumable = new CaninePepper(4);
-		public const BULBYPP:Consumable = new CaninePepper(5);
+		public const CANINEP:Consumable = new CaninePepper(CaninePepper.STANDARD);
+		public const LARGEPP:Consumable = new CaninePepper(CaninePepper.LARGE);
+		public const DBLPEPP:Consumable = new CaninePepper(CaninePepper.DOUBLE);
+		public const BLACKPP:Consumable = new CaninePepper(CaninePepper.BLACK);
+		public const KNOTTYP:Consumable = new CaninePepper(CaninePepper.KNOTTY);
+		public const BULBYPP:Consumable = new CaninePepper(CaninePepper.BULBY);
 
 		public const LARGE_EGGS:Array = [L_BLKEG,L_BLUEG,L_BRNEG,L_PNKEG,L_PRPEG,L_WHTEG];
 		public const SMALL_EGGS:Array = [BLACKEG,BLUEEGG,BROWNEG,PINKEGG,PURPLEG,WHITEEG];

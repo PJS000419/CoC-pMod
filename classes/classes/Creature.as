@@ -1,4 +1,4 @@
-﻿//CoC Creature.as
+//CoC Creature.as
 package classes
 {
 	import classes.BodyParts.Antennae;
@@ -30,9 +30,11 @@ package classes
 	import classes.StatusEffects.Combat.CombatSpeBuff;
 	import classes.StatusEffects.Combat.CombatStrBuff;
 	import classes.StatusEffects.Combat.CombatTouBuff;
-	import classes.VaginaClass;
+	import classes.Vagina;
 	import classes.internals.RandomNumberGenerator;
 	import classes.internals.LoggerFactory;
+	import classes.internals.Serializable;
+	import classes.internals.SerializationUtils;
 	import classes.internals.Utils;
 	import classes.internals.profiling.Begin;
 	import classes.internals.profiling.End;
@@ -40,14 +42,19 @@ package classes
 	import classes.lists.BreastCup;
 	import classes.lists.Gender;
 	import classes.lists.PerkLists;
-	import flash.errors.IllegalOperationError;
+
+import coc.view.charview.IColorNameProvider;
+
+import flash.errors.IllegalOperationError;
 	import mx.logging.ILogger;
 
 
-	public class Creature extends Utils
+	public class Creature extends Utils implements Serializable, IColorNameProvider
 	{
 		private static const LOGGER:ILogger = LoggerFactory.getLogger(Creature);
 
+		private static const SERIALIZATION_VERSION:int = 1;
+		
 		public function get game():CoC {
 			return kGAMECLASS;
 		}
@@ -382,7 +389,7 @@ package classes
 		public var butt:Butt = new Butt();
 		public var ears:Ears = new Ears();
 		public var eyes:Eyes = new Eyes();
-		public var face:Face = new Face();
+		public var face:Face; // Set in the constructor ...
 		public var gills:Gills = new Gills();
 		public var hair:Hair = new Hair();
 		public var hips:Hips = new Hips();
@@ -440,12 +447,12 @@ package classes
 		
 		//FEMALE STUFF
 		//TODO: Box into Female genital class?
-		public var vaginas:Vector.<VaginaClass>;
+		public var vaginas:Vector.<Vagina>;
 		//Fertility is a % out of 100. 
 		public var fertility:Number = 10;
 		public var nippleLength:Number = .25;
-		public var breastRows:Vector.<BreastRowClass>;
-		public var ass:AssClass = new AssClass();
+		public var breastRows:Vector.<BreastRow>;
+		public var ass:Ass = new Ass();
 		
 		/**
 		 * Check if the Creature has a vagina. If not, throw an informative Error.
@@ -504,7 +511,7 @@ package classes
 		private var _femininity:Number = 50;
 		public function get femininity():Number {
 			var fem:Number = _femininity;
-			const effect:StatusEffectClass = statusEffectByType(StatusEffects.UmasMassage);
+			const effect:StatusEffect = statusEffectByType(StatusEffects.UmasMassage);
 			if (effect != null && effect.value1 == UmasShop.MASSAGE_MODELLING_BONUS) {
 				fem += effect.value2;
 			}
@@ -550,10 +557,10 @@ package classes
 			for each (var cock:Cock in cocks) {
 				error += cock.validate();
 			}
-			for each (var vagina:VaginaClass in vaginas) {
+			for each (var vagina:Vagina in vaginas) {
 				error += vagina.validate();
 			}
-			for each (var row:BreastRowClass in breastRows) {
+			for each (var row:BreastRow in breastRows) {
 				error += row.validate();
 			}
 			error += ass.validate();
@@ -585,7 +592,7 @@ package classes
 		//Monsters have few perks, which I think should be a status effect for clarity's sake.
 		//TODO: Move perks into monster status effects.
 		private var _perks:Array;
-		public function perk(i:int):PerkClass{
+		public function perk(i:int):Perk{
 			return _perks[i];
 		}
 		public function get perks():Array {
@@ -605,11 +612,12 @@ package classes
 			//cocks = new Array();
 			//The world isn't ready for typed Arrays just yet.
 			cocks = new Vector.<Cock>();
-			vaginas = new Vector.<VaginaClass>();
-			breastRows = new Vector.<BreastRowClass>();
+			vaginas = new Vector.<Vagina>();
+			breastRows = new Vector.<BreastRow>();
 			_perks = [];
 			statusEffects = [];
 			arms = new Arms(this);
+			face = new Face(this);
 			//keyItems = new Array();
 		}
 
@@ -692,7 +700,7 @@ package classes
 		//Create a perk
 		public function createPerk(ptype:PerkType, value1:Number = 0, value2:Number = 0, value3:Number = 0, value4:Number = 0):void
 		{
-			var newKeyItem:PerkClass = new PerkClass(ptype);
+			var newKeyItem:Perk = new Perk(ptype);
 			//used to denote that the array has already had its new spot pushed on.
 			var arrayed:Boolean = false;
 			//used to store where the array goes
@@ -802,7 +810,7 @@ package classes
 		}
 		
 		/**
-		 * Find an array element number for a perk. Useful when you want to work with a PerkClass instance.
+		 * Find an array element number for a perk. Useful when you want to work with a Perk instance.
 		 */
 		public function findPerk(ptype:PerkType):Number
 		{
@@ -975,21 +983,21 @@ package classes
 		
 		*/
 		//{region StatusEffects
-		public function createOrFindStatusEffect(stype:StatusEffectType):StatusEffectClass
+		public function createOrFindStatusEffect(stype:StatusEffectType):StatusEffect
 		{
-			var sec:StatusEffectClass = statusEffectByType(stype);
+			var sec:StatusEffect = statusEffectByType(stype);
 			if (!sec) sec = createStatusEffect(stype,0,0,0,0);
 			return sec;
 		}
 		//Create a status
-		public function createStatusEffect(stype:StatusEffectType, value1:Number, value2:Number, value3:Number, value4:Number, fireEvent:Boolean = true):StatusEffectClass
+		public function createStatusEffect(stype:StatusEffectType, value1:Number, value2:Number, value3:Number, value4:Number, fireEvent:Boolean = true):StatusEffect
 		{
-			var newStatusEffect:StatusEffectClass = stype.create(value1,value2,value3,value4);
+			var newStatusEffect:StatusEffect = stype.create(value1,value2,value3,value4);
 			statusEffects.push(newStatusEffect);
 			newStatusEffect.addedToHostList(this,fireEvent);
 			return newStatusEffect;
 		}
-		public function addStatusEffect(sec:StatusEffectClass/*,fireEvent:Boolean = true*/):void {
+		public function addStatusEffect(sec:StatusEffect/*,fireEvent:Boolean = true*/):void {
 			if (sec.host != this) {
 				sec.remove();
 				sec.attach(this/*,fireEvent*/);
@@ -999,16 +1007,16 @@ package classes
 			}
 		}
 		//Remove a status
-		public function removeStatusEffect(stype:StatusEffectType/*, fireEvent:Boolean = true*/):StatusEffectClass
+		public function removeStatusEffect(stype:StatusEffectType/*, fireEvent:Boolean = true*/):StatusEffect
 		{
 			var counter:Number = indexOfStatusEffect(stype);
 			if (counter < 0) return null;
-			var sec:StatusEffectClass = statusEffects[counter];
+			var sec:StatusEffect = statusEffects[counter];
 			statusEffects.splice(counter, 1);
 			sec.removedFromHostList(true);
 			return sec;
 		}
-		public function removeStatusEffectInstance(sec:StatusEffectClass/*, fireEvent:Boolean = true*/):void {
+		public function removeStatusEffectInstance(sec:StatusEffect/*, fireEvent:Boolean = true*/):void {
 			var i:int = statusEffects.indexOf(sec);
 			if (i < 0) return;
 			statusEffects.splice(i, 1);
@@ -1017,13 +1025,13 @@ package classes
 		
 		public function indexOfStatusEffect(stype:StatusEffectType):int {
 			for (var counter:int = 0; counter < statusEffects.length; counter++) {
-				if ((statusEffects[counter] as StatusEffectClass).stype == stype)
+				if ((statusEffects[counter] as StatusEffect).stype == stype)
 					return counter;
 			}
 			return -1;
 		}
 
-		public function statusEffectByType(stype:StatusEffectType):StatusEffectClass {
+		public function statusEffectByType(stype:StatusEffectType):StatusEffect {
 			var idx:int = indexOfStatusEffect(stype);
 			return idx<0 ? null : statusEffects[idx];
 		}
@@ -1033,7 +1041,7 @@ package classes
 		//}endregion
 		
 		public function changeStatusValue(stype:StatusEffectType, statusValueNum:Number = 1, newNum:Number = 0):void {
-			var effect:StatusEffectClass = statusEffectByType(stype);
+			var effect:StatusEffect = statusEffectByType(stype);
 			//Various Errors preventing action
 			if (effect == null)return;
 			if (statusValueNum < 1 || statusValueNum > 4) {
@@ -1053,7 +1061,7 @@ package classes
 		public function addStatusValue(stype:StatusEffectType, statusValueNum:Number = 1, bonus:Number = 0):void
 		{
 			//Various Errors preventing action
-			var effect:StatusEffectClass = statusEffectByType(stype);
+			var effect:StatusEffect = statusEffectByType(stype);
 			if (effect == null) return;
 			if (statusValueNum < 1 || statusValueNum > 4)
 			{
@@ -1070,38 +1078,38 @@ package classes
 				effect.value4 += bonus;
 		}
 		
-		public function statusEffect(idx:int):StatusEffectClass
+		public function statusEffect(idx:int):StatusEffect
 		{
 			return statusEffects [idx];
 		}
 		
 		public function statusEffectv1(stype:StatusEffectType,defaultValue:Number=0):Number
 		{
-			var effect:StatusEffectClass = statusEffectByType(stype);
+			var effect:StatusEffect = statusEffectByType(stype);
 			return (effect==null)?defaultValue:effect.value1;
 		}
 		
 		public function statusEffectv2(stype:StatusEffectType,defaultValue:Number=0):Number
 		{
-			var effect:StatusEffectClass = statusEffectByType(stype);
+			var effect:StatusEffect = statusEffectByType(stype);
 			return (effect==null)?defaultValue:effect.value2;
 		}
 
 		public function statusEffectv3(stype:StatusEffectType,defaultValue:Number=0):Number
 		{
-			var effect:StatusEffectClass = statusEffectByType(stype);
+			var effect:StatusEffect = statusEffectByType(stype);
 			return (effect==null)?defaultValue:effect.value3;
 		}
 
 		public function statusEffectv4(stype:StatusEffectType,defaultValue:Number=0):Number
 		{
-			var effect:StatusEffectClass = statusEffectByType(stype);
+			var effect:StatusEffect = statusEffectByType(stype);
 			return (effect==null)?defaultValue:effect.value4;
 		}
 
 		public function removeStatuses(fireEvent:Boolean):void
 		{
-			var a:/*StatusEffectClass*/Array=statusEffects.splice(0,statusEffects.length);
+			var a:/*StatusEffect*/Array=statusEffects.splice(0,statusEffects.length);
 			for (var n:int=a.length,i:int=0;i<n;i++) {
 				a[i].removedFromHostList(fireEvent);
 			}
@@ -1403,8 +1411,14 @@ package classes
 			return cocks[index].cockLength;
 		}
 		
-		//Find the biggest cock that fits inside a given value
-		public function cockThatFits(i_fits:Number = 0, type:String = "area"):Number
+		/**
+		 * Find the biggest cock index that fits inside a given value.
+		 * This function defaults to checking the area.
+		 * @param	i_fits the value to check for, in combination with type.
+		 * @param	type check cock for area or length, defaults to area
+		 * @return the index of the first matching cock, or -1 if no cock fits
+		 */
+		public function cockThatFits(i_fits:Number = 0, type:String = "area"):int
 		{
 			if (cocks.length <= 0)
 				return -1;
@@ -2517,7 +2531,7 @@ package classes
 		{
 			if (vaginas.length >= 2)
 				return false;
-			var newVagina:VaginaClass = new VaginaClass(vaginalWetness,vaginalLooseness,virgin);
+			var newVagina:Vagina = new Vagina(vaginalWetness,vaginalLooseness,virgin);
 			vaginas.push(newVagina);
 			return true;
 		}
@@ -2527,7 +2541,7 @@ package classes
 		{
 			if (breastRows.length >= 10)
 				return false;
-			var newBreastRow:BreastRowClass = new BreastRowClass();
+			var newBreastRow:BreastRow = new BreastRow();
 			newBreastRow.breastRating = size;
 			newBreastRow.nipplesPerBreast = nipplesPerBreast;
 			breastRows.push(newBreastRow);
@@ -2792,6 +2806,16 @@ package classes
 		public function hasBeak():Boolean
 		{
 			return [Face.BEAK, Face.COCKATRICE].indexOf(face.type) != -1;
+		}
+
+		public function hasCatFace():Boolean
+		{
+			return [Face.CAT, Face.CATGIRL].indexOf(face.type) != -1;
+		}
+
+		public function hasCatEyes():Boolean
+		{
+			return eyes.type === Eyes.CAT;
 		}
 
 		public function hasClaws():Boolean
@@ -3854,7 +3878,7 @@ package classes
 			if (statusEffectv1(StatusEffects.BlackCatBeer) > 0)
 				mult *= 0.75;
 			// Uma's Massage bonuses
-			var effect:StatusEffectClass = statusEffectByType(StatusEffects.UmasMassage);
+			var effect:StatusEffect = statusEffectByType(StatusEffects.UmasMassage);
 			if (effect != null && effect.value1 == UmasShop.MASSAGE_RELAXATION) {
 				mult *= effect.value2;
 			}
@@ -3923,7 +3947,7 @@ package classes
 			if (weaponName == game.weapons.HNTCANE.name) lust *= 0.75;
 			// Lust mods from Uma's content -- Given the short duration and the gem cost, I think them being multiplicative is justified.
 			// Changing them to an additive bonus should be pretty simple (check the static values in UmasShop.as)
-			var effect:StatusEffectClass = statusEffectByType(StatusEffects.UmasMassage);
+			var effect:StatusEffect = statusEffectByType(StatusEffects.UmasMassage);
 			if (effect != null) {
 				if (effect.value1 == UmasShop.MASSAGE_RELIEF || effect.value1 == UmasShop.MASSAGE_LUST) {
 					lust *= effect.value2;
@@ -4228,6 +4252,173 @@ package classes
 				scale   : argDefs.scale[0],
 				max     : argDefs.max[0]
 			};
+		}
+		
+		public function serialize(relativeRootObject:*):void 
+		{
+			relativeRootObject.short = this.short;
+			relativeRootObject.a = this.a;
+	
+			relativeRootObject.cocks = SerializationUtils.serializeVector(this.cocks as Vector.<*>);
+			relativeRootObject.vaginas = SerializationUtils.serializeVector(this.vaginas as Vector.<*>);
+			relativeRootObject.breastRows = SerializationUtils.serializeVector(this.breastRows as Vector.<*>);
+			
+			relativeRootObject.ass = [];
+			SerializationUtils.serialize(relativeRootObject.ass, this.ass);
+			
+			serializeStats(relativeRootObject);
+			serializeSexualStats(relativeRootObject);
+		}
+		
+		private function serializeStats(relativeRootObject:*):void
+		{
+			relativeRootObject.str = this.str;
+			relativeRootObject.tou = this.tou;
+			relativeRootObject.spe = this.spe;
+			relativeRootObject.inte = this.inte;
+			relativeRootObject.lib = this.lib;
+			relativeRootObject.sens = this.sens;
+			relativeRootObject.cor = this.cor;
+			relativeRootObject.fatigue = this.fatigue;
+			
+			relativeRootObject.XP = this.XP;
+			relativeRootObject.level = this.level;
+			relativeRootObject.gems = this.gems;
+			
+			relativeRootObject.HP = this.HP;
+			relativeRootObject.lust = this.lust;
+			
+			relativeRootObject.femininity = this.femininity;
+			relativeRootObject.tallness = this.tallness
+		}
+		
+		private function serializeSexualStats(relativeRootObject:*):void
+		{
+			relativeRootObject.balls = this.balls;
+			relativeRootObject.cumMultiplier = this.cumMultiplier;
+			relativeRootObject.ballSize = this.ballSize;
+			relativeRootObject.hoursSinceCum = this.hoursSinceCum;
+			relativeRootObject.ballSize = this.ballSize;
+			relativeRootObject.fertility = this.fertility;
+			relativeRootObject.nippleLength = this.nippleLength;
+		}
+		
+		public function deserialize(relativeRootObject:*):void 
+		{
+			this.short = relativeRootObject.short;
+			this.a = relativeRootObject.a;
+			
+			SerializationUtils.deserializeVector(this.cocks as Vector.<*>, relativeRootObject.cocks, Cock);
+			SerializationUtils.deserializeVector(this.vaginas as Vector.<*>, relativeRootObject.vaginas, Vagina);
+			SerializationUtils.deserializeVector(this.breastRows as Vector.<*>, relativeRootObject.breastRows, BreastRow);
+			SerializationUtils.deserialize(relativeRootObject.ass, this.ass);
+			deserializeStats(relativeRootObject);
+			deserializeSexualStats(relativeRootObject);
+		}
+		
+		private function deserializeStats(relativeRootObject:*):void
+		{
+			this.str = relativeRootObject.str;
+			this.tou = relativeRootObject.tou;
+			this.spe = relativeRootObject.spe;
+			this.inte = relativeRootObject.inte;
+			this.lib = relativeRootObject.lib;
+			this.sens = relativeRootObject.sens;
+			this.cor = relativeRootObject.cor;
+			this.fatigue = relativeRootObject.fatigue;
+			
+			this.XP = relativeRootObject.XP
+			this.level = relativeRootObject.level;
+			this.gems = relativeRootObject.gems;
+			
+			fixInvalidGems();
+			
+			this.HP = relativeRootObject.HP
+			this.lust = relativeRootObject.lust;
+
+			this.femininity = relativeRootObject.femininity;
+			this.tallness = relativeRootObject.tallness;
+			
+			fixMissingFemininity();
+		}
+		
+		private function deserializeSexualStats(relativeRootObject:*):void
+		{
+			this.balls = relativeRootObject.balls;
+			this.cumMultiplier = relativeRootObject.cumMultiplier;
+			this.ballSize = relativeRootObject.ballSize;
+			this.hoursSinceCum = relativeRootObject.hoursSinceCum;
+			this.ballSize = relativeRootObject.ballSize;
+			this.fertility = relativeRootObject.fertility;
+			this.nippleLength = relativeRootObject.nippleLength;
+			
+			fixMissingNippleLength();
+		}
+		
+		private function fixInvalidGems():void
+		{
+			// TODO move this to upgrade code
+			if (isNaN(this.gems) || this.gems < 0) {
+				this.gems = 0;
+			}
+		}
+		
+		private function fixMissingFemininity(): void
+		{
+			// TODO move this to upgrade code
+			if (isNaN(this.femininity)) {
+				this.femininity = 50;
+			}
+		}
+		
+		private function fixMissingNippleLength():void
+		{
+			// TODO move this to upgrade code
+			if (isNaN(this.nippleLength)) {
+				this.nippleLength = 0.25;
+			}
+		}
+		
+		public function upgradeSerializationVersion(relativeRootObject:*, serializedDataVersion:int):void 
+		{
+			/**
+			 * be aware that sub-classes might override this function and may not call the super-class version.
+			 * e.g. no super.upgradeSerializationVersion(relativeRootObject, serializedDataVersion)
+			 */
+		}
+		
+		public function currentSerializationVerison():int 
+		{
+			return SERIALIZATION_VERSION;
+		}
+		
+		
+		public function getKeyColor(layerName:String, keyColorName:String):String {
+			switch (layerName) {
+				case "neck":
+					return neck.color;
+				case "wings":
+					return wings.color;
+			}
+			switch (keyColorName) {
+				case "hair":
+				case "hair2":
+					return hair.color;
+				case "fur":
+				case "fur2":
+					return skin.hasFur() ? skin.furColor : hair.color;
+				case "scales":
+				case "scales2":
+				case "chitin":
+				case "chitin2":
+				case "skin":
+				case "skin2":
+					return skin.tone;
+				case "iris":
+					return "brown";
+				default:
+					return "";
+			}
 		}
 	}
 }

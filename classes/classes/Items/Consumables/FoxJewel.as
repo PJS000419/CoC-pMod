@@ -225,11 +225,16 @@ package classes.Items.Consumables
 				changes++;
 			}
 			//[Grow 9th tail and gain Corrupted Nine-tails perk]
-			else if (mystic && rand(4) === 0 && changes < changeLimit && player.tail.type == Tail.FOX && player.tail.venom == 8 && player.level >= 9 && player.ears.type == Ears.FOX && player.inte >= 90 && player.findPerk(PerkLib.CorruptedNinetails) < 0 && (player.findPerk(PerkLib.EnlightenedNinetails) < 0 || player.perkv4(PerkLib.EnlightenedNinetails) > 0)) {
-				outputText("Your bushy tails begin to glow with an eerie, ghostly light, and with a crackle of electrical energy, split into nine tails.  <b>You are now a nine-tails!  But something is wrong...  The cosmic power radiating from your body feels...  tainted somehow.  The corruption pouring off your body feels...  good.</b>");
-				outputText("\n\nYou have the inexplicable urge to set fire to the world, just to watch it burn.  With your newfound power, it's a goal that is well within reach.");
-				outputText("\n\n(Perk Gained: Corrupted Nine-tails - Grants two magical special attacks.)");
-				player.createPerk(PerkLib.CorruptedNinetails, 0, 0, 0, 0);
+			else if (mystic && rand(4) === 0 && changes < changeLimit && player.tail.type == Tail.FOX && player.tail.venom == 8 && player.level >= 9 && player.ears.type == Ears.FOX && player.inte >= 90) {
+				outputText("Your bushy tails begin to glow with an eerie, ghostly light, and with a crackle of electrical energy, split into nine tails. <b>You are now a nine-tails!</b>");
+				if (!player.hasPerk(PerkLib.CorruptedNinetails) && (!player.hasPerk(PerkLib.EnlightenedNinetails) || player.perkv4(PerkLib.EnlightenedNinetails) > 0)) {
+					outputText("<b>  But something is wrong... The cosmic power radiating from your body feels... tainted somehow."
+					          +" The corruption pouring off your body feels... good.</b>"
+					          +"\n\nYou have the inexplicable urge to set fire to the world, just to watch it burn."
+					          +" With your newfound power, it's a goal that is well within reach."
+					          +"\n\n(Perk Gained: Corrupted Nine-tails - Grants two magical special attacks.)");
+					player.createPerk(PerkLib.CorruptedNinetails);
+				}
 				dynStats("lib", 2, "lus", 10, "cor", 10);
 				player.tail.venom = 9;
 				changes++;

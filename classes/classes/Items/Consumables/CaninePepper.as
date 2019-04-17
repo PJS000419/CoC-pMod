@@ -11,6 +11,13 @@ package classes.Items.Consumables
 	
 	public class CaninePepper extends Consumable
 	{
+		public static const STANDARD:int = 0;
+		public static const LARGE:int    = 1;
+		public static const DOUBLE:int   = 2;
+		public static const BLACK:int    = 3;
+		public static const KNOTTY:int   = 4;
+		public static const BULBY:int    = 5;
+
 		private const ids:Array = ["CanineP", "LargePp", "DblPepp", "BlackPp", "KnottyP", "BulbyPp"];
 		private const snm:Array = ["Canine Pp", "Large Pp", "Double Pp", "Black Pp", "Knotty Pp", "Bulby Pp"];
 		private const lnm:Array = ["a canine pepper", "an overly large canine pepper", "a double canine pepper", "a solid black canine pepper", "a knotty canine pepper", "a bulbous canine pepper"];
@@ -32,22 +39,22 @@ package classes.Items.Consumables
 		{
 			switch(this.id) {
 				case "LargePp":
-					caninePepper(1);
+					caninePepper(LARGE);
 					break;
 				case "DblPepp":
-					caninePepper(2);
+					caninePepper(DOUBLE);
 					break;
 				case "BlackPp":
-					caninePepper(3);
+					caninePepper(BLACK);
 					break;
 				case "KnottyP":
-					caninePepper(4);
+					caninePepper(KNOTTY);
 					break;
 				case "BulbyPp":
-					caninePepper(5);
+					caninePepper(BULBY);
 					break;
 				default:
-					caninePepper(0);
+					caninePepper(STANDARD);
 			}
 			return false;
 		}
@@ -62,12 +69,12 @@ package classes.Items.Consumables
 			var tfSource:String = "caninePepper";
 			if (player.hasPerk(PerkLib.Hellfire)) tfSource += "-hellfire";
 			switch (type) {
-				case 5:  tfSource += "-bulbous";   break;
-				case 4:  tfSource += "-knotty";    break;
-				case 3:  tfSource += "-black";     break;
-				case 2:  tfSource += "-double";    break;
-				case 1:  tfSource += "-oversized"; break;
-				default: // type == 0 --> Canine Pepper
+				case BULBY:  tfSource += "-bulbous";   break;
+				case KNOTTY: tfSource += "-knotty";    break;
+				case BLACK:  tfSource += "-black";     break;
+				case DOUBLE: tfSource += "-double";    break;
+				case LARGE:  tfSource += "-oversized"; break;
+				default: // type == STANDARD --> Canine Pepper
 			}
 			var temp:Number = 0;
 			var temp2:Number = 0;
@@ -78,30 +85,30 @@ package classes.Items.Consumables
 			//Initial outputs & crit level
 			clearOutput();
 			switch(type) {
-				case 0:
+				case STANDARD:
 					if (rand(100) < 15) {
 						crit = int(Math.random() * 20) / 10 + 2;
 						outputText("The pepper tastes particularly potent, searingly hot and spicy.");
 					}
 					else outputText("The pepper is strangely spicy but very tasty.");
 					break;
-				case 1: //Oversized pepper
+				case LARGE:
 					crit = int(Math.random() * 20) / 10 + 2;
 					outputText("The pepper is so large and thick that you have to eat it in several large bites.  It is not as spicy as the normal ones, but is delicious and flavorful.");
 					break;
-				case 2: //Double Pepper
+				case DOUBLE:
 					crit = int(Math.random() * 20) / 10 + 2;
 					outputText("The double-pepper is strange, looking like it was formed when two peppers grew together near their bases.");
 					break;
-				case 3: //Black Pepper
+				case BLACK:
 					crit = int(Math.random() * 20) / 10 + 2;
 					outputText("This black pepper tastes sweet, but has a bit of a tangy aftertaste.");
 					break;
-				case 4: //Knotty Pepper
+				case KNOTTY:
 					crit = int(Math.random() * 20) / 10 + 2;
 					outputText("The pepper is a bit tough to eat due to the swollen bulge near the base, but you manage to cram it down and munch on it.  It's extra spicy!");
 					break;
-				case 5: //Bulbous Pepper
+				case BULBY:
 					crit = int(Math.random() * 20) / 10 + 2;
 					outputText("You eat the pepper, even the two orb-like growths that have grown out from the base.  It's delicious!");
 					break;
@@ -109,7 +116,7 @@ package classes.Items.Consumables
 					crit = int(Math.random() * 20) / 10 + 2;
 			}
 			//OVERDOSE Bad End!
-			if (type <= 0 && crit > 1 && player.hasFur() && player.face.type == Face.DOG && player.ears.type == Ears.DOG && player.lowerBody.type == LowerBody.DOG && player.tail.type == Tail.DOG && rand(2) === 0 && player.hasStatusEffect(StatusEffects.DogWarning) && !player.hasPerk(PerkLib.TransformationResistance)) {
+			if (type === STANDARD && crit > 1 && player.hasFur() && player.face.type == Face.DOG && player.ears.type == Ears.DOG && player.lowerBody.type == LowerBody.DOG && player.tail.type == Tail.DOG && rand(2) === 0 && player.hasStatusEffect(StatusEffects.DogWarning) && !player.hasPerk(PerkLib.TransformationResistance)) {
 				temp = rand(2);
 				if (temp == 0) {
 					outputText("\n\nAs you swallow the pepper, you note that the spicy hotness on your tongue seems to be spreading. Your entire body seems to tingle and burn, making you feel far warmer than normal, feverish even. Unable to stand it any longer you tear away your clothes, hoping to cool down a little. Sadly, this does nothing to aid you with your problem. On the bright side, the sudden feeling of vertigo you've developed is more than enough to take your mind off your temperature issues. You fall forward onto your hands and knees, well not really hands and knees to be honest. More like paws and knees. That can't be good, you think for a moment, before the sensation of your bones shifting into a quadrupedal configuration robs you of your concentration. After that, it is only a short time before your form is remade completely into that of a large dog, or perhaps a wolf. The distinction would mean little to you now, even if you were capable of comprehending it. ");
@@ -121,15 +128,15 @@ package classes.Items.Consumables
 				return;
 			}
 			//WARNING, overdose VERY close!
-			if (type <= 0 && player.hasFur() && player.face.type == Face.DOG && player.tail.type == Tail.DOG && player.ears.type == Ears.DOG && player.lowerBody.type == LowerBody.DOG && player.hasStatusEffect(StatusEffects.DogWarning) && rand(3) === 0) {
+			if (type === STANDARD && player.hasFur() && player.face.type == Face.DOG && player.tail.type == Tail.DOG && player.ears.type == Ears.DOG && player.lowerBody.type == LowerBody.DOG && player.hasStatusEffect(StatusEffects.DogWarning) && rand(3) === 0) {
 				outputText("<b>\n\nEating the pepper, you realize how dog-like you've become, and you wonder what else the peppers could change...</b>");
 			}
 			//WARNING, overdose is close!
-			if (type <= 0 && player.hasFur() && player.face.type == Face.DOG && player.tail.type == Tail.DOG && player.ears.type == Ears.DOG && player.lowerBody.type == LowerBody.DOG && !player.hasStatusEffect(StatusEffects.DogWarning)) {
+			if (type === STANDARD && player.hasFur() && player.face.type == Face.DOG && player.tail.type == Tail.DOG && player.ears.type == Ears.DOG && player.lowerBody.type == LowerBody.DOG && !player.hasStatusEffect(StatusEffects.DogWarning)) {
 				player.createStatusEffect(StatusEffects.DogWarning, 0, 0, 0, 0);
 				outputText("<b>\n\nEating the pepper, you realize how dog-like you've become, and you wonder what else the peppers could change...</b>");
 			}
-			if (type == 3) {
+			if (type === BLACK) {
 				dynStats("lib", 2 + rand(4), "lus", 5 + rand(5), "cor", 2 + rand(4));
 				outputText("\n\nYou feel yourself relaxing as gentle warmth spreads through your body.  Honestly you don't think you'd mind running into a demon or monster right now, they'd make for good entertainment.");
 				if (player.cor < 50) outputText("  You shake your head, blushing hotly.  Where did that thought come from?");
@@ -144,7 +151,7 @@ package classes.Items.Consumables
 				if (crit > 1) outputText("\n\nYou find your muscles responding quicker, faster, and you feel an odd desire to go for a walk.");
 				else outputText("\n\nYou feel quicker.");
 			}
-			if (player.inte100 > 30 && rand(3) === 0 && changes < changeLimit && type !== 3) {
+			if (player.inte100 > 30 && rand(3) === 0 && changes < changeLimit && type !== BLACK) {
 				dynStats("int", (-1 * crit));
 				outputText("\n\nYou feel ");
 				if (crit > 1) outputText("MUCH ");
@@ -158,13 +165,13 @@ package classes.Items.Consumables
 			if (rand(5) === 0) mutations.updateOvipositionPerk(tfSource);
 			//Remove feathery hair
 			mutations.removeFeatheryHair();
-			//if (type !== 2 && type !== 4 && type !== 5) outputText("\n");
+			//if (type !== DOUBLE && type !== KNOTTY && type !== BULBY) outputText("\n");
 			//Double Pepper!
 			//Xforms/grows dicks to make you have two dogcocks
-			if (type == 2) {
+			if (type === DOUBLE) {
 				//If already doubled up, GROWTH
 				if (player.dogCocks() >= 2) {
-					type = 1;
+					type = LARGE;
 				}
 				//If player doesnt have 2 dogdicks
 				else {
@@ -232,7 +239,7 @@ package classes.Items.Consumables
 				}
 			}
 			//Knotty knot pepper!
-			if (type == 4) {
+			if (type === KNOTTY) {
 				//Cocks only!
 				if (player.cockTotal() > 0) {
 					//biggify knots
@@ -276,7 +283,7 @@ package classes.Items.Consumables
 				else outputText("\n\nA slight wave of nausea passes through you.  It seems this pepper does not quite agree with your body.");
 			}
 			//GROW BALLS
-			if (type == 5) {
+			if (type === BULBY) {
 				if (player.balls <= 1) {
 					outputText("\n\nA spike of pain doubles you up, nearly making you vomit.  You stay like that, nearly crying, as a palpable sense of relief suddenly washes over you.  You look down and realize you now have a small sack, complete with two relatively small balls.");
 					player.balls = 2;
@@ -303,7 +310,7 @@ package classes.Items.Consumables
 			//3. cumMultiplier++ (to max of 1.5)
 			if (player.cocks.length > 0) {
 				//Grow knot on smallest knotted dog cock
-				if (type !== 4 && player.dogCocks() > 0 && ((changes < changeLimit && rand(1.4) === 0) || type == 1)) {
+				if (type !== KNOTTY && player.dogCocks() > 0 && ((changes < changeLimit && rand(1.4) === 0) || type == LARGE)) {
 					temp = 0;
 					//set temp2 to first dogdick for initialization
 					while (temp < player.cocks.length) {
@@ -333,7 +340,7 @@ package classes.Items.Consumables
 					changes++;
 				}
 				//Cock Xform if player has free cocks.
-				if (player.dogCocks() < player.cocks.length && ((changes < changeLimit && rand(1.6)) || type == 1) === 0) {
+				if (player.dogCocks() < player.cocks.length && ((changes < changeLimit && rand(1.6) === 0) || type === LARGE)) {
 					//Select first human cock
 					temp = player.cocks.length;
 					temp2 = 0;
@@ -407,7 +414,7 @@ package classes.Items.Consumables
 					changes++;
 				}
 				//Oversized pepper
-				if (type == 1) {
+				if (type === LARGE) {
 					//GET LONGER
 					//single cock
 					if (player.cocks.length == 1) {
@@ -659,9 +666,9 @@ package classes.Items.Consumables
 			}
 
 			// break things, so it'll be fixed below ;-)
-			if (type == 3 && !player.hasFur() && player.skin.furColor == "midnight black") player.skin.furColor = "no";
+			if (type === BLACK && !player.hasFur() && player.skin.furColor == "midnight black") player.skin.furColor = "no";
 
-			if (type == 3 && (player.hair.color !== "midnight black" || player.skin.furColor !== "midnight black")) {
+			if (type === BLACK && (player.hair.color !== "midnight black" || player.skin.furColor !== "midnight black")) {
 				var furHairText:String;
 				if (!player.hasFur())
 					outputText("<b>\n\nYour " + player.skin.desc + " itches like crazy as fur grows out from it, coating your body.  It's incredibly dense and black as the middle of a moonless night.</b>");
