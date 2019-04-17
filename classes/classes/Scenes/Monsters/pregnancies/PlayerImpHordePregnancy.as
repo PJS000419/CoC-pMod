@@ -5,7 +5,7 @@ package classes.Scenes.Monsters.pregnancies
 	import classes.PregnancyStore;
 	import classes.Scenes.PregnancyProgression;
 	import classes.Scenes.VaginalPregnancy;
-	import classes.VaginaClass;
+	import classes.Vagina;
 	import classes.StatusEffects;
 	import classes.internals.GuiOutput;
 	import classes.internals.PregnancyUtils;
@@ -167,12 +167,12 @@ package classes.Scenes.Monsters.pregnancies
 			
 			output.text("\n\nFinally, the first one pulls off your breasts, and finishes his milk - looking practically full grown you know he's not yet through.  Unsurprisingly, the young imp grabs you by your head and stuffs his whole cock into your mouth.  You have the honor of being his first of many orgasms as he quickly mouth fucks you and cums down your throat.  Gasping for breath, he releases you and grabs one of your spread legs to help his brethren.  Another push, and another imp escapes your confines.  You're not sure how much longer this will take, but you are in no position to resist.  You swiftly pass out.\n\n");
 			
-			if (player.vaginas[0].vaginalLooseness === VaginaClass.LOOSENESS_TIGHT) {
+			if (player.vaginas[0].vaginalLooseness === Vagina.LOOSENESS_TIGHT) {
 				player.vaginas[0].vaginalLooseness++;
 			}
 			
 			//50% chance
-			if (player.vaginas[0].vaginalLooseness < VaginaClass.LOOSENESS_GAPING_WIDE && Utils.rand(2) === 0) {
+			if (player.vaginas[0].vaginalLooseness < Vagina.LOOSENESS_GAPING_WIDE && Utils.rand(2) === 0) {
 				player.vaginas[0].vaginalLooseness++;
 				output.text("\n\n<b>Your cunt is painfully stretched from the ordeal, permanently enlarged.</b>");
 			}
@@ -204,7 +204,7 @@ package classes.Scenes.Monsters.pregnancies
 				player.growTits(1, 1, false, 3);
 			}
 			
-			if (player.vaginas[0].vaginalWetness === VaginaClass.WETNESS_DRY) {
+			if (player.vaginas[0].vaginalWetness === Vagina.WETNESS_DRY) {
 				player.vaginas[0].vaginalWetness++;
 			}
 			

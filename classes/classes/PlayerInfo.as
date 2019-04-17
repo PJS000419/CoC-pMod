@@ -180,6 +180,9 @@ package classes
 			//Imps spawned
 			if (flags[kFLAGS.ADULT_MINOTAUR_OFFSPRINGS] > 0)
 				childStats += "<b>Number of Imps spawned:</b> " + player.statusEffectv1(StatusEffects.BirthedImps) + "\n";
+			//Shark girls
+			if (flags[kFLAGS.ADULT_SHARKGIRL_OFFSPRINGS] > 0)
+				childStats += "<b>Number of Adult Sharkgirl Offspring:</b> " + flags[kFLAGS.ADULT_SHARKGIRL_OFFSPRINGS] + "\n";
 				
 			if (childStats != "")
 				outputText("\n<b><u>Children</u></b>\n" + childStats);

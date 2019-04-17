@@ -243,8 +243,8 @@ import classes.Scenes.API.Encounter;
 			
 			outputText("\n\nThe pleasant numbness from the intrusion - like the blissful crest of rolling waves - sweeps everything but pleasure from your mind.  You sag into your bindings, ecstatic, melted putty awaiting its sculptor's touch.  Fera hums and breaks the kiss to look into your empty, dazed eyes, two red stars of fire that utterly fill your view.  You drool and begin to lick at an imaginary dick, your fevered attentions wasted on empty air, though to you it's as real as a hard incubus's member.");
 			
-			if (player.isVisiblyPregnant()) outputText(images.showImage("feras-preg-bitch"));
-			else outputText(images.showImage("fera-female-fuck"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("feras-breeding-bitch-preg"));
+			else outputText(images.showImage("feras-breeding-bitch"));
 			
 			outputText("\n\nMeanwhile, you feel a penis sliding into your pussy.  Just as it fills you, a second shaft, slides into your folds, trailing the first until it nestles up against it, both leaking their pre-cum out the first's tip.  Stranger still, a third rod breaches your entrance, slithering past your folds to join it's brothers, and that's only the beginning.  A seemingly endless array of penises nestle within your pussy and pulsate inside with twenty different textures, all of them as hard and strong as steel.  Your pussy may as well have died and gone to heaven, for it joins the rest of you in bliss.");
 			
@@ -654,3 +654,4 @@ import classes.Scenes.API.Encounter;
 			doNext(camp.returnToCampUseFourHours);
 		}
 	}
+}

@@ -563,7 +563,7 @@ package classes.Scenes.Areas.Forest
 			outputText(((player.gender == 2) ? "womb" : "intestines") + ", sending you into a shivering fit.  Saliva and sexual fluids flow in rivers, the blonde's soaked cunt drenching your face as her pussy quivers and squeezes around your tongue.  The ravenette begins to rise upward, lifted by your expanding abdomen as she twitches in ecstasy, the blonde's tails deeply embedded in her holes.\n\n");
 			outputText("Passionate moans from all four of you fill the air as you ride the waves of pleasure, finally collapsing together in ecstasy after what feels like ages.  Each twitching tremble of your muscles sees you a bit more fatigued, your eyelids feeling as though they weigh a thousand pounds each.");
 			if (player.gender == 3 || (player.gender == 2 && player.pregnancyIncubation > 0)) outputText("  A flood of seed begins to spill from your abused pussy, gushing over the redhead's groin and spreading into the water.  The flow is soon stemmed by the introduction of the black-haired girl's tongue, plush lips pressed against your cunt as she hungrily sucks down the outpouring of semen.  She gulps loudly and gluttonously, spreading your lips with her thumbs and swallowing every last delicious salty morsel, her stomach swelling and quivering");
-				if (player.pregnancyIncubation <= 150) outputText(" as your overstuffed, brood-full abdomen continues to seep cum in equal measure.  Hands resting on your");
+				if (player.isVisiblyPregnant()) outputText(" as your overstuffed, brood-full abdomen continues to seep cum in equal measure.  Hands resting on your");
 				else outputText("as your own overfull abdomen begins to deflate in equal measure.  Hands resting on your");
 			outputText(((player.gender == 0 || (player.isVisiblyPregnant())) ? " swollen" : " deflating") + " belly, you begin to succumb to exhaustion, your strength fading as you are overcome with an uncommon weariness.\n\n");
 			doNext(createCallBackFunction(genderlessKitsuneStillHungry, willing));
@@ -724,7 +724,7 @@ package classes.Scenes.Areas.Forest
 			output.text("\n\nFor the third time you are fucked, filled and finished.  Once more, you grow uncomfortably before the contractions set in. ");
 			output.text("\n\nFamiliar pains and pressures in your gut signal the coming brith. However, by now, you are well-oiled birthing machine.  This child takes merely a fraction of the time the others did.  With the last of them delievered you immediately dirft off into unencumbered sleep. ");
 			player.cuntChange(55, true, true, false);
-			if (player.vaginas[0].vaginalLooseness < VaginaClass.LOOSENESS_GAPING_WIDE) {
+			if (player.vaginas[0].vaginalLooseness < Vagina.LOOSENESS_GAPING_WIDE) {
 				player.vaginas[0].vaginalLooseness++;
 				output.text("\n\n<b>Your cunt is painfully stretched from the ordeal, permanently enlarged.</b>");
 			}
@@ -2594,4 +2594,4 @@ package classes.Scenes.Areas.Forest
 		}
 	}
 }
-
+

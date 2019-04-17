@@ -146,6 +146,7 @@ internal function oasisSexing():void {
 		player.knockUp(PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP, 90);
 	}
 	if (player.gender == 3) outputText(images.showImage("demonmob-surround-herm"));
+	else if (player.isVisiblyPregnant()) outputText(images.showImage("demonmob-surround-female-preg"));
 	else if (player.gender == 2) outputText(images.showImage("demonmob-surround-female"));
 	else outputText(images.showImage("demonmob-surround-male"));
 	//Buttbutt buuuuuttt

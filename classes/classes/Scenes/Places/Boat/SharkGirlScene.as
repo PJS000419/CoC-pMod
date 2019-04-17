@@ -4,12 +4,40 @@ package classes.Scenes.Places.Boat{
 	import classes.display.SpriteDb;
 	import classes.internals.*;
 
-	public class SharkGirlScene extends AbstractBoatContent{
+	public class SharkGirlScene extends AbstractBoatContent implements TimeAwareInterface{
 
 	public function SharkGirlScene()
 	{
+		CoC.timeAwareClassAdd(this);
 	}
+	
+			//Implementation of TimeAwareInterface
+		public function timeChange():Boolean {
+			//326 Number of sharkgirls grown
+			//327 Number of sharkgirls pending
+			//328 growup countdown
+			//If it gets glitched somehow
+			if (flags[kFLAGS.SHARKGIRL_DAUGHTERS_GROWUP_COUNTER] > 30) flags[kFLAGS.SHARKGIRL_DAUGHTERS_GROWUP_COUNTER] = 30;
+			if (flags[kFLAGS.SHARKGIRL_DAUGHTERS_GROWUP_COUNTER] < 0) flags[kFLAGS.SHARKGIRL_DAUGHTERS_GROWUP_COUNTER] = 0;
+			//Countdown for son growing up
+			if (flags[kFLAGS.SHARKGIRL_DAUGHTERS_GROWUP_COUNTER] > 0) {
+				flags[kFLAGS.SHARKGIRL_DAUGHTERS_GROWUP_COUNTER]--;
+				//Hit zero, move kid to grown up pile!
+				if (flags[kFLAGS.SHARKGIRL_DAUGHTERS_GROWUP_COUNTER] <= 0 && flags[kFLAGS.SHARKGIRL_DAUGHTERS_PENDING] > 0) {
+					flags[kFLAGS.SHARKGIRL_DAUGHTERS_PENDING]--;
+					flags[kFLAGS.ADULT_SHARKGIRL_OFFSPRINGS]++;
+				}
+			}
+			//NEXT KID!
+			if (flags[kFLAGS.SHARKGIRL_DAUGHTERS_PENDING] > 0 && flags[kFLAGS.SHARKGIRL_DAUGHTERS_GROWUP_COUNTER] == 0)
+				flags[kFLAGS.SHARKGIRL_DAUGHTERS_GROWUP_COUNTER] = 30;
+			return false;
+		}
+		
+		public function timeChangeLarge():Boolean { return false; }
+		//End of Interface Implementation
 
+	
 	/*Codex: Shark girls and tiger shark girls
 
 Gender: Mostly female, though there are males and herms. Due to the nature of their conception, the vast majority of tiger sharks are herms.
@@ -64,8 +92,14 @@ public function sharkGirlEncounter(exploreLoc:Number = 0):void {
 	outputText("A grey blur bursts from the water and lands on the ground a few feet away from you.\n\n");
 	outputText("It's a woman – a peculiarly corrupted woman, with shiny grey skin, silver hair, and a fin positioned between her shoulder blades. She's wearing some rather revealing black swimwear. The girl looks up at you and grins widely, showing rows of knife-like teeth. \"<i>Wanna play? Heads up though, I play 'rough'!</i>\"\n\n");
 	unlockCodexEntry("Shark-girls & Tigershark-girls", kFLAGS.CODEX_ENTRY_SHARKGIRLS, false, true);
-	outputText("You're fighting a shark girl!");
-	startCombat(new SharkGirl());
+	if (rand(3) == 0){
+		outputText("You're fighting a tiger shark girl!");
+		startCombat(new TigerSharkGirl());
+	}
+	else{
+		outputText("You're fighting a shark girl!");
+		startCombat(new SharkGirl());
+	}
 	spriteSelect(SpriteDb.s_sharkgirl);
 }
 
@@ -240,6 +274,97 @@ private function sharkBadEnd2():void {
 	getGame().gameOver();
 }
 
+//PC gives birth (alone): used if PC gets pregnant from vaginal and refusing herbs before recruiting Izma or possibly later if a way to force her out is written
+public function pcPopsOutASharkTot():void {
+	outputText("\n");
+	//If Izma is NOT a follower
+	if (flags[kFLAGS.IZMA_FOLLOWER_STATUS] != 1) {
+		if (player.vaginas.length == 0) {
+			outputText("You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  You look down and behold a vagina.  ");
+			player.createVagina();
+		}
+		outputText("You crumple suddenly; strong pains and pressures pulverize the nerves in your gut.  As your eyes shoot wide open, you look down to see your belly absurdly full and distended.  You can feel movement underneath the skin, and watch as its bulges and shifts reflect another living being moving independently inside you.  Instinctively, you spread your legs as you feel the creature press outward, parting your cervix and allowing a gush of water to spill forth - far more water than you thought you were holding.\n\n");
+ 
+		outputText("You cry out as the first wrenching labor pain begins in earnest, unthinkingly hoping for somebody to come and help you.  Much to your despair, no one does, leaving you alone to deliver the baby.  You double your focus, set on pushing in time with its own frantic attempts to escape.  Squeezing over and over, you try to force out the child before the pain robs you of consciousness; luckily it seems to oblige, sliding out of you legs-first after a few more pushes.  The shark-skin rasps your inflamed pussy, drawing gasps of shock from you as she squeezes past your lips in fits and starts.");
+		player.cuntChange(100,true,true,false);
+		outputText("\n\n");
+
+		outputText("Finally, she's out; you quiver weakly as she crawls over to you and it takes all your effort to lift your " + player.armorName + " and expose your " + player.nippleDescript(0) + "s to her.  As she sucks greedily at them, the haze begins to clear from your vision.  For the first time, you can actually make out distinct features on your new daughter; she's a ");
+		if (rand(100) <= 59) {
+			outputText("shark-girl");
+			flags[kFLAGS.IZMA_KIDS_IN_WILD]++;
+		}
+		else outputText("tigershark");
+		outputText(", quickly growing and filling out as she takes in milk.  She finishes up, looking rather like a pre-teen already, and glances around nervously.  The amniotic fluid is evaporating rapidly, and she's scratching idly at her gills as more and more of her skin is exposed directly to the dry air.\n\n");
+
+		outputText("As she turns scared eyes on you, a spark of understanding lances through the fog of pain.  You look around, getting your bearings within the camp, and then, using a limp arm, point in the direction of the stream.  Her face lights with understanding and gratitude, and she leans forward and places her head over your heart, to listen to it one last time.  You let the arm down, draping it over her, intent on making this one moment of love and affection last as long as possible before she's dumped into the inferno of shark-girl society.  The two of you remain like that for almost five minutes before she gives a small cough.  Lifting your arm gingerly, she kisses you on the cheek and takes off for the vital waterway.\n\n");
+
+		outputText("After making a quiet wish for your child, you slip into a doze.\n");
+		//(Take some fucking melancholy. TAKE IT. -Z)
+	}
+	else {
+		spriteSelect(SpriteDb.s_izma);
+		//Player Gives Birth (Izma in camp): (For the reason given above, this scene currently has a very high chance of being useless, so I wouldn't waste time on it yet. Also, it's a bit of a turd. Orgasm despite the pain of childbirth exists but the clumsy handling here wouldn't convince you even if you'd already seen it live. Oh, the pain is so intense I can't walk... but wait, she's touching my junk over and over in a vague manner so it becomes pretty great. Thank you, Shark Herm Jesus! I advise cutting the 'sexual' content and keeping a normal childbirth unless you want it rewritten from the foundations. But you've got time to decide. -Z)
+		outputText("You wake up suddenly to strong pains and pressures in your gut.  As your eyes shoot wide open, you look down to see your belly absurdly full and distended.  ");
+		if (player.vaginas.length == 0) {
+			outputText("You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  You look down and behold a vagina.  ");
+			player.createVagina();
+		}
+		outputText("You can feel movement underneath the skin, and watch as it bulges and shifts as another living being moves independently inside you.  Instinctively, you spread your legs as you feel the creature press outward, parting your cervix and allowing a gush of water to spill forth - far more water than you thought you were holding.\n\n");
+ 
+		outputText("You cry out as the first wrenching labor pain begins in earnest, unthinkingly hoping for somebody to come and help you.  To your relief, Izma comes running over to you from out of the gloom.  \"<i>" + player.short + "!  You've gone into labor?</i>\" she asks; something of a stupid question, but she's evidently as off-guard as you are.\n\n");
+ 
+		outputText("\"<i>Do you think you can walk?  Make it to the stream?</i>\" she asks.\n\n");
+ 
+		outputText("You throw her a dirty look, and make it quite emphatically clear that with how strong these contractions are, you don't think you could stand, never mind walk that way.\n\n");
+ 
+		outputText("\"<i>Right, sorry.</i>\" She has the courtesy to look chagrined, at least.\n\n");
+ 
+		outputText("She unhesitatingly steps up and kneels before you, one hand reaching out to stroke your swollen orb of a belly, the other trailing around the edges of your " + player.vaginaDescript(0) + " in a manner at once sensual and professional. \"<i>Don't worry, " + player.short + "; I'm going to help you get through this.</i>\" The tigershark promises you.\n\n");
+ 
+		outputText("You point out it's the least she can do, seeing as how she's the one who put this thing in you in the first place, then turn your attention back fully to the task of bringing your offspring into the world.\n\n");
+ 
+		outputText("Time slips away; you're too overwhelmed by the pain of your womb contracting and the pleasure as Izma ministers to your " + player.vaginaDescript());
+		if (player.hasCock()) outputText(" and " + player.multiCockDescriptLight());
+		outputText(", which makes the birth pangs become less painful and more orgasmic. You lose yourself in the haze to the point you're barely aware when the birth finally comes to an end; you feel a great pressure welling up inside you, an overwhelming urge to push, and then, the next thing you know, relief washes over you as your stomach deflates.");
+		player.cuntChange(100,true,true,false);
+		outputText("\n\n");
+ 
+		outputText("\"<i>We've got her, " + player.short + "! Whoa- hold still, you slippery little girl! Stop wriggling so much, you're out now, it's me, your daddy!</i>\" Izma cries out. As you regain your strength and your vision clears, you are presented with the sight of Izma trying desperately to wrangle a squirming baby shark-morph; from her ");
+		var type:Number = 0;
+		if (rand(100) <= 59) {
+			outputText("grey");
+			type = 0;
+			flags[kFLAGS.IZMA_CHILDREN_SHARKGIRLS]++;
+		}
+		else {
+			outputText("black-striped orange");
+			type = 1;
+			flags[kFLAGS.IZMA_CHILDREN_TIGERSHARKS]++;
+		}
+		outputText(" skin, it's obvious she's a baby ");
+		if (type == 0) outputText("shark-girl");
+		else outputText("tigershark");
+		outputText(". Finally, she calms down in her \"<i>daddy's</i>\" arms, looking around with surprising alacrity for a newborn. She sees you and holds her arms out, making strange babbling noises; she has no teeth at all, from what you can see. Izma walks over to you, smiling proudly, and lets you hold your new baby girl, who nuzzles against you and then immediately turns her attention towards your milky breasts.\n\n");
+ 
+		outputText("She latches onto the " + player.nippleDescript(0) + " and starts to suckle for all she's worth, waves of pleasure both sexual and maternal filling you, overwhelming you with bliss. Oblivious to everything else, you hold her against your breast, allowing her to sate her incredible appetite. She drinks your breast dry, and then immediately latches onto the next one.");
+		if (player.breastRows.length > 1) outputText("  She then starts on your third breast, and while she slows down at the fourth breast, she still finishes it off.");
+		//(If player has six breasts: 
+		if (player.breastRows.length > 2) outputText("  She seems to almost be struggling to finish off your third pair, but she manages to suck all six of your breasts dry.");
+		outputText("  Once she is done, she lets go with a wet popping sound, then starts to gasp for breath before letting out a surprisingly loud, deep belch for such a little thing.\n\n");
+ 
+		outputText("...Okay, maybe not so little. Before, she was the size of a human baby. Now, you're holding a fairly grown young ");
+		if (type == 0) outputText("shark-girl");
+		else outputText("tigershark");
+		outputText("; physically, you'd have to say she was anywhere from ten to thirteen years old. She grins at you, displaying both rows of teeth, and then kisses you on the lips. \"<i>Mama.</i>\" She states, clearly and contentedly, then visibly relaxes, nuzzling into your arms and closing her eyes, clearly intent on drifting off to sleep.\n\n");
+ 
+		outputText("You look up at the tigershark who fathered her for support, but she just smiles and flops down beside you as well. With a soft sigh, you simply lay back and enjoy your strange new family being there with you. When you wake in the morning, Izma will have taken your daughter to stay at the stream with her; it's important for young shark-folk to be moist, constantly.\n");
+		player.orgasm('Vaginal');
+		dynStats("lib", 1, "sen", 1);
+	}
+	player.boostLactation(.01);
+}
+
 /*-------------------------
 Shark's Tooth
 
@@ -304,59 +429,152 @@ internal function sharkLossRape():void {
 	}
 	clearOutput();
 	spriteSelect(SpriteDb.s_sharkgirl);
-	//Genderless:
-	if (player.gender == 0) {
+	//Tiger Shark Girl
+	if (monster.hasCock()){
+				//Genderless:
+		if (player.gender == 0) {
 		outputText("You slump down in defeat, too ");
-		if (player.HP < 1) outputText("hurt ");
-		else outputText("horny ");
-		outputText("to fight on.\n\n");
-		outputText("The shark girl does a little victory dance, swaying her hips to and fro before moving over to you. She quickly removes your " + player.armorName + ", but her smile fades to a blank expression when she notices you lack any genitalia. \"<i>What the...</i>\" she mumbles, poking you in the groin. Finding you completely useless, she growls in frustration and stomps on your face in anger. The sudden pain makes you pass out.");
-		combat.cleanupAfterCombat();
-		dynStats("tou", -2);
-		return;
-	}
+			if (player.HP < 1) outputText("hurt ");
+			else outputText("horny ");
+			outputText("to fight on.\n\n");
+			outputText("The tiger shark girl does a little victory dance, swaying her hips to and fro before moving over to you. She quickly removes your " + player.armorName + ", but her smile fades to a blank expression when she notices you lack any genitalia. \"<i>What the...</i>\" she mumbles, poking you in the groin. Finding you completely useless, she growls in frustration and stomps on your face in anger. The sudden pain makes you pass out.");
+			combat.cleanupAfterCombat();
+			dynStats("tou", -2);
+			return;
+		}
 	//Female:
-	if (player.hasVagina() && (player.totalCocks() == 0 || rand(2) == 0)) {
+		if (player.hasVagina() && (player.totalCocks() == 0 || rand(2) == 0)) {
 		outputText("You slump down in defeat, too ");
-		//[defeat via HP] 
-		if (player.HP < 1) outputText("hurt ");
-		else outputText("horny ");
-		outputText("to fight on.\n\n");
+			//[defeat via HP] 
+			if (player.HP < 1) outputText("hurt ");
+			else outputText("horny ");
+			outputText("to fight on.\n\n");
 		
-		outputText("The shark girl giggles and moves over to you, tugging at your " + player.armorName + "  impatiently. Her tail swishes around and smacks your " + player.assDescript() + ". \"<i>You're gonna make me very happy, you hear? Otherwise...</i>\" she opens her mouth wide and you see her fangs glinting menacingly in the light. You gulp hard and nod, bringing a smile from the shark girl.\n\n"); 
-		outputText("Wasting no time, she removes her skimpy swimwear and your own gear.  ");
-		//[if herm]
-		if (player.gender == 3) outputText("Seeing your " + player.cockDescript(0) + " puts a smile on the shark girl's face as she takes a firm grip on your erection. \"<i>Well, you're just full of surprises, aren't you? Maybe I'll give this bad boy a whirl sometime. For now though...</i>\"  ");
+			outputText("The shark girl giggles and moves over to you, tugging at your " + player.armorName + "  impatiently. Her tail swishes around and smacks your " + player.assDescript() + ". \"<i>You're gonna make me very happy, you hear? Otherwise...</i>\" she opens her mouth wide and you see her fangs glinting menacingly in the light. You gulp hard and nod, bringing a smile from the shark girl.\n\n"); 
+			outputText("Wasting no time, she removes her grass skirt and skimpy swimwear and your own gear.  ");
+
+			outputText("Her gaze drifts over to your " + player.vaginaDescript(0) + " ");
+			
+			if (player.isVisiblyPregnant()){
+				outputText("and then up across the mound that is your pregnant belly.  \"<i> I guess someone else got to you first ! </i>\" she says smirking slyly. \"<i> Tell you what dear, I was going to put a pup in your belly, but let's not let this opportunity go to waste. </ i >\"\n\n ");
+			}
+			else{
+				outputText("and she licks her lips in delight.  \"<i> Now that's what I'm looking for ! I can smell it from here, your body is aching to get pupped, don't worry, I know will enjoy this too. </i>\"\n\n");
+		
+			}
+			
+			outputText("She roughly grabs you by the hair and pulls your face into her pre-leaking cock, your tongue instantly flattening under the shaft as her cock parts your lips, burying the first half into your throat. \"<i>Mmm... don't you dare stop sucking you dumb bitch, if you know what's good for you,</i>\" she orders. You reply by thoating more of the fish dick. You're a little ashamed to admit it, but her dominant command makes you feel rather hot and bothered.\n\n");
+			outputText("Now fully erect, The tiger shark girl eventually sighs happily and relaxes her grip on your hair, pulling your head off her cock; a viscous strand of spit trailing from its tip to your mouth.")
+			
+			outputText("\"<i>Not bad bitch, not bad.</i>\" She chides, \"<i>Now " + ((player.isVisiblyPregnant()) ? "roll over" : "get on your back") + ".</i>\"  "); 
+			
+			outputText("You obey your mistress's command and " + ((player.isVisiblyPregnant()) ? "roll over on to your belly instinctively presenting your ass" : "flop onto your back") + ". A sense of joy takes over as " + ((player.isVisiblyPregnant()) ? "you feel several spurts of hot pre-cum splatter your " + player.assDescript() + " and trickle down your crack before the shark-girl's massive cock nestles across your back" : "she positions herself between your legs and props her bulging cock on to your tummy that reaches past your navel, foreshadowing the depths she will go.  Almost as if it has a mind of its own, the thick cock palpitates squeezing out ropes of pre-cum above her throbbing ball-sack housing two pair of balls") + ".\n\n");  
+			
+			outputText("The tiger shark girl grips her cock and begins slapping it against your [if(isPregnant = true)ass][if(isPregnant = false)pussy] and the cum-puddle that has collected there flinging pre in all directions.  In an instant, she plunges three fingers into your [if(isPregnant = true)" + player.assholeDescript() + "][if(isPregnant = false)" + player.vaginaDescript(0) + "] causing you to gasp at the sudden intrusion.  The rough finger-fucking causes loud slurping noises as air and pre-cum is being forced in out of your orifice only heightening your arousal.  Several minutes pass before she removes her fingers and with a taunting smirk, asks rehtorically \"<i>Are you ready?</i>\"  Stiffling a building orgasm, you are unable to reply let alone fully grasp the chain of events when suddenly the tiger shark girl presses her cockhead to your gaping " + ((player.isVisiblyPregnant()) ? "asshole and pops it in" : "pussy and slams her shaft a quarter of the way in") + ".  You can only pathetically yelp as the fish meat begins to force it's way through your insides.  On cue, the shark girl cock begins vehemently spewing pre-cum with each thrust, quickly cumlubing your " + ((player.isVisiblyPregnant()) ? "guts" : "birth canal") + ".  The shark girl grunts as her short, rapid thursts penetrate your depths inch by inch until she finally bottoms out, the tip of her cock [if(isPregnant = true)embedded deep in your bowels][if(isPregnant = false)kissing your cervix].  Fully impaled - you can only gasp for breath as the shark girl begins to withdraw her cock, now lubed and no longer impeded by your tightness, she begins relentlessly pounding you in long strokes.  Each thrust of her cock parting your [if(isPregnant = true)" + player.assholeDescript() + "][if(isPregnant = false)" + player.vaginaDescript(0) + "].\n\n"); 
+			
+			outputText("The shark girl quickens her pace as she continues to pump you in earnest.  Like a bushel of ripes tomatoes on the vine, her four swollen testicles slap wildly against your[if(isPregnant = true)pussy][if(isPregnant = false)asshole] with the momentum of each thrust.  Now too panting, the shark girl slows her pummeling just for a moment to regrip your " + player.hipDescript() + " and exclaiming, \"<i>Time to get bred !</i>\"  \n\n");
+			
+			if (player.isVisiblyPregnant()){
+				outputText(images.showImage("tiger-shark-female-loss-preg"));
+				outputText("From kneeling behind you, the shark girl steps out and over you to each side, cock still implanted firmly in your asshole, tugging your lower body further into the air and pushing your face into the sand.  Standing in a squat position vertically over you, the shark girl digs her fingers into your hips and drops her weight and power into your back door.  Slamming her cockmeat back and forth, the power sends shockwaves through your whole body.  Your pregnant belly and tits ripple with each thrust as she jackhammers you from above.  Your vision blurs as you begin to drool from the immense pressure and pain splitting your insides.  The hanging four-balled sack whacks into your pussy with wet slaps alerting anything nearby to the intense mating.  ")
+			}
+			else{
+				outputText(images.showImage("tiger-shark-female-loss-preg"));
+				outputText("From kneeling between your legs, the shark girl leans up and over you pulling your legs to each side of her shoulders. Cock still implanted firmly in your pussy, it tugs your lower body into the air and up over our face.  Standing in a squat position vertically over you, the shark girl digs her fingers into your hips and drops her weight and power into your opening.  Slamming her cockmeat back and forth, the power sends shockwaves through your whole body.  Your tits ripple with each thrust as she jackhammers you from above.  Your vision blurs as you begin to drool from the immense pressure and pain splitting your insides.  The hanging four-balled sack whacks into your asshole with wet slaps alerting anything nearby to the intense mating.  ")
+			}
+			
+			outputText("\n\nHer ravenous, rutting pace quickens yet further sending waves of pleasure to splash over you, the pain being replaced completely.  Dazed, but aware, you quickly feel the tightness inside gripping her cock strain as the throbbing cock seems to thicken even more.  Her labored breathing turns to ragged gasps as she cries out, \" <i>Here it comesssss !!!</i> \"; a torrent of molten, virile seed explodes inside you quickly overfilling your " + ((player.isVisiblyPregnant()) ? "bowels" : "vagina and womb") + ".  The thick cock sealing your entrance forces your belly to inflate from the sheer volume of cum.\n\n");
+			outputText("Minutes pass before the shark cock stops pumping and begins to deflate.  By this time, however, you" + ((player.isVisiblyPregnant()) ? "r already pregnant belly has bloated to an absurd degree" : " look positively pregnant") + ".  When she finally withdraws her cock, a glut of shark girl cum flows steadily from your now vacated, gaping orifice. \n\n");
+		outputText("The shark girl stands to leave and winks at you before diving back into the water. You eventually pass out from the exertion.");
+			//(Corruption +2, Intelligence -4)
+			if(player.isVisiblyPregnant())player.orgasm('Anal');
+			else player.orgasm('Vaginal');
+			player.knockUp(PregnancyStore.PREGNANCY_IZMA, PregnancyStore.INCUBATION_IZMA);
+			if (player.cor < 30) dynStats("cor", 1);
+			combat.cleanupAfterCombat();
+			return;
+		}
+		//herm
+		else if (player.gender == 3){
+			outputText("Seeing your " + player.cockDescript(0) + " puts a smile on the shark girl's face as she takes a firm grip on your erection. \"<i>Well, you're just full of surprises, aren't you? Maybe I'll give this bad boy a whirl sometime. For now 	though...</i>\"  ");
+		}
+		//Male:
+		else {
+			outputText("You slump down in defeat, too ");
+		//[defeat via HP] 
+			if (player.HP < 1) outputText("hurt ");
+			else outputText("horny ");
+			outputText("to fight on.\n\n");
+		
+			outputText("You feel the shark girl's bare foot press against your chest and she roughly pushes you onto your back. \"<i>Oh man, I can't even remember the last time I had an actual man...</i>\" the shark girl says, pulling your pants down to your ankles. Seeing your stiff erection, your opponent smirks and wets her lips before taking your entire " + player.cockDescript(0) + " into her mouth. The feeling is heavenly, her long tongue slithering around your shaft.\n\n");
+			outputText("But before you can begin to really enjoy it, she pulls her head away, visible strands of saliva still linking her mouth and your " + player.cockDescript(0) + ". The shark girl quickly maneuvers herself so that she's straddling your cock and presses herself down, the two of you gasping sharply from the sensation. \"<i>Hmm, good boy... You make me cum first, and I won't bite you. Deal?</i>\" You nod, though given that peculiar feelers inside her cunt are massaging your cock, you don't know how long you can really hold out.\n\n");
+		
+			outputText("The shark girl has no such qualms and rides you like a mechanical bull, hammering up and down your " + player.cockDescript(0) + " with incredible speed. It certainly feels nice, but the rough nature of the ride also certainly hurts. You'll be walking funny for a while after this, that's for sure.\n\n");
+		
+			outputText("Eventually, her vagina clamps down on your cock and she cries out in orgasm. You grunt loudly and cum a few seconds after, pumping your seed into her womb. The shark girl leans over and plants a tiny kiss on your lips. \"<i>Good boy. I'll be sure to see 	you again</i>\". She gets up again and you watch her re-enter the water before you pass out.");
+			player.orgasm('Dick');
+			dynStats("sen", 1);
+			if (player.cor < 30) dynStats("cor", 1);
+			combat.cleanupAfterCombat();
+			return;
+		}
+	}
+	//Regular Shark Girl
+	else {
+		//Genderless:
+		if (player.gender == 0) {
+		outputText("You slump down in defeat, too ");
+			if (player.HP < 1) outputText("hurt ");
+			else outputText("horny ");
+			outputText("to fight on.\n\n");
+			outputText("The shark girl does a little victory dance, swaying her hips to and fro before moving over to you. She quickly removes your " + player.armorName + ", but her smile fades to a blank expression when she notices you lack any genitalia. \"<i>What the...</i>\" she mumbles, poking you in the groin. Finding you completely useless, she growls in frustration and stomps on your face in anger. The sudden pain makes you pass out.");
+			combat.cleanupAfterCombat();
+			dynStats("tou", -2);
+			return;
+		}
+	//Female:
+		if (player.hasVagina() && (player.totalCocks() == 0 || rand(2) == 0)) {
+		outputText("You slump down in defeat, too ");
+			//[defeat via HP] 
+			if (player.HP < 1) outputText("hurt ");
+			else outputText("horny ");
+			outputText("to fight on.\n\n");
+		
+			outputText("The shark girl giggles and moves over to you, tugging at your " + player.armorName + "  impatiently. Her tail swishes around and smacks your " + player.assDescript() + ". \"<i>You're gonna make me very happy, you hear? Otherwise...</i>\" she opens her mouth wide and you see her fangs glinting menacingly in the light. You gulp hard and nod, bringing a smile from the shark girl.\n\n"); 
+			outputText("Wasting no time, she removes her skimpy swimwear and your own gear.  ");
+			//[if herm]
+			if (player.gender == 3) outputText("Seeing your " + player.cockDescript(0) + " puts a smile on the shark girl's face as she takes a firm grip on your erection. \"<i>Well, you're just full of surprises, aren't you? Maybe I'll give this bad boy a whirl sometime. For now though...</i>\"  ");
 		outputText("Her gaze drifts over to your " + player.vaginaDescript(0) + " and she licks her lips in delight. \"<i>Now that's what I'm looking for! Tell you what dear, you get me wet and I might just give you some pleasure too.</i>\"\n\n");
 		
-		outputText("She roughly grabs you by the hair and pulls your face into her drooling cunt, your tongue instinctively probing into her. \"<i>Mmm... don't you dare stop licking you dumb bitch, if you know what's good for you,</i>\" she orders. You reply by speeding up your tongue work. You're a little ashamed to admit it, but her dominant command makes you feel rather hot and bothered.\n\n");
-		outputText("The shark girl eventually sighs happily and relaxes her grip on your hair, pulling your head away a few inches. \"<i>Not bad bitch, not bad. Now get on your back.</i>\" You obey your mistress's command and flop onto your back. A sense of joy fills you as she positions her crotch in front of your face and moves her own head between your legs. You quickly resume eating her out, and this time she joins in the feast. It's not too long before the two of you orgasm, spraying girl-cum onto each other's faces.\n\n");
+			outputText("She roughly grabs you by the hair and pulls your face into her drooling cunt, your tongue instinctively probing into her. \"<i>Mmm... don't you dare stop licking you dumb bitch, if you know what's good for you,</i>\" she orders. You reply by speeding up your tongue work. You're a little ashamed to admit it, but her dominant command makes you feel rather hot and bothered.\n\n");
+			outputText("The shark girl eventually sighs happily and relaxes her grip on your hair, pulling your head away a few inches. \"<i>Not bad bitch, not bad. Now get on your back.</i>\" You obey your mistress's command and flop onto your back. A sense of joy fills you as she positions her crotch in front of your face and moves her own head between your legs. You quickly resume eating her out, and this time she joins in the feast. It's not too long before the two of you orgasm, spraying girl-cum onto each other's faces.\n\n");
 		outputText("The shark girl stands to leave and winks at you before diving back into the water. You eventually pass out from the exertion.");
-		//(Corruption +2, Intelligence -4)
-		player.orgasm('Vaginal');
-		if (player.cor < 30) dynStats("cor", 1);
-		combat.cleanupAfterCombat();
-		return;
-	}
-	//Male:
-	else {
-		outputText("You slump down in defeat, too ");
+			//(Corruption +2, Intelligence -4)
+			player.orgasm('Vaginal');
+			if (player.cor < 30) dynStats("cor", 1);
+			combat.cleanupAfterCombat();
+			return;
+		}
+		//Male:
+		else {
+			outputText("You slump down in defeat, too ");
 		//[defeat via HP] 
-		if (player.HP < 1) outputText("hurt ");
-		else outputText("horny ");
-		outputText("to fight on.\n\n");
+			if (player.HP < 1) outputText("hurt ");
+			else outputText("horny ");
+			outputText("to fight on.\n\n");
 		
-		outputText("You feel the shark girl's bare foot press against your chest and she roughly pushes you onto your back. \"<i>Oh man, I can't even remember the last time I had an actual man...</i>\" the shark girl says, pulling your pants down to your ankles. Seeing your stiff erection, your opponent smirks and wets her lips before taking your entire " + player.cockDescript(0) + " into her mouth. The feeling is heavenly, her long tongue slithering around your shaft.\n\n");
-		outputText("But before you can begin to really enjoy it, she pulls her head away, visible strands of saliva still linking her mouth and your " + player.cockDescript(0) + ". The shark girl quickly maneuvers herself so that she's straddling your cock and presses herself down, the two of you gasping sharply from the sensation. \"<i>Hmm, good boy... You make me cum first, and I won't bite you. Deal?</i>\" You nod, though given that peculiar feelers inside her cunt are massaging your cock, you don't know how long you can really hold out.\n\n");
+			outputText("You feel the shark girl's bare foot press against your chest and she roughly pushes you onto your back. \"<i>Oh man, I can't even remember the last time I had an actual man...</i>\" the shark girl says, pulling your pants down to your ankles. Seeing your stiff erection, your opponent smirks and wets her lips before taking your entire " + player.cockDescript(0) + " into her mouth. The feeling is heavenly, her long tongue slithering around your shaft.\n\n");
+			outputText("But before you can begin to really enjoy it, she pulls her head away, visible strands of saliva still linking her mouth and your " + player.cockDescript(0) + ". The shark girl quickly maneuvers herself so that she's straddling your cock and presses herself down, the two of you gasping sharply from the sensation. \"<i>Hmm, good boy... You make me cum first, and I won't bite you. Deal?</i>\" You nod, though given that peculiar feelers inside her cunt are massaging your cock, you don't know how long you can really hold out.\n\n");
 		
-		outputText("The shark girl has no such qualms and rides you like a mechanical bull, hammering up and down your " + player.cockDescript(0) + " with incredible speed. It certainly feels nice, but the rough nature of the ride also certainly hurts. You'll be walking funny for a while after this, that's for sure.\n\n");
+			outputText("The shark girl has no such qualms and rides you like a mechanical bull, hammering up and down your " + player.cockDescript(0) + " with incredible speed. It certainly feels nice, but the rough nature of the ride also certainly hurts. You'll be walking funny for a while after this, that's for sure.\n\n");
 		
-		outputText("Eventually, her vagina clamps down on your cock and she cries out in orgasm. You grunt loudly and cum a few seconds after, pumping your seed into her womb. The shark girl leans over and plants a tiny kiss on your lips. \"<i>Good boy. I'll be sure to see you again</i>\". She gets up again and you watch her re-enter the water before you pass out.");
-		player.orgasm('Dick');
-		dynStats("sen", 1);
-		if (player.cor < 30) dynStats("cor", 1);
-		combat.cleanupAfterCombat();
-		return;
+			outputText("Eventually, her vagina clamps down on your cock and she cries out in orgasm. You grunt loudly and cum a few seconds after, pumping your seed into her womb. The shark girl leans over and plants a tiny kiss on your lips. \"<i>Good boy. I'll be sure to see 	you again</i>\". She gets up again and you watch her re-enter the water before you pass out.");
+			player.orgasm('Dick');
+			dynStats("sen", 1);
+			if (player.cor < 30) dynStats("cor", 1);
+			combat.cleanupAfterCombat();
+			return;
+		}
 	}
 	doNext(playerMenu);
 }

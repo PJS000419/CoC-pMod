@@ -59,10 +59,10 @@ package classes.Scenes.Camp
 			this.armorDef = 3 + (0.2 * player.statusEffectv1(StatusEffects.BirthedImps));
 			this.bonusHP = 300 + (12 * player.statusEffectv1(StatusEffects.BirthedImps));
 			this.lust = 30;
-			this.lustVuln = .65;
+			this.lustVuln = .65 - ((0.2 * player.statusEffectv1(StatusEffects.BirthedImps)) / 100);
 			this.temperment = TEMPERMENT_LUSTY_GRAPPLES;
 			this.level = 10 + (0.2 * player.statusEffectv1(StatusEffects.BirthedImps));
-			this.gems = rand(15) + 25;
+			this.gems = rand(15) + 25+ (0.2 * player.statusEffectv1(StatusEffects.BirthedImps));
 			this.drop = NO_DROP;
 			this.special1 = lustMagicAttackGang;
 			checkMonster();

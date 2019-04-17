@@ -3008,5 +3008,9 @@ public static const GRIMDARK_MODE:int                                           
 public static const ADULT_GOBLIN_OFFSPRINGS:int                                     = 3000; // Number of grown up goblin offspring - player contribution to population
 public static const GOBLIN_DAUGHTERS_PENDING:int                                    = 3001; // Number of minotaur daughters pending growing up
 public static const GOBLIN_DAUGHTERS_GROWUP_COUNTER:int                             = 3002; // Grow up countdown
+public static const ADULT_SHARKGIRL_OFFSPRINGS:int                                  = 3003; // Number of grown up non-Izma shark girl offspring - player contribution to population
+public static const SHARKGIRL_DAUGHTERS_PENDING:int                                 = 3004; // Number of non-Izma shark girl daughters pending growing up
+public static const SHARKGIRL_DAUGHTERS_GROWUP_COUNTER:int                          = 3005; // Grow up countdown
 	}    
 }
+

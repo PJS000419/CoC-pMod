@@ -151,7 +151,7 @@ package classes.Scenes.Monsters
 				this.ballSize = 1;
 			}
 			else{
-				this.createVagina(false, VaginaClass.WETNESS_DROOLING, VaginaClass.LOOSENESS_NORMAL);
+				this.createVagina(false, Vagina.WETNESS_DROOLING, Vagina.LOOSENESS_NORMAL);
 				this.createStatusEffect(StatusEffects.BonusVCapacity, 40, 0, 0, 0);
 			}
 			createBreastRow(Appearance.breastCupInverse("E"));

@@ -2299,7 +2299,7 @@ private function getPenetratedByArianAndHisHitlerMustache():void {
 
 	outputText("\n\n\"<i>Ok... how do you want to do this?</i>\"  You motion for the lizan to get up.  Arian eagerly complies and gets off [Arian eir] bed.  You teasingly take [Arian eir] place on the bed, looking up at [Arian em] as you ");
 	if (player.isBiped()) outputText("spread your [legs] ");
-	if (player.pregnancyIncubation <= 120) outputText("and hold your distended belly up ");
+	if (player.isVisiblyPregnant()) outputText("and hold your distended belly up ");
 	outputText("to expose your [vagina] for [Arian eir] viewing pleasure.  The reaction is almost instantaneous; Arian's ");
 	if (flags[kFLAGS.ARIAN_COCK_SIZE] >= 3) outputText("exposed");
 	else outputText("hidden");
@@ -2355,7 +2355,7 @@ private function getPenetratedByArianAndHisHitlerMustache():void {
 		outputText("\n\n\"<i>I-I'm sorry, it's just....  Well, I'm not used to this, you know.</i>\"  Arian's eyes are downcast, and you're certain you can see a faint tinge of red around [Arian eir] face, [Arian eir] albinism allowing [Arian em] to blush in a way you're not sure a normal lizan could.  \"<i>It... it's so overwhelming to finally be with a woman, never mind a woman like you.</i>\"");
 
 		outputText("\n\nSighing at the lizan's inexperience, you gently take [Arian eir] hands in yours and guide them around you, telling [Arian em] to ");
-		if (player.pregnancyIncubation <= 120) outputText(" hold your leg");
+		if (player.isVisiblyPregnant()) outputText(" hold your leg");
 		else outputText(" hug you");
 
 		if (player.hasLongTail()) outputText(", further encouraging [Arian em] to do so, by looping your tail around [Arian eir] waist");
@@ -4233,3 +4233,4 @@ private function arianDildoFun():void {
 }
 }
 }
+

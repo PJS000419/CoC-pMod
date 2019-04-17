@@ -299,7 +299,7 @@ package classes.Scenes.Areas.Mountain
 			if (monster.HP <= 0) { //monster got ass whupped
 				outputText("You roll the barely conscious beast over, lifting his ass up above his knees.  The loincloth flops open, giving you a perfect view of his hardening member.  In most ways it looks like a horse's dick, though it seems to be textured with multiple rings of prepuce along its length.  The scent boiling off that marvelously thickening endowment is pleasant yet musky, and overpoweringly strong.");
 				//Vagina or not flavor texts
-				if (player.vaginas.length > 0) outputText("  Glancing back at you with hope in his eyes, the minotaur's " + monster.cockDescriptShort(0) + " twitches as he lays his gaze upon your " + player.vaginaDescript(0) + ".");
+				if (player.vaginas.length > 0) outputText("  Glancing back at you with hope in his eyes, the minotaur's " + monster.cockDescriptShort(0) + " twitches as he lays his gaze upon your [if (isPregnant = true)pregnant, ]" + player.vaginaDescript(0) + ".");
 				else outputText("  Glancing back at you with eyes full of despair, the minotaur seems to realize you won't be helping the predicament his " + monster.ballsDescriptLight() + " are in.");
 			}
 			else { //monster lost to lust
@@ -367,14 +367,15 @@ package classes.Scenes.Areas.Mountain
 			minoCumAddiction(5);
 			if (player.cowScore() >=4) outputText(images.showImage("minotaur-won-female-cow"));
 			else if (player.catScore() >= 4) outputText(images.showImage("minotaur-won-female-cat"));
+			else if (player.isVisiblyPregnant()) outputText(images.showImage("minotaur-won-female-preg"));
 			else outputText(images.showImage("minotaur-won-female"));
-			outputText("With a quick shove, you roll the panting minotaur onto his back, exposing his pulsing " + monster.cockDescriptShort(0) + " to the open air.  A simple flourish later, you peel back your " + player.armorName + " to expose your " + player.vaginaDescript(0) + ", already wetter than usual from the scent in the air.   You walk forward, straddling the oblivious minotaur as he masturbates furiously, muscles bulging with exertion and covered in sweat.  Your eyes zero in as a dollop of pre escapes his ribbed horse-like member, locating the source of the scent.\n\n");
+			outputText("With a quick shove, you roll the panting minotaur onto his back, exposing his pulsing " + monster.cockDescriptShort(0) + " to the open air.  A simple flourish later, you peel back your " + player.armorName + " to expose your [if (isPregnant = true)pregnant, ]" + player.vaginaDescript(0) + ", already wetter than usual from the scent in the air.   You walk forward, straddling the oblivious minotaur as he masturbates furiously, muscles bulging with exertion and covered in sweat.  Your eyes zero in as a dollop of pre escapes his ribbed horse-like member, locating the source of the scent.\n\n");
 			if (player.vaginalCapacity() < monster.cockArea(0))
 				outputText("Restraint evaporates as you lower yourself, your aching " + player.vaginaDescript(0) + " desperate for contact.  Your thighs quiver as you touch his wobbling column of maleness, the slick pre-cum soaking into your engorged clitty, filling it with tingling warmth.  Oblivious to the apparent size difference, your body pushes downwards, your knees giving out, forcing his flared head against your " + player.vaginaDescript(0) + " roughly.  The need to be speared on the beast's meat is overwhelming urged on by constantly leaking pre-cum currently pumping into your love-canal.  With strength born of unnatural lust, you grip his flanks and drive yourself downwards, feeling yourself stretch painfully as you take in his length.  ");
 			if (player.vaginalCapacity() >= monster.cockArea(0) && player.vaginalCapacity() < monster.cockArea(0) * 1.5) //good match
-				outputText("Restraint evaporates as you lower yourself, your aching " + player.vaginaDescript(0) + " desperate for contact.  Your thighs quiver as you touch his wobbling column of maleness, the slick pre-cum soaking into your engorged clitty, filling it with tingling warmth.  You push downwards eagerly, happily noting that you should be able to accommodate his length and girth.  The overly wide head slips inside, easily lubricated with his copious fluids, musky pre-spunk lubricating your passage with its intoxicating sensation.  With deliberate slowness, you sink down along his shaft, shuddering once, twice, then three times as you pass each of the thick fleshy rings along his length.  Eventually, you bottom on him.  ");
+				outputText("Restraint evaporates as you [if (isPregnant = true)heft your pregnant belly and ] lower yourself, your aching " + player.vaginaDescript(0) + " desperate for contact.  Your thighs quiver as you touch his wobbling column of maleness, the slick pre-cum soaking into your engorged clitty, filling it with tingling warmth.  You push downwards eagerly, happily noting that you should be able to accommodate his length and girth[if (isPregnant = true), despite the occupied conditions of your womb].  The overly wide head slips inside, easily lubricated with his copious fluids, musky pre-spunk lubricating your passage with its intoxicating sensation.  With deliberate slowness, you sink down along his shaft, shuddering once, twice, then three times as you pass each of the thick fleshy rings along his length.  Eventually, you bottom on him.  ");
 			if (player.vaginalCapacity() >= monster.cockArea(0) *1.5) //bigger than he is
-				outputText("Restraint evaporates as you lower yourself, your aching " + player.vaginaDescript(0) + " desperate for contact.  Your thighs quiver as you touch his wobbling column of maleness, the slick pre-cum soaking into your engorged clitty, filling it with tingling warmth.  With a lusty giggle you slip his head inside your " + player.vaginaDescript(0) + ", allowing him to drool his musky pre-seed deep inside your wide love-canal.  Sinking down slowly, your easily encompass all of his equine-like member, enjoying the feeling of his three thick cock-ridges as they slip through your lips.  Eventually you take all of him, wishing he was just a bit bigger...");
+				outputText("Restraint evaporates as you [if (isPregnant = true)heft your pregnant belly and] lower yourself, your aching " + player.vaginaDescript(0) + " desperate for contact.  Your thighs quiver as you touch his wobbling column of maleness, the slick pre-cum soaking into your engorged clitty, filling it with tingling warmth.  With a lusty giggle you slip his head inside your [if (isPregnant = true)pregnant,] " + player.vaginaDescript(0) + ", allowing him to drool his musky pre-seed deep inside your wide love-canal.  Sinking down slowly, you easily encompass all of his equine-like member, enjoying the feeling of his three thick cock-ridges as they slip through your lips.  Eventually you take all of him, wishing he was just a bit bigger...");
 			//Resume sexings, p2
 			outputText("\n\nAt last you feel the minotaur's meaty hands grab you by the ");
 			if (player.isTaur()) outputText("hindquarters, forcefully grinding your vagina along his length like a toy.  ");
@@ -385,9 +386,9 @@ package classes.Scenes.Areas.Mountain
 			if (player.vaginalCapacity() >= monster.cockArea(0) && player.vaginalCapacity() * 1.5 < monster.cockArea(0)) //just right
 				outputText("Every stroke of his " + monster.cockDescriptShort(0) + " deposits a bit more of his wondrous preseed into your body, spreading a relaxing warmth throughout your groin.  ");
 			if (player.vaginalCapacity() * 1.5 >= monster.cockArea(0)) //too big
-				outputText("Every stroke of his " + monster.cockDescriptShort(0) + " slides easily into your " + player.vaginaDescript(0) + ", allowing him to slowly build up a puddle of his wondrous druggy pre-seed into your aching womb.  ");
+				outputText("Every stroke of his " + monster.cockDescriptShort(0) + " slides easily into your " + player.vaginaDescript(0) + ", allowing him to slowly build up a puddle of his wondrous druggy pre-seed into your aching[if (isPregnant = true), pregnant] womb.  ");
 			//Resume!
-			outputText("The minotaur picks up the pace, heartbeat thudding through his rigid meat, making it convulse and vibrate as he slams you down on it over and over again.  You feel his balls twitching against your ass as his cock visibly thickens, bulging out at the base and slowly fattening inside you until it feels fit to burst.  With a throaty roar he cums at last, fountaining seed directly into your womb.  Your eyes roll back as it fills you, swooning as you feel the liquid pleasure seeping into you.  Your " + player.vaginaDescript(0) + " clamps down, trapping his seed inside, his orgasm dragging on as his balls begin to shrink.  The copious fluid fills your womb, distending your belly painfully.  The minotaur gives one last powerful spurt, the force pushing you off his " + monster.cockDescriptShort(0) + ", just as you both reach total sexual satisfaction.\n\n");
+			outputText("The minotaur picks up the pace, heartbeat thudding through his rigid meat, making it convulse and vibrate as he slams you down on it over and over again.  You feel his balls twitching against your ass as his cock visibly thickens, bulging out at the base and slowly fattening inside you until it feels fit to burst.  With a throaty roar he cums at last, fountaining seed directly into your [if (isPregnant = true)already impregnated] womb.  Your eyes roll back as it fills you, swooning as you feel the liquid pleasure seeping into you.  Your " + player.vaginaDescript(0) + " clamps down, trapping his seed inside, his orgasm dragging on as his balls begin to shrink.  The copious fluid fills your womb," + ((player.isVisiblyPregnant()) ? " painfully distending your already pregnant belly to absurd proportions." : " distending your belly painfully.") +  "  The minotaur gives one last powerful spurt, the force pushing you off his " + monster.cockDescriptShort(0) + ", just as you both reach total sexual satisfaction.\n\n");
 			player.cuntChange(monster.cockArea(0), true); //check for stetchiness!
 			//ITS OVER
 			outputText("He passes out with a contented sigh, balls shrunk down to the size of baseballs and his cock still dribbling cum.  You pull yourself to your feet unsteadily, drunk with pleasure as you stagger away, clamping your " + player.vaginaDescript(0) + " down unconsciously to hold in his wonderful seed.");
@@ -495,8 +496,9 @@ package classes.Scenes.Areas.Mountain
 				return;
 			}
 			if (player.vaginas.length > 0) {
-				if (player.lib + rand(15) > 50) { //BUTTSECKS!
-					outputText(images.showImage("minotaur-loss-butt-female"));
+				if (doMinotaurChance() + rand(15) > 50) { //BUTTSECKS!
+					if (player.isVisiblyPregnant()) outputText(images.showImage("minotaur-loss-butt-female-preg"));
+					else outputText(images.showImage("minotaur-loss-butt-female"));
 					outputText("The bull-man roughly grabs your hair and repositions himself to press against your asshole, slowly building the pressure until suddenly, the flared head pops into you.  ");
 					player.buttChange(monster.cockArea(0), true);
 					minoCumAddiction(15);
@@ -526,13 +528,14 @@ package classes.Scenes.Areas.Mountain
 					if (player.deerScore() >= 4) outputText(images.showImage("minotaur-loss-vag-deer"));
 					else if (player.cowScore() >= 4) outputText(images.showImage("minotaur-loss-vag-cow"));
 					else if (player.catScore() >= 4) outputText(images.showImage("minotaur-loss-vag-cat"));
+					else if (player.isVisiblyPregnant()) outputText(images.showImage("minotaur-loss-vag-preg"));
 					else outputText(images.showImage("minotaur-loss-vag"));
-					outputText("The bull-man roughly grabs your hair and begins rubbing the flared head of his penis along your " + player.vaginaDescript(0) + ".  ");
+					outputText("The bull-man roughly grabs your hair and begins rubbing the flared head of his penis along your [if (isPregnant = true)pregnant, ]" + player.vaginaDescript(0) + ".  ");
 					if (player.averageVaginalWetness() < 2) outputText("You aren't very wet, and fear the damage this beast will inflict on your " + player.vaginaDescript(0) + ".  ");
 					else outputText("You're shamefully wet by this point, and your knees are ready to buckle.  ");
 					minoCumAddiction(5);
 					if (player.isTaur()) outputText("\n\nHe positions himself behind your rear legs, and roughly impales you onto his shaft, forcing himself as far into you as he can manage. You cry out, and you feel your stomach distending to accommodate his incredible size. Grabbing your ass, he begins to violently pound your backside with his massive member.  ");
-					else outputText("\n\nHe lifts you into the air, hefting your insignificant weight with little effort, and roughly impales you onto his shaft, forcing himself as far into you as he can manage. You cry out, and looking down you can see your stomach distending to accommodate his incredible size. Using you like a human cock-sleeve, he simply holds you by the torso and begins lifting you up and down.  ");
+					else outputText("\n\nHe lifts you into the air, hefting your insignificant weight with little effort, and roughly impales you onto his shaft, forcing himself as far into you as he can manage. You cry out, and " + ((player.isVisiblyPregnant()) ? "while blocked from view by your pregnant belly, you feel your abdomen distending" : "looking down you can see your stomach distending") + " to accommodate his incredible size. Using you like a human cock-sleeve, he simply holds you by the torso and begins lifting you up and down.  ");
 					player.cuntChange((24 * 3), true, false, true); //vag stretch texts
 					//Continue
 					if (player.biggestTitSize() > 0 && player.mostBreastsPerRow() > 1 && player.breastRows.length > 0) {
@@ -543,8 +546,8 @@ package classes.Scenes.Areas.Mountain
 					if (player.cockTotal() > 1) outputText("The bull-man bends forward a little, and grabs one of your " + player.cockDescript(0) + "s in a crushing grip. He makes short jerking motions as he keeps thrusting into you.");
 					if (player.vaginalCapacity() < monster.cockArea(0)) outputText("\n\nYou clench your teeth in pain as his thick ribbed cock ravages your tight pussy. After a while, a kind of numbness sets in, and you start to feel dim waves of pleasure piercing through the curtain of pain. You hear grunts of pleasure and satisfaction coming from the beast's mouth.");
 					if (player.vaginalCapacity() >= monster.cockArea(0) && player.vaginalCapacity() < monster.cockArea(0) * 1.5) outputText("\n\nYou feel his monstrous ribbed cock deliciously rubbing against your love-canal, sending maddening waves of pleasure to your brain as the beast keeps shoving into you. Oblivious to anything but your own enjoyment, you moan loudly like a whore, as the beast chuckles and grunts from his own pleasure.");
-					if (player.vaginalCapacity() >= monster.cockArea(0) *1.5) outputText("\n\nYou feel his monstrous cock sliding easily in and out of your wide fuck-hole, hearing the beast grunt in dissatisfaction. He suddenly clouts your left buttock, which makes you tense your muscles, including your vagina's, and you start to feel the ribs on his cock rubbing against your wall. The pleasure it procures you makes you tense your muscles harder, causing the pleasure to swell again. The minotaur grunts in approval, and continues his violent pounding as you start moaning.");
-					outputText("\n\nFinally, you can feel he's ready to cum. His thrusts become shorter and faster, and just when you think you can't stand it anymore he starts shooting his sperm into you. Your stomach begins to round out from the sheer amount of bull seed being pumped into your belly.  ");
+					if (player.vaginalCapacity() >= monster.cockArea(0) *1.5) outputText("\n\nYou feel his monstrous cock sliding easily in and out of your wide " + ((player.isVisiblyPregnant()) ? "birth" : "fuck") + "-hole, hearing the beast grunt in dissatisfaction. He suddenly clouts your left buttock, which makes you tense your muscles, including your vagina's, and you start to feel the ribs on his cock rubbing against your wall. [if (isPregnant = true)The spawn in your belly, pressing against birth-canal, further tightens the space.] The pleasure it produces makes you tense your muscles harder, causing the pleasure to swell again. The minotaur grunts in approval, and continues his violent pounding as you start moaning.");
+					outputText("\n\nFinally, you can feel he's ready to cum. His thrusts become shorter and faster, and just when you think you can't stand it anymore he starts shooting his sperm into you. Your " + ((player.isVisiblyPregnant()) ? "already round, pregnant belly begins to expand" : "stomach begins to round out") + " from the sheer amount of bull seed being pumped into you.  ");
 					dynStats("lib", 1, "sen", -.5, "cor", 1);
 					//Impregnation
 					if (player.averageVaginalWetness() >= 2) {
@@ -590,7 +593,7 @@ package classes.Scenes.Areas.Mountain
 				}
 				if (player.cockTotal() == 1) outputText("The bull-man bends forward a little, and grabs your " + player.cockDescript(0) + " in a crushing grip. He makes short jerking motions as he keeps thrusting into you.");
 				if (player.cockTotal() > 1) outputText("The bull-man bends forward a little, and grabs one of your " + player.cockDescript(0) + "s in a crushing grip. He makes short jerking motions as he keeps thrusting into you.");
-				outputText("\n\nFinally, you can feel he's ready to cum. His thrusts become shorter and faster, and just when you think you can't stand it anymore he starts shooting his sperm into you. Your stomach begins to round out from the sheer amount of bull seed being pumped into your belly.  ");
+				outputText("\n\nFinally, you can feel he's ready to cum. His thrusts become shorter and faster, and just when you think you can't stand it anymore he starts shooting his sperm into you. Your  stomach begins to round out from the sheer amount of bull seed being pumped into your belly.  ");
 				dynStats("lib", 1, "sen", -.5, "cor", 1);
 				if (player.cockTotal() > 0 && (player.sens + rand(40) > 50)) {
 					outputText("You orgasm, ");
@@ -620,7 +623,8 @@ package classes.Scenes.Areas.Mountain
 			}
 			outputText("  All you can see is the minotaur's huge shaft, the tip grinding against your mouth. The minotaur slaps his cock-head against your face, rubbing his musk and pre-cum into your cheeks and hair.\n\n");
 			outputText("The minotaur reaches down and grabs your jaw, yanking it open. You know what's coming next but decide not to fight it. Submitting to this beast is the safest choice. You spread your jaws as wide as you can and bend your mouth towards the minotaur's monstrous cock-head...\n");
-			if (player.gender == 2) outputText(images.showImage("minotaur-loss-oral-female"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("minotaur-loss-oral-preg"));
+			else if (player.gender == 2) outputText(images.showImage("minotaur-loss-oral-female"));
 			else if (player.gender == 1) outputText(images.showImage("minotaur-loss-oral-male"));
 			else outputText(images.showImage("minotaur-loss-oral"));
 			outputText("Wasting no time, the minotaur grinds his glans past your lips and tries to force the tip of his " + monster.cockDescriptShort(0) + " into your mouth. Snorting and grunting, he pushes your head against the cave wall as he shoves the tip past your teeth. The minotaur's pre-cum pools in your mouth and dribbles out the corners, leaving trails of slime down your face.  You breathe through your nose, inhaling the minotaur's musk, as the brute forces another fraction of an inch of bull-cock into your mouth. Taking yet another quarter-inch of slimy meat, you wonder if it wouldn't be better to let yourself pass out while the minotaur uses you.\n\n");
@@ -1449,6 +1453,24 @@ package classes.Scenes.Areas.Mountain
 				outputText("  Apparently this isn't an uncommon show, and the locals enjoy it immensely.");
 			dynStats("lus", 5 + player.lib / 20 + player.minoScore() + player.cowScore()); //lust!
 			doNext(camp.returnToCampUseOneHour);
+		}
+		
+		public function doMinotaurChance(): int{
+			var minoFuckType:int = player.lib - (flags[kFLAGS.MINOTAUR_SONS_GROWUP_COUNTER] / 2 )
+			if (player.findPerk(PerkLib.PiercedFertite) >= 0) minoFuckType -= 5;
+			if (player.findPerk(PerkLib.FerasBoonBreedingBitch) >= 0) minoFuckType -= 10;
+			if (player.findPerk(PerkLib.FerasBoonWideOpen) >= 0) minoFuckType -= 10;
+			if (player.findPerk(PerkLib.FerasBoonMilkingTwat) >= 0) minoFuckType -= 10;
+			if (player.inHeat) minoFuckType -= 25;
+			if (isMinotaurBreeder()) minoFuckType -=25
+			else if (player.hasPerk(PerkLib.BroodMother)) minoFuckType -= 10;
+			if (minoFuckType < 0) return 0;			
+			
+			return minoFuckType;
+		}
+		
+		public function isMinotaurBreeder(): Boolean{
+			return flags[kFLAGS.MINOTAUR_SONS_GROWUP_COUNTER] >= 20;
 		}
 	}
 }

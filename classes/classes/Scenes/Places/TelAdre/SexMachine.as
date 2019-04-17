@@ -72,7 +72,7 @@ private function useTheSexMachine():void {
 
 			outputText("It doesn't take long for the phallus to slip past your anal ring, filling your anus with firm strokes while you let out muffled moans.");
 			player.buttChange(30,true,true,false);
-			outputText("  The machine's screen states that it is now entering \"Harvest phase\", and goes into high gear. The phallus in your ass bucks you forward, forcing your hips to buck and grind against the tight mechanical cunt as it quickly grinds against your cock.  Even the device forced inside your mouth begins to vibrate and hum, and you swear you taste your own cum leaking from it.\n\n");
+			outputText("  The machine's screen states that it is now entering \"Harvest phase\", and goes into high gear. The phallus in your ass bucks you forward, forcing your hips to buck and grind against the tight mechanical cunt as it quickly grinds against your cock.  Even the device forced inside your mouth begins to vibrate and hum, and you swear you taste your own cum leaking from it.\n\n");			
 
 			outputText("The phallus in your anus begins to rub firmly against your prostate, as if it was locating it and locking onto it. Within moments you cry out in orgasmic pleasure, ");
 			if (player.balls > 0) outputText("your " + player.ballsDescriptLight() + " pulling up tightly ");
@@ -122,6 +122,9 @@ private function useTheSexMachine():void {
 			outputText("You gasp in pleasure, unable to move, fight, or even touch yourself as the machine begins to fuck you with its metallic cocks. The screen flashes, showing 'phase one is completed', and that it has begun phase two, 'implantation'. You don't have time to question the machine's intentions as it begins to fuck you harder and faster, your juices and arousal only helping the machine to continue.");
 			if (player.biggestTitSize() >= 2) outputText("  It slips a fourth cock between your " + player.chestDesc() + ", using two arms to press them together and fuck your tits as well, splashing a burst of mysterious cum on your face with every thrust.");
 			outputText("\n\n");
+			
+			if (player.isVisiblyPregnant()) outputText(images.showImage("sex-machine-preg"));
+			else outputText(images.showImage("sex-machine"));
 	
 			outputText("It doesn't take long until the cock in your mouth cums, spraying a thicker, heavier load of the heavenly seed down your throat and into your stomach. You gasp, swallowing without a choice, as your eyes roll back in your head, the machine ramming its cock into your g-spot, pushing you almost instantly to orgasm. You moan out loud, the cock popping out of your mouth now that its finished delivering its load. Your rippling vaginal walls milk the fake dick in your cunt, as it and the prick in your ass begin to cum heavily.  Every hole is quickly filled with mysterious jizz, stuffing you completely.\n\n");
 	
@@ -148,6 +151,9 @@ private function useTheSexMachine():void {
 			if (player.biggestTitSize() >= 2) outputText(", and it doesn't take long for the machine to slip a cock between your breasts as well, starting to tit fuck you as it rotates you in your restraints to optimize your position");
 			else outputText(" while the machine rotates you in place to optimized your positioning.");
 			outputText(".\n\n");
+			
+			if (player.isVisiblyPregnant()) outputText(images.showImage("sex-machine-preg"));
+			else outputText(images.showImage("sex-machine"));
 																														   
 			outputText("You moan with your legs lifted high above your head, leaving you surprised as to how flexible you truly are; the positioning of your legs forces your ass and vagina to clamp down on the members, making you feel every ridge and nub as they piston in and out of your wet fuck holes. Once more, the cock in your mouth cums first, pumping globs of hot semen down your throat, filling your stomach while you begin to climax, panting and gasping for air even as you swallow all you can. The latex pricks fucking your other holes bounce you as your girlcum runs down your thighs, and shortly after they cum deep inside you, pumping you full of their mysterious seed.\n\n");
 

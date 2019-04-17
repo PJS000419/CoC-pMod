@@ -1128,7 +1128,7 @@ package classes {
 			
 			return description;
 		}
-
+		
 		public static function clitDescription(i_creature:Creature):String
 		{
 			var description:String = "";

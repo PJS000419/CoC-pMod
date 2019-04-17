@@ -88,7 +88,7 @@ public function totalIzmaChildren():int {
 			   && flags[kFLAGS.TIMES_EXPLORED_LAKE] >= 10
 			   && (flags[kFLAGS.IZMA_WORMS_SCARED] == 0 || !player.hasStatusEffect(StatusEffects.Infested))
 			   && flags[kFLAGS.IZMA_FOLLOWER_STATUS] <= 0
-				? 0.2 : 0;
+				? 0.5 : 0;
 	}
 
 	public function encounterName():String {

@@ -587,7 +587,8 @@ package classes.Scenes.Areas.Bog
 				}
 			}
 			phoukaForm = PHOUKA_FORM_BUNNY;
-			outputText(images.showImage("phouka-sex-bunny"));
+			if (player.isVisiblyPregnant()) outputText(images.showImage("phouka-sex-bunny-preg"));
+			else outputText(images.showImage("phouka-sex-bunny"));
 			outputText("\n\nThe bunny advances on you and says <i>“I can't wait to blow my load inside that nice pussy of yours.”</i> His paws split apart into fingers in a way you are sure would be excruciating for a real rabbit.  The bunny slides his hands over your belly while his nose sniffs at the back of your neck. [if (isPregnant = true)<i>“They say pregnant girls love ta fuck.  You ready for some meat?”</i>][if (isPregnant = false)His fingers begin to tease your [clit] as he asks you <i>“Ready for some meat?”</i>]");
 			if ((player.lust100 > 80) || (player.cor > 50))
 				outputText(" You can only moan in response.  The thought of this rabbit stuffing you has your [vagina] leaking already.");

@@ -63,11 +63,16 @@ package classes.Scenes.Monsters
 			initStrTouSpeInte(25, 20, 35, 42);
 			initLibSensCor(75, 45, 90);
 			this.weaponName = "fists";
-			this.weaponVerb="punch";
+			this.weaponVerb = "punch";
+			this.weaponAttack = player.statusEffectv1(StatusEffects.BirthedImps);
+			this.armorDef = 0.1 * player.statusEffectv1(StatusEffects.BirthedImps);
+			this.bonusHP = player.statusEffectv1(StatusEffects.BirthedImps);
+			this.lust = 30;
+			this.lustVuln = .3;
 			this.armorName = "skin";
 			this.lust = 50;
 			this.temperment = TEMPERMENT_RANDOM_GRAPPLES;
-			this.level = 3;
+			this.level = 3 + (0.1 * player.statusEffectv1(StatusEffects.BirthedImps));;
 			this.gems = rand(5) + 5;
 			this.drop = new WeightedDrop().
 					add(consumables.INCUBID, 1).

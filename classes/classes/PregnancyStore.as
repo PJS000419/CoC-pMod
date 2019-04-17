@@ -47,6 +47,7 @@ package classes
 		public static const PREGNANCY_ANDY:int                  =  37; //This is functionally the same as Satyr but less corrupt. 10% chance of fauns, if ever implemented.
 		public static const PREGNANCY_GOBLIN:int                =  38;
 		public static const PREGNANCY_IMP_HORDE:int          	=  39; //This will cause multiple births
+		public static const PREGNANCY_SHARK_GIRL:int          	=  40; 
 		
 		public static const PREG_NOT_PREGANT:int                =   0; //The PREG_* consts are returned by the size function
 		public static const PREG_NO_SIGNS_UNKNOWN:int           =   1; //NPC has conceived but doesn’t know she’s pregnant, no visible signs
@@ -91,6 +92,7 @@ package classes
 		public static const INCUBATION_BEE:int                  =  48;
 		public static const INCUBATION_SANDTRAP:int             =  42;
 		public static const INCUBATION_HARPY:int                = 168;
+		public static const INCUBATION_SHARK_GIRL:int           = 360;
 		public static const INCUBATION_SHIELA:int               =  72;
 		public static const INCUBATION_SALAMANDER:int           = 336;
 		public static const INCUBATION_MINERVA:int           	= 216; 

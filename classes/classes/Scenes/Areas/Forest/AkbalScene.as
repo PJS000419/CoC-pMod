@@ -1174,7 +1174,7 @@ public class AkbalScene extends BaseContent implements Encounter
 			outputText(".");
 			if (player.lactationQ() > 0)
 			{
-				outputText(" Your [chest] errupts in spurts of milk" + ((player.pregnancyIncubation > 0 && player.pregnancyIncubation <= 150) ? ", spraying from behind your pregnant gut," : "") +  " further soaking the ground.");
+				outputText(" Your [chest] errupts in spurts of milk" + ((player.isVisiblyPregnant()) ? ", spraying from behind your pregnant gut," : "") +  " further soaking the ground.");
 			}
 
 			outputText("\n\nAkbal groans but does not release, not yet.  He simply continues to take you, fucking you with force but not violently, firmly asserting his dominance over you.  You're kept in a heaven of anal sensation, shaking and orgasming over and over but never truly released.  The panther gradually increases his tempo as time passes; soon he has you babbling in happiness, mindlessly praising your lord and master as he plumbs your soaked buns with expert thrusts.  Your face is dragged back and forth across the forest floor as he takes you with firmer and firmer motions, then, breathing a gout of fire above your head, Akbal blesses your [butt] with his climax.");

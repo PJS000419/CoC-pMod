@@ -51,7 +51,7 @@ import classes.Scenes.Areas.Lake.*;
 			call: curry(sharkGirlScene.sharkGirlEncounter, 1)
 		}, {
 			name  : "zealot",
-			chance: 0.5,
+			chance: 0.1,
 			mods  : [FnHelpers.FN.ifLevelMin(2)],
 			when  : function():Boolean {
 				return flags[kFLAGS.FACTORY_SHUTDOWN] > 0;

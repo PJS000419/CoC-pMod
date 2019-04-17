@@ -173,6 +173,7 @@ package classes.Scenes.Areas {
 		}
 
 		public function minotaurChance():Number {
+			if (flags[kFLAGS.MINOTAUR_SONS_GROWUP_COUNTER] > 10) return 4;
 			if (player.findPerk(PerkLib.MinotaurCumAddict) >= 0) return 3;
 			if (flags[kFLAGS.MINOTAUR_CUM_ADDICTION_STATE] > 0) return 2;
 			return 1;

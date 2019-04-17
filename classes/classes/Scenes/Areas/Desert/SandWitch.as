@@ -91,6 +91,8 @@
 					consumables.OVIELIX,
 					consumables.LACTAID,
 					consumables.LABOVA_,
+					consumables.L_DRAFT,
+					consumables.OVIELIX,
 					consumables.W__BOOK,
 					consumables.B__BOOK,
 					null);
