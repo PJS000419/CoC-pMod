@@ -11,14 +11,19 @@ import classes.Scenes.API.Encounters;
 import classes.Scenes.API.FnHelpers;
 import classes.Scenes.Areas.Lake.*;
 	import classes.Scenes.Places.Boat.*;
+	import classes.internals.*;
+	import classes.Scenes.PregnancyProgression;
 
 	public class Boat extends AbstractLakeContent
 	{
-		public var sharkGirlScene:SharkGirlScene = new SharkGirlScene();
+		public var sharkGirlScene:SharkGirlScene;
 		public var marae:MaraeScene = new MaraeScene();
 		
-	public function Boat() {
-	}
+
+		
+		public function Boat(pregnancyProgression:PregnancyProgression, output:GuiOutput) {
+			this.sharkGirlScene = new SharkGirlScene(pregnancyProgression, output);
+		}
 
 	public function isDiscovered():Boolean {
 		return player.hasStatusEffect(StatusEffects.BoatDiscovery);

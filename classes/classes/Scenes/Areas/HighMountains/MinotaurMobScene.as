@@ -428,7 +428,7 @@ private function analSpearSemiPregMinotaurGangbang():void { //SEMI PREG [> 120 &
 	if (!player.minotaurAddicted()) outputText("We've got to get mom so high on us that she'll float back to her camp and come crawling back to us tomorrow.");
 	else outputText("We've gotta get mom her fix.");
 	outputText("  Then, we can try and hunt a succubus to make into our blowjob bitch.</i>\"\n");
-	outputText(images.showImage("minomob-pregfuck-semi"));
+	outputText(images.showImage("minomob-pregfuck"));
 	outputText("\"<i>Sure thing bro,</i>\" answers the deep-voiced giant from behind you.  Two massive hands squeeze around your " + player.hipDescript() + " raise your ");
 	if (player.isTaur()) outputText("haunches");
 	else outputText(player.assDescript());

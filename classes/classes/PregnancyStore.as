@@ -92,14 +92,14 @@ package classes
 		public static const INCUBATION_BEE:int                  =  48;
 		public static const INCUBATION_SANDTRAP:int             =  42;
 		public static const INCUBATION_HARPY:int                = 168;
-		public static const INCUBATION_SHARK_GIRL:int           = 360;
+		public static const INCUBATION_SHARK_GIRL:int           = 432;
 		public static const INCUBATION_SHIELA:int               =  72;
 		public static const INCUBATION_SALAMANDER:int           = 336;
 		public static const INCUBATION_MINERVA:int           	= 216; 
 		public static const INCUBATION_BEHEMOTH:int           	=1440; //Sorry Behemoth, but Isabella wins.
 		public static const INCUBATION_PHOENIX:int           	= 168; 
 		public static const INCUBATION_KIHA:int                 = 336;
-		public static const INCUBATION_ISABELLA:int             =2160; //Longest pregnancy ever. 
+		public static const INCUBATION_ISABELLA:int             = 2160; //Longest pregnancy ever.
 		
 		private static const MAX_FLAG_VALUE:int                 = 2999;
 		private static const PREG_TYPE_MASK:int                 = 0x0000FFFF; //Should be safe with 65535 different pregnancy types

@@ -1,15 +1,20 @@
 package classes.Scenes.Places.Boat{
 	import classes.*;
+	import classes.Scenes.Monsters.pregnancies.PlayerSharkPregnancy;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.display.SpriteDb;
 	import classes.internals.*;
+	import classes.Scenes.PregnancyProgression;
 
 	public class SharkGirlScene extends AbstractBoatContent implements TimeAwareInterface{
+		
 
-	public function SharkGirlScene()
+	public function SharkGirlScene(pregnancyProgression:PregnancyProgression, output:GuiOutput)
 	{
+		new PlayerSharkPregnancy(pregnancyProgression, output);
 		CoC.timeAwareClassAdd(this);
 	}
+	
 	
 			//Implementation of TimeAwareInterface
 		public function timeChange():Boolean {
@@ -72,7 +77,12 @@ Sex Life: The shark girls treat sex like a game or a sport, constantly battling 
 public function sharkGirlEncounter(exploreLoc:Number = 0):void {
 	//Set 'PC met Sharkgirls' for Izma stuff
 	if (flags[kFLAGS.IZMA_ENCOUNTER_COUNTER] == 0) flags[kFLAGS.IZMA_ENCOUNTER_COUNTER] = 1;
-	if (!player.hasStatusEffect(StatusEffects.SharkGirl)) player.createStatusEffect(StatusEffects.SharkGirl,0,0,0,0);
+	if (!player.hasStatusEffect(StatusEffects.SharkGirl)) player.createStatusEffect(StatusEffects.SharkGirl, 0, 0, 0, 0);
+	else if (flags[kFLAGS.ADULT_SHARKGIRL_OFFSPRINGS] >= 10 && player.hasVagina()) {
+		spriteSelect(SpriteDb.s_sharkgirl);
+		sharkFemaleBadEnd();
+		return;
+	}
 	else if (player.statusEffectv1(StatusEffects.SharkGirl) >= 7 && player.totalCocks() > 0) {
 		spriteSelect(SpriteDb.s_sharkgirl);
 		sharkBadEnd();
@@ -274,6 +284,37 @@ private function sharkBadEnd2():void {
 	getGame().gameOver();
 }
 
+//Shark girl Bad End.
+//Requirements: Give birth to 7 shark girls that aren't Izma's 
+//Scene triggers automatically after the seventh Shark girl
+private function sharkFemaleBadEnd():void {
+	clearOutput();
+	spriteSelect(SpriteDb.s_sharkgirl);
+	outputText("Several weeks pass by and you once again find yourself at the lake, your loins aching for another tiger shark girl to swim by. Just thinking of their incredible sexual organs and the sense of domination you get from them makes you feel aroused. Sadly though, there's no sign of one, so you instead decide to take a nap.\n\n");
+	outputText("You're awoken a short time later by something warm wriggling around inside your mouth. Your eyes pop open, worried that you might've swallowed a bug or something. However, when your vision swims back into focus, you become quite aware that it is actually someone's tongue probing around your mouth. It seems to be a young shark girl in her early teens, judging by her modest measurements and short stature. She pulls her head back and grins at you before exclaiming, \"<i>Hi, mommy!</i>\" You raise an eyebrow at that. Then you turn and you see several more teenage shark girls, each pinning your arms and legs down.\n\n");
+	outputText("They are surprisingly strong given their stature, and even a Minotaur would have trouble prying them all off. Combined with a strong wave of arousal flooding your body, you find it rather hard to focus on anything. They must've funnelled a few Lust Drafts down your throat while you were sleeping.\n\n");
+	outputText("\"<i>Wh-what's going on?</i>\" you ask, your voice shifting between arousal and fear. The young girl straddling your chest giggles while drawing circles on your skin with her finger, \"<i>Aw don't be scared. You're gonna play with your kids! Doesn't that sound fun?</i>\" Another adds, \"<i>Since you seem to love getting knocked up by us shark girls, we figured you'd like to make a living out of it...</i>\" Your eyes widen slightly and you ask her, \"<i>What do you mean by that?</i>\"\n\n");
+	outputText("The girls look at each other and grin before the one straddling you pulls out an odd-looking Shark's Tooth. \"<i>Oh you'll see. Open wide...!</i>\"");
+	doNext(sharkFemaleBadEnd2);
+}
+
+//[Next]
+private function sharkFemaleBadEnd2():void {
+	clearOutput();
+	spriteSelect(SpriteDb.s_sharkgirl);
+	outputText("Several months and mutations later...\n\n");
+	outputText("Yet another cock plunges into your gaping pussy, the third shark girl to do so in the past hour, as another fingers your asshole while waiting for her turn. You're barely able to keep track of who went in where as your huge belly, swimming with another brood, impedes your vision.  You've been fucking without stop for weeks now and pregnancy doesn't seem to deter these girls in the slightest. Ever since you were morphed into a shark brood-mother, sex is almost the only thing you're allowed to do. At one point you recalled that you had a name, and you vaguely remember having to do something important... Not as important as this, though. Not as important as being bred.\n\n");
+	outputText("\"<i>My, she's... certainly a fertile creature, isn't she?</i>\" a tiger shark asks, taking a seat on a nearby rock. Another shark girl chuckles in response, \"<i>Oh I know. Our numbers have practically doubled because of her.</i>\" She gestures to several new shark girls lazing on the sands.\n\n");
+	outputText("\"<i>Wow. When I heard rumors of your pack getting a new brood-mother, I had to check it out for myself. But I didn't think she'd be anything like this...</i>\" the tiger shark says, rubbing her own genitalia. Another tiger shark girl blows her load inside your already cum-filled pussy displacing gluts of her other sister's cum.  You pause a moment to catch your breath, your heavy brood-gut churning with a whole litter of your progeny.\n\n"); 
+	
+	outputText("\"<i>How can she do it?</i>\" the tiger shark inquires, her hardening cock an obvious sign of arousal. The other shark girl, nonchalantly playing with her own junk, replies, \"<i>She's a goddess.  Or at least has the power of one.</i>\"  The tiger shark remains silent, but looks puzzled, \"<i>She has a gift</i>\" the other shark girl continues, a wicked grin capturing her face, \"<i>The more she's bred the faster she gives birth.  Getting her pregnant is just the start of it.</i>\"");  
+	
+	outputText("\n\nThe tiger shark girl looks surprised, but the realization quickly morphs her expression into a devilish smile of her own.  Rising from her seat she begins sauntering toward you, \"<i> Well I guess I'd better do my part.</i>\".\n\n");
+	("You look up just as the tiger shark's cock plunges into your cum-sloppy pussy, motherly tits and pregnant gut swaying pendulously with each thrust into you. You catch sight of a human moving across the shoreline. A grin spreads across your face at the sight and you direct the girls' attention to the lone human.\n\n");
+	outputText("\"<i>Fresh meat!</i>\"");
+	getGame().gameOver();
+}
+
 //PC gives birth (alone): used if PC gets pregnant from vaginal and refusing herbs before recruiting Izma or possibly later if a way to force her out is written
 public function pcPopsOutASharkTot():void {
 	outputText("\n");
@@ -292,7 +333,6 @@ public function pcPopsOutASharkTot():void {
 		outputText("Finally, she's out; you quiver weakly as she crawls over to you and it takes all your effort to lift your " + player.armorName + " and expose your " + player.nippleDescript(0) + "s to her.  As she sucks greedily at them, the haze begins to clear from your vision.  For the first time, you can actually make out distinct features on your new daughter; she's a ");
 		if (rand(100) <= 59) {
 			outputText("shark-girl");
-			flags[kFLAGS.IZMA_KIDS_IN_WILD]++;
 		}
 		else outputText("tigershark");
 		outputText(", quickly growing and filling out as she takes in milk.  She finishes up, looking rather like a pre-teen already, and glances around nervously.  The amniotic fluid is evaporating rapidly, and she's scratching idly at her gills as more and more of her skin is exposed directly to the dry air.\n\n");
@@ -456,7 +496,7 @@ internal function sharkLossRape():void {
 			outputText("Her gaze drifts over to your " + player.vaginaDescript(0) + " ");
 			
 			if (player.isVisiblyPregnant()){
-				outputText("and then up across the mound that is your pregnant belly.  \"<i> I guess someone else got to you first ! </i>\" she says smirking slyly. \"<i> Tell you what dear, I was going to put a pup in your belly, but let's not let this opportunity go to waste. </ i >\"\n\n ");
+				outputText("and then up across the mound that is your pregnant belly.  \"<i> I guess someone else got to you first ! </i>\" she says smirking slyly. \"<i> Tell you what dear, I was going to put a pup in your belly, but let's not let this opportunity go to waste. </i>\"\n\n ");
 			}
 			else{
 				outputText("and she licks her lips in delight.  \"<i> Now that's what I'm looking for ! I can smell it from here, your body is aching to get pupped, don't worry, I know will enjoy this too. </i>\"\n\n");
@@ -472,14 +512,14 @@ internal function sharkLossRape():void {
 			
 			outputText("The tiger shark girl grips her cock and begins slapping it against your [if(isPregnant = true)ass][if(isPregnant = false)pussy] and the cum-puddle that has collected there flinging pre in all directions.  In an instant, she plunges three fingers into your [if(isPregnant = true)" + player.assholeDescript() + "][if(isPregnant = false)" + player.vaginaDescript(0) + "] causing you to gasp at the sudden intrusion.  The rough finger-fucking causes loud slurping noises as air and pre-cum is being forced in out of your orifice only heightening your arousal.  Several minutes pass before she removes her fingers and with a taunting smirk, asks rehtorically \"<i>Are you ready?</i>\"  Stiffling a building orgasm, you are unable to reply let alone fully grasp the chain of events when suddenly the tiger shark girl presses her cockhead to your gaping " + ((player.isVisiblyPregnant()) ? "asshole and pops it in" : "pussy and slams her shaft a quarter of the way in") + ".  You can only pathetically yelp as the fish meat begins to force it's way through your insides.  On cue, the shark girl cock begins vehemently spewing pre-cum with each thrust, quickly cumlubing your " + ((player.isVisiblyPregnant()) ? "guts" : "birth canal") + ".  The shark girl grunts as her short, rapid thursts penetrate your depths inch by inch until she finally bottoms out, the tip of her cock [if(isPregnant = true)embedded deep in your bowels][if(isPregnant = false)kissing your cervix].  Fully impaled - you can only gasp for breath as the shark girl begins to withdraw her cock, now lubed and no longer impeded by your tightness, she begins relentlessly pounding you in long strokes.  Each thrust of her cock parting your [if(isPregnant = true)" + player.assholeDescript() + "][if(isPregnant = false)" + player.vaginaDescript(0) + "].\n\n"); 
 			
-			outputText("The shark girl quickens her pace as she continues to pump you in earnest.  Like a bushel of ripes tomatoes on the vine, her four swollen testicles slap wildly against your[if(isPregnant = true)pussy][if(isPregnant = false)asshole] with the momentum of each thrust.  Now too panting, the shark girl slows her pummeling just for a moment to regrip your " + player.hipDescript() + " and exclaiming, \"<i>Time to get bred !</i>\"  \n\n");
+			outputText("The shark girl quickens her pace as she continues to pump you in earnest.  Like a bushel of ripes tomatoes on the vine, her four swollen testicles slap wildly against your [if(isPregnant = true)pussy][if(isPregnant = false)asshole] with the momentum of each thrust.  Now too panting, the shark girl slows her pummeling just for a moment to regrip your " + player.hipDescript() + " and exclaiming, \"<i>Time to get bred !</i>\"  \n\n");
 			
 			if (player.isVisiblyPregnant()){
 				outputText(images.showImage("tiger-shark-female-loss-preg"));
 				outputText("From kneeling behind you, the shark girl steps out and over you to each side, cock still implanted firmly in your asshole, tugging your lower body further into the air and pushing your face into the sand.  Standing in a squat position vertically over you, the shark girl digs her fingers into your hips and drops her weight and power into your back door.  Slamming her cockmeat back and forth, the power sends shockwaves through your whole body.  Your pregnant belly and tits ripple with each thrust as she jackhammers you from above.  Your vision blurs as you begin to drool from the immense pressure and pain splitting your insides.  The hanging four-balled sack whacks into your pussy with wet slaps alerting anything nearby to the intense mating.  ")
 			}
 			else{
-				outputText(images.showImage("tiger-shark-female-loss-preg"));
+				outputText(images.showImage("tiger-shark-female-loss"));
 				outputText("From kneeling between your legs, the shark girl leans up and over you pulling your legs to each side of her shoulders. Cock still implanted firmly in your pussy, it tugs your lower body into the air and up over our face.  Standing in a squat position vertically over you, the shark girl digs her fingers into your hips and drops her weight and power into your opening.  Slamming her cockmeat back and forth, the power sends shockwaves through your whole body.  Your tits ripple with each thrust as she jackhammers you from above.  Your vision blurs as you begin to drool from the immense pressure and pain splitting your insides.  The hanging four-balled sack whacks into your asshole with wet slaps alerting anything nearby to the intense mating.  ")
 			}
 			
@@ -489,7 +529,7 @@ internal function sharkLossRape():void {
 			//(Corruption +2, Intelligence -4)
 			if(player.isVisiblyPregnant())player.orgasm('Anal');
 			else player.orgasm('Vaginal');
-			player.knockUp(PregnancyStore.PREGNANCY_IZMA, PregnancyStore.INCUBATION_IZMA);
+			player.knockUp(PregnancyStore.PREGNANCY_SHARK_GIRL, PregnancyStore.INCUBATION_SHARK_GIRL);
 			if (player.cor < 30) dynStats("cor", 1);
 			combat.cleanupAfterCombat();
 			return;

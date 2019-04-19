@@ -1,6 +1,7 @@
 package classes.Scenes.Monsters.pregnancies 
 {
 	import classes.GlobalFlags.kGAMECLASS;
+	import classes.GlobalFlags.kFLAGS;
 	import classes.Player;
 	import classes.PregnancyStore;
 	import classes.Scenes.PregnancyProgression;
@@ -21,11 +22,11 @@ package classes.Scenes.Monsters.pregnancies
 		//TODO inject player, once the new Player calls have been removed. Currently it would break on new game or load (reference changed)
 		
 		/**
-		 * Create a new imp pregnancy for the player.
+		 * Create a new shark-girl pregnancy for the player.
 		 * @param	pregnancyProgression instance used for registering pregnancy scenes
 		 * @param	output instance for gui output
 		 */
-		public function PlayerImpPregnancy(pregnancyProgression:PregnancyProgression, output:GuiOutput) 
+		public function PlayerSharkPregnancy(pregnancyProgression:PregnancyProgression, output:GuiOutput) 
 		{
 			this.output = output;
 			
@@ -52,7 +53,7 @@ package classes.Scenes.Monsters.pregnancies
 			}
 			
 			if (player.pregnancyIncubation === 216) {
-				output.text("\n<b>There is no question you're pregnant; your belly is getting bigger and for some reason, you feel thirsty ALL the time.");
+				output.text("\n<b>There is no question you're pregnant; your belly is getting bigger and for some reason, you feel thirsty ALL the time.</b>");
 				
 				kGAMECLASS.dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
 				
@@ -90,9 +91,13 @@ package classes.Scenes.Monsters.pregnancies
 		
 		public function vaginalBirth():void 
 		{
-			pregnancyProgression.detectVaginalBirth(PregnancyStore.PREGNANCY_SHARK_GIRL);
+			//TODO remove this once new Player calls have been removed
+			var player:Player = kGAMECLASS.player;
+			
 			kGAMECLASS.boat.sharkGirlScene.pcPopsOutASharkTot();
 			
+			
+			player.knockUpForce(); //Clear Pregnancy
 			kGAMECLASS.flags[kFLAGS.SHARKGIRL_DAUGHTERS_PENDING]++;
 			
 			if (kGAMECLASS.flags[kFLAGS.SHARKGIRL_DAUGHTERS_GROWUP_COUNTER] === 0) {

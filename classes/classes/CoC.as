@@ -204,6 +204,7 @@ package classes
 		// Scenes/Areas/
 		public var commonEncounters:CommonEncounters = new CommonEncounters(); // Common dependencies go first
 		
+		public var boat:Boat;
 		public var bog:Bog;
 		public var desert:Desert;
 		public var forest:Forest;
@@ -287,7 +288,6 @@ package classes
 		public var vapula:Vapula;
 		// Scenes/Places/;
 		public var bazaar:Bazaar = new Bazaar();
-		public var boat:Boat = new Boat();
 		public var farm:Farm;
 		public var owca:Owca = new Owca();
 		public var telAdre:TelAdre;
@@ -461,6 +461,7 @@ package classes
 		public function createScenes(pregnancyProgression:PregnancyProgression): void {
 			dungeons = new DungeonCore(pregnancyProgression);
 			
+			boat = new Boat(pregnancyProgression, output);
 			bog = new Bog(pregnancyProgression, output);
 			mountain = new Mountain(pregnancyProgression, output);
 			highMountains = new HighMountains(pregnancyProgression, output);
