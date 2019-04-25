@@ -2,6 +2,7 @@ package classes
 {
 	import classes.BodyParts.*;
 	import classes.lists.BodyPartLists;
+	import classes.GlobalFlags.kGAMECLASS;
 
 	/**
 	 * Character class for player and NPCs. Has subclasses Player and NonPlayer.
@@ -381,6 +382,11 @@ package classes
 				return false;
 			}
 
+		}
+		
+		public function isBreedingMaterial(): Boolean {
+			var player:Player = kGAMECLASS.player;
+			return player.gender == 2 && player.hasPerk(PerkLib.BroodMother);
 		}
 		
 		/**

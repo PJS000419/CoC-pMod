@@ -181,7 +181,7 @@ public function sheilaEncounterRouter():void {
 	//trace("Sheila Encounter:");
 	//trace("Sheila Corruption: " + Math.round(sheilaCorruption() * 10)/10 + " Sheila Preg: " + flags[kFLAGS.SHEILA_PREGNANCY_INCUBATION] + " Sheila XP: " + flags[kFLAGS.SHEILA_XP]);
 	//UNFUCK FLAGS
-	if (flags[kFLAGS.SHEILA_CLOCK] > 0)
+	if (flags[kFLAGS.SHEILA_CLOCK] > 0 && flags[kFLAGS.SHELIA_DEMON_BREED_PLAYER] < 1)
 		flags[kFLAGS.SHEILA_CLOCK] = 0
 	if (sheilaCorruption() >= 100 && flags[kFLAGS.SHEILA_DEMON] == 0)
 		flags[kFLAGS.SHEILA_DEMON] = 1;
@@ -217,11 +217,17 @@ public function sheilaEncounterRouter():void {
 	}
 	//DEMONS!
 	else {
-		//Post-demon pregnancy notif (demon sheila = 1 and sheilapreg = 4)
-		//increment imp children counter?
-		if (pregnancy.isPregnant && pregnancy.incubation == 0) demonImpChildren();
-		//Demon Sheila encounter (demon sheila = 1 and sheilapreg < 4)
-		else demonSheilaEncounter();
+		//demon shelia is pissed because female player is avoiding her advances ten times or more
+		//player is a breeding slut, but isn't pregnant right now
+			if (flags[kFLAGS.SHELIA_DEMON_REJECTED] >= 10 && player.isBreedingMaterial() && 
+			flags[kFLAGS.SHELIA_DEMON_BREED_PLAYER] == 0 && !player.isPregnant()){
+				demonSheilaWantsPlayer();
+			}
+			//Post-demon pregnancy notif (demon sheila = 1 and sheilapreg = 4)
+			//increment imp children counter?
+			if (pregnancy.isPregnant && pregnancy.incubation == 0) demonImpChildren();
+			//Demon Sheila encounter (demon sheila = 1 and sheilapreg < 4)
+			else demonSheilaEncounter();
 
 	}
 }
@@ -3741,6 +3747,9 @@ private function demonSheilaEncounter():void {
 	
 	outputText("\n\nAs you turn around, Sheila sashays over to you.  Apart from a little lavender crystal dangling from her long, bare ear and several finger rings, she's naked as a jaybird now, exposing her " + sheilaCup() + " breasts and smooth, dripping snatch for all the world to see.  Two lithe tails, one spaded and one not, rub against her labia in anticipation as she takes a horse stance in front of you to wait on your answer, and her eyes smolder with lust.");
 	
+	// increment this flag assuming player resists/runs and reset if player gives in/loses
+	if (player.isBreedingMaterial()) flags[kFLAGS.SHELIA_DEMON_REJECTED]++;
+	
 	//[Talk][Let Her Fuck(req. lust >=30)][Resist][Run]
 	menu();
 	addButton(0,"Talk",demonSheilaTalk);
@@ -3748,6 +3757,28 @@ private function demonSheilaEncounter():void {
 	addButton(2,"Resist",demonSheilaResist);
 	//run simply returns to camp and should be the default spacebar option
 	addButton(4,"Run",camp.returnToCampUseOneHour);
+}
+
+//Demon Sheila female player rejected her 10+ times
+private function demonSheilaWantsPlayer():void {
+	clearOutput();
+	flags[kFLAGS.SHELIA_DEMON_BREED_PLAYER] = 1;
+	//Picture is here
+	outputText(images.showImage("sheila-corrupted-herm"));
+	outputText("Making your way across the plains, a familiar shadow drops out of a low tree behind you with a rustle.  The form materializes quickly and you recognize Sheila as she sashays over to you.  However, all is not the same as you eye new equipment on the Kangaroo-morph.  A knotted, pointed dog-cock and matching set of balls now dangle between her legs, but before you're able to react to this new information a low growl eminates from your scorned lover, \"<i>So did you think you could just keep snubbing me forever?</i>\"");
+	
+	outputText("\n\nCrossing her arms, that smush her " + sheilaCup() + " breasts together, she continues, \"<i>YOU did this to me and I'll wanted was to root with you all day!</i>\"  You try to speak, but the angry Demon Kangaroo-morph is having none of it as she steps closer.  Through gritted teeth she accuses, \"<i>Then, you ignored me, for weeks on end and just left me to my own devices - constantly needing to get off, but you wanted nothing to do with me.</i>\"  You hold your hands up in protest, but she smacks them down as she moves in closer.");
+
+	outputText("\n\nOnce she gets in your face, though, her expression and demenor soften.  \"<i>But it's ok my love, I knew you were just playing hard to get - and this world offers so many gifts that I knew I'd find what you were really looking for.</i>\"  Puzzled you ask what she means.  Giggling she explains, \"<i>What, you think I didn't notice you running around out there getting knocked up?  Putting that full, sexy tummy out there popping out one after the other.</i>\"  Looking down, she reaches for her new package, handling the twitching dog-cock she gently strokes it.  \"<i>I love being a brood mother just as much as the next girl, but if you won't put them in me, I realized I can just put them in you.</i>\"");
+	
+	outputText("\n\nNow stroking her hardening canine penis in earnest, you can tell she is quickly losing control of her desire.  Her eyes smolder with lust and a wicked smiles takes over her visage.  \"<i>I even got this beautiful knot - just for you.</i>\  She pauses a moment to cup the swollen lump of flesh near the base her cock as she continues to stroke her shaft eliciting a soft moan and spurt of pre-cum, \"<i>So when we tie, you have no choice, but to take the full load...</i>\ she trails off clearly getting lost in the sensations.");
+	
+	outputText("\n\nWhat happens next is probably a forgone conclusion, as she continues to stroke her leaking dog-dick waiting on your answer, you quickly consider your options.");
+	
+	menu();
+	addButton(0,"LetHerBreedYou",sheilaLetHerBreedYou);
+	addButton(1,"Resist",demonSheilaResist);
+
 }
 
 //[Demon Sheila - Resist]
@@ -3800,6 +3831,7 @@ private function tellSheilaDemonToFuckOff():void {
 		return;
 	}
 	else {
+		flags[kFLAGS.SHELIA_DEMON_REJECTED]++;
 		outputText("but she remasters herself with effort.  \"<i>No worries.  I'm sorry to hear you don't have any time for love, my special one.  I'll be here until you do, thinking about you and touching myself.</i>\"  She releases you and steps away, then crudely shoves her spade through her thighs, grabs it, and half-moans as she thrusts her pelvis back and forth, jerking the thick black flesh in her hand.  With a wink, she abruptly releases it, then turns her back and departs.");
 		doNext(camp.returnToCampUseOneHour);
 	}
@@ -3955,6 +3987,7 @@ private function demonSheilaTalkAnotherQuestion():void {
 //[Demon Sheila - Let Her Fuck]
 private function sheilaLetHerFuckYou():void {
 	clearOutput();
+	flags[kFLAGS.SHELIA_DEMON_REJECTED] == 0;
 	//Picture is here
 	outputText(images.showImage("sheila-corrupted-prepare"));
 	outputText("The naked flesh pressed against you fills your mind with indulgent daydreams, and Sheila reads them right from your distracted face as if you were a book.  \"<i>That'll be a yes, then?</i>\" she asks, playing the slitted tip of her spade along your fingers.  \"<i>Or are you going to make me use this on myself again?  I get quite lonely, you know.</i>\"");
@@ -3966,6 +3999,78 @@ private function sheilaLetHerFuckYou():void {
 	//output loss scene dependent on RNG and player parts/choice
 	menu();
 	addButton(0,"Next",loseToSheila,true);
+}
+
+//[Demon Sheila - Let Her Breed you]
+private function sheilaLetHerBreedYou():void {
+	clearOutput();
+	//Picture is here
+	outputText(images.showImage("sheila-corrupted-prepare"));
+	outputText("The naked flesh pressed against you fills your mind with indulgent daydreams, and Sheila reads them right from your distracted face as if you were a book.  \"<i>That'll be a yes, then?</i>\" she asks, playing the slitted tip of her spade along your fingers.  \"<i>Or are you going to make me use this on myself again?  I get quite lonely, you know.</i>\"");
+	
+	outputText("\n\nYou shake your head and, opening your posture, allow her to wrap her arm completely around you.  \"<i>Oh, [name].  I knew you loved me.</i>\"  She kisses you passionately, pressing her ");
+	if (sheilaCorruption() >= 40) outputText("pillowy ");
+	else outputText("pert ");
+	outputText("breasts against you.");
+	clearOutput();
+	//(no horse)
+	if (!player.isTaur()) outputText("Sheila places her hand in the small of your back and leans in, drawing closer to your face even as she pulls your waist inward.");
+	else outputText("Sheila sets her hand atop your withers, pressing down gently as she looks into your eyes.");
+	outputText("  \"<i>Why don't you relax, [name]?  Lie down and let me take care of you...</i>\"  Her eyelids lower and her mouth spreads in a sly smile, and for just a moment you lose your nerve, looking into her devilish expression.  \"<i>Don't worry, love,</i>\" she says, straightening her face.  \"<i>I promise you'll enjoy this.</i>\"");
+	
+	outputText("\n\nBefogged but still reserved, you nonetheless allow Sheila to lower you to the grass and remove your [armor].  She ");
+	//[(not horse)
+	if (!player.isTaur()) outputText("turns around, then straddles your groin and looks over her shoulder.");
+	//(Equus ferus caballus)
+	else outputText("lays down with you, between your legs slightly off-center, and looks into your eyes.");
+	outputText("  Her veiny, red dog cock, lays across your belly with an occasional twitch and subsequent spurt of cum,");
+
+	outputText(" while using the fingers of her other hand to force your pussy lips apart and sample your wetness.  \"<i>Oh, my. </i>\"");
+	if (player.vaginas[0].vaginalWetness < Vagina.WETNESS_WET) outputText(" \"<i>Were going to need you wetter than that my dear, but don't worry I will help you get there.</i>\" She attempts to say comfortingly.");
+	else if (player.vaginas[0].vaginalWetness <= Vagina.WETNESS_SLICK) outputText(" \"<i>So slick just thinking about me.</i>\" She smiles clearly amused by the prospect.");
+	else if (player.vaginas[0].vaginalWetness <  5) outputText("  \"<i>You're just gushing at the thought of being bred, aren't you?</i>\" She raises an eyebrow in tandem with her smug grin.");
+	else outputText(" \"<i>You slut!</i>\" She chuckles at your expense. \"<i>Were just getting started and you can't wait to be pumped full.</i>\".");
+	
+	outputText("\n\nShe rolls over and on to you pushing your legs farther out to the sides as her body takes over your center line.  Your eyes open in alarm at the same time as her mouth does in pleasure; she jams her cockhead into your " + player.vaginaDescript(0) + " ");
+	if (player.vaginalCapacity() < 12) outputText("pushing her shaft several inches deep.");
+	else outputText("then spears her shaft to the hilt, knot banging on the outside of your entrance.");
+	outputText(".  Your head swims as pleasure from the penis engulfed by your walls overwhelms you, then toes the line to genuine pain.  The copious demonic fluid backing up inside her cock begins to leak around the tip, coating your birth canal and pooling into your depths; your muscles tighten as the pressure at your entrace escalates past comfortable levels, and you begin shifting violently, trying to prevent the swollen knot from pushing past and splitting you wide open.  \"<i>Ah, ah, god, [name], stop!  Don't thrash so!  You're teasing me too fast!</i>\"  Sheila's words are lost on you, sunken as you are into a hell of oversensitized skin and constant stimulation.  It feels like the nerves exposed to the torment are even multiplying, as if skin you weren't even feeling before suddenly appears to be immersed into the tainted slime.");
+	outputText("\n\nYour eyes roll in temporary shock as reaches under you to grip your buttock, increasing her leverage in an attempt to push the knot into you; the siege lifts slightly, as she withdraws her cock and begins pounding again allowing copious fluids to escape and liberally coat the entirety of your vagina.  Supported on one hand to steady herself with her free hand gripping your butt cheek you can see her two tails on her butt whip spastically as she pistons your cunt.  Staring, you can only watch as Sheila's thrashing continues to splash fluids all over your lower body.");
+	
+	outputText("\n\nAwareness comes to you slowly; that the knotted flesh at your entrance is slowly gaining grownd thanks to your and Sheila's fluids!");
+	outputText("  \"<i>Fuck, it's so tight!</i>\" the demon gasps, now resting on her elbow and face pressed to yours.  She jerks again, pulling her stalk free and releasing more of her backed-up fluids.  They cascade across your belly and across your pussy before getting under your bottom causing an absolutely sticky mess.");
+	
+	outputText("\n\nStill trying to jam her knot into your " + player.vaginaDescript(0) + " the burning has tapered off at your lips; while unable to seat the pressure at your entrance has dulled.  \"<i>Bloody hell, [name],</i>\" Sheila calls, forcing her elbows to straighten under her again.  \"<i>If it gets much thicker, you'll split in half when I finally get this in.</i>\"  Your mouth only opens dumbly at this.");
+	
+		outputText("\n\nShe pushes her self on to her hand, then turns to face you as she powerfully regrips your ass.  ");
+		if (!player.isTaur()) outputText("Taking your face into her hand, she closes your jaw and then leans in to plant a kiss on your chin.");
+		else outputText("Her eyes glitter with mirth.");
+		outputText("  \"<i>Why the look, mate?  Seems like you're saturated for now, and just in time.  This... is...</i>\"  She withdraws her doggy cock once more, then slides it back in, slowly.  \"<i>... perfect!</i>\"  As her knot seats itself at the entrance to your tight hole.  your eyes roll and her head drops, dragging her");
+		//[(horse)
+		if (player.isTaur()) outputText(" hair through the grass");
+		else if (player.biggestTitSize() >= 1) outputText(" face between your " + player.allBreastsDescript());
+		else outputText(" face along your flat chest");
+		outputText(".  \"<i>Ffuck, even your girl parts are amazing.</i>\"  Sheila plants kiss after kiss on your ");
+		if (!player.isTaur()) outputText("[chest]");
+		else outputText(player.buttDescript());
+		outputText(" as she shallowly pumps her otherwise bottomed out cock in and out just a few inches focusing on her knot's placement.  Your pelvis twitches uselessly; with her tail waving in the air instead of braced against her, controlling the pace of the fuck is beyond you.  \"<i>Naughty sheila,</i>\" she says, squeezing your wiggling hip with a hand.  You think privately that she could just as easily be talking about herself.  \"<i>You want to be tied don't you?  I think we can fit now.</i>\"");
+		//Picture is here
+		outputText(images.showImage("sheila-corrupted-anal"));
+		outputText("\n\nYour demon lover summons her unholy strength and pushes her hips through at the same time she pulls your ass into her.  The swollen base of her cock meat begins to part your sloppy pussy, attempting to once again plunge into your depths.  Despite the ubiquitous fluid, tight confines still obstruct her intruding knot, but are beginning to give way.  Heat overtakes your pussy lips once again from the painful friction between your pussy and Sheila's knot.  Soon, you can feel the hot sensation of the large mass of tissue pushing past the point of no return.  You try to scream, but to no avail as your pussy is painfully split open with each milimeter of depth her knot gains. \"<i>God... yes... fuck you, fuck my filthy knot, take it raw, take my whole dirty doggy cock out with your fat pussy, let's put a baby in that belly!</i>\"  Sheila's voice reaches the pitch of a scream as she finishes her demands.  \"<i>F-fuck!  I'm coming!</i>\"  She slumps forward as ");
+
+
+		outputText("thrusts hard, then pushes her knot into your pussy with a loud squelch.  \"<i>God, yes!</i>\"  An insane pressure shoots up through your whole birth canal as she seats her knot deep into your pussy.  You squirm and shake, your muscles cramp hard as your vagina clamps down on the full package.  Too much to bare, your demon lover climaxes, spraying your insides with white-hot demon cum.  The sudden internal heat is too much for you, and you answer her with a climax of your own.");
+
+		outputText("\n\nLost in a trance, you lose track of how long the copulation lasts, but fifteen minutes or more pass as her tied cock blasts rope after rope of spunk into your juicy receptacle.  With your entrance utterly plugged by her knot, it feels like the cum is beginning to pool in your womb - and only moments later you watch as your belly begins to round out to an obscene size.  You continue to come repeatedly as each blast of molten cum sets off another orgasm, your body drinking down the baby batter for all it's worth.  Sheila rubs her breasts, pinching and pulling them until you swear you can see them lengthen, while she thursts into you with choppy strokes her pulsing dog-cock still emptying its payload.");
+
+		outputText("\n\nSpent, she lays atop you for another ten minutes, panting, waiting for her knot to deflate then pushes herself up on to both hands.  Gingerly, she tugs at her cock still inside your abused pussy, then winces as her knot finally pulls free from your confines.  An audible \"<i>POP!</i>\" is heard, followed by a deluge of cum and your own secretions.  Now looking like a heavily pregnant woman, she runs her hand across your inflated belly \"<i>Simply beautiful, mate.  That ought to do the trick I reckon.</i>\"  She winks at you as she turns and departs, leaving a trail of black slime behind her.  As you slip into a doze, you wonder if your slowly deflating belly is a sign of things to come.  Did Sheila just get you pregnant?");
+	
+	player.orgasm('Vaginal');
+	dynStats("lib", -1, "sen", -2);
+	player.knockUp(PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 32, 61);
+	if (getGame().inCombat)
+		combat.cleanupAfterCombat();
+	else doNext(camp.returnToCampUseOneHour);
 }
 
 //Post-demon pregnancy notif (demon sheila = 1 and sheilapreg = 4)
@@ -4057,6 +4162,7 @@ private function pregDemonSheilaKnockUp():void {
 //thread into chosen scene with no new pg
 internal function loseToSheila(consensual:Boolean = false):void {
 	clearOutput();
+	flags[kFLAGS.SHELIA_DEMON_REJECTED] = 0;
 	//Loss - if PC manages to lose by HP somehow (overrides all other losses)
 	if (player.HP < 1 && !consensual) {
 		outputText("Your erstwhile opponent's eyes glimmer with excitement as you collapse from your injuries, and she runs over to you.  The demon strips off your [armor] eagerly, but you can't stay awake for the fun.  Consciousness slips away and you pass out.");

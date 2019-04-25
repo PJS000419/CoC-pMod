@@ -2383,8 +2383,8 @@ public static const TENTACLE_BEASTS_KILLED:int                                  
 public static const WORMS_MASS_KILLED:int                                           = 2375;
 public static const ACHIEVEMENT_PROGRESS_DAMAGE_SPONGE:int                          = 2376;
 public static const VAPULA_HIDING_DICK:int                                   		= 2377;
-public static const UNKNOWN_FLAG_NUMBER_02378:int                                   = 2378;
-public static const UNKNOWN_FLAG_NUMBER_02379:int                                   = 2379;
+public static const SHELIA_DEMON_BREED_PLAYER:int                                   = 2378;
+public static const SHELIA_DEMON_REJECTED:int                                   	= 2379;
 public static const UNKNOWN_FLAG_NUMBER_02380:int                                   = 2380;
 public static const UNKNOWN_FLAG_NUMBER_02381:int                                   = 2381;
 public static const UNKNOWN_FLAG_NUMBER_02382:int                                   = 2382;

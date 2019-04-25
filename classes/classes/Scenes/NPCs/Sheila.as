@@ -279,6 +279,7 @@ package classes.Scenes.NPCs
 		public function Sheila()
 		{
 			var sheilaDemon:Boolean = game.flags[kFLAGS.SHEILA_DEMON] == 1;
+			var sheilaWantsToBreedPlayer:Boolean = game.flags[kFLAGS.SHELIA_DEMON_BREED_PLAYER] == 1;
 			this.a = "";
 			this.short = "Sheila";
 			this.imageName = "sheila";
@@ -325,6 +326,14 @@ package classes.Scenes.NPCs
 				//-little higher difficulty than other plains fights, but not much
 				//-now totally okay with taking gems and riding the player so hard he passes out for 8 hours regardless
 				//-drops shitty kangaroo item and imp food
+				
+				if (sheilaWantsToBreedPlayer){
+					this.createCock(10,2,CockTypesEnum.DOG);
+					this.balls = 2;
+					this.ballSize = 2;
+					this.cumMultiplier = 3;
+					this.cocks[0].knotMultiplier = 1.5;
+				}
 			}
 			this.weaponName = "foot";
 			this.weaponVerb="kick";

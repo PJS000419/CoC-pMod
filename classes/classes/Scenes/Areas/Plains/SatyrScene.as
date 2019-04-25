@@ -211,10 +211,10 @@ package classes.Scenes.Areas.Plains
 			if (player.isNaga()) outputText("pins down your serpentine body");
 			else if (player.isBiped()) outputText("spreads your [legs]");
 			else outputText("pins you down");
-			outputText(" and reaches forward, probing for a vagina.  ");
-			if (player.hasVagina()) outputText("Upon finding one, he grins lustfully, his already impressively erect cock rising to full flag.");
+			outputText(" and reaches forward" + ((player.isVisiblyPregnant()) ? " forcefully pushing up your distended, pregnant belly" : "") +  ", probing for a vagina.  ");
+			if (player.hasVagina()) outputText("Upon finding one, he grins lustfully, his already impressively erect cock rising to full flag " + ((player.isVisiblyPregnant()) ? ", your pregnancy and the brood you carry of no concern to him" : "") +  ".");
 			else outputText("Finding you lacking that trait, he grunts disdainfully and probes roughly for an asshole, which he locates right between your buttcheeks where it belongs, then jerks himself with several strokes to help coax his masculinity to full erection.");
-			outputText("He grabs your [ass] and roughly squeezes your cheeks, kneeling down while lifting you up so he can impale your [vagOrAss].");
+			outputText("  He grabs your [ass] and roughly squeezes your cheeks, kneeling down while lifting you up so he can impale your [vagOrAss].");
 			
 			outputText("\n\nYou can only watch in lust and horror as his massive cock aligns with your hole.  Finally, with a grunt, he pushes forward and spears you mercilessly on his shaft");
 			if ((player.hasVagina() && player.vaginalCapacity() < monster.cockArea(0)) || (!player.hasVagina() && player.analCapacity() < monster.cockArea(0))) outputText(", not even bothered by the fact that his cock doesn't even fit inside you");
@@ -222,7 +222,8 @@ package classes.Scenes.Areas.Plains
 			//[cunt/buttchange]
 			if (player.hasVagina()) {
 				player.cuntChange(monster.cockArea(0), true, true, false);
-				outputText(images.showImage("satyr-sex-vag"));
+				if (player.isVisiblyPregnant()) outputText(images.showImage("satyr-sex-vag-preggo"));
+				else outputText(images.showImage("satyr-sex-vag"));
 			}
 			else {
 				player.buttChange(monster.cockArea(0), true, true, false);
@@ -230,26 +231,29 @@ package classes.Scenes.Areas.Plains
 			}
 			outputText("\n\nYou scream in pain and pleasure from the satyr's rough entry, and struggle in a vain attempt to escape his imposing shaft.");
 			
-			outputText("\n\nThe beast-man merely shifts his grip from your [butt] to your shoulders, grunting lewdly as he starts to roughly piston himself in and out of your abused orifice; he doesn't care anything about you, only that he can empty his aching, needy balls into your belly.");
+			outputText("\n\nThe beast-man merely shifts his grip from your [butt] to your shoulders, grunting lewdly as he starts to roughly piston himself in and out of your abused orifice; he doesn't care anything about you, only that he can empty his aching, needy balls into your [if (isPregnant = true)full] belly.");
 
 			outputText("\n\nYou moan in shame as you feel yourself growing ");
 			if (player.hasVagina()) outputText("wet ");
 			if (player.gender == 3) outputText("and ");
 			if (player.hasCock()) outputText("hard ");
 			if (player.gender == 0) outputText("aroused ");
-			outputText("from your rough fucking.  Beads of lubricant splatter about as his brutal thrusts rock you.  Each loud slap from his hips sends a wave of shock and pleasure quaking throughout your body, and you find yourself moaning each time.  The scent of sex grows so overpowering that it even manages to block the thick reek of alcohol emanating from your goat-like partner.");
+			outputText("from your rough fucking.  Beads of lubricant splatter about as his brutal thrusts rock you.  Each loud slap from his hips sends a wave of shock and pleasure quaking throughout your body, " + ((player.isVisiblyPregnant()) ? " the force causing your brood-gut to heave pendulously" : ", and you find yourself moaning each time") +  " .  The scent of sex grows so overpowering that it even manages to block the thick reek of alcohol emanating from your goat-like partner.");
 			
 			outputText("\n\nThe satyr's thrusts pick up the pace as he grows more excited at finally having a victim to fuck, his pumps cause his swollen nuts to slap meatily against your ass, rocking you in his strong, powerful arms.  He grunts and coughs in his throat; he's on the very verge of climax...");
-			outputText("\n\nYou scream as your [vagOrAss] clenches, strangling the satyr's cock in a vice-like grip.");
+			outputText("\n\nYou scream as your [vagOrAss] clenches, strangling the satyr's cock in a vice-like grip" + (((player.isVisiblyPregnant()) && player.lactationQ() > 0) ? ", your tits beginning to spray streams of milk from your pregnant udders" : "") +  ".");
 			if (player.hasCock()) outputText("  [EachCock] throbs as it send strings of cum flying straight into the satyr's chest, painting it white.");
 			if (player.hasVagina()) outputText("  A veritable flood of girlcum escapes the small space between your vaginal walls and the satyr's massive shaft, covering his balls and legs with your female fluids.");
 			
 			outputText("\n\nThe satyr barely notices your orgasm as his own climax finally hits, letting out a surprisingly bleat-like cry as he cums inside you, a torrent of thick, hot cum gushing into your body, flooding into your guts until the sheer quantity forces it into your ");
 			if (player.hasVagina()) outputText("womb");
 			else outputText("stomach");
-			outputText("; your belly begins to swell and bulge as he pumps liters of semen into you.");
+			outputText("; your" + ((player.isVisiblyPregnant()) ? " already impregnated belly beings to swell obscenely" : " your abdomen begins to swell and bulge") +  " as he pumps liters of semen into you.");
 			
-			outputText("\n\nFinally, by the time you look like a pregnant woman in her second trimester, he gives out a few last grunts and stops.  Messily he pulls out of you with an audible slurping sound, his cum-slicked cock dangling limply.  The beast grabs a wineskin from his belt, chugs down several mouthfuls and then belches, scratching his chest before loping away without a care in the world.");
+			outputText("\n\nFinally, by the time he stops you look like a" + ((player.isVisiblyPregnant()) ? " heavily pregnant woman carrying triplets" : " pregnant woman in her second trimester") +  ", he gives out a few last grunts and stops.  Messily he pulls out of you with an audible slurping sound, his cum-slicked cock dangling limply.  The beast grabs a wineskin from his belt, chugs down several mouthfuls and then belches, scratching his chest before loping away without a care in the world. ");
+			if (player.isVisiblyPregnant()) {
+		outputText("\n\nYou wonder what this will do to whatever is growing in your womb...  ");
+	}
 			
 			outputText("\n\nOnce you recover from your brutal fucking, you ");
 			if (player.cor < 50) outputText("shamefully ");
