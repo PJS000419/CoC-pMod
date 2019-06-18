@@ -14,7 +14,7 @@ package classes.Scenes.Areas.Desert {
 
 		public function SandWitchScene()
 		{
-			pregnancy = new PregnancyStore(kFLAGS.EGG_WITCH_TYPE, kFLAGS.EGG_WITCH_COUNTER, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.EGG_WITCH_TYPE, kFLAGS.EGG_WITCH_COUNTER, 0, 0, 0, 0);
 			pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_BEE_EGGS, 96);
 												//Event: 0 (= not pregnant), 1, 2 (< 96)
 			pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_DRIDER_EGGS, 96);

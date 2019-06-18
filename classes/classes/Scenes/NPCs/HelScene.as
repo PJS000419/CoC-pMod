@@ -13,7 +13,7 @@ package classes.Scenes.NPCs{
 
 		public function HelScene()
 		{
-			pregnancy = new PregnancyStore(kFLAGS.HELIA_PREGNANCY_TYPE, kFLAGS.HEL_PREGNANCY_INCUBATION, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.HELIA_PREGNANCY_TYPE, kFLAGS.HEL_PREGNANCY_INCUBATION, 0, 0, 0, 0);
 			pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_PLAYER, 300, 200, 100);
 												//Event: 0 (= not pregnant),  1,   2,   3,  4 (< 100)
 			CoC.timeAwareClassAdd(this);

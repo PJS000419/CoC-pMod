@@ -751,10 +751,10 @@ package classes.Scenes.NPCs
 			outputText("With a smile, you lean into her and rub your belly while whispering in her ear, \"<i>Like mother, like child.</i>\"\n\n");
 			outputText("Ceraph smiles, genuinely returning the expression, still a bit shaky from her own orgasm.");
 			
-			player.cuntChange(monster.cockArea(0), true);
+			player.cuntChange(monster.cockArea(1), true);
 			player.orgasm('Vaginal');
 			dynStats("lib", 3, "sen", 3,"cor", 1);
-			player.knockUp(PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 32, 61); //Ceraph causes faster pregnancies
+			player.secondWombKnockUp(PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP); //Ceraph causes faster pregnancies
 			doNext(camp.returnToCampUseOneHour);
 		}
 
@@ -2317,4 +2317,4 @@ package classes.Scenes.NPCs
 		}
 	}
 }
-
+

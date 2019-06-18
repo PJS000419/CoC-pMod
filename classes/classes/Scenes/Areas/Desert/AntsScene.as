@@ -58,7 +58,7 @@ package classes.Scenes.Areas.Desert
 
 		public function AntsScene()
 		{
-			pregnancy = new PregnancyStore(kFLAGS.PHYLLA_VAGINAL_PREGNANCY_TYPE, kFLAGS.PHYLLA_DRIDER_INCUBATION, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.PHYLLA_VAGINAL_PREGNANCY_TYPE, kFLAGS.PHYLLA_DRIDER_INCUBATION, 0, 0, 0, 0);
 			CoC.timeAwareClassAdd(this);
 		}
 

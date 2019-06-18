@@ -109,19 +109,28 @@ package classes
 		private var _pregnancyIncubationFlag:int;
 		private var _buttPregnancyTypeFlag:int;
 		private var _buttPregnancyIncubationFlag:int;
+		private var _secondWombPregnancyTypeFlag:int;
+		private var _secondWombPregnancyIncubationFlag:int;
 		private var _pregnancyEventValue:Vector.< Vector.<int> >; //Using a vector of vectors so that each different pregnancy type can have its own set of events
 		private var _buttPregnancyEventValue:Vector.< Vector.<int> >;
+		private var _secondWombPregnancyEventValue:Vector.< Vector.<int> >;
 		
 		//All the flags are passed through the constructor so that they can be different in every class that uses PregnancyStore but the pregnancy code remains the same
-		public function PregnancyStore(pregType:int, pregInc:int, buttPregType:int, buttPregInc:int) {
+		public function PregnancyStore(pregType:int, pregInc:int, buttPregType:int, buttPregInc:int, swPregType:int, swPregInc:int) {
 			_pregnancyTypeFlag = pregType;
 			_pregnancyIncubationFlag = pregInc;
 			_buttPregnancyTypeFlag = buttPregType;
 			_buttPregnancyIncubationFlag = buttPregInc;
+			_secondWombPregnancyTypeFlag = swPregType;
+			_secondWombPregnancyIncubationFlag = swPregInc;
 			_pregnancyEventValue = new Vector.< Vector.<int> >();
 			_buttPregnancyEventValue = new Vector.< Vector.<int> >();
-			if (pregType < 0 || pregType > MAX_FLAG_VALUE || pregInc < 0 || pregInc > MAX_FLAG_VALUE || buttPregType < 0 || buttPregType > MAX_FLAG_VALUE || buttPregInc < 0 || buttPregInc > MAX_FLAG_VALUE || pregType == buttPregType || pregInc == buttPregInc) {
-				CoC_Settings.error("Error: PregnancyStore created with invalid values for its flags. PregnancyStore(" + pregType + ", " + pregInc + ", " + buttPregType + ", " + buttPregInc + ")");
+			_secondWombPregnancyEventValue = new Vector.< Vector.<int> >();
+			if (pregType < 0 || pregType > MAX_FLAG_VALUE || pregInc < 0 || pregInc > MAX_FLAG_VALUE || 
+			buttPregType < 0 || buttPregType > MAX_FLAG_VALUE || buttPregInc < 0 || buttPregInc > MAX_FLAG_VALUE ||
+			swPregType < 0 || swPregType > MAX_FLAG_VALUE || swPregInc < 0 || swPregInc > MAX_FLAG_VALUE || 
+			pregType == buttPregType || pregInc == buttPregInc || swPregType == pregType || swPregInc == pregInc) {
+				CoC_Settings.error("Error: PregnancyStore created with invalid values for its flags. PregnancyStore(" + pregType + ", " + pregInc + ", " + buttPregType + ", " + buttPregInc + ", " + swPregType + ", " + swPregInc + ")");
 			}
 		}
 	
@@ -133,9 +142,15 @@ package classes
 
 		public function get buttIncubation():int { return (_buttPregnancyIncubationFlag == 0 ? 0 : kGAMECLASS.flags[_buttPregnancyIncubationFlag]); }
 		
+		public function get swType():int { return (_secondWombPregnancyTypeFlag == 0 ? 0 : kGAMECLASS.flags[_secondWombPregnancyTypeFlag] & PREG_TYPE_MASK); }
+
+		public function get swIncubation():int { return (_secondWombPregnancyIncubationFlag == 0 ? 0 : kGAMECLASS.flags[_secondWombPregnancyIncubationFlag]); }
+		
 		public function get isPregnant():Boolean { return type != 0; } //At birth the incubation can be zero so a check vs. type is safer
 
 		public function get isButtPregnant():Boolean { return buttType != 0; } //At birth the incubation can be zero so a check vs. type is safer
+		
+		public function get isSecondWombPregnant():Boolean { return swType != 0; } //At birth the incubation can be zero so a check vs. type is safer
 		
 		/* Using this function adds a series of events which happen during the pregnancy. They must be added in descending order (ex. 500, 450, 350, 225, 100, 25)
 		   to work properly. For NPCs who have multiple pregnancy types each type has its own set of events. Events can be used to see how far along the NPC
@@ -158,6 +173,17 @@ package classes
 			for (var i:int = 0; i < buttPregStage.length; i++) pregVector[i + 1] = buttPregStage[i];
 			pregVector[pregVector.length - 1] = -1; //Make last element -1 to ensure there is always a match
 			_buttPregnancyEventValue.push(pregVector);
+		}
+		
+		
+		//Same as addPregnancyEventSet, but for the second womb
+		public function addSecondWombPregnancyEventSet(swPregType:int, ... swPregStage):void
+		{
+			var pregVector:Vector.<int> = new Vector.<int>(swPregStage.length + 1);
+			pregVector[0] = swPregType; //First element is the second womb pregnancy type
+			for (var i:int = 0; i < swPregStage.length; i++) pregVector[i + 1] = swPregStage[i];
+			pregVector[pregVector.length - 1] = -1; //Make last element -1 to ensure there is always a match
+			_secondWombPregnancyEventValue.push(pregVector);
 		}
 		
 		public function knockUp(newPregType:int = 0, newPregIncubation:int = 0):void
@@ -187,6 +213,20 @@ package classes
 			kGAMECLASS.flags[_buttPregnancyTypeFlag] = newPregType;
 			kGAMECLASS.flags[_buttPregnancyIncubationFlag] = (newPregType == 0 ? 0 : newPregIncubation); //Won't allow incubation time without pregnancy type
 		}
+		
+		public function secondWombKnockUp(newPregType:int = 0, newPregIncubation:int = 0):void
+		{
+			if (!isPregnant) secondWombKnockUpForce(newPregType, newPregIncubation);
+		}
+		
+		public function secondWombKnockUpForce(newPregType:int = 0, newPregIncubation:int = 0):void
+		{
+			if (_secondWombPregnancyTypeFlag == 0 || _secondWombPregnancyIncubationFlag == 0) return; //Check that these variables were provided by the containing class
+			if (newPregType != 0) newPregType = (kGAMECLASS.flags[_secondWombPregnancyTypeFlag] & PREG_NOTICE_MASK) + newPregType;
+				//If a pregnancy 'continues' an existing pregnancy then do not change the value for last noticed stage
+			kGAMECLASS.flags[_secondWombPregnancyTypeFlag] = newPregType;
+			kGAMECLASS.flags[_secondWombPregnancyIncubationFlag] = (newPregType == 0 ? 0 : newPregIncubation); //Won't allow incubation time without pregnancy type
+		}
 
 		//The containing class is responsible for calling pregnancyAdvance, usually once per timeChange()
 		public function pregnancyAdvance():void //Separate function so it can be called more often than timeChange if neccessary
@@ -198,6 +238,10 @@ package classes
 			if (buttIncubation != 0) {
 				kGAMECLASS.flags[_buttPregnancyIncubationFlag]--;
 				if (kGAMECLASS.flags[_buttPregnancyIncubationFlag] < 0) kGAMECLASS.flags[_buttPregnancyIncubationFlag] = 0;
+			}
+			if (swIncubation != 0) {
+				kGAMECLASS.flags[_secondWombPregnancyIncubationFlag]--;
+				if (kGAMECLASS.flags[_secondWombPregnancyIncubationFlag] < 0) kGAMECLASS.flags[_secondWombPregnancyIncubationFlag] = 0;
 			}
 		}
 
@@ -238,6 +282,24 @@ package classes
 			}
 			return 1; //If there are no pregnancy events for this type of pregnancy then return 1
 		}
+		
+		//The same event system as for vaginal pregnacies, but for second wombs
+		public function get swEvent():int
+		{
+			var pregType:int = swType;
+			if (pregType == 0) return 0; //Not pregnant
+			var incubationValue:int = swIncubation;
+			var pregEventVector:Vector.<int> = null;
+			for (var i:int = 0; i < _secondWombPregnancyEventValue.length; i++) {
+				pregEventVector = _secondWombPregnancyEventValue[i];
+				if (pregEventVector[0] == pregType) {
+					for (var j:int = 1; j < pregEventVector.length; j++) { //Skip element zero, the pregnancy type
+						if (incubationValue > pregEventVector[j]) return j; //Will always find a value that is < incubationValue as last value is -1
+					}
+				}
+			}
+			return 1; //If there are no pregnancy events for this type of pregnancy then return 1
+		}
 
 		//Returns either zero - for no change - or the value of the new pregnancy event which the player has not yet noticed
 		//This function updates the noticed pregnancy event, so it only triggers once per event per pregnancy.
@@ -258,6 +320,17 @@ package classes
 			var lastNoticed:int = kGAMECLASS.flags[_buttPregnancyTypeFlag] & PREG_NOTICE_MASK;
 			if (currentStage * 65536 == lastNoticed) return 0; //Player has already noticed this stage
 			kGAMECLASS.flags[_buttPregnancyTypeFlag] = (kGAMECLASS.flags[_buttPregnancyTypeFlag] & PREG_TYPE_MASK) + (currentStage * 65536);
+				//Strip off the old noticed value by ANDing with PREG_TYPE_MASK
+			return currentStage;
+		}
+		
+		//Same as eventTriggered, but for butts
+		public function swEventTriggered():int
+		{
+			var currentStage:int = swEvent;
+			var lastNoticed:int = kGAMECLASS.flags[_secondWombPregnancyTypeFlag] & PREG_NOTICE_MASK;
+			if (currentStage * 65536 == lastNoticed) return 0; //Player has already noticed this stage
+			kGAMECLASS.flags[_secondWombPregnancyTypeFlag] = (kGAMECLASS.flags[_secondWombPregnancyTypeFlag] & PREG_TYPE_MASK) + (currentStage * 65536);
 				//Strip off the old noticed value by ANDing with PREG_TYPE_MASK
 			return currentStage;
 		}

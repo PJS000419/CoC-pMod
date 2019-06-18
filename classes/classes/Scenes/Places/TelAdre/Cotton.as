@@ -27,7 +27,7 @@ package classes.Scenes.Places.TelAdre {
 
 		public function Cotton(pregnancyProgression:PregnancyProgression)
 		{
-			pregnancy = new PregnancyStore(kFLAGS.COTTON_PREGNANCY_TYPE, kFLAGS.COTTON_PREGNANCY_INCUBATION, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.COTTON_PREGNANCY_TYPE, kFLAGS.COTTON_PREGNANCY_INCUBATION, 0, 0, 0, 0);
 			pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_PLAYER, 300, 200, 100, 40);
 												//Event: 0 (= not pregnant),  1,   2,   3,  4,  5 (< 40)
 			CoC.timeAwareClassAdd(this);

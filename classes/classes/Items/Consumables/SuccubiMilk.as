@@ -68,6 +68,14 @@ package classes.Items.Consumables
 			if (player.hasPerk(PerkLib.HistoryAlchemist)) rando += 10;
 			if (player.hasPerk(PerkLib.TransformationResistance)) rando -= 10;
 			clearOutput();
+			if (player.vaginas.length < 2){
+					player.createVagina();
+					player.vaginas[1].vaginalLooseness = Vagina.LOOSENESS_TIGHT;
+					player.vaginas[1].vaginalWetness = Vagina.WETNESS_NORMAL;
+					player.vaginas[1].virgin = true;
+					player.setClitLength(.25);
+					outputText("\n\nAn itching starts in your crotch and spreads vertically.  You reach down and discover an opening.  You have grown a <b>new " + player.vaginaDescript(1) + "</b>!");
+			}
 			if (player.cor < 35) outputText("You wonder why in the gods' names you would drink such a thing, but you have to admit, it is the best thing you have ever tasted.");
 			if (player.cor >= 35 && player.cor < 70) {
 				outputText("You savor the incredible flavor as you greedily gulp it down.");

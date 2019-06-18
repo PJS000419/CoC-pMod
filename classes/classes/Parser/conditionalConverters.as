@@ -83,7 +83,7 @@
 				"vaginalwetness"	: function():* {return  kGAMECLASS.player.wetness();},
 				"anallooseness"		: function():* {return  kGAMECLASS.player.ass.analLooseness;},
 				"buttrating"		: function():* {return  kGAMECLASS.player.butt.rating;},
-				"ispregnant"		: function():* {return  (kGAMECLASS.player.pregnancyIncubation > 0);},
+				"ispregnant"		: function():* {return  (kGAMECLASS.player.pregnancyIncubation > 0 );},
 				"isbuttpregnant"	: function():* {return  (kGAMECLASS.player.buttPregnancyIncubation > 0);},
 				"hasnipplecunts"	: function():* {return  kGAMECLASS.player.hasFuckableNipples();},
 				"totalnipples"		: function():* {return  kGAMECLASS.player.totalNipples();},

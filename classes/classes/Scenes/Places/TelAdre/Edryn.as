@@ -18,7 +18,7 @@ package classes.Scenes.Places.TelAdre {
 
 		public function Edryn()
 		{
-			pregnancy = new PregnancyStore(kFLAGS.EDRYN_PREGNANCY_TYPE, kFLAGS.EDRYN_PREGNANCY_INCUBATION, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.EDRYN_PREGNANCY_TYPE, kFLAGS.EDRYN_PREGNANCY_INCUBATION, 0, 0, 0, 0);
 			CoC.timeAwareClassAdd(this);
 		}
 

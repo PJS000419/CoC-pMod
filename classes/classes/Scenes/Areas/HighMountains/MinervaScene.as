@@ -14,7 +14,7 @@ package classes.Scenes.Areas.HighMountains {
 		public var pregnancy:PregnancyStore;
 		
 		public function MinervaScene(pregnancyProgression:PregnancyProgression, output:GuiOutput) {
-			pregnancy = new PregnancyStore(kFLAGS.MINERVA_PREGNANCY_TYPE, kFLAGS.MINERVA_PREGNANCY_INCUBATION, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.MINERVA_PREGNANCY_TYPE, kFLAGS.MINERVA_PREGNANCY_INCUBATION, 0, 0, 0, 0);
 			pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_PLAYER, 216, 144, 72);
 			CoC.timeAwareClassAdd(this);
 			
