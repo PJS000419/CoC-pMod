@@ -24,6 +24,12 @@ package classes
 
 		private var _pregnancyIncubation:int = 0;
 		public function get pregnancyIncubation():int { return _pregnancyIncubation; }
+		
+		private var _secondWombPregnancyType:int = 0;
+		public function get secondWombPregnancyType():int { return _secondWombPregnancyType; }
+
+		private var _secondWombPregnancyIncubation:int = 0;
+		public function get secondWombPregnancyIncubation():int { return _secondWombPregnancyIncubation; }
 
 		private var _buttPregnancyType:int = 0;
 		public function get buttPregnancyType():int { return _buttPregnancyType; }
@@ -366,16 +372,19 @@ package classes
 
 		public function isButtPregnant():Boolean { return _buttPregnancyType != 0; }
 		
+		public function isSecondWombPregnant():Boolean { return _secondWombPregnancyType != 0; } 
+		
 		/**
 		 * Check how far along (how big) the character is
 		 * used for descriptive purposes
 		 */
 		
 		public function isVisiblyPregnant():Boolean {
+			var player:Player = kGAMECLASS.player;
 			
 			if (isPregnant()){
-				if (_pregnancyType == PregnancyStore.INCUBATION_IMP_HORDE || _pregnancyType == PregnancyStore.PREGNANCY_BEHEMOTH) return true;
-				else if (_pregnancyIncubation <= 300 || _buttPregnancyIncubation <= 300) return true; 
+				if (player.hasPerk(PerkLib.DoubleWomb) || _pregnancyType == PregnancyStore.INCUBATION_IMP_HORDE || _pregnancyType == PregnancyStore.PREGNANCY_BEHEMOTH) return true;
+				else if (_pregnancyIncubation <= 300 || _buttPregnancyIncubation <= 300 || _secondWombPregnancyIncubation <= 300) return true; 
 				else return false; 
 			}
 			else{
@@ -431,7 +440,48 @@ package classes
 				}
 			}
 		}
+		
+		public function secondWombKnockUp(type:int = 0, incubationDuration:int = 0, maxRoll:int = 100, forcePregnancy:int = 0):void
+		{
+			//TODO push this down into player?
+			//Contraceptives cancel!
+			if (hasStatusEffect(StatusEffects.Contraceptives) && forcePregnancy < 1)
+				return;
+				
+			var bonus:int = 0;
+			
+			// apply fertility bonus or malus
+			if (forcePregnancy >= 1)
+				bonus = 9000;
+			if (forcePregnancy <= -1)
+				bonus = -9000;
+				
+			//If not pregnant and fertility wins out:
+			if (secondWombPregnancyIncubation == 0 && totalFertility() + bonus > Math.floor(Math.random() * maxRoll) && hasVagina())
+			{
+				secondWombKnockUpForce(type, incubationDuration);
+				//trace("PC Knocked up with pregnancy type: " + type + " for " + incubationDuration + " incubation.");
+			}
+			
+			//Chance for eggs fertilization - ovi elixir and imps excluded!
+			if (type != PregnancyStore.PREGNANCY_IMP && type != PregnancyStore.PREGNANCY_OVIELIXIR_EGGS && type != PregnancyStore.PREGNANCY_ANEMONE)
+			{
+				if (findPerk(PerkLib.SpiderOvipositor) >= 0 || findPerk(PerkLib.BeeOvipositor) >= 0)
+				{
+					if (totalFertility() + bonus > Math.floor(Math.random() * maxRoll))
+					{
+						fertilizeEggs();
+					}
+				}
+			}
+		}
 
+		//The more complex buttKnockUp function used by the player is defined in Character.as
+		public function secondWombKnockUpForce(type:int = 0, incubationDuration:int = 0):void
+		{
+			_secondWombPregnancyType = type;
+			_secondWombPregnancyIncubation = (type == 0 ? 0 : incubationDuration); //Won't allow incubation time without pregnancy type
+		}
 
 		
 		 /**
@@ -480,6 +530,8 @@ package classes
 		public function pregnancyAdvance():Boolean {
 			if (_pregnancyIncubation > 0) _pregnancyIncubation--;
 			if (_pregnancyIncubation < 0) _pregnancyIncubation = 0;
+			if (_secondWombPregnancyIncubation > 0) _secondWombPregnancyIncubation--;
+			if (_secondWombPregnancyIncubation < 0) _secondWombPregnancyIncubation = 0;
 			if (_buttPregnancyIncubation > 0) _buttPregnancyIncubation--;
 			if (_buttPregnancyIncubation < 0) _buttPregnancyIncubation = 0;
 			return pregnancyUpdate();

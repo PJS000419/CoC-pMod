@@ -17,7 +17,7 @@ package classes.Scenes.Areas.Swamp
 
 		public function FemaleSpiderMorphScene()
 		{
-			pregnancy = new PregnancyStore(kFLAGS.FEMALE_SPIDERMORPH_PREGNANCY_TYPE, kFLAGS.FEMALE_SPIDERMORPH_PREGNANCY_INCUBATION, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.FEMALE_SPIDERMORPH_PREGNANCY_TYPE, kFLAGS.FEMALE_SPIDERMORPH_PREGNANCY_INCUBATION, 0, 0, 0, 0);
 			pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_PLAYER, 100);
 												//Event: 0 (= not pregnant),  1,  2 (< 100)
 			CoC.timeAwareClassAdd(this);

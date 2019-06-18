@@ -392,6 +392,8 @@ package classes
 		public static const BroodMother:PerkType = mk("Brood Mother", "Brood Mother",
 				"Pregnancy moves twice as fast as a normal woman's.");
 		public static const SpellcastingAffinity:SpellcastingAffinityPerk = new SpellcastingAffinityPerk();
+		public static const DoubleWomb:PerkType = mk("Double Womb", "Double Womb",
+				"You have two vaginas and are able to gestate two pregnancies simultaneously.");
 
 		// Mutation perks
 		public static const Androgyny:PerkType = mk("Androgyny", "Androgyny",

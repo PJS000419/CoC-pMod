@@ -19,7 +19,7 @@ package classes.Scenes.NPCs
 		//-Has PC raped her?
 		
 		public function IsabellaScene() {
-			pregnancy = new PregnancyStore(kFLAGS.ISABELLA_PREGNANCY_TYPE, kFLAGS.ISABELLA_PREGNANCY_INCUBATION, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.ISABELLA_PREGNANCY_TYPE, kFLAGS.ISABELLA_PREGNANCY_INCUBATION, 0, 0, 0, 0);
 			pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_PLAYER, 2160, 1920, 1680, 1440, 1200, 960, 720, 480, ISABELLA_PREGNANCY_LAST_STAGE);
 			CoC.timeAwareClassAdd(this);
 		}
@@ -1588,4 +1588,4 @@ package classes.Scenes.NPCs
 			doNext(camp.returnToCampUseOneHour);
 		}
 	}
-}
+}

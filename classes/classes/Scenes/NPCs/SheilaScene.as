@@ -80,7 +80,7 @@
 
 		public function SheilaScene()
 		{
-			pregnancy = new PregnancyStore(kFLAGS.SHEILA_PREGNANCY_TYPE, kFLAGS.SHEILA_PREGNANCY_INCUBATION, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.SHEILA_PREGNANCY_TYPE, kFLAGS.SHEILA_PREGNANCY_INCUBATION, 0, 0, 0, 0);
 			CoC.timeAwareClassAdd(this);
 		}
 
@@ -5413,3 +5413,4 @@ incubus draft: Sheila won't take it unless the player agrees to give up the ques
 */
 }
 }
+

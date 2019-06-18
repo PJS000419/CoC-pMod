@@ -1093,9 +1093,21 @@ package classes
 			if (player.hasStatusEffect(StatusEffects.GooStuffed))
 			{
 				outputText("\n<b>Your gravid-looking belly is absolutely stuffed full of goo. There's no way you can get pregnant like this, but at the same time, you look like some fat-bellied breeder.</b>\n");
+			}			
+			if (player.hasPerk(PerkLib.DoubleWomb)) {
+				if (!player.isButtPregnant() && !player.isPregnant() && !player.isSecondWombPregnant())
+					{
+						outputText("<b>Your belly is perpetually rounded from housing two wombs and two sets of reproductive equipment.</b>");
+					}
+				else
+				{
+					if (player.isPregnant() && player.isSecondWombPregnant()){
+						
+					}
+				}
 			}
 			//Pregnancy Shiiiiiitz
-			if ((player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) || (player.buttPregnancyType == PregnancyStore.PREGNANCY_SATYR) || player.isPregnant())
+			else if ((player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) || (player.buttPregnancyType == PregnancyStore.PREGNANCY_SATYR) || player.isPregnant())
 			{
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_OVIELIXIR_EGGS)
 				{
@@ -1229,31 +1241,31 @@ package classes
 				}
 				else 
 				{
-					if (player.pregnancyIncubation <= 336 && player.pregnancyIncubation > 280)
+					if ((player.pregnancyIncubation <= 336 && player.pregnancyIncubation > 280) || (player.secondWombPregnancyIncubation <= 336 && player.secondWombPregnancyIncubation > 280))
 					{
 						outputText("<b>Your belly is larger than it used to be.</b>");
 					}
-					if (player.pregnancyIncubation <= 280 && player.pregnancyIncubation > 216)
+					if ((player.pregnancyIncubation <= 280 && player.pregnancyIncubation > 216) || (player.secondWombPregnancyIncubation <= 280 && player.secondWombPregnancyIncubation > 216))
 					{
 						outputText("<b>Your belly is more noticeably distended.   You are probably pregnant.</b>");
 					}
-					if (player.pregnancyIncubation <= 216 && player.pregnancyIncubation > 180)
+					if ((player.pregnancyIncubation <= 216 && player.pregnancyIncubation > 180) || (player.secondWombPregnancyIncubation <= 216 && player.secondWombPregnancyIncubation > 180))
 					{
 						outputText("<b>The unmistakable bulge of pregnancy is visible in your tummy.</b>");
 					}
-					if (player.pregnancyIncubation <= 180 && player.pregnancyIncubation > 120)
+					if ((player.pregnancyIncubation <= 180 && player.pregnancyIncubation > 120) || (player.secondWombPregnancyIncubation <= 180 && player.secondWombPregnancyIncubation > 120))
 					{
 						outputText("<b>Your belly is very obviously pregnant to anyone who looks at you.</b>");
 					}
-					if (player.pregnancyIncubation <= 120 && player.pregnancyIncubation > 72)
+					if ((player.pregnancyIncubation <= 120 && player.pregnancyIncubation > 72) || (player.secondWombPregnancyIncubation <= 120 && player.secondWombPregnancyIncubation > 72))
 					{
 						outputText("<b>It would be impossible to conceal your growing pregnancy from anyone who glanced your way.</b>");
 					}
-					if (player.pregnancyIncubation <= 72 && player.pregnancyIncubation > 48)
+					if ((player.pregnancyIncubation <= 72 && player.pregnancyIncubation > 48) || (player.secondWombPregnancyIncubation <= 72 && player.secondWombPregnancyIncubation > 48))
 					{
 						outputText("<b>Your stomach is painfully distended by your pregnancy, making it difficult to walk normally.</b>");
 					}
-					if (player.pregnancyIncubation <= 48)
+					if (player.pregnancyIncubation <= 48 || player.secondWombPregnancyIncubation <= 48)
 					{ //Surely Benoit and Cotton deserve their place in this list
 						if (player.pregnancyType == PregnancyStore.PREGNANCY_IZMA || player.pregnancyType == PregnancyStore.PREGNANCY_MOUSE || player.pregnancyType == PregnancyStore.PREGNANCY_AMILY || (player.pregnancyType == PregnancyStore.PREGNANCY_JOJO && flags[kFLAGS.JOJO_STATUS] <= 0) || player.pregnancyType == PregnancyStore.PREGNANCY_EMBER || player.pregnancyType == PregnancyStore.PREGNANCY_BENOIT || player.pregnancyType == PregnancyStore.PREGNANCY_COTTON || player.pregnancyType == PregnancyStore.PREGNANCY_URTA || player.pregnancyType == PregnancyStore.PREGNANCY_MINERVA || player.pregnancyType == PregnancyStore.PREGNANCY_BEHEMOTH)
 							outputText("\n<b>Your belly protrudes unnaturally far forward, bulging with the spawn of one of this land's natives.</b>");
@@ -1443,88 +1455,101 @@ package classes
 					outputText("\nYour womanly parts have shifted to lie between your hind legs, in a rather feral fashion.");
 				outputText("\n");
 				if (player.vaginas.length == 1)
-					outputText("You have a " + player.vaginaDescript(0) + ", with a " + inchesOrCentimetres(player.getClitLength()) + " clit");
-				if (player.vaginas[0].virgin)
-					outputText(" and an intact hymen"); // Wait, won't this fuck up, with multiple vaginas?
-				outputText(".  ");
-				if (player.vaginas.length > 1)
-					outputText("You have " + player.vaginas.length+ " " + player.vaginaDescript(0) + "s, with " + inchesOrCentimetres(player.getClitLength()) + "-centimetre clits each.  ");
-				if (player.lib100 < 50 && player.lust100 < 50) //not particularly horny
+					outputText("You have a " + player.vaginaDescript(0) + ", with a " + inchesOrCentimetres(player.getClitLength()) + " clit " + ((player.vaginas[0].virgin) ? "and an intact hymen" : "") + ".");
+				else if (player.vaginas.length > 1)
+					outputText("\nWhere a vagina would normally be located, you have instead grown a tandem pair with matching lips, clits, and all the <i>other</i> accessories!\n");
+				for (var vagina_index:int = 0; vagina_index < player.vaginas.length; vagina_index++) 
+				{
+						rando++;
+
+					// How to start the sentence?
+					if  (player.vaginas.length == 1)  outputText("Your");
+					else if (vagina_index == 0)      outputText("--Your first");
+					else if (rando % 5 == 0)       outputText("  The next");
+					else if (rando % 5 == 1)       outputText("  The " + num2Text2(vagina_index+1));
+					else if (rando % 5 == 2)       outputText("  Your other");
+					
+					outputText(" " + player.vaginaDescript(vagina_index) + ((vagina_index == 1 && player.vaginas[vagina_index].virgin) ? " is a virgin pussy with an intact hymen and" : "") + " has a " + inchesOrCentimetres(player.getClitLength()) + " clit.  ");
+					
+					if (player.lib100 < 50 && player.lust100 < 50) //not particularly horny
 
 				{
 					//Wetness
-					if (player.vaginas[0].vaginalWetness >= Vagina.WETNESS_WET && player.vaginas[0].vaginalWetness< Vagina.WETNESS_DROOLING)
+					if (player.vaginas[vagina_index].vaginalWetness >= Vagina.WETNESS_WET && player.vaginas[vagina_index].vaginalWetness< Vagina.WETNESS_DROOLING)
 						outputText("Moisture gleams in ");
-					if (player.vaginas[0].vaginalWetness>= Vagina.WETNESS_DROOLING)
+					if (player.vaginas[vagina_index].vaginalWetness>= Vagina.WETNESS_DROOLING)
 					{
 						outputText("Occasional beads of ");
 						outputText("lubricant drip from ");
 					}
 					//Different description based on vag looseness
-					if (player.vaginas[0].vaginalWetness>= Vagina.WETNESS_WET)
+					if (player.vaginas[vagina_index].vaginalWetness>= Vagina.WETNESS_WET)
 					{
-						if (player.vaginas[0].vaginalLooseness< Vagina.LOOSENESS_LOOSE)
-							outputText("your " + player.vaginaDescript(0) + ". ");
-						if (player.vaginas[0].vaginalLooseness>= Vagina.LOOSENESS_LOOSE && player.vaginas[0].vaginalLooseness< Vagina.LOOSENESS_GAPING_WIDE)
-							outputText("your " + player.vaginaDescript(0) + ", its lips slightly parted. ");
-						if (player.vaginas[0].vaginalLooseness>= Vagina.LOOSENESS_GAPING_WIDE)
-							outputText("the massive hole that is your " + player.vaginaDescript(0) + ".  ");
+						if (player.vaginas[vagina_index].vaginalLooseness< Vagina.LOOSENESS_LOOSE)
+							outputText("your " + player.vaginaDescript(vagina_index) + ". ");
+						if (player.vaginas[vagina_index].vaginalLooseness>= Vagina.LOOSENESS_LOOSE && player.vaginas[vagina_index].vaginalLooseness< Vagina.LOOSENESS_GAPING_WIDE)
+							outputText("your " + player.vaginaDescript(vagina_index) + ", its lips slightly parted. ");
+						if (player.vaginas[vagina_index].vaginalLooseness>= Vagina.LOOSENESS_GAPING_WIDE)
+							outputText("the massive hole that is your " + player.vaginaDescript(vagina_index) + ".  ");
 					}
 				}
 				if ((player.lib100>=50 || player.lust100 >=50) && (player.lib100< 80 && player.lust100 < 80)) //kinda horny
 
 				{
 					//Wetness
-					if (player.vaginas[0].vaginalWetness< Vagina.WETNESS_WET)
+					if (player.vaginas[vagina_index].vaginalWetness< Vagina.WETNESS_WET)
 						outputText("Moisture gleams in ");
-					if (player.vaginas[0].vaginalWetness>= Vagina.WETNESS_WET && player.vaginas[0].vaginalWetness< Vagina.WETNESS_DROOLING)
+					if (player.vaginas[vagina_index].vaginalWetness>= Vagina.WETNESS_WET && player.vaginas[vagina_index].vaginalWetness< Vagina.WETNESS_DROOLING)
 					{
 						outputText("Occasional beads of ");
 						outputText("lubricant drip from ");
 					}
-					if (player.vaginas[0].vaginalWetness>= Vagina.WETNESS_DROOLING)
+					if (player.vaginas[vagina_index].vaginalWetness>= Vagina.WETNESS_DROOLING)
 					{
 						outputText("Thin streams of ");
 						outputText("lubricant occasionally dribble from ");
 					}
 					//Different description based on vag looseness
-					if (player.vaginas[0].vaginalLooseness< Vagina.LOOSENESS_LOOSE)
-						outputText("your " + player.vaginaDescript(0) + ". ");
-					if (player.vaginas[0].vaginalLooseness>= Vagina.LOOSENESS_LOOSE && player.vaginas[0].vaginalLooseness< Vagina.LOOSENESS_GAPING_WIDE)
-						outputText("your " + player.vaginaDescript(0) + ", its lips slightly parted. ");
-					if (player.vaginas[0].vaginalLooseness>= Vagina.LOOSENESS_GAPING_WIDE)
-						outputText("the massive hole that is your " + player.vaginaDescript(0) + ".  ");
+					if (player.vaginas[vagina_index].vaginalLooseness< Vagina.LOOSENESS_LOOSE)
+						outputText("your " + player.vaginaDescript(vagina_index) + ". ");
+					if (player.vaginas[vagina_index].vaginalLooseness>= Vagina.LOOSENESS_LOOSE && player.vaginas[vagina_index].vaginalLooseness< Vagina.LOOSENESS_GAPING_WIDE)
+						outputText("your " + player.vaginaDescript(vagina_index) + ", its lips slightly parted. ");
+					if (player.vaginas[vagina_index].vaginalLooseness>= Vagina.LOOSENESS_GAPING_WIDE)
+						outputText("the massive hole that is your " + player.vaginaDescript(vagina_index) + ".  ");
 				}
 				if ((player.lib100> 80 || player.lust100 > 80)) //WTF horny!
 
 				{
 					//Wetness
-					if (player.vaginas[0].vaginalWetness< Vagina.WETNESS_WET)
+					if (player.vaginas[vagina_index].vaginalWetness< Vagina.WETNESS_WET)
 
 					{
 						outputText("Occasional beads of ");
 						outputText("lubricant drip from ");
 					}
-					if (player.vaginas[0].vaginalWetness>= Vagina.WETNESS_WET && player.vaginas[0].vaginalWetness< Vagina.WETNESS_DROOLING)
+					if (player.vaginas[vagina_index].vaginalWetness>= Vagina.WETNESS_WET && player.vaginas[vagina_index].vaginalWetness< Vagina.WETNESS_DROOLING)
 
 					{
 						outputText("Thin streams of ");
 						outputText("lubricant occasionally dribble from ");
 					}
-					if (player.vaginas[0].vaginalWetness>= Vagina.WETNESS_DROOLING)
+					if (player.vaginas[vagina_index].vaginalWetness>= Vagina.WETNESS_DROOLING)
 
 					{
 						outputText("Thick streams of ");
 						outputText("lubricant drool constantly from ");
 					}
 					//Different description based on vag looseness
-					if (player.vaginas[0].vaginalLooseness< Vagina.LOOSENESS_LOOSE)
-						outputText("your " + player.vaginaDescript(0) + ". ");
-					if (player.vaginas[0].vaginalLooseness>= Vagina.LOOSENESS_LOOSE && player.vaginas[0].vaginalLooseness< Vagina.LOOSENESS_GAPING_WIDE)
-						outputText("your " + player.vaginaDescript(0) + ", its lips slightly parted. ");
-					if (player.vaginas[0].vaginalLooseness>= Vagina.LOOSENESS_GAPING_WIDE)
+					if (player.vaginas[vagina_index].vaginalLooseness< Vagina.LOOSENESS_LOOSE)
+						outputText("your " + player.vaginaDescript(vagina_index) + ". ");
+					if (player.vaginas[vagina_index].vaginalLooseness>= Vagina.LOOSENESS_LOOSE && player.vaginas[vagina_index].vaginalLooseness< Vagina.LOOSENESS_GAPING_WIDE)
+						outputText("your " + player.vaginaDescript(vagina_index) + ", its lips slightly parted. ");
+					if (player.vaginas[vagina_index].vaginalLooseness>= Vagina.LOOSENESS_GAPING_WIDE)
 						outputText("the massive hole that is your cunt.  ");
+					}
+
 				}
+		
 				//Line Drop for next descript!
 				outputText("\n");
 			}

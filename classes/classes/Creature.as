@@ -3616,7 +3616,7 @@ import flash.errors.IllegalOperationError;
 		
 		public function vaginaDescript(idx:int = 0):String
 		{
-			return Appearance.vaginaDescript(this, 0);
+			return Appearance.vaginaDescript(this, idx);
 		}
 
 		public function allVaginaDescript():String {

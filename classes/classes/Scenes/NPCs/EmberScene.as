@@ -64,7 +64,7 @@ package classes.Scenes.NPCs
 
 		public function EmberScene(pregnancyProgression:PregnancyProgression)
 		{
-			pregnancy = new PregnancyStore(kFLAGS.EMBER_PREGNANCY_TYPE, kFLAGS.EMBER_INCUBATION, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.EMBER_PREGNANCY_TYPE, kFLAGS.EMBER_INCUBATION, 0, 0, 0, 0);
 			pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_PLAYER, 330, 270, 200, 180, 100, 75, 48, 15);
 												//Event: 0 (= not pregnant),  1,   2,   3,   4,   5,  6,  7,  8 (< 15)
 			CoC.timeAwareClassAdd(this);

@@ -43,7 +43,7 @@ Every encounter raises corruption by 5, except the last one that raises corrupti
 
 		public function Kelly()
 		{
-			pregnancy = new PregnancyStore(kFLAGS.KELLY_PREGNANCY_TYPE, kFLAGS.KELLY_INCUBATION, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.KELLY_PREGNANCY_TYPE, kFLAGS.KELLY_INCUBATION, 0, 0, 0, 0);
 			pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_PLAYER, 280, 200, 100);
 												//Event: 0 (= not pregnant),  1,   2,   3,  4 (< 100)
 			CoC.timeAwareClassAdd(this);
@@ -2265,3 +2265,4 @@ private function kellyBJsAhoy():void {
 }
 }
 }
+

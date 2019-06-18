@@ -27,7 +27,7 @@ public class IzmaScene extends NPCAwareContent implements TimeAwareInterface, En
 		
 		public function IzmaScene(pregnancyProgression:PregnancyProgression, output:GuiOutput)
 		{
-			pregnancy = new PregnancyStore(kFLAGS.IZMA_PREGNANCY_TYPE, kFLAGS.IZMA_INCUBATION, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.IZMA_PREGNANCY_TYPE, kFLAGS.IZMA_INCUBATION, 0, 0, 0, 0);
 			pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_PLAYER, 250, 200, 150, 100, 50);
 												//Event: 0 (= not pregnant),  1,   2,   3,   4,  5,  6 (< 50)
 			CoC.timeAwareClassAdd(this);

@@ -54,7 +54,7 @@ Males:
 
 		public function TamaniScene()
 		{
-			pregnancy = new PregnancyStore(kFLAGS.TAMANI_PREGNANCY_TYPE, kFLAGS.TAMANI_PREGNANCY_INCUBATION, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.TAMANI_PREGNANCY_TYPE, kFLAGS.TAMANI_PREGNANCY_INCUBATION, 0, 0, 0, 0);
 			pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_PLAYER, 96, 48);
 												//Event: 0 (= not pregnant), 1,  2,  3 (< 48)
 			CoC.timeAwareClassAdd(this);

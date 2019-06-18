@@ -53,7 +53,7 @@ package classes.Scenes.Areas.Forest{
 
 		public function TamainsDaughtersScene()
 		{
-			pregnancy = new PregnancyStore(kFLAGS.TAMANI_DAUGHTERS_PREGNANCY_TYPE, kFLAGS.TAMANI_DAUGHTER_PREGGO_COUNTDOWN, 0, 0);
+			pregnancy = new PregnancyStore(kFLAGS.TAMANI_DAUGHTERS_PREGNANCY_TYPE, kFLAGS.TAMANI_DAUGHTER_PREGGO_COUNTDOWN, 0, 0, 0, 0);
 			CoC.timeAwareClassAdd(this);
 		}
 

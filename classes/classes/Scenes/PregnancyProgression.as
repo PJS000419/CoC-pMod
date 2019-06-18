@@ -166,14 +166,16 @@ package classes.Scenes
 		{
 			var displayedUpdate:Boolean = false;
 			var pregText:String = "";
-			if ((player.pregnancyIncubation <= 0 && player.buttPregnancyIncubation <= 0) ||
-				(player.pregnancyType === 0 && player.buttPregnancyType === 0)) {
+			if ((player.pregnancyIncubation <= 0 && player.buttPregnancyIncubation <= 0 && player.secondWombPregnancyIncubation <= 0 ) ||
+				(player.pregnancyType === 0 && player.buttPregnancyType === 0 && player.secondWombPregnancyType === 0)) {
 				return false;
 			}
 
 			displayedUpdate = cancelHeat();
 			
 			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation < 2) player.knockUpForce(player.pregnancyType, 1);
+			
+			if (player.secondWombPregnancyIncubation > 0 && player.secondWombPregnancyIncubation < 2) player.secondWombKnockUpForce(player.secondWombPregnancyType, 1);
 			//IF INCUBATION IS VAGINAL
 			if (player.pregnancyIncubation > 1) {
 				displayedUpdate = updateVaginalPregnancy(displayedUpdate);
@@ -181,6 +183,10 @@ package classes.Scenes
 			//IF INCUBATION IS ANAL
 			if (player.buttPregnancyIncubation > 1) {
 				displayedUpdate = updateAnalPregnancy(displayedUpdate);
+			}
+			//IF INCUBATION IS IN THE SECOND WOMB
+			if (player.secondWombPregnancyIncubation > 1) {
+				displayedUpdate = updateVaginalPregnancy(displayedUpdate);
 			}
 			
 			amilyPregnancyFailsafe();
@@ -191,6 +197,10 @@ package classes.Scenes
 			
 			if (player.buttPregnancyIncubation === 1) {
 				displayedUpdate = updateAnalBirth(displayedUpdate);
+			}
+			
+			if (player.secondWombPregnancyIncubation === 1) {
+				displayedUpdate = updateVaginalBirth(displayedUpdate);
 			}
 
 			return displayedUpdate;
@@ -221,6 +231,11 @@ package classes.Scenes
 			if (hasRegisteredVaginalScene(PregnancyStore.PREGNANCY_PLAYER, player.pregnancyType)) {
 				var scene:VaginalPregnancy = vaginalPregnancyScenes[player.pregnancyType] as VaginalPregnancy;
 				LOGGER.debug("Updating pregnancy for mother {0}, father {1} by using class {2}", PregnancyStore.PREGNANCY_PLAYER, player.pregnancyType, scene);
+				return scene.updateVaginalPregnancy();
+			} 
+			if (hasRegisteredVaginalScene(PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType)) {
+				var scene:VaginalPregnancy = vaginalPregnancyScenes[player.secondWombPregnancyType] as VaginalPregnancy;
+				LOGGER.debug("Updating pregnancy for mother {0}, father {1} by using class {2}", PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType, scene);
 				return scene.updateVaginalPregnancy();
 			} else {
 				LOGGER.debug("Could not find a mapped vaginal pregnancy for mother {0}, father {1} - using legacy pregnancy progression", PregnancyStore.PREGNANCY_PLAYER, player.pregnancyType);;
@@ -286,6 +301,26 @@ package classes.Scenes
 			if (hasRegisteredVaginalScene(PregnancyStore.PREGNANCY_PLAYER, player.pregnancyType)) {
 				var scene:VaginalPregnancy = vaginalPregnancyScenes[player.pregnancyType] as VaginalPregnancy;
 				LOGGER.debug("Updating vaginal birth for mother {0}, father {1} by using class {2}", PregnancyStore.PREGNANCY_PLAYER, player.pregnancyType, scene);
+				
+				
+				scene.vaginalBirth();
+				
+				// Imp Horde pregnancy carries multiple in a brood
+				if (player.pregnancyType === PregnancyStore.PREGNANCY_IMP_HORDE) {					
+					for (var i:int = rand(3) + 3; i > 0; i--) {
+						giveBirth();					
+					}
+				}
+				
+				// TODO find a cleaner way to solve this
+				// ignores Benoit pregnancy because that is a special case
+				else if (player.pregnancyType !== PregnancyStore.PREGNANCY_BENOIT) {
+					giveBirth();
+				}
+			} 
+			if (hasRegisteredVaginalScene(PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType)) {
+				var scene:VaginalPregnancy = vaginalPregnancyScenes[player.secondWombPregnancyType] as VaginalPregnancy;
+				LOGGER.debug("Updating vaginal birth for mother {0}, father {1} by using class {2}", PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType, scene);
 				
 				
 				scene.vaginalBirth();
