@@ -21,6 +21,13 @@ package classes.Scenes
 		
 		/**
 		 * This sensing variable is used by tests to detect if
+		 * the vaginal birth code has been called. This is used for pregnancies
+		 * that do not provide any other means of detection (e.g. counter variables).
+		 */
+		public var senseSecondVaginalBirth:Vector.<int>;
+		
+		/**
+		 * This sensing variable is used by tests to detect if
 		 * the anal birth code has been called. This is used for pregnancies
 		 * that do not provide any other means of detection (e.g. counter variables).
 		 */
@@ -37,13 +44,21 @@ package classes.Scenes
 		 * Map pregnancy type to the class that contains the matching scenes.
 		 * Currently only stores player pregnancies.
 		 */
+		private var secondVaginalPregnancyScenes:Dictionary;
+		
+		/**
+		 * Map pregnancy type to the class that contains the matching scenes.
+		 * Currently only stores player pregnancies.
+		 */
 		private var analPregnancyScenes:Dictionary;
 		
 		public function PregnancyProgression() {
 			this.senseVaginalBirth = new Vector.<int>();
+			this.senseSecondVaginalBirth = new Vector.<int>();
 			this.senseAnalBirth = new Vector.<int>();
 			
 			this.vaginalPregnancyScenes = new Dictionary();
+			this.secondVaginalPregnancyScenes = new Dictionary();
 			this.analPregnancyScenes = new Dictionary();
 		}
 		
@@ -54,6 +69,15 @@ package classes.Scenes
 		 */
 		public function detectVaginalBirth(pregnancyType:int):void {
 			senseVaginalBirth.push(pregnancyType);
+		}
+		
+		/**
+		 * Record a call to a vaginal birth function.
+		 * This method is used for testing.
+		 * @param	pregnancyType to record
+		 */
+		public function detectSecondVaginalBirth(pregnancyType:int):void {
+			senseSecondVaginalBirth.push(pregnancyType);
 		}
 		
 		/**
@@ -91,6 +115,36 @@ package classes.Scenes
 			}
 			
 			vaginalPregnancyScenes[pregnancyTypeFather] = scenes;
+			LOGGER.debug("Mapped pregancy scene {0} to mother {1}, father {2}", scenes, pregnancyTypeMother, pregnancyTypeFather);
+			
+			return previousReplaced;
+		}
+		
+		/**
+		 * Register a scene for second vaginal pregnancy. The registered scene will be used for pregnancy
+		 * progression and birth.
+		 * <b>Note:</b> Currently only the player is supported as the mother.
+		 * 
+		 * @param	pregnancyTypeMother The creature that is the mother
+		 * @param	pregnancyTypeFather The creature that is the father
+		 * @param	scenes The scene to register for the combination
+		 * @return true if an existing scene was overwritten
+		 * @throws ArgumentError If the mother is not the player
+		 */
+		public function registerSecondVaginalPregnancyScene(pregnancyTypeMother:int, pregnancyTypeFather:int, scenes:VaginalSecondPregnancy):Boolean {
+			if (pregnancyTypeMother !== PregnancyStore.PREGNANCY_PLAYER) {
+				LOGGER.error("Currently only the player is supported as mother");
+				throw new ArgumentError("Currently only the player is supported as mother");
+			}
+			
+			var previousReplaced:Boolean = false;
+			
+			if (hasRegisteredSecondVaginalScene(pregnancyTypeMother, pregnancyTypeFather)) {
+				previousReplaced = true;
+				LOGGER.warn("Vaginal scene registration for mother {0}, father {1} will be replaced.", pregnancyTypeMother, pregnancyTypeFather);
+			}
+			
+			secondVaginalPregnancyScenes[pregnancyTypeFather] = scenes;
 			LOGGER.debug("Mapped pregancy scene {0} to mother {1}, father {2}", scenes, pregnancyTypeMother, pregnancyTypeFather);
 			
 			return previousReplaced;
@@ -143,6 +197,21 @@ package classes.Scenes
 		}
 		
 		/**
+		 * Check if the given second vaginal pregnancy combination has a registered scene.
+		 * @param	pregnancyTypeMother The creature that is the mother
+		 * @param	pregnancyTypeFather The creature that is the father
+		 * @return true if a scene is registered for the combination
+		 */
+		public function hasRegisteredSecondVaginalScene(pregnancyTypeMother:int, pregnancyTypeFather:int):Boolean {
+			// currently only player pregnancies are supported
+			if (pregnancyTypeMother !== PregnancyStore.PREGNANCY_PLAYER) {
+				return false;
+			}
+			
+			return pregnancyTypeFather in secondVaginalPregnancyScenes;
+		}
+		
+		/**
 		 * Check if the given anal pregnancy combination has a registered scene.
 		 * @param	pregnancyTypeMother The creature that is the mother
 		 * @param	pregnancyTypeFather The creature that is the father
@@ -186,7 +255,7 @@ package classes.Scenes
 			}
 			//IF INCUBATION IS IN THE SECOND WOMB
 			if (player.secondWombPregnancyIncubation > 1) {
-				displayedUpdate = updateVaginalPregnancy(displayedUpdate);
+				displayedUpdate = updateSecondVaginalPregnancy(displayedUpdate);
 			}
 			
 			amilyPregnancyFailsafe();
@@ -200,7 +269,7 @@ package classes.Scenes
 			}
 			
 			if (player.secondWombPregnancyIncubation === 1) {
-				displayedUpdate = updateVaginalBirth(displayedUpdate);
+				displayedUpdate = updateVaginalSecondlBirth(displayedUpdate);
 			}
 
 			return displayedUpdate;
@@ -232,17 +301,32 @@ package classes.Scenes
 				var scene:VaginalPregnancy = vaginalPregnancyScenes[player.pregnancyType] as VaginalPregnancy;
 				LOGGER.debug("Updating pregnancy for mother {0}, father {1} by using class {2}", PregnancyStore.PREGNANCY_PLAYER, player.pregnancyType, scene);
 				return scene.updateVaginalPregnancy();
-			} 
-			if (hasRegisteredVaginalScene(PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType)) {
-				var scene:VaginalPregnancy = vaginalPregnancyScenes[player.secondWombPregnancyType] as VaginalPregnancy;
-				LOGGER.debug("Updating pregnancy for mother {0}, father {1} by using class {2}", PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType, scene);
-				return scene.updateVaginalPregnancy();
-			} else {
+			}
+			
+
+			else {
 				LOGGER.debug("Could not find a mapped vaginal pregnancy for mother {0}, father {1} - using legacy pregnancy progression", PregnancyStore.PREGNANCY_PLAYER, player.pregnancyType);;
 			}
 			
 			return displayedUpdate;
 		}
+		
+		
+		private function updateSecondVaginalPregnancy(displayedUpdate:Boolean):Boolean
+		{
+			if (hasRegisteredSecondVaginalScene(PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType)) {
+				var scene:VaginalSecondPregnancy = secondVaginalPregnancyScenes[player.secondWombPregnancyType] as VaginalSecondPregnancy;
+				LOGGER.debug("Updating pregnancy for mother {0}, father {1} by using class {2}", PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType, scene);
+				return scene.updateVaginalSecondPregnancy();
+			} 
+			
+			else {
+				LOGGER.debug("Could not find a mapped vaginal pregnancy for mother {0}, father {1} - using legacy pregnancy progression", PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType);;
+			}
+			
+			return displayedUpdate;
+		}
+		
 		
 		private function updateAnalPregnancy(displayedUpdate:Boolean):Boolean 
 		{
@@ -317,27 +401,24 @@ package classes.Scenes
 				else if (player.pregnancyType !== PregnancyStore.PREGNANCY_BENOIT) {
 					giveBirth();
 				}
-			} 
-			if (hasRegisteredVaginalScene(PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType)) {
-				var scene:VaginalPregnancy = vaginalPregnancyScenes[player.secondWombPregnancyType] as VaginalPregnancy;
-				LOGGER.debug("Updating vaginal birth for mother {0}, father {1} by using class {2}", PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType, scene);
+			}  
+			
+			/**
+			else if (hasRegisteredSecondVaginalScene(PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType)) {
+				var secondWombScene:VaginalPregnancy = secondVaginalPregnancyScenes[player.secondWombPregnancyType] as VaginalPregnancy;
+				LOGGER.debug("Updating vaginal birth for mother {0}, father {1} by using class {2}", PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType, secondWombScene);
 				
 				
-				scene.vaginalBirth();
-				
-				// Imp Horde pregnancy carries multiple in a brood
-				if (player.pregnancyType === PregnancyStore.PREGNANCY_IMP_HORDE) {					
-					for (var i:int = rand(3) + 3; i > 0; i--) {
-						giveBirth();					
-					}
-				}
-				
+				secondWombScene.vaginalBirth();
+							
 				// TODO find a cleaner way to solve this
 				// ignores Benoit pregnancy because that is a special case
-				else if (player.pregnancyType !== PregnancyStore.PREGNANCY_BENOIT) {
+				if (player.pregnancyType !== PregnancyStore.PREGNANCY_BENOIT) {
 					giveBirth();
 				}
-			} else {
+			}*/
+			
+			else {
 				LOGGER.debug("Could not find a mapped vaginal pregnancy scene for mother {0}, father {1} - using legacy pregnancy progression", PregnancyStore.PREGNANCY_PLAYER, player.pregnancyType);;
 			}
 			
@@ -351,6 +432,37 @@ package classes.Scenes
 			
 			return true;
 		}
+		
+		
+		private function updateVaginalSecondlBirth(displayedUpdate:Boolean):Boolean 
+		{
+			if (hasRegisteredSecondVaginalScene(PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType)) {
+				var secondWombScene:VaginalSecondPregnancy = secondVaginalPregnancyScenes[player.secondWombPregnancyType] as VaginalSecondPregnancy;
+				LOGGER.debug("Updating vaginal birth for mother {0}, father {1} by using class {2}", PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType, secondWombScene);
+				
+				
+				secondWombScene.vaginalSecondBirth();
+							
+				// TODO find a cleaner way to solve this
+				// ignores Benoit pregnancy because that is a special case
+				if (player.secondWombPregnancyType !== PregnancyStore.PREGNANCY_BENOIT) {
+					giveBirth();
+				}
+			} else {
+				LOGGER.debug("Could not find a mapped vaginal pregnancy scene for mother {0}, father {1} - using legacy pregnancy progression", PregnancyStore.PREGNANCY_PLAYER, player.secondWombPregnancyType);;
+			}
+			
+			// TODO find a better way to do this
+			// due to non-conforming pregancy code
+			if (player.secondWombPregnancyType === PregnancyStore.PREGNANCY_BENOIT && player.secondWombPregnancyIncubation === 3) {
+				return displayedUpdate;
+			}
+			
+			player.secondWombKnockUpForce();
+			
+			return true;
+		}
+		
 		
 		/**
 		 * Updates fertility and tracks number of births. If the player has birthed

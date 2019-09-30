@@ -277,6 +277,19 @@ package classes.Scenes.Monsters
 					outputText("\n\nThe Demon Soldier reaches underneath you and entwines " + monster.mf("his", "her") + " fingers in amongst your pulsating cocks, teasing and stimulating them.");
 				}
 			}
+			
+			if (monster.gender == 3){
+				if (player.isVisiblyPregnant()) outputText(images.showImage("demon-soldier-herm-fuck-female-preg"));
+				else outputText(images.showImage("demon-soldier-herm-fuck-female"));				
+			}
+			else{
+				if (player.isVisiblyPregnant()) outputText(images.showImage("demon-soldier-male-fuck-female-preg"));
+				else outputText(images.showImage("demon-soldier-male-fuck-female"));	
+			}
+
+			
+		
+			
 			outputText("\n\nThe tempo of the hellish beast's pistoning becomes more erratic, and spits and spurts of demonic pre-cum spray out around the creature's infernal cock.");
 			outputText("\n\n\"<i>Aaahhhnnn... yeeesss, cum for me... unf... CUM FOR ME, FUCKSLUT!! AAAAHHHHH!!!!</i>\" The Demon shrieks, " + monster.mf("his", "her") + " tongue lolling from " + monster.mf("his", "her") + " mouth as " + monster.mf("his", "her") + " orgasm comes thundering up. The " + (player.hasCock() || player.hasVagina() ? "constant manhandling of your genitalia reaches fever pitch, as the [Incubus's][Omnibus's] skilful manipulation combined with the " : "") + "vigorous power fucking you're taking has you very close to cumming, yourself.");
 			outputText("\n\nYou feel the Demon's infernal prick twitching and spasming within you, finally gushing a torrent of hellish sperm inside your ");

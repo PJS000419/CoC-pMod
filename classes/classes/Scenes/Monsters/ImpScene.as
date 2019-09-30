@@ -757,6 +757,8 @@ package classes.Scenes.Monsters
 					outputText("You gasp in time to the big imp's thrusts, whimpering when his cock or tongue hit a sensitive point. ");
 					//(Low Corruption)
 					if (player.cor < 50) outputText("You're being raped by a demon, milked like a cow, and you're about to cum hard. This corrupted land has left its mark on you.");
+					//else if(player.hasPerk(PerkLib.SpawnQueen) && player.cor > 80) outputText("You're being bred by a demon again and the thought of carrying more spawn pushes you to your climax.  You're about to cum hard. You have left your corrupted mark on this land.");
+					else if(player.hasPerk(PerkLib.BroodMother) && player.cor > 80) outputText("You're being bred by a demon again and the thought of carrying more spawn pushes you to your climax.  You're about to cum hard. This corrupted land has left its mark on you.");
 					//(High corruption)
 					else outputText("This corrupted land has left its mark on you. You could never have taken a cock this big before you arrived here.");
 					outputText(" You moan as you rise towards your orgasm.\n\n");
@@ -902,7 +904,7 @@ package classes.Scenes.Monsters
 					//(If the player has a vagina)
 					if (player.hasVagina()) outputText(player.vaginaDescript(0));
 					//(If the player doesn't have a vagina)
-					else outputText(player.assholeDescript());
+					else outputText(player.assholeDescript());					
 					outputText(" and slapping your ass every few thrusts to remind you who is in charge. Imp after imp stretches your throat with their cocks and your belly with demon-seed as the pack rapes your face. ");
 					//(If the character has breasts)
 					if (player.biggestTitSize() > 2) outputText("The rough fucking shakes your cum-stained breasts, and the imp fucking your " + player.allBreastsDescript() + " clings tightly to your red and swollen tit flesh. Your " + player.biggestBreastSizeDescript() + " burn with agony as the " + monster.short + " slaps your tits like drums.  ");
@@ -1314,6 +1316,12 @@ package classes.Scenes.Monsters
 					//Stretch!
 					if (player.hasVagina()) {
 						if (player.cuntChange(monster.cockArea(2), true)) outputText("\n");
+						
+						if (player.vaginas.length > 1){
+							player.secondCuntChange(monster.cockArea(2), true);
+							player.secondWombKnockUp(PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 14);
+							outputText("\n");
+						}
 					}
 					else {
 						if (player.buttChange(monster.cockArea(2), true)) outputText("\n");

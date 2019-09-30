@@ -129,7 +129,7 @@ package classes
 			if (pregType < 0 || pregType > MAX_FLAG_VALUE || pregInc < 0 || pregInc > MAX_FLAG_VALUE || 
 			buttPregType < 0 || buttPregType > MAX_FLAG_VALUE || buttPregInc < 0 || buttPregInc > MAX_FLAG_VALUE ||
 			swPregType < 0 || swPregType > MAX_FLAG_VALUE || swPregInc < 0 || swPregInc > MAX_FLAG_VALUE || 
-			pregType == buttPregType || pregInc == buttPregInc || swPregType == pregType || swPregInc == pregInc) {
+			pregType == buttPregType || pregInc == buttPregInc || swPregType == buttPregType || swPregInc == buttPregInc) {
 				CoC_Settings.error("Error: PregnancyStore created with invalid values for its flags. PregnancyStore(" + pregType + ", " + pregInc + ", " + buttPregType + ", " + buttPregInc + ", " + swPregType + ", " + swPregInc + ")");
 			}
 		}
@@ -216,7 +216,7 @@ package classes
 		
 		public function secondWombKnockUp(newPregType:int = 0, newPregIncubation:int = 0):void
 		{
-			if (!isPregnant) secondWombKnockUpForce(newPregType, newPregIncubation);
+			if (!isSecondWombPregnant) secondWombKnockUpForce(newPregType, newPregIncubation);
 		}
 		
 		public function secondWombKnockUpForce(newPregType:int = 0, newPregIncubation:int = 0):void

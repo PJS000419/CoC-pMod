@@ -2157,6 +2157,42 @@ package classes
 			var stretched:Boolean = cuntChangeNoDisplay(cArea);
 			var devirgined:Boolean = wasVirgin && !vaginas[0].virgin;
 			
+			var wasVirginTwo:Boolean = vaginas[1].virgin;
+			var stretchedTwo:Boolean = cuntChangeNoDisplay(cArea);
+			var devirginedTwo:Boolean = wasVirginTwo && !vaginas[1].virgin;
+			
+			if (display && (devirgined || devirginedTwo)){
+				if (spacingsF) outputText("  ");
+				outputText("<b>Your hymen is torn, robbing you of your virginity.</b>");
+				if (spacingsB) outputText("  ");
+			}
+			
+			//STRETCH SUCCESSFUL - begin flavor text if outputting it!
+			if (display && (stretched || stretchedTwo)) {
+				//Virgins get different formatting
+				if (devirgined || devirginedTwo) {
+					//If no spaces after virgin loss
+					if (!spacingsB) outputText("  ");
+				}
+				//Non virgins as usual
+				else if (spacingsF) outputText("  ");
+				if (vaginas[0].vaginalLooseness == Vagina.LOOSENESS_LEVEL_CLOWN_CAR) outputText("<b>Your " + Appearance.vaginaDescript(this,0)+ " is stretched painfully wide, large enough to accommodate most beasts and demons.</b>");
+				if (vaginas[0].vaginalLooseness == Vagina.LOOSENESS_GAPING_WIDE) outputText("<b>Your " + Appearance.vaginaDescript(this,0) + " is stretched so wide that it gapes continually.</b>");
+				if (vaginas[0].vaginalLooseness == Vagina.LOOSENESS_GAPING) outputText("<b>Your " + Appearance.vaginaDescript(this,0) + " painfully stretches, the lips now wide enough to gape slightly.</b>");
+				if (vaginas[0].vaginalLooseness == Vagina.LOOSENESS_LOOSE) outputText("<b>Your " + Appearance.vaginaDescript(this,0) + " is now very loose.</b>");
+				if (vaginas[0].vaginalLooseness == Vagina.LOOSENESS_NORMAL) outputText("<b>Your " + Appearance.vaginaDescript(this,0) + " is now a little loose.</b>");
+				if (vaginas[0].vaginalLooseness == Vagina.LOOSENESS_TIGHT) outputText("<b>Your " + Appearance.vaginaDescript(this, 0) + " is stretched out to a more normal size.</b>");
+				if (spacingsB) outputText("  ");
+			}
+			return stretched;
+		}
+		
+		public function secondCuntChange(cArea:Number, display:Boolean, spacingsF:Boolean = false, spacingsB:Boolean = true):Boolean {
+			if (vaginas.length==0) return false;
+			var wasVirgin:Boolean = vaginas[1].virgin;
+			var stretched:Boolean = cuntTwoChangeNoDisplay(cArea);
+			var devirgined:Boolean = wasVirgin && !vaginas[1].virgin;
+						
 			if (display && devirgined){
 				if (spacingsF) outputText("  ");
 				outputText("<b>Your hymen is torn, robbing you of your virginity.</b>");
@@ -2172,12 +2208,12 @@ package classes
 				}
 				//Non virgins as usual
 				else if (spacingsF) outputText("  ");
-				if (vaginas[0].vaginalLooseness == Vagina.LOOSENESS_LEVEL_CLOWN_CAR) outputText("<b>Your " + Appearance.vaginaDescript(this,0)+ " is stretched painfully wide, large enough to accommodate most beasts and demons.</b>");
-				if (vaginas[0].vaginalLooseness == Vagina.LOOSENESS_GAPING_WIDE) outputText("<b>Your " + Appearance.vaginaDescript(this,0) + " is stretched so wide that it gapes continually.</b>");
-				if (vaginas[0].vaginalLooseness == Vagina.LOOSENESS_GAPING) outputText("<b>Your " + Appearance.vaginaDescript(this,0) + " painfully stretches, the lips now wide enough to gape slightly.</b>");
-				if (vaginas[0].vaginalLooseness == Vagina.LOOSENESS_LOOSE) outputText("<b>Your " + Appearance.vaginaDescript(this,0) + " is now very loose.</b>");
-				if (vaginas[0].vaginalLooseness == Vagina.LOOSENESS_NORMAL) outputText("<b>Your " + Appearance.vaginaDescript(this,0) + " is now a little loose.</b>");
-				if (vaginas[0].vaginalLooseness == Vagina.LOOSENESS_TIGHT) outputText("<b>Your " + Appearance.vaginaDescript(this,0) + " is stretched out to a more normal size.</b>");
+				if (vaginas[1].vaginalLooseness == Vagina.LOOSENESS_LEVEL_CLOWN_CAR) outputText("<b>Your " + Appearance.vaginaDescript(this,1)+ " is stretched painfully wide, large enough to accommodate most beasts and demons.</b>");
+				if (vaginas[1].vaginalLooseness == Vagina.LOOSENESS_GAPING_WIDE) outputText("<b>Your " + Appearance.vaginaDescript(this,1) + " is stretched so wide that it gapes continually.</b>");
+				if (vaginas[1].vaginalLooseness == Vagina.LOOSENESS_GAPING) outputText("<b>Your " + Appearance.vaginaDescript(this,1) + " painfully stretches, the lips now wide enough to gape slightly.</b>");
+				if (vaginas[1].vaginalLooseness == Vagina.LOOSENESS_LOOSE) outputText("<b>Your " + Appearance.vaginaDescript(this,1) + " is now very loose.</b>");
+				if (vaginas[1].vaginalLooseness == Vagina.LOOSENESS_NORMAL) outputText("<b>Your " + Appearance.vaginaDescript(this,1) + " is now a little loose.</b>");
+				if (vaginas[1].vaginalLooseness == Vagina.LOOSENESS_TIGHT) outputText("<b>Your " + Appearance.vaginaDescript(this,1) + " is stretched out to a more normal size.</b>");
 				if (spacingsB) outputText("  ");
 			}
 			return stretched;

@@ -7,7 +7,7 @@ package classes.Scenes.Places.Boat{
 	import classes.Scenes.PregnancyProgression;
 
 
-	public class SharkGirlScene extends AbstractBoatContent implements TimeAwareInterface{
+	public class SharkGirlScene extends AbstractBoatContent implements TimeAwareInterface {
 		
 
 	public function SharkGirlScene(pregnancyProgression:PregnancyProgression, output:GuiOutput)
@@ -473,34 +473,32 @@ Putting it on: (Lust increases)
 [If dick is 7+ inches OR balls are apple-sized] You do your best to put the thong on, and while the material is very stretchy, it's simply far too uncomfortable to even try. Maybe if you shrunk your male parts down a little... [/]  
 -------------------------------*/
 //Loss Rape scenes:
-internal function sharkLossRape():void {
-	if (flags[kFLAGS.SFW_MODE] > 0) {
-		doSFWloss();
-		combat.cleanupAfterCombat();
-		return;
-	}
-	clearOutput();
-	spriteSelect(SpriteDb.s_sharkgirl);
-	//Genderless:
-	if (player.gender == 0) {
-	//Tiger Shark Girl
-	if (monster.hasCock()){
+	internal function sharkLossRape():void {
+		if (flags[kFLAGS.SFW_MODE] > 0) {
+			doSFWloss();
+			combat.cleanupAfterCombat();
+			return;
+		}
+		clearOutput();
+		spriteSelect(SpriteDb.s_sharkgirl);
+		//Tiger Shark Girl
+		if (monster.hasCock()){
 				//Genderless:
-		if (player.gender == 0) {
-		outputText("You slump down in defeat, too ");
-		if (player.HP < 1) outputText("hurt ");
-		else outputText("horny ");
-		outputText("to fight on.\n\n");
-		outputText("The shark girl does a little victory dance, swaying her hips to and fro before moving over to you. She quickly removes your " + player.armorName + ", but her smile fades to a blank expression when she notices you lack any genitalia. \"<i>What the...</i>\" she mumbles, poking you in the groin. Finding you completely useless, she growls in frustration and stomps on your face in anger. The sudden pain makes you pass out.");
-		combat.cleanupAfterCombat();
-		dynStats("tou", -2);
-		return;
-	}
+			if (player.gender == 0) {
+			outputText("You slump down in defeat, too ");
+			if (player.HP < 1) outputText("hurt ");
+			else outputText("horny ");
+			outputText("to fight on.\n\n");
+			outputText("The shark girl does a little victory dance, swaying her hips to and fro before moving over to you. She quickly removes your " + player.armorName + ", but her smile fades to a blank expression when she notices you lack any genitalia. \"<i>What the...</i>\" she mumbles, poking you in the groin. Finding you completely useless, she growls in frustration and stomps on your face in anger. The sudden pain makes you pass out.");
+			combat.cleanupAfterCombat();
+			dynStats("tou", -2);
+			return;
+			}
 
-	//Female:
-	if (player.hasVagina() && (player.totalCocks() == 0 || rand(2) == 0)) {
+			//Female:
+			if (player.hasVagina() && (player.totalCocks() == 0 || rand(2) == 0)) {
 
-		outputText("You slump down in defeat, too ");
+			outputText("You slump down in defeat, too ");
 			//[defeat via HP] 
 			if (player.HP < 1) outputText("hurt ");
 			else outputText("horny ");
@@ -541,7 +539,7 @@ internal function sharkLossRape():void {
 			
 			outputText("\n\nHer ravenous, rutting pace quickens yet further sending waves of pleasure to splash over you, the pain being replaced completely.  Dazed, but aware, you quickly feel the tightness inside gripping her cock strain as the throbbing cock seems to thicken even more.  Her labored breathing turns to ragged gasps as she cries out, \" <i>Here it comesssss !!!</i> \"; a torrent of molten, virile seed explodes inside you quickly overfilling your " + ((player.isVisiblyPregnant()) ? "bowels" : "vagina and womb") + ".  The thick cock sealing your entrance forces your belly to inflate from the sheer volume of cum.\n\n");
 			outputText("Minutes pass before the shark cock stops pumping and begins to deflate.  By this time, however, you" + ((player.isVisiblyPregnant()) ? "r already pregnant belly has bloated to an absurd degree" : " look positively pregnant") + ".  When she finally withdraws her cock, a glut of shark girl cum flows steadily from your now vacated, gaping orifice. \n\n");
-		outputText("The shark girl stands to leave and winks at you before diving back into the water. You eventually pass out from the exertion.");
+			outputText("The shark girl stands to leave and winks at you before diving back into the water. You eventually pass out from the exertion.");
 			//(Corruption +2, Intelligence -4)
 			if(player.isVisiblyPregnant())player.orgasm('Anal');
 			else player.orgasm('Vaginal');
@@ -550,36 +548,33 @@ internal function sharkLossRape():void {
 			combat.cleanupAfterCombat();
 			return;
 		}
-		//herm
-		else if (player.gender == 3){
-			outputText("Seeing your " + player.cockDescript(0) + " puts a smile on the shark girl's face as she takes a firm grip on your erection. \"<i>Well, you're just full of surprises, aren't you? Maybe I'll give this bad boy a whirl sometime. For now 	though...</i>\"  ");
-		}
+				//[if herm]
+			if (player.gender == 3) {
+				outputText("Seeing your " + player.cockDescript(0) + " puts a smile on the shark girl's face as she takes a firm grip on your erection. \"<i>Well, you're just full of surprises, aren't you? Maybe I'll give this bad boy a whirl sometime. For now though...</i>\"  ");
+				outputText("Her gaze drifts over to your " + player.vaginaDescript(0) + " and she licks her lips in delight. \"<i>Now that's what I'm looking for! Tell you what dear, you get me wet and I might just give you some pleasure too.</i>\"\n\n");
+				outputText("You feel the shark girl's bare foot press against your chest and she roughly pushes you onto your back. \"<i>Oh man, I can't even remember the last time I had an actual man...</i>\" the shark girl says, pulling your pants down to your ankles. Seeing your stiff erection, your opponent smirks and wets her lips before taking your entire " + player.cockDescript(0) + " into her mouth. The feeling is heavenly, her long tongue slithering around your shaft.\n\n");
+				outputText("But before you can begin to really enjoy it, she pulls her head away, visible strands of saliva still linking her mouth and your " + player.cockDescript(0) + ". The shark girl quickly maneuvers herself so that she's straddling your cock and presses herself down, the two of you gasping sharply from the sensation. \"<i>Hmm, good boy... You make me cum first, and I won't bite you. Deal?</i>\" You nod, though given that peculiar feelers inside her cunt are massaging your cock, you don't know how long you can really hold out.\n\n");
+		
+				outputText("She roughly grabs you by the hair and pulls your face into her drooling cunt, your tongue instinctively probing into her. \"<i>Mmm... don't you dare stop licking you dumb bitch, if you know what's good for you,</i>\" she orders. You reply by speeding up your tongue work. You're a little ashamed to admit it, but her dominant command makes you feel rather hot and bothered.\n\n");
+				outputText("The shark girl eventually sighs happily and relaxes her grip on your hair, pulling your head away a few inches. \"<i>Not bad bitch, not bad. Now get on your back.</i>\" You obey your mistress's command and flop onto your back. A sense of joy fills you as she positions her crotch in front of your face and moves her own head between your legs. You quickly resume eating her out, and this time she joins in the feast. It's not too long before the two of you orgasm, spraying girl-cum onto each other's faces.\n\n");
+				outputText("The shark girl stands to leave and winks at you before diving back into the water. You eventually pass out from the exertion.");
+			//(Corrupton +2, Intelligence -4)
+				player.orgasm('Vaginal');
+				if (player.cor < 30) dynStats("cor", 1);
+				combat.cleanupAfterCombat();
+				return;
+			}
 		//Male:
-		else {
+			else {
 			outputText("You slump down in defeat, too ");
-		//[defeat via HP] 
-		if (player.HP < 1) outputText("hurt ");
-		else outputText("horny ");
-		outputText("to fight on.\n\n");
+			//[defeat via HP] 
+			if (player.HP < 1) outputText("hurt ");
+			else outputText("horny ");
+			outputText("to fight on.\n\n");
 
 		
-		outputText"The shark girl giggles and moves over to you, tugging at your " + player.armorName + "  impatiently. Her tail swishes around and smacks your " + player.assDescript() + ". \"<i>You're gonna make me very happy, you hear? Otherwise...</i>\" she opens her mouth wide and you see her fangs glinting menacingly in the light. You gulp hard and nod, bringing a smile from the shark girl.\n\n"); 
-		outputText(Wasting no time, she removes her skimpy swimwear and your own gear.  ");
-		//[if herm
-		if (playr.gender == 3) outputText("Seeing your " + player.cockDescript(0) + " puts a smile on the shark girl's face as she takes a firm grip on your erection. \"<i>Well, you're just full of surprises, aren't you? Maybe I'll give this bad boy a whirl sometime. For now though...</i>\"  ");
-		outputTex("Her gaze drifts over to your " + player.vaginaDescript(0) + " and she licks her lips in delight. \"<i>Now that's what I'm looking for! Tell you what dear, you get me wet and I might just give you some pleasure too.</i>\"\n\n");
-			outputText("You feel the shark girl's bare foot press against your chest and she roughly pushes you onto your back. \"<i>Oh man, I can't even remember the last time I had an actual man...</i>\" the shark girl says, pulling your pants down to your ankles. Seeing your stiff erection, your opponent smirks and wets her lips before taking your entire " + player.cockDescript(0) + " into her mouth. The feeling is heavenly, her long tongue slithering around your shaft.\n\n");
-			outputText("But before you can begin to really enjoy it, she pulls her head away, visible strands of saliva still linking her mouth and your " + player.cockDescript(0) + ". The shark girl quickly maneuvers herself so that she's straddling your cock and presses herself down, the two of you gasping sharply from the sensation. \"<i>Hmm, good boy... You make me cum first, and I won't bite you. Deal?</i>\" You nod, though given that peculiar feelers inside her cunt are massaging your cock, you don't know how long you can really hold out.\n\n");
-		
-		outputText"She roughly grabs you by the hair and pulls your face into her drooling cunt, your tongue instinctively probing into her. \"<i>Mmm... don't you dare stop licking you dumb bitch, if you know what's good for you,</i>\" she orders. You reply by speeding up your tongue work. You're a little ashamed to admit it, but her dominant command makes you feel rather hot and bothered.\n\n");
-		outputText(The shark girl eventually sighs happily and relaxes her grip on your hair, pulling your head away a few inches. \"<i>Not bad bitch, not bad. Now get on your back.</i>\" You obey your mistress's command and flop onto your back. A sense of joy fills you as she positions her crotch in front of your face and moves her own head between your legs. You quickly resume eating her out, and this time she joins in the feast. It's not too long before the two of you orgasm, spraying girl-cum onto each other's faces.\n\n");
-		outputText"The shark girl stands to leave and winks at you before diving back into the water. You eventually pass out from the exertion.");
-		//(Corrupton +2, Intelligence -4)
-		player.orgsm('Vaginal');
-		if (playe.cor < 30) dynStats("cor", 1);
-		combat.clenupAfterCombat();
-		return;			
-		outputTxt("The shark girl has no such qualms and rides you like a mechanical bull, hammering up and down your " + player.cockDescript(0) + " with incredible speed. It certainly feels nice, but the rough nature of the ride also certainly hurts. You'll be walking funny for a while after this, that's for sure.\n\n");
+			outputText("The shark girl giggles and moves over to you, tugging at your " + player.armorName + "  impatiently. Her tail swishes around and smacks your " + player.assDescript() + ". \"<i>You're gonna make me very happy, you hear? Otherwise...</i>\" she opens her mouth wide and you see her fangs glinting menacingly in the light. You gulp hard and nod, bringing a smile from the shark girl.\n\n"); 
+			outputText("Wasting no time, she removes her skimpy swimwear and your own gear.  ");
 			outputText("The shark girl has no such qualms and rides you like a mechanical bull, hammering up and down your " + player.cockDescript(0) + " with incredible speed. It certainly feels nice, but the rough nature of the ride also certainly hurts. You'll be walking funny for a while after this, that's for sure.\n\n");
 		
 			outputText("Eventually, her vagina clamps down on your cock and she cries out in orgasm. You grunt loudly and cum a few seconds after, pumping your seed into her womb. The shark girl leans over and plants a tiny kiss on your lips. \"<i>Good boy. I'll be sure to see 	you again</i>\". She gets up again and you watch her re-enter the water before you pass out.");
@@ -588,12 +583,12 @@ internal function sharkLossRape():void {
 			if (player.cor < 30) dynStats("cor", 1);
 			combat.cleanupAfterCombat();
 			return;
+			}
 		}
-	}
-	//Regular Shark Girl
-	else {
-		//Genderless:
-		if (player.gender == 0) {
+		//Regular Shark Girl
+		else {
+			//Genderless:
+			if (player.gender == 0) {
 		outputText("You slump down in defeat, too ");
 			if (player.HP < 1) outputText("hurt ");
 			else outputText("horny ");
@@ -603,8 +598,8 @@ internal function sharkLossRape():void {
 			dynStats("tou", -2);
 			return;
 		}
-	//Female:
-		if (player.hasVagina() && (player.totalCocks() == 0 || rand(2) == 0)) {
+			//Female:
+			if (player.hasVagina() && (player.totalCocks() == 0 || rand(2) == 0)) {
 		outputText("You slump down in defeat, too ");
 			//[defeat via HP] 
 			if (player.HP < 1) outputText("hurt ");
@@ -626,8 +621,8 @@ internal function sharkLossRape():void {
 			combat.cleanupAfterCombat();
 			return;
 		}
-		//Male:
-		else {
+			//Male:
+			else {
 			outputText("You slump down in defeat, too ");
 		//[defeat via HP] 
 		if (player.HP < 1) outputText("hurt ");
@@ -647,8 +642,9 @@ internal function sharkLossRape():void {
 		if (player.cor < 30) dynStats("cor", 1);
 		combat.cleanupAfterCombat();
 		return;
-	}
+		}
+		}
 	doNext(playerMenu);
-}
+	}
 }
 }

@@ -2768,6 +2768,18 @@ import flash.errors.IllegalOperationError;
 			return stretched;
 		}
 		
+		public function cuntTwoChangeNoDisplay(cArea : Number) : Boolean {
+			if (vaginas.length == 0) return false;
+			var stretched : Boolean = vaginas[1].stretch(cArea, vaginalCapacityBonus(), hasPerk(PerkLib.FerasBoonMilkingTwat));
+			
+			// Delay stretch recovery
+			if (cArea >= .5 * vaginalCapacity()) {
+				vaginas[1].resetRecoveryProgress();
+			}
+			
+			return stretched;
+		}
+		
 		public function get inHeat():Boolean {
 			return hasStatusEffect(StatusEffects.Heat);
 		}

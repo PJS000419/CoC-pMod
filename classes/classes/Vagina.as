@@ -155,6 +155,7 @@
 
 			if (virgin) {
 				virgin = false;
+				stretched = true;
 			}
 			
 			return stretched;

@@ -14,8 +14,20 @@ package classes.Scenes
 		function updateVaginalPregnancy(): Boolean;
 		
 		/**
+		 * Progresses a active pregnancy. Updates should eventually lead to birth.
+		 * @return true if the display output needs to be updated.
+		 
+		function updateSecondVaginalPregnancy(): Boolean; */
+		
+		
+		/**
 		 * Give birth. Should outout a birth scene and clean up the pregnancy.
 		 */
 		function vaginalBirth(): void;
+		
+		/**
+		 * Give birth. Should outout a birth scene and clean up the pregnancy.
+		 
+		function secondVaginalBirth(): void; */
 	}
 }
