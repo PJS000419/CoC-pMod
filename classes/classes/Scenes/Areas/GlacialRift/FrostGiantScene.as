@@ -19,6 +19,7 @@ package classes.Scenes.Areas.GlacialRift
 		
 		public function winAgainstGiant():void {
 			clearOutput();
+			credits.modContent = true;
 			outputText("The giant staggers and falls down on his knees. You wonder what you should do next.");
 			if (player.weaponName == "fists" && player.armor.name == "nothing" && player.shieldName == "nothing") awardAchievement("Like Chuck Norris", kACHIEVEMENTS.GENERAL_LIKE_CHUCK_NORRIS);
 	
@@ -45,6 +46,7 @@ package classes.Scenes.Areas.GlacialRift
 		//Males and hermaphrodites
 		private function noseJob():void {
 			clearOutput();
+			credits.modContent = true;
 			outputText("Looking at the fallen giant, only one option immediately springs to mind: Nosejob. You toy with the thought until you approach the giant's nose, which does in fact have nostrils of the proper size to shove your " + player.multiCockDescript() + " into. \n\n");
 			outputText("You test a nostril with your hand warily, this dangerous proximity being close enough to the giant's mouth he could just as easily swallow you in an instant. The giant's breath, surprisingly, comes out warm enough that this could maybe work... \n\n");
 			outputText("You reach into your " + player.armorName + " and whip out your cock");
@@ -69,6 +71,7 @@ package classes.Scenes.Areas.GlacialRift
 		//Females and hermaphrodites
 		private function rideVaginally():void {
 			clearOutput();
+			credits.modContent = true;
 			outputText("You reach into your " + player.armorName + " and rub your " + player.vaginaDescript() + " slowly, trying to ease its throbs for attention while you figure out how to calm it. As you inspect the unconscious giant's body, you notice a crack in his frost armor near the crotch. Using your " + player.weaponName + " to nick more frost away, you find that the giant is indeed male. The giant's huge cock strikes you; flaccid as it is, it still ");
 			if (player.tallness < 36) outputText("dwarves your height.")
 			else if (player.tallness >= 36 && player.tallness < 48) outputText("matches your height.");
@@ -91,6 +94,7 @@ package classes.Scenes.Areas.GlacialRift
 		//All genders!
 		private function rideAnally():void {
 			clearOutput();
+			credits.modContent = true;
 			outputText("You remove the bottom of your " + player.armorName + " slowly, trying to ease its throbs for attention while you figure out how to calm it. As you inspect the unconscious giant's body, you notice a crack in his frost armor near the crotch. Using your " + player.weaponName + " to nick more frost away, you find that the giant is indeed male. The giant's huge cock strikes you; flaccid as it is, it still ");
 			if (player.tallness < 36) outputText("dwarves your height.")
 			else if (player.tallness >= 36 && player.tallness < 48) outputText("matches your height.");

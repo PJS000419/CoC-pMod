@@ -34,7 +34,7 @@ package classes
 		public function show():void
 		{
 			creditsBox.htmlText = "";
-			if (authorText !== '') creditsBox.htmlText += '<font face="Palatino Linotype"><b>' + headline + '</b></font> ' + authorText + '\n';
+			if (authorText !== '') creditsBox.htmlText += '<font face="Palatino Linotype"><b>' + headline + '</b> ' + authorText + '</font>\n';
 			if (modContent) creditsBox.htmlText += '<font face="Palatino Linotype"><b>Mod Content</b></font>';
 		}
 

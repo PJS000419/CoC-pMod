@@ -117,7 +117,7 @@ public class StatBar extends Block {
 			width: barWidth,
 			height           : myHeight - 4,
 			defaultTextFormat: {
-				font: 'Palatino Linotype',
+				font: 'Palatino Linotype, serif',
 				size: 15,
 				bold: true
 			}
@@ -127,7 +127,7 @@ public class StatBar extends Block {
 			width: barWidth,
 			height           : 30,
 			defaultTextFormat: {
-				font : 'Palatino Linotype',
+				font : 'Palatino Linotype, serif',
 				size : 22,
 				align: 'right',
 				bold : true

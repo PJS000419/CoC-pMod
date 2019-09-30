@@ -12,6 +12,7 @@ package classes.Scenes.Monsters
 		
 		public function encounterSuccubus():void {
 			clearOutput();
+			credits.modContent = true;
 			spriteSelect(SpriteDb.s_ivory_succubus);
 			//Glared at
 			outputText("While you're minding your own business, you spot a figure in the distance. It appears to be a succubus with ivory skin and she glares at you.\n\n");

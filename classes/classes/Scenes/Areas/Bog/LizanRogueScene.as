@@ -13,6 +13,8 @@ package classes.Scenes.Areas.Bog
 		
 		public function lizanIntro():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Foxxling";
 			outputText(images.showImage("monster-lizanrogue"));
 			var lizan:LizanRogue = new LizanRogue();
 			if (!player.isPureEnough(30)) {
@@ -47,6 +49,8 @@ package classes.Scenes.Areas.Bog
 		
 		public function fightLizan(pure:Boolean = false):void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Foxxling";
 			startCombat(new LizanRogue());
 			if (!pure) outputText("You ready your [weapon], prepared to let the little punk know just who it is he is dealing with.");
 			else {
@@ -58,6 +62,8 @@ package classes.Scenes.Areas.Bog
 		
 		public function leaveLizan(pure:Boolean = false):void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Foxxling";
 			if (!pure) {
 				outputText("You roll your eyes at the overt display. You raise your hands in a gesture of harmlessness and turn around to head home. When you look back over your shoulder the lizan is gone. Such a creature doesn't interest you right now anyway.");
 				doNext(camp.returnToCampUseOneHour);
@@ -70,7 +76,8 @@ package classes.Scenes.Areas.Bog
 		
 		public function winAgainstLizan():void {
 			clearOutput();
-	
+			credits.modContent = true;
+			credits.authorText = "Foxxling";	
 			if (flags[kFLAGS.SFW_MODE] > 0) {
 				clearOutput();
 				outputText("You smile in satisfaction as the " + monster.short + " collapses, unable to continue fighting.");
@@ -131,6 +138,8 @@ package classes.Scenes.Areas.Bog
 				clearOutput();
 				outputText("You tell the male lizan you're game as you " + player.clothedOrNaked("begin to pull off your [armor]", "show your naked form") + ". His bulge becomes more pronounced as your body comes into view. He quite obviously likes what he sees. Which one of your body parts do you plan to use on the horny male lizan?");
 			}
+			credits.modContent = true;
+			credits.authorText = "Foxxling";
 			menu();
 			if (player.hasCock()) addButton(0, "Use Dick", consensualButtfuck).hint("Anally penetrate him with your penis.");
 			else addDisabledButton(0, "Use Dick", "This scene requires you to have cock.");
@@ -144,6 +153,8 @@ package classes.Scenes.Areas.Bog
 		
 		public function consensualButtfuck():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Foxxling";
 			outputText(images.showImage("lizanrogue-smex"));
 			outputText("The lizan watches you with obvious interest as he asks \"<i>How do you like to do this?</i>\"");
 			outputText("\n\nYou tell him you want his ass, making sure to assert your dominance. He doesn't seem to mind as he turns away and peels off his loincloth, exposing his tight little toned ass with a lift of his glistening " + monster.skin.tone + " tail. After he has discarded the meager clothing he turns back around to face you, displaying dual bumpy purple lizan dicks, neither of which are small.");
@@ -191,6 +202,8 @@ package classes.Scenes.Areas.Bog
 		
 		public function consensualGetFucked():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Foxxling";
 			outputText(images.showImage("lizanrogue-smex"));
 			outputText("The lizan watches you with unabashed interest and asks \"<i>How would you like to do this?</i>\" you tell him you are going to ride him, which causes a huge grin to spread across his face. He confidently peels off his loincloth, exposing two bumpy purple erect lizan dicks not lacking in length or girth. He is a stunning visage with his " + monster.skin.tone + " scales, powerful tail and dual cocks all on display for you, his audience of one.");
 			outputText("\n\nWhen the two of you come together he displays his patience by sliding his hands onto your waist and pulling you into a kiss. As your tongues wrestle he massages your lower back and you feel the tension draining from your body. ");
@@ -246,6 +259,8 @@ package classes.Scenes.Areas.Bog
 		
 		public function consensualGetButtFucked():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Foxxling";
 			outputText("The lizan watches you with obvious interest and asks \"<i>How do you want to do this?</i>\" You tell him you want him to take your back door, which causes a surprised grin to stretch across his face. He confidently peels off his loincloth, exposing two bumpy purple lizan dicks not lacking in length or girth.");
 			if (player.isBiped()) {
 				outputText("\n\nTurning away from the lizan you peel off your [armor]. You bend at the waist " + (player.tail.type > 0 ? "and lift your tail": "") + " to show the lizan your [ass]. He wolf whistles, obviously quite pleased. He takes the liberty of pushing you on to your hands and knees. While looking down at the grass you feel his cool scaly hands sliding up your [ass], getting a good long feel before his tongue is pushed into your [asshole].");
@@ -295,6 +310,8 @@ package classes.Scenes.Areas.Bog
 		
 		public function consensualDoublePenetration():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Foxxling";
 			outputText("The lizan watches you with obvious interest and asks \"<i>How do you want to do this?</i>\" you tell him you're going to ride him until the wheels come off, which causes a surprised grin to stretch across his face. He confidently peels off his loin cloth, exposing two bumpy purple lizan dicks not lacking in length or girth.");
 			outputText("\n\nHe steps into you, leaning in for a kiss. As you kiss him you wrap your arms around his shoulders and he reaches down to cup your [ass], massaging your rear end with delighted fingers. Then he breaks the kiss and begins painting kisses down your neck.");
 			if (player.isLactating()) outputText("\n\nWhen he reaches your [fullChest] he takes one look at your [nipples] and cocks his head to the side. He takes a tentative slurp and looks up into your [face] as if to ask if milk coming out of your tits is normal. You just nod and he shrugs and begins playing with your [fullChest] like a happy kid at the park. At one point his tongue slithers across each nipple at once as if to see if the milk coming from each tastes the same. He quite happily slurps milk from your [nipples] and massages the soft flesh in a way that is both firm and erotic.");
@@ -354,6 +371,8 @@ package classes.Scenes.Areas.Bog
 		
 		public function consensualWatersports():void { //Yay watersports!
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Foxxling";
 			outputText(images.showImage("lizanrogue-smex"));
 			outputText("A kinky idea crosses your mind. You tell him that you'd like to take things a bit further. \"<i>I get it. Some urine activity,</i>\" he says. " + player.clothedOrNaked("You slowly disrobe and toss your [armor] into a neat pile on one of the nearby trees.", "You don't waste time showing your naked form to the lizan.") + " The lizan slowly strips his loincloth off, exposing his wonderful dual reptilian cocks.");
 			outputText("\n\n\"<i>You can go first,</i>\" he says. You thank him for letting you go first. ");
@@ -388,6 +407,8 @@ package classes.Scenes.Areas.Bog
 		
 		public function rapeLizanInTheAss():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Foxxling";
 			outputText(images.showImage("lizanrogue-smex"));
 			if (monster.lust >= monster.maxLust()) {
 				outputText("The lizan does little to resist. He just continues his intense masturbation as you push him over to make his rectal passage more accessible. The horny guy even lifts his tail, eagerly giving you access to his back door. From the look of things he is neither a virgin nor a frequent taker. ");
@@ -426,6 +447,9 @@ package classes.Scenes.Areas.Bog
 		}
 		
 		public function rapeLizanWithPussy():void {
+			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Foxxling";
 			outputText(images.showImage("lizanrogue-smex"));
 			outputText("With a grin you slip off your [armor], the lizan doesn’t fight it in the least. In fact as you shove him onto his back he breathes a sigh of relief. Despite your having beaten him he is obviously quite attracted to you. He groans when you grab his twin peckers and inspect them. Each irregularly patterned bump is mirrored on its counterpart, like two sexy phallic twins. They grow hard in your hand. With a grin you look up into his face and watch his sexual attraction war with his lofty morals.");
 			outputText("\n\nWhen you straddle him with his lizan dicks pointed up at your [vagina] you look down into his eyes and watch as your body causes his lust to win the war.");

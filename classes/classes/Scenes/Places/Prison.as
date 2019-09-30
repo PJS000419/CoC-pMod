@@ -1136,6 +1136,8 @@ package classes.Scenes.Places
 			hideUpDown();
 			showStats();
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "FeiFongWong";
 			outputText(images.showImage("prison-cell"));
 			switch(flags[kFLAGS.PRISON_PUNISHMENT]) {
 				case 0: //Default cell

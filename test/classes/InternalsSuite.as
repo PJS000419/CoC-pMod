@@ -3,6 +3,7 @@ package classes {
 	import classes.helper.MemoryLogTargetTest;
 	import classes.internals.LoggerFactoryTest;
 	import classes.internals.ActionScriptRNGTest;
+	import classes.internals.SaveGameUtilsTest;
 	import classes.internals.SerializationUtilTest;
 	import classes.internals.UtilsTest;
 	import classes.internals.PregnancyUtilsTest;
@@ -16,5 +17,6 @@ package classes {
 		public var utilsTest:UtilsTest;
 		public var actionScriptRNGTest:ActionScriptRNGTest;
 		public var pregnancyUtilsTest:PregnancyUtilsTest;
+		public var saveGameUtilsTest:SaveGameUtilsTest;
 	}
 }

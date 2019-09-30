@@ -81,6 +81,7 @@ package classes.Scenes.Places.Bazaar
 		
 		public function smithShop():void { //Entrance, buttons
 			spriteSelect(SpriteDb.s_chillySmith);
+			credits.modContent = true;
 			clearOutput();
 			outputText("You make your way into ");
 			if (silly()) outputText("the Chili's");

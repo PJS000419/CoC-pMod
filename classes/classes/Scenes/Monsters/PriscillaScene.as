@@ -22,6 +22,7 @@ package classes.Scenes.Monsters
 		public function goblinElderEncounter():void {
 			clearOutput();
 			spriteSelect(SpriteDb.s_priscilla);
+			credits.modContent = true;
 			//First Time Intro
 			if (flags[kFLAGS.TIMES_ENCOUNTERED_GOBLIN_ELDER] == 0)
 			{
@@ -210,6 +211,7 @@ package classes.Scenes.Monsters
 		{
 			spriteSelect(SpriteDb.s_priscilla);
 			clearOutput();
+			credits.modContent = true;
 			outputText("The elder falls to her feet, smashing her titties against the confines of her armor.  She looks up at you and sniffles.");
 			
 			if (player.lust < 33) {

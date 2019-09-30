@@ -15,6 +15,7 @@ package classes.Scenes.Areas.GlacialRift {
 		public function amarokChowTime():void {
 			clearOutput();
 			spriteSelect(SpriteDb.s_amarok);
+			credits.modContent = true;
 			credits.authorText = "Foxwells";
 			outputText(images.showImage("amarok-defeat"));
 			flags[kFLAGS.AMAROK_LOSSES]++;
@@ -35,6 +36,7 @@ package classes.Scenes.Areas.GlacialRift {
 		private function amarokNoEat():void {
 			clearOutput();
 			spriteSelect(SpriteDb.s_amarok);
+			credits.modContent = true;
 			credits.authorText = "Foxwells";
 			outputText(images.showImage("area-glacialrift"));
 			outputText("\n\nMuch to your surprise, however, the Amarok suddenly backs away with a low growl. It resumes sniffing you at a distance, eventually coming over to your lower half. The worms inside you wriggle about, and you let out a low groan of discomfort. As though on cue, the Amarok take a sniff of your crotch, then promptly backs off with another snarl. It must be able to detect your worm infestation, and more importantly, not like it! It turns away and kicks snow on you with one of its back back, letting out a huff of irritation. You watch it walk off as blackness washes over your vision.");
@@ -44,6 +46,7 @@ package classes.Scenes.Areas.GlacialRift {
 		private function amarokChompo():void {
 			clearOutput();
 			spriteSelect(SpriteDb.s_amarok);
+			credits.modContent = true;
 			credits.authorText = "Foxwells";
 			if (player.lust >= player.maxLust()) outputText("Overcome by sexual desire, you submit to the powerful wolfn\n");
 			else outputText("Too weak to continue fighting, you fall to your knees face in the ground.\n\n");
@@ -97,6 +100,7 @@ package classes.Scenes.Areas.GlacialRift {
 		public function amarokBadEnd():void {
 			clearOutput();
 			spriteSelect(SpriteDb.s_amarok);
+			credits.modContent = true;
 			credits.authorText = "Foxwells";
 			outputText(images.showImage("badend-amarok"));
 			outputText("You've been here before. The Amarok will carry you to its den, let its pups deal with you as they will, and it'll vanish off somewhere. You'll wake up later and flee before it returns or its pups get hungry. You close your eyes and wait for it to pick you up. You just want to get this over with.");
@@ -113,6 +117,7 @@ package classes.Scenes.Areas.GlacialRift {
 			if (flags[kFLAGS.AMAROK_LOSSES] < 0)
 				flags[kFLAGS.AMAROK_LOSSES] = 0;
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Foxwells";
 			outputText(images.showImage("amarok-victory"));
 			outputText("The Amarok collapses, unable to withstand any more.");

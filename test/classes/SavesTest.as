@@ -1,5 +1,6 @@
 package classes{
 	import classes.Items.ConsumableLib;
+	import classes.internals.SaveGameUtils;
 	import classes.internals.SerializationUtils;
 	import classes.lists.BreastCup;
 	import org.flexunit.asserts.*;
@@ -10,7 +11,6 @@ package classes{
 	import org.hamcrest.text.*;
 	
 	import flash.display.Stage;
-	import mx.utils.UIDUtil;
 	
 	import classes.CoC;
 	import classes.Scenes.Inventory;
@@ -21,7 +21,7 @@ package classes{
 	
 	public class SavesTest {
 		private static const TEST_VERSION:String = "test";
-		private static const TEST_SAVE_GAME_PREFIX:String = "savesTest-";
+		private static const TEST_SAVE_GAME:String = "test";
 		
 		private static const CLIT_LENGTH:Number = 5;
 		private static const VAGINA_RECOVERY_PROGRESS:int = 6;
@@ -49,14 +49,19 @@ package classes{
 		private static const PLAYER_FATIGUE:int = 49;
 		
 		private static const PLAYER_XP:int = 7;
+		
+		private static const SAVEGAME_NOTE_GUI:String = "This is a note from the GUI";
+		private static const SAVEGAME_NOTE_CLASS:String = "This is a note from the class";
+		private static const SAVEGAME_NOTE_OBJECT:String = "This is a note from the savegame object";
+		private static const SAVEGAME_NOTE_HARDCORE:String = "<font color=\"#ff0000\">HARDCORE MODE</font>";
 
 		private var player:Player;
 		private var cut:SavesForTest;
 		private static var consumables:ConsumableLib;
 		
 		private var saveFile:*;
+		private var saveGameObject:*;
 		private var serializedSave:* = [];
-		private var TEST_SAVE_GAME:String;
 		
 		[BeforeClass]
 		public static function setUpClass():void {
@@ -66,8 +71,6 @@ package classes{
 		
 		[Before]
 		public function setUp():void {
-			TEST_SAVE_GAME = TEST_SAVE_GAME_PREFIX + UIDUtil.createUID();
-			
 			player = new Player();
 			player.short = TEST_PLAYER_SHORT;
 			player.a = TEST_PLAYER_A;
@@ -81,6 +84,7 @@ package classes{
 			kGAMECLASS.player = player;
 			kGAMECLASS.ver = TEST_VERSION;
 			kGAMECLASS.version = TEST_VERSION;
+			kGAMECLASS.flags = new DefaultDict();
 			
 			cut = new SavesForTest(kGAMECLASS.gameStateDirectGet, kGAMECLASS.gameStateDirectSet);
 			kGAMECLASS.inventory = new Inventory(cut);
@@ -93,6 +97,8 @@ package classes{
 			
 			initInventory();
 			
+			saveGameObject = [];
+			saveGameObject.data = [];
 			saveGame();
 
 			kGAMECLASS.flags[kFLAGS.JOJO_STATUS] = 5;
@@ -105,15 +111,13 @@ package classes{
 		[After]
 		public function tearDown():void
 		{
-			kGAMECLASS.flags[kFLAGS.TEMP_STORAGE_SAVE_DELETION] = TEST_SAVE_GAME;
-			cut.purgeTheMutant();
-			
-			kGAMECLASS.flags[kFLAGS.TEMP_STORAGE_SAVE_DELETION] = TEST_SAVE_GAME + "_backup";
-			cut.purgeTheMutant();
+			SaveGameUtils.deleteSaveGame(TEST_SAVE_GAME);
+			SaveGameUtils.deleteSaveGame(TEST_SAVE_GAME + "_backup");
 		}
 		
 		private function saveGame():void {
 			cut.saveGame(TEST_SAVE_GAME, false);
+			cut.writeStateToObject(saveGameObject);
 		}
 		
 		private function loadGame():void {
@@ -201,6 +205,26 @@ package classes{
 			(items[1] as ItemSlot).setItemAndQty(consumables.PURHONY, 5);
 			(items[2] as ItemSlot).setItemAndQty(ItemType.NOTHING, 0);
 			(items[2] as ItemSlot).unlocked = false;
+		}
+		
+		/**
+		 * Creates a new empty saveFile instance with a .data object, then
+		 * writes the current state of the CUT to it.
+		 */
+		private function writeObject():void
+		{
+			saveFile = [];
+			saveFile.data = [];
+			
+			cut.writeStateToObject(saveFile);
+		}
+		
+		/**
+		 * Loads the state from saveGame into the CUT. Does ON validity checks.
+		 */
+		private function loadObject():void
+		{
+			cut.loadGameObject(saveFile);
 		}
 		
 		[Test]
@@ -542,7 +566,7 @@ package classes{
 		{
 			cut.loadGame(TEST_SAVE_GAME);
 			
-			assertThat(kGAMECLASS.player.itemSlot1.itype, equalTo(consumables.CANINEP));
+			assertThat(kGAMECLASS.player.itemSlot(0).itype, equalTo(consumables.CANINEP));
 		}
 		
 		[Test]
@@ -550,7 +574,7 @@ package classes{
 		{
 			cut.loadGame(TEST_SAVE_GAME);
 			
-			assertThat(kGAMECLASS.player.itemSlot1.quantity, equalTo(6));
+			assertThat(kGAMECLASS.player.itemSlot(0).quantity, equalTo(6));
 		}
 		
 		[Test]
@@ -558,14 +582,14 @@ package classes{
 		{
 			cut.loadGame(TEST_SAVE_GAME);
 			
-			assertThat(kGAMECLASS.player.itemSlot1.unlocked, equalTo(true));
+			assertThat(kGAMECLASS.player.itemSlot(0).unlocked, equalTo(true));
 		}
 		
 		public function loadItemSlot1Damage():void
 		{
 			cut.loadGame(TEST_SAVE_GAME);
 			
-			assertThat(kGAMECLASS.player.itemSlot1.damage, equalTo(7));
+			assertThat(kGAMECLASS.player.itemSlot(0).damage, equalTo(7));
 		}
 		
 		[Test]
@@ -619,9 +643,9 @@ package classes{
 		{
 			cut.loadGame(TEST_SAVE_GAME);
 			
-			assertThat(kGAMECLASS.player.itemSlot1.itype, equalTo(consumables.CANINEP));
-			assertThat(kGAMECLASS.player.itemSlot2.itype, equalTo(ItemType.NOTHING));
-			assertThat(kGAMECLASS.player.itemSlot3.itype, equalTo(consumables.EQUINUM));
+			assertThat(kGAMECLASS.player.itemSlot(0).itype, equalTo(consumables.CANINEP));
+			assertThat(kGAMECLASS.player.itemSlot(1).itype, equalTo(ItemType.NOTHING));
+			assertThat(kGAMECLASS.player.itemSlot(2).itype, equalTo(consumables.EQUINUM));
 		}
 		
 		[Test]
@@ -658,6 +682,14 @@ package classes{
 		}
 		
 		[Test]
+		public function upgradeAddsVersionForPlayer():void
+		{	
+			cut.upgradeSerializationVersion(serializedSave, 2);
+			
+			assertThat(serializedSave.serializationVersionDictionary, hasProperty(new Player().serializationUUID()));
+		}
+		
+		[Test]
 		public function inventoryMustBeValid():void
 		{
 			assertThat(kGAMECLASS.inventory, notNullValue());
@@ -671,6 +703,47 @@ package classes{
 			
 			assertThat("Item storage did not contain purple dye", kGAMECLASS.inventory.hasItemInStorage(consumables.PURPDYE), equalTo(true));
 			assertThat("Item storage did not contain pure honey", kGAMECLASS.inventory.hasItemInStorage(consumables.PURHONY), equalTo(true));
+		}
+		
+		[Test]
+		public function addSaveGameNoteFromGui():void
+		{
+			kGAMECLASS.mainView.nameBox.text = SAVEGAME_NOTE_GUI;
+
+			saveGame();
+			
+			assertThat(saveGameObject.data.notes, equalTo(SAVEGAME_NOTE_GUI));
+		}
+		
+		[Test]
+		public function addSaveGameNoteFromClass():void
+		{
+			kGAMECLASS.mainView.nameBox.text = "";
+			cut.notes = SAVEGAME_NOTE_CLASS;
+			saveGame();
+			
+			assertThat(saveGameObject.data.notes, equalTo(SAVEGAME_NOTE_CLASS));
+		}
+		
+		[Test]
+		public function loadSaveGameNote():void
+		{
+			saveGameObject.data.notes = SAVEGAME_NOTE_OBJECT;
+			
+			cut.loadGameObject(saveGameObject);
+			
+			assertThat(cut.notes, equalTo(SAVEGAME_NOTE_OBJECT));
+		}
+		
+		[Test]
+		public function hardcoreModeOverridesSaveGameNote():void
+		{
+			kGAMECLASS.flags[kFLAGS.HARDCORE_MODE] = 1;
+			kGAMECLASS.mainView.nameBox.text = SAVEGAME_NOTE_GUI;
+			
+			saveGame();
+			
+			assertThat(saveGameObject.data.notes, equalTo(SAVEGAME_NOTE_HARDCORE));
 		}
 	}
 }
@@ -689,5 +762,10 @@ class SavesForTest extends Saves {
 
 	public function loadNPCstest(saveFile:*):void {
 		SerializationUtils.deserialize(saveFile.data, this);
+	}
+	
+	public function writeStateToObject(object:*):void
+	{
+		this.writeGameStateToObject(object);
 	}
 }

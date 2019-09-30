@@ -33,6 +33,8 @@ package classes.Scenes.Places
 				return;
 			}
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kitteh6660";
 			outputText(images.showImage("location-ingnam"));
 			if (flags[kFLAGS.GRIMDARK_MODE] > 0) {
 				outputText("Ingnam is a village well-defended against the tides of monsters outside. There is already a well-established array of shops though some of them seem to be abandoned and there's barely any activity. The temple sits within view of the patrons sitting at tables at the tavern which serves as a hub for people near and far to drink and dance. On the road leading out of the plaza that sits before the temple is a trail that meanders its way to a large farm in the distance.");

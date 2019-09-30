@@ -13,6 +13,8 @@ package classes.Scenes.Areas.GlacialRift
 		
 		public function loseToValkyrie():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Savin";
 			outputText("Unable to resist ")
 			if (player.HP <= 0) outputText("her onslaught")
 			else outputText("your rising lust")
@@ -30,6 +32,8 @@ package classes.Scenes.Areas.GlacialRift
 		}
 		
 		private function loseToValkyrieForcedOral():void {
+			credits.modContent = true;
+			credits.authorText = "Savin";
 			var gemPenalty:Number = (player.gems / 100) + 10 + rand(20)
 			if (gemPenalty > 100) gemPenalty = 100;
 			if (gemPenalty > player.gems) gemPenalty = player.gems;
@@ -59,6 +63,8 @@ package classes.Scenes.Areas.GlacialRift
 				combat.cleanupAfterCombat();
 				return;
 			}
+			credits.modContent = true;
+			credits.authorText = "Savin";
 			
 			if (monster.HP <= 0) outputText("Beaten and bloodied, the valkyrie stumbles for a moment before dropping her spear and shield.  She kneels before you, head bowed low enough that her long hair brushes the icy ground. ")
 			else outputText("Unable to contain her arousal, the valkyrie drops her weapons and collapses onto her knees, slipping a hand into her short skirt. ")
@@ -89,6 +95,8 @@ package classes.Scenes.Areas.GlacialRift
 		//Aerial Fuck
 		private function valkyrieAerialFuck():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Savin";
 			outputText("Standing over the defeated valkyrie, your eyes alight to her great white wings. They’re certainly powerful enough to keep a strong, fully armored woman aloft. . . So why not the both of you? You haul the warrior woman to her feet, free your " + player.cockDescript() + " from your " + player.armorName + ", and grip her in a tight embrace. You give her a hard slap on the ass and tell her to fly.\n\n")
 			outputText("She hesitates for just a moment, prompting another harsh spank. Unable to resist your desires, the defeated girl unfolds her powerful wings and with a mighty flap, launches into the air. You soar on high, quickly rising above the icy wastes to look down upon the northern reaches of Mareth far below you. You can see other creatures roaming the wastes -- giants and vikings and other, low-flying valkyries, looking like little more than ants beneath you. The realization of your height over the world, combined with the closeness of the valkyrie girl, her breasts heaving into your chest and her breath hot on your cheek, serve to make your " + player.cockDescript() + " rock hard between the two of you, sandwiched snugly between your bellies.\n\n");
 			outputText("Suddenly, you realize that without letting go of the girl, you aren’t liable to get your dick inside her. Well, shit. You lock eyes with the valkyrie, who gives you a shy smile and, to your surprise, wraps her arms tightly around you. You decide to trust her, and free one of your hands from her. You grab your " + player.cockDescript() + " and lift her skirt, guiding it smoothly into her wet and waiting cunt. She gasps as you enter her tight passage, and you quickly grab her again before she can forget to hold onto you.\n\n");
@@ -110,6 +118,8 @@ package classes.Scenes.Areas.GlacialRift
 		//Anal Fuck
 		private function valkyrieAnalFuck():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Savin";
 			outputText("You grab the defeated valkyrie by the hair and push her down onto all fours. She groans as you circle around behind her, giving her ass a hard slap. Defeated, though, she does not try to resist you as you kneel down behind her and flip up her skirt, revealing her lush ass cheeks, her slick cunt, and her tight, puckered little asshole. You reach into your " + player.armorName + " and pull out your " + player.cockDescript() + ", stroking yourself for warmth until your can get your shaft tucked in between the valkyrie’s butt.\n\n");
 			outputText("You grab her hips and start to thrust upwards and back, slowly hotdogging the defeated girl’s ass, stopping only to slather a bit of her drooling cunt juices onto your shaft for some much-needed lubricant. You give her ass a quick, playful slap, making her reflexively squeeze down on your cock. Laughing, you get into a nice rhythm, spanking her once every few thrusts to get a little extra thrill out of her.\n\n");
 			outputText("To your surprise, the valkyrie looks over her shoulder and, face flush with anxious lust, whispers, \"<i>Well. . . What are you waiting for, huh? Just. . . stick it in already!</i>\"\n\n");
@@ -126,6 +136,8 @@ package classes.Scenes.Areas.GlacialRift
 		//Get Licked
 		private function valkyrieLicksYou():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Savin";
 			outputText("You decide to take advantage of the valkyrie girl’s kneeling state. You walk up to her and open the crotch of your " + player.armorName + ", revealing your " + player.vaginaDescript() + ". Before she can react, you grab the back of her blonde head and mash her face into your cunt. You tell her to lick, and to your surprise, she does so without hesitation.\n\n");
 			outputText("The girl’s tongue is surprisingly skilled. She quickly teases it across your clitty, making you moan with sudden pleasure right away. You can see her smirking beneath you as she begins to tease and play with your pleasure buzzer, using the flat of her tongue to tickle the sensitive flesh around it. You return her grin, urging her on with little pats of the head and shoulders, even reaching down to cup one of her perky breasts beneath her breastplate.\n\n");
 			outputText("She finally slips her tongue in and starts to caress the walls of your " + player.vaginaDescript() + ", running her soft, warm tongue along your innermost depths with delightful speed and gentleness. You smile and run your hands through her long hair, stroking her as she grips your hips and buries her face in your twat, utterly submitting to your pleasure.\n\n");
@@ -141,6 +153,8 @@ package classes.Scenes.Areas.GlacialRift
 		//Scissor
 		private function valkyrieScissor():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Savin";
 			outputText("You gently push the kneeling valkyrie onto her back and unclasp your " + player.armorName +" just enough to reveal your " + player.vaginaDescript() + ". The girl squirms a bit, but a harsh word from you stops her in her tracks as you spread her legs and get in position. With ease, you heft one of her long legs over your shoulder, pressing her slick cunt against yours.")
 			outputText("You give her a little grin and begin to grind against her leg, rubbing your " + player.vaginaDescript() + " along her thighs, feeling her smooth skin part your pussylips ever so slightly. Unwilling to just sit there, you’re gratified to see your partner begin to rub her own cunt against yours, returning your affections. Now that it’s a real two-way, you pick up the pace a little, settling into a good rhythm with the valkyrie.")
 			outputText("You reach over and, with a little help from your lover, unclasp her breastplate. Now guarded by only a thin shift, you grasp her perky breasts and begin to squeeze and fondle them, working in a few pinches to her tiny nipples and rough gropes as you play with her soft chest. She lets out a little gasp at each grope or tease, eventually returning the favor, sliding her hands into your " + player.armorName + " and grabbing your " + player.breastDescript(0) + ". She gives your nipples a hard tweak, eliciting a sharp hiss from your lips.")

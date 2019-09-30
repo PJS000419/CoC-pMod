@@ -4,12 +4,28 @@
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
 
-	public class HelSpawnScene extends NPCAwareContent {
+	public class HelSpawnScene extends NPCAwareContent implements TimeAwareInterface {
 
 	public function HelSpawnScene()
 	{
+		CoC.timeAwareClassAdd(this);
 	}
 
+		//Implementation of TimeAwareInterface
+		public function timeChange():Boolean
+		{
+			return false;
+		}
+	
+		public function timeChangeLarge():Boolean {
+			//Good to spar again.
+			if (getGame().time.hours == 23) {
+				getGame().flags[kFLAGS.HELSPAWN_SPARRED_TODAY] = 0;
+			}
+			return false;
+		}
+		//End of Interface Implementation
+	
 //Helia Expansion 4: The Edge of Paradise
 //A CoC Multi-Character Expansion
 //Savin
@@ -65,6 +81,12 @@ override public function helPregnant():Boolean {
 	return (kGAMECLASS.helScene.pregnancy.isPregnant);
 }
 
+	public function helspawnSparIntensity():int {
+		var amount:int = Math.max(0, flags[kFLAGS.HELSPAWN_SPAR_VICTORIES] * 2);
+		if (amount > 100) amount = 100; //Hard capped at 100. She'll be level 32!
+		return amount;
+	}
+
 	public function spriteChooser():void { //USED FOR HELIA'S APPEARANCE, /NOT/ HELSPAWN
 		helScene.spriteChooser();
 	}
@@ -72,6 +94,7 @@ override public function helPregnant():Boolean {
 //Hel’s New Appearance Screen: Taking Things Into Account
 internal function heliasAppearanceScreen():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	spriteChooser();
 	outputText(images.showImage("monster-hel"));
 	outputText("Hel the salamander stands seven feet tall, with pale skin and thick, bright-red scales covering her arms and legs, though she has a normal human torso and face.  A fiery tail swishes gaily behind her, blazing with a ");
@@ -108,6 +131,7 @@ internal function heliasAppearanceScreen():void {
 //" + flags[kFLAGS.HELSPAWN_NAME] + "’s Appearance Screen
 private function helSpawnsAppearanceScreen():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	if (flags[kFLAGS.HELSPAWN_DADDY] == 0) outputText("Your ");
 	else outputText("Hel’s ");
 	outputText("salamander daughter, " + flags[kFLAGS.HELSPAWN_NAME] + ", stands about six-foot-six tall, with pale skin and thick, ");
@@ -137,6 +161,7 @@ private function helSpawnsAppearanceScreen():void {
 public function heliaBonusPointsAward():void {
 	flags[kFLAGS.HELIA_KIDS_CHAT] = 1;
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("\n<b>That night...</b>\n");
 	outputText("Your sleep is disturbed by a gentle tugging on your [armor].  You groggily swat at whatever's nudging at you, groaning about the hour until your eyes finally open wide enough to recognize Helia kneeling over you, a deeply distraught look in her eyes.  \"<i>[name]? [name] wake up, I need to talk to you. Please?</i>\"");
 	
@@ -165,6 +190,7 @@ public function heliaBonusPointsAward():void {
 private function noYouDontLoveHeliaYouMonster():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("As much as you enjoy the sex, as much as you like Hel, you can't say you feel that way towards her.  You grasp her shoulders, telling her as gently as possible how you feel.  She nods slowly as you speak, rubbing at her eyes by the time you're finished.");
 	outputText("\n\n\"<i>Well, thanks for being honest, [name].  I... I really do appreciate it.  But, maybe you can still help me with my problem.  I'll understand if not, but still, I have to ask: ");
 	//[HelLove to NO]
@@ -176,6 +202,7 @@ private function noYouDontLoveHeliaYouMonster():void {
 private function yesHeliaILoveYourButtHoleReaming():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("Smiling, you tell her yes.  The salamander cries out with joy, jumping into your arms and kissing you, squeezing you so tightly that you feel like you're about to black out by the time she breaks the kiss, stepping back with chest heaving.");
 	outputText("\n\n\"<i>Wh-why didn't you tell me before, anyway?</i>\" she asks, nuzzling her cheek into your [chest].  \"<i>Could have saved me all this trouble.</i>\"");
 	outputText("\n\nYou shrug, saying that you never really felt like you had the chance until now... and it's a lot cuter when she bumbles through a confession.  Helia gives you a gentle punch on the shoulder, but softens the blow with another series of kisses along your [chest] and neck, holding you close as the two of you revel in the newly-revealed love you share.  After a few minutes, though, Hel steps back and says, \"<i>I love you, [name], with all my heart.  You're the person I want to spend the rest of my life with, if you'll have me.  But I still have to tell you what's wrong. The reason I brought this all up: ");
@@ -187,6 +214,7 @@ private function yesHeliaILoveYourButtHoleReaming():void {
 //Combine
 private function heliaLoveFollowup():void {
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("You're not from here, so you probably don't know much about salamanders.  Basically, we're effectively infertile.  I can get filled with gallons of cum day in and day out, and chances are none of it will take inside me.  I've always thought I could slut around as much as I wanted, and I'd never have to worry about the consequences.  But... that's not forever, I guess.  When a salamander girl finds the person she wants to be with forever, ");
 	//if PC is female/herm:
 	if (player.hasVagina()) outputText("even another woman, it seems, ");
@@ -212,6 +240,7 @@ private function heliaLoveFollowup():void {
 internal function haveAKid():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	kGAMECLASS.helScene.pregnancy.knockUpForce(PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_SALAMANDER);
 	outputText("You tell Hel that you're in this with her, that you want to give her that child she seems so desperate for.  She beams at you, smiling from eye to eye before leaping into your arms, pressing her lips hard to yours.  You kiss her back, wrapping your arms around her hips to support her as her powerful legs wrap around your waist; you push her up against the ruined wall, hands searching across her taut, hot flesh until you toss her bikini top aside, letting her hefty tits free.  \"<i>Oh god yes,</i>\" she moans as you trail kisses from her lips, down her neck to her stiffening nipple.  \"<i>I want this so much, more than anything.  Give it to me, [name].  Don't hold back!</i>\"  Your fingers sink into her pliant flesh as you suckle on her exposed teat, groping her other tit and soft ass as she moans and squirms in your arms.  Clumsily, Hel's claws brush down your body, peeling off your [armor] until your " + player.cockDescript(0) + " flops into her lap.  She locks her scaled fingers around your manhood, roughly stroking you until you're stiff as diamonds in her grasp.");
 	
@@ -253,6 +282,7 @@ internal function haveAKid():void {
 private function HaveAHellKidPartII():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("<b>Several Hours Later...</b>\n");
 	outputText("With the last ounce of energy in your sixth - or is it seventh? - wind, you deliver a sharp crack across Helia's beet-red backside and roar out as another potent surge of seed rushes into her snow-white hole, still slick with the leavings of your last half-dozen discharges.  You grab her thick hips and slam your " + player.cockDescript(0) + " deep inside her as the last shot fills her womb a little bit fuller, the excess spurting out to wet the cum-stained ground beneath the salamander's knees.");
 	
@@ -288,6 +318,7 @@ private function HaveAHellKidPartII():void {
 private function getAnotherDad():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	//[Another Dad] (PC has no dick)
 	if (!player.hasCock()) {
 		outputText("You tell Helia you'd love to a share a child with her, but you're not... properly equipped for the endeavor.  \"<i>That's fine!  I can... I can wait, a little.  I-if you want to go grow one, I mean.  If not, then we can find someone with a cock.  ");
@@ -316,6 +347,7 @@ private function getAnotherDad():void {
 private function maiWouldBeTheBestInseminator():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("You tell Hel that you think Mai would make a lovely father.  Helia nods her agreement, saying, \"<i>Yeah, I agree.  She's a beauty, and I'm sure our child will be stunning... you wouldn't mind if she visited, right?  I mean, you and I will be raising our kid - and he'll be ours for sure - but I'm sure Mai will want to at least visit her kid.</i>\"");
 	outputText("\n\nYou nod, and say that's fine.  Hel beams at you, giving you a peck on the cheek before running back to camp, saying she's going to go track down the foxy sisters as soon as she can.  You suppose the next time you see her, Hel's probably going to be pregnant with the child you'll be helping to raise.");
 	kGAMECLASS.helScene.pregnancy.knockUpForce(PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_SALAMANDER); //Yes, it's Mai's baby, but that's already tracked separately
@@ -327,6 +359,7 @@ private function maiWouldBeTheBestInseminator():void {
 private function spiderboyWouldBeBestDad():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("You tell Helia to go find a spider boy to jump.  She beams at you, and skips off toward the swamp calling, \"<i>Thank you, thank you thank you, [name]!</i>\" over her shoulder as she goes.  You suppose the next time you see her, Hel's probably going to be pregnant with the child you'll be helping to raise.");
 	kGAMECLASS.helScene.pregnancy.knockUpForce(PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_SALAMANDER); //Yes, it's the spider's baby, but that's already tracked separately
 	flags[kFLAGS.HEL_NTR_TRACKER] = 1;
@@ -338,6 +371,7 @@ private function spiderboyWouldBeBestDad():void {
 private function growingDicks4Hel():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("You tell Hel to give you a little while, that you'll go find something to grow a cock for her.");
 	outputText("\n\n\"<i>Thank you!  Thank you so much, [name].  I really, really wanted for it to be our child. I'll wait, but hurry.  I don't know how much longer I can stand this... this need!</i>\"");
 	outputText("\n\nOnce you've finished with Hel, she leaves you with a longing look as you head back to camp.  Eventually, you manage to go back to sleep...");
@@ -349,6 +383,7 @@ private function growingDicks4Hel():void {
 private function noKidsHel():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("You shake you head and say no, you don't want to have children.  Not right now, anyway.  ");
 	if (player.hasCock() && player.cockThatFits(helFollower.heliaCapacity()) >= 0) outputText("You couldn't if you wanted to anyway - you're too big to fit.  ");
 	outputText("As the words leave your lips, you can see Hel's shoulders slump, a crestfallen look spreading across her face.  \"<i>A-are you sure?  Please, [name], I really, really want a child.  For </i>us<i> to have one.</i>\"");
@@ -363,6 +398,7 @@ private function noKidsHel():void {
 //Proc day after dad choice @ 8AM.
 public function helGotKnockedUp():void {
 	spriteChooser();
+	credits.authorText = "Savin";
 	flags[kFLAGS.HEL_NTR_TRACKER] = 2;
 
 	outputText("\n<b>After your decision with Helia last night,</b> you decide to check in on your lusty salamander.  You find her sitting on a rock near her part of camp, knees held close to her chest, seemingly deep in thought.  She gives you a ");
@@ -389,6 +425,7 @@ public function helGotKnockedUp():void {
 private function sureHelGimmeSpidahBoyDetails():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("Hel chuckles, shaking her head.  \"<i>So I go to the swamp and just shout out 'Who wants to fuck a baby into this fertile womb, you chitiny bastards,' and sure enough, I got plenty of volunteers.  Whole horde of creepy crawlies came out of the woodwork, but I saw the looks in their eyes: corrupt, all of 'em.  I don't want my kid half way to cumming out his soul before he's had a chance, you know?  So I did my berzerker thing, fought 'em off.  The swamp's getting more and more dangerous every month, I think.  Something in the water maybe, who knows.  Anyway, after I dispatched the crazies, I went deeper, just a little");
 	if (followerKiha()) outputText(", toward hotwings' old place");
 	outputText(". Took a while, but eventually I just sort of stumbled on this couple of spidergirls, just as cute as could be.  They wander up to me, all cautious, and ask if I was serious about the whole baby thing.  So I say, 'Yeah, sure,' and they get this big, dopey grin, the both of 'em.</i>\"");
@@ -492,6 +529,7 @@ private function dontTellMeAboutMai():void {
 public function bulgyCampNotice():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("As you're walking through camp, your eyes wander over toward Helia, sunning herself on a stone near the edge of camp.  You can just see that her belly's starting to bulge out from under her, and Hel's hands lie protectively over her full womb, absently rubbing the bulge of her stomach.");
 	doNext(playerMenu);
 }
@@ -500,6 +538,7 @@ public function bulgyCampNotice():void {
 public function heliaSwollenNotice():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("You note that Hel's wandering aimlessly around camp, one hand over her belly as she mumbles to herself.  You could swear she was cursing her now quite swollen belly, but suddenly she gives a girlishly happy cry and waves you over.\n");
 	outputText("\n\"<i>Come feel, [name], quick! It's kicking!</i>\"\n");
 	outputText("\nYou trot over and press your ear to Hel's big belly, running your hands along her taut skin.  A moment later, and you feel a little push against you, a tiny kick right to the head from the little salamander inside your lover.");
@@ -516,6 +555,7 @@ public function heliaSwollenNotice():void {
 private function youWantABoy():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("\"<i>Is that so? Yeah, I can see it.  ");
 	if (player.hasCock() && !player.hasVagina()) outputText("If I were a guy, I'd want a big strong son to hang out with, too.  Take him fishing, teach him how to fight the way you do... you'll make a great dad, my love.  I'm sure you will.");
 	else outputText("Would be nice to have a man around here, you know?  I miss hanging around the boys back home, watching 'em strut like peacocks for every passing girl.");
@@ -528,6 +568,7 @@ private function youWantABoy():void {
 private function youWantAGirl():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("\"<i>Yeah, a girl would be pretty great.  ");
 	//if PC is male:
 	if (player.hasCock() && !player.hasVagina()) {
@@ -545,6 +586,7 @@ private function youWantAGirl():void {
 public function heliaGravidity():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 //Shouldn't be needed, bet this was originally here to stop duplicate notices:	flags[kFLAGS.HEL_PREGNANCY_INCUBATION]--;
 	outputText("You can't help but notice that Hel's starting to have a hard time getting around, lately - and she's been sticking closer and closer to camp, barely leaving at all the last few days.  Now, she's fussing around her part of camp, trying to beat some spare logs into a crib one-handed.  You can't remember the last time you saw her walking around without a hand on her back to support her gravid belly, the other absently rubbing or poking at it, already playing with the child inside her.");
 	
@@ -571,6 +613,7 @@ public function heliaGravidity():void {
 internal function heliaTalkSeven():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	flags[kFLAGS.HELIA_TALK_SEVEN] = 1;
 	outputText("You take Hel with you to a secluded spot at the edge of camp and sit with her, asking how she's doing as you run a hand across her pregnant belly.  She nuzzles against you, wrapping her lengthy tail around your waist as her cheek nestles into the nape of your neck.  \"<i>It's... not like I expected, [name].  Whenever I used to think of being a mother, I always sort of skipped the whole 'carry the little bastards around in your belly' part.  I just feel so... full, I guess?  Like I just ate a horse, and the horse is inviting its friends to come party at night whenever I try to sleep.  Heh, this little firebrand just loves to kick and squirm at night, let me tell you.  Speaking of which-</i>\"  Hel takes your hand in hers and places it over her belly, letting you feel the subtle little movements inside her as your growing child pushes out toward the world.");
 	
@@ -593,6 +636,7 @@ internal function heliaTalkSeven():void {
 private function encouragePregalia():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("You squeeze Hel's shoulder and tell her that she's going to be a great mother, and that her child would do well to learn from a beautiful, powerful warrior like dear old mom.  ");
 	if (flags[kFLAGS.HEL_LOVE] == 1) outputText("You love Hel");
 	else outputText("Hel's your friend");
@@ -605,6 +649,7 @@ private function encouragePregalia():void {
 private function helsLifestyle():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("Being very serious for a moment, you tell Hel that if she's worried about her terrible choices rubbing off on her kid, maybe she ought to reconsider some of the things she's done: be less of a slut, drink less, be less of a bloodthirsty maniac in battle.  Slowly, Hel nods to the rhythm of your words.  \"<i>Yeah, maybe... maybe I should.  I don't know if I can change though, [name].  I'm not as young as I was - or at least, I don't feel it - and I've been living the way I have been for years.  I don't know if I could just give up the shit I do: the partying and the drinking, the fighting and the fucking.  It's part of who I am, ");
 	if (flags[kFLAGS.HEL_LOVE] == 1) outputText("and I hope that's part of why you love me");
 	else outputText("even though I know that's probably part of why you can't love me back");
@@ -622,6 +667,7 @@ public function heliaBirthtime():void {
 	}
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("The morning dawns like any other, though as you're getting dressed, you can't help but notice Hel waddling back from the edge of camp, both hands firmly gripping her positively massive belly.  You walk over just in time to hear her groan, \"<i>Oh fuck me sideways and call me a harpy, this shit sucks.</i>\"  You put an arm around her to steady the sickened salamander, but she barely notices you as she flops down beside her still, nearly grabbing a glass before stopping herself.  \"<i>Fucking shit fuck I am so done with this.  I - oh god,</i>\" she doubles over, squeezing her belly.  \"<i>Ow ow oh god ow.</i>\"");
 	
 	outputText("\n\nYou ask Hel if she's okay, which earns you a bestial growl and a murderous look.  Her look softens a moment later when she doubles over again, seized by agony.  \"<i>Just about time, [name].  Oh fuck, this hurts something fierce.</i>\"");
@@ -641,6 +687,7 @@ public function heliaBirthtime():void {
 private function heliaBirthEpilogue():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	//It's a girl! 
 	//If PC was the father: 
 	if (flags[kFLAGS.HELSPAWN_DADDY] == 0) outputText("A healthy baby salamander gurgles and cries as you wrap her in a towel, looking up at you with a pair of bright golden eyes.  Hel takes your daughter, holding the little bundle of you to herself, cooing and laughing at the new life in her arms.  \"<i>Oh my god, [name], look... it's... it's our baby girl.  And she's got your eyes.  The same look I see in your eyes every day.  Oh, this one's going to grow up big and strong.  Aren't you?</i>\" she laughs, rubbing the baby's cheek.  It makes a high, gay little coo in response, nuzzling against Hel's finger.");
@@ -657,6 +704,7 @@ private function heliaBirthEpilogue():void {
 private function nameDatHelspawn():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("You and Helia share a laugh, looking down at ");
 	if (flags[kFLAGS.HELSPAWN_DADDY] == 0) outputText("your ");
 	else outputText("her ");
@@ -670,6 +718,7 @@ private function nameDatHelspawn():void {
 }
 private function applyHelspawnName():void {
 	spriteChooser();
+	credits.authorText = "Savin";
 	var forbiddenNames:Array = ["", "Hellgirl", "Kid", "Phoenix", "Savin", "Helia", "Mini-doofus"];
 	//Easter Egg Names Hel WILL NOT ALLOW:
 	if (forbiddenNames.lastIndexOf(mainView.nameBox.text) >= 0)
@@ -740,6 +789,7 @@ internal function heliaTalkEight():void {
 	clearOutput();
 	flags[kFLAGS.HEL_TALK_EIGHT] = 1;
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("Watching your little daughter crawl around, you and Hel sit down together arm in arm, smiling as the little salamander girl plays with bits and pieces of Hel's gear.");
 	outputText("\n\n\"<i>She's growing up so fast... and only getting faster.  By the time I pulled her off my breast the first time, I swear she'd doubled in size.</i>\"  You nod, able to see it clearly yourself.  Your little girl's growing fast... and it's not just a ");
 	if (flags[kFLAGS.HELSPAWN_DADDY] == 0) outputText("parental ");
@@ -766,6 +816,7 @@ internal function heliaTalkEight():void {
 internal function playWithYourKid():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("Picking " + flags[kFLAGS.HELSPAWN_NAME] + " up off the ground, you spin the giggling little girl around, laughing as your ");
 	if (flags[kFLAGS.HELSPAWN_DADDY] != 0) outputText("ward ");
 	else outputText("daughter ");
@@ -785,6 +836,7 @@ internal function playWithYourKid():void {
 public function helSpawnGraduation():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	flags[kFLAGS.HELSPAWN_GROWUP_COUNTER] = 1;
 	flags[kFLAGS.HELSPAWN_AGE]++;
 	outputText("You wake up to a scream, high-pitched and terrified.  You bolt up out of bed, tangling up in your bedroll for a minute before stumbling over to Hel and... " + flags[kFLAGS.HELSPAWN_NAME] + "?");
@@ -816,6 +868,7 @@ public function helSpawnGraduation():void {
 public function helspawnDiscoversBooze():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	flags[kFLAGS.HELSPAWN_DISCOVER_BOOZE] = 1;
 	outputText("As you're moving through camp, you notice Hel's away from her little nook - probably off visiting the family, seeing as her cloak's gone.  You wouldn't have given her part of camp a second look, except for a sudden whiff of brimstone and burning brewery on the wind.  Cocking an eyebrow, you creep over to Hel's still, quiet as ");
 	if (player.race != "cat-boy" && player.race != "cat-girl") outputText("a cat");
@@ -832,6 +885,7 @@ public function helspawnDiscoversBooze():void {
 private function scoldHelSpawn():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("You cross your arms over your chest and ask your little salamander exactly what she thinks she's doing.");
 	outputText("\n\n\"<i>Uh, I'm... uh...</i>\" she starts before you pick her up by the scruff of the neck, pulling her away from the still.  She squirms and flails drunkenly in your grasp, but is unable to escape in her condition.  \"<i>P-put me down, " + championRef() + "!</i>\" she squeals, but you only tsk your tongue as you drag her away, dropping her on your bedroll, well away from the booze.");
 	outputText("\n\nCrossly, you again ask what she was doing.");
@@ -850,6 +904,7 @@ private function scoldHelSpawn():void {
 private function encourageHelspawn():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("\"<i>Move over, you,</i>\" you say, sliding down beside your little salamander as you pop the tap open again.  \"<i>Gotta pace yourself, see,</i>\" you add, taking a long draught before closing it off again, savoring the potent taste of Hel's mighty brew.");
 	outputText("\n\n\"<i>Wha...?</i>\" " + flags[kFLAGS.HELSPAWN_NAME] + " starts to say, before catching on as you drink, inviting her to join you.");
 	outputText("\n\n\"<i>The trick is,</i>\" you say, letting your daughter get back under the tap, \"<i>You gotta build up your tolerance.  Your mom's been drinking like a fish for a decade; you can't just dive in and expect to do what she does.  You have to pace yourself.</i>\"");
@@ -880,6 +935,7 @@ private function encourageHelspawn():void {
 public function helSpawnChoosesAFightingStyle():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("As you make your way back to camp, you begin to hear the sounds of fighting from ahead.  Readying your [weapon], you pick up the pace until your campsite comes into view.  You relax, seeing that it's only " + flags[kFLAGS.HELSPAWN_NAME] + " and her mother.  Helia's standing near the center of camp, ");
 	if (camp.companionsCount() > 3) outputText("apparently having cleared out most of your other followers for the moment, ");
 	outputText("her sword held at a guard pose between herself and a training dummy. " + flags[kFLAGS.HELSPAWN_NAME] + " stands a few feet behind her mother, watching intently as Hel paces around the dummy, breathing hard.");
@@ -908,6 +964,7 @@ public function helSpawnChoosesAFightingStyle():void {
 private function snipermanders():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	flags[kFLAGS.HELSPAWN_WEAPON] = "bow";
 	outputText("You tell Hel to take a break: you've got this handled. Grabbing your bow and quiver from over your shoulder, you hand them over to ");
 	if (flags[kFLAGS.HELSPAWN_DADDY] == 0) outputText("your");
@@ -952,6 +1009,7 @@ private function snipermanders():void {
 private function swordAndBoardmander():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	flags[kFLAGS.HELSPAWN_WEAPON] = "scimitar and shield";
 	outputText("You tell Hel to take a break: you've got this handled.  You grab some kindling and string from your supplies, and a few minutes later you've got a pair of small, vaguely sword-like practice weapons pieces together.  Tossing one to the young salamander, you tell her to come get some.");
 	
@@ -1003,6 +1061,7 @@ private function swordAndBoardmander():void {
 private function dasBarbarimander():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	flags[kFLAGS.HELSPAWN_WEAPON] = "scimitar";
 	if (player.gems >= 200) {
 		outputText("You sigh and dig out a handful of gems.  Helia beams at you, planting a quick kiss on your cheek before grabbing " + flags[kFLAGS.HELSPAWN_NAME] + " and the loot.  \"<i>Thanks for the loan, lover mine.  C'mon, sweetie, we're going for a trip to town.</i>\"");
@@ -1029,6 +1088,7 @@ public function helspawnIsASlut():void {
 		return;
 	}
 	spriteChooser();
+	credits.authorText = "Savin";
 	flags[kFLAGS.HELSPAWN_FUCK_INTERRUPTUS] = 1;
 	outputText("\nSomething's moving in your camp.");
 	
@@ -1053,6 +1113,7 @@ public function helspawnIsASlut():void {
 private function helspawnDoNothing():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("You turn around and head back to your bed.  As soon as you're under your blanket, your ears are assaulted with the quiet moans and grunts of pleasure coming from " + flags[kFLAGS.HELSPAWN_NAME] + "'s bed as she and her first little boyfriend get it on.  You can practically hear the tail-pegging from here.  How cute!");
 	//{HelspawnSlutty +10}
 	flags[kFLAGS.HELSPAWN_PERSONALITY] += 10;
@@ -1063,6 +1124,7 @@ private function helspawnDoNothing():void {
 private function helSpawnStopFucking():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("You sigh and step out of the shadows, grabbing the feminine little spider boy by the shoulder and yanking him away from " + flags[kFLAGS.HELSPAWN_NAME] + ".  \"<i>And just what the hell do you two think you're doing?</i>\" you yell, scowling ");
 	if (player.tallness >= 90) outputText("up ");
 	else if (player.tallness <= 72) outputText("down ");
@@ -1105,6 +1167,7 @@ private function helSpawnStopFucking():void {
 public function helspawnAllGrownUp():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("You wake up the next morning, and soon find your eyes drawn to where " + flags[kFLAGS.HELSPAWN_NAME] + " lies, barely an arm's reach from her mother's hammock, still snoring peacefully.  You sigh wistfully as you get up and get dressed, still thinking of the night before and your girl's little misadventure with the spider.  God, she's grown up fast.  Faster than you could have imagined - or her mother, for that matter.  Helia, too, is still reeling from her daughter's rapid, mutagenic growth.  But there's nothing to be done about that, now, and it seems she's reached what passes for adulthood in this strange world.  She's had the body of a woman for some time now, and it seems the mind and desires of one as well.");
 	
 	outputText("\n\nA part of you is sad to see her all grown up, and now you know it's time to treat your ");
@@ -1123,6 +1186,7 @@ public function helspawnAllGrownUp():void {
 //Helspawn’s Main Menu @ Camp [Followers Tab]
 public function helspawnsMainMenu():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	outputText("You call " + flags[kFLAGS.HELSPAWN_NAME] + " over to you and she comes running, ");
 	if (player.tallness <= 72) outputText("grabbing you off your [feet] and clutching you in a tight hug");
 	else outputText("throwing her arms around you and hugging you tightly");
@@ -1136,7 +1200,10 @@ public function helspawnsMainMenu():void {
 	//[Talk]
 	addButton(1,"Talk",talkToHelspawn).hint("Have a chat with " + flags[kFLAGS.HELSPAWN_NAME] + " about random things in general.");
 	//[Spar]
-	addButton(2,"Spar",sparHelspawn).hint("See if your salamander daughter is up for a quick fight session!");
+	if (flags[kFLAGS.HELSPAWN_SPARRED_TODAY] <= 0)
+		addButton(2, "Spar", sparHelspawn).hint("See if your salamander daughter is up for a quick fight session!");
+	else
+		addButtonDisabled(2, "Spar", "You've already sparred your salamander daughter for today. Let her have some rest! She will be stronger the next time you fight her.");
 	//[Sex] {?}
 	//[Appearance]
 	addButton(8,"Appearance",helSpawnsAppearanceScreen).hint("Examine " + flags[kFLAGS.HELSPAWN_NAME] + "'s appearance.");
@@ -1146,6 +1213,7 @@ public function helspawnsMainMenu():void {
 //Hug
 private function hugHelspawn():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	//{if PC is less than 6' tall:}
 	if (player.tallness <= 72) {
 		outputText("You reach up and pull " + flags[kFLAGS.HELSPAWN_NAME] + " down to your level, wrapping your arms tight around her slender shoulders.  Grinning from ear to ear, the towering girl squeezes you right back, her powerful muscles just about crushing your smaller body.  Her tail slips around your [hips], the warm leather binding you to your beloved ");
@@ -1171,6 +1239,7 @@ private function hugHelspawn():void {
 private function talkToHelspawn():void {
 	//{Note: Talk 1 displays first and only once, followed by a random selection from the other scenes. Most of Helspawn's talk scenes involve other characters from camp, since after all, it takes a village!}
 	clearOutput();
+	credits.authorText = "Savin";
 	var temp:int = rand(5);
 	//Talk 1
 	if (flags[kFLAGS.HAD_FIRST_HELSPAWN_TALK] == 0) {
@@ -1262,6 +1331,7 @@ private function talkToHelspawn():void {
 //Boyfriend
 private function helSpawnBoyfriend():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	outputText("\"<i>So tell me about this spider boy.</i>\"");
 	outputText("\n\n\"<i>Alex?</i>\" " + flags[kFLAGS.HELSPAWN_NAME] + " asks, brightening up.  \"<i>I met him on the way to Tel'Adre.  Mom was stopping to, uh, take care of a few stray witches, and I ended up wandering off...</i>\" she says, launching into the tale of her meeting the effeminate spider boy, and the whirlwind romance that brought them giggling back to camp in the middle of the night.  It's typical teen talk, but then, you're not much older than she seems, now, and you remember the days at home when you could have done the same.  You grin as she recounts her first kiss, and note the bright blush on her cheek.");
 	
@@ -1273,6 +1343,7 @@ private function helSpawnBoyfriend():void {
 //StopFucking
 private function dontFuckAlex():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	outputText("Stroking " + flags[kFLAGS.HELSPAWN_NAME] + "'s hair, you try to tell her that there's a better way, that she doesn't have to just fuck everything she comes across.  Her mother's that way, sure, but she could do so much better, so much more with herself than giving in to constant lust.");
 	//{If Sluttymander:}
 	if (flags[kFLAGS.HELSPAWN_PERSONALITY] >= 50) {
@@ -1294,6 +1365,7 @@ private function dontFuckAlex():void {
 //Incest / You & Me
 private function incestWithHelspawn():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	outputText("You cup " + flags[kFLAGS.HELSPAWN_NAME] + "'s cheek, turning her to you... only to have her leap you, straddling your [legs] as her powerful arms wrap around your neck.  Her thin lips press hard to yours, slender tongue probing against yours as her svelte body presses against you.  You respond in kind, grabbing her big ass and squeezing, kneading the delicious curves as she starts to grind against you, breath hot and heavy on your " + player.skinFurScales() + ".  \"<i>I said I love you, " + championRef() + ",</i>\" she grins, so close you can practically feel the beat of her heart through her perky breasts.  \"<i>Glad to know you feel the same way.</i>\"");
 	
 	outputText("\n\nYou grin as the beautiful salamander strokes your cheek, and says, \"<i>You're a hell of a lot better than any femmy spider boy, " + championRef() + ".  I'm a lucky girl to have someone like you to raise me... and to love me.</i>\"");
@@ -1307,6 +1379,7 @@ private function incestWithHelspawn():void {
 //[Oh God EW]
 private function ohGodEwKihaAndHelspawnSuckAtCooking():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	outputText("You spew the stew onto the ground and grab a nearby waterskin, trying to flush the taste from your mouth.  Kiha and " + flags[kFLAGS.HELSPAWN_NAME] + " look on with horror as you wipe your mouth and begin to try and coherently explain just how god awful whatever that... STUFF... you just put in your mouth was.  Shock turns to anger before you’re halfway through admonishing the pair of scaly redheads.  Kiha scowls at you and snatches the ladle from you.");
 	outputText("\n\n\"<i>Oh, what the fuck do you know anyway, you big ass!  It's perfectly fine, isn't it " + flags[kFLAGS.HELSPAWN_NAME] + "?</i>\" she growls, spooning up a mouthful of the stuff before you can stop her.  A heartbeat after she swallows, Kiha goes completely stiff; her eyes growing as wide as saucers as they water.  She collapses backwards, falling onto her back with a muted <i>THUD</i>.");
 	
@@ -1333,6 +1406,7 @@ private function ohGodEwKihaAndHelspawnSuckAtCooking():void {
 }
 private function umYum():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	outputText("Um, yum?");
 	if (player.hunger > 25)
 	{
@@ -1364,6 +1438,7 @@ private function umYum():void {
 //Sure
 private function helSpawnSureMilkHerLater():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	outputText("You chuckle, telling her to let the poor girl sleep.  There'll be plenty of milk later.");
 	doNext(camp.returnToCampUseOneHour);
 }
@@ -1371,6 +1446,7 @@ private function helSpawnSureMilkHerLater():void {
 //Now
 private function helSpawnMilkHerNow():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	outputText("\"<i>Oh, no.  You're not getting out of your chores that easy, kiddo.  In you go,</i>\" you say, giving her a little push toward the edge of the pool.");
 	
 	outputText("\n\n" + flags[kFLAGS.HELSPAWN_NAME] + " gives a rebellious huff as she clambers down, slipping down to the bottom and giving " + flags[kFLAGS.MILK_NAME] + " a gentle nudge.  \"<i>C'mon, cutey, wake up.  Time to relieve some pressure.</i>\"");
@@ -1392,10 +1468,29 @@ private function helSpawnMilkHerNow():void {
 //Spar
 private function sparHelspawn():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	outputText("You ask " + flags[kFLAGS.HELSPAWN_NAME] + " if she's up for some battle practice, and she answers with an eager nod as she grabs her weapon.");
 	//If Sluttymander: 
-	if (flags[kFLAGS.HELSPAWN_PERSONALITY] >= 50) outputText("\n\n\"<i>Ready to get your shit kicked in, old " + player.mf("man","lady") + "?</i>\" she grins, drawing her weapon.");
-	else outputText("\n\n\"<i>Just go easy on me, okay?  I'm still new at this...</i>\" she says, stepping back as she draws her weapon.");
+	if (flags[kFLAGS.HELSPAWN_PERSONALITY] >= 50) {
+		outputText("\n\n\"<i>Ready to get your shit kicked in" + (helspawnSparIntensity() < 30 ? "" : ((helspawnSparIntensity() < 60 ? "" : " really") + " hard")) + ", old " + player.mf("man","lady") + "?</i>\" she grins, drawing her weapon.");
+	}
+	else {
+		if (helspawnSparIntensity() < 10)
+			outputText("\n\n\"<i>Just go easy on me, okay? I'm still new at this...</i>\" she says, stepping back as she draws her weapon.");
+		else if (helspawnSparIntensity() < 20)
+			outputText("\n\n\"<i>Just go easy on me, okay? I'm still learning...</i>\" she says, stepping back as she draws her weapon.");
+		else if (helspawnSparIntensity() < 30)
+			outputText("\n\n\"<i>Just go easy on me, okay? I'm still getting the hang of this...</i>\" she says, stepping back as she draws her weapon.");
+		else if (helspawnSparIntensity() < 40)
+			outputText("\n\n\"<i>Just go easy on me, okay? I'm still trying to demonstrate what I can do...</i>\" she says, stepping back as she draws her weapon.");
+		else if (helspawnSparIntensity() < 50)
+			outputText("\n\n\"<i>No need to go easy on me, okay? Let's see what I can do...</i>\" she says with a warm smile, stepping back as she draws her weapon.");
+		else if (helspawnSparIntensity() < 60)
+			outputText("\n\n\"<i>No need to hold back on me, okay? Let's see what I can do...</i>\" she says with a warm smile, stepping back as she draws her weapon.");
+		else //Level 24+, now get ready to get thrashed!
+			outputText("\n\n\"<i>Don't hold back on me, okay? Get ready for a good thrashing!</i>\" She says with a smug grin, stepping back as she viciously draws her weapon!");
+	}
+	flags[kFLAGS.HELSPAWN_SPARRED_TODAY] = 1;
 	startCombat(new Helspawn());
 }
 
@@ -1405,6 +1500,7 @@ private function sparHelspawn():void {
 //PC Somehow Loses Despite Being Like Level 20+
 // The irony is that you can't even get her till like, Level 20 because dungeon. And she's lower level but then Hel's lower level than HER which makes shit for sense. Fuck logic, get bitches.
 internal function loseSparringToDaughter():void {
+	credits.authorText = "Savin";
 	//if Sluttymander:
 	if (flags[kFLAGS.HELSPAWN_PERSONALITY] >= 50) {
 		outputText("As you stumble back, ");
@@ -1440,6 +1536,7 @@ internal function loseSparringToDaughter():void {
 //PC kicks Helspawn's shit in, surprising nobody. 
 internal function beatUpYourDaughter():void {
 	clearOutput();
+	credits.authorText = "Savin";
 	//{If Sluttymander loses to lust (you monster)}:
 	if (flags[kFLAGS.HELSPAWN_PERSONALITY] >= 50 && monster.lust >= monster.maxLust()) {
 		outputText("\"<i>N-no more...</i>\" the slutty little salamander moans, slumping down to the ground, arms wrapping around herself.  \"<i>Fuck, you're sexy... so horny...</i>\" she groans, hands slipping down to her soaked bikini bottom.");
@@ -1462,6 +1559,7 @@ internal function beatUpYourDaughter():void {
 		outputText(".  You chuckle and ruffle her hair, \"<i>C'mon, kiddo, let's get some food in you.</i>\"");
 		outputText("\n\n\"<i>Yeah, food,</i>\" she groans, stumbling after you as you both recover from the furious sparring match.");
 	}
+	flags[kFLAGS.HELSPAWN_SPAR_VICTORIES]++;
 	combat.cleanupAfterCombat();
 }
 
@@ -1472,6 +1570,7 @@ internal function beatUpYourDaughter():void {
 public function maiVisitsHerKids():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("As you head back into camp, you notice Hel and " + flags[kFLAGS.HELSPAWN_NAME] + " are sitting around the cook fire in the center of camp, with your foster daughter balanced precariously on the lap of her own father, Mai the fox-girl.");
 	
 	outputText("\n\n\"<i>Heyya, lover mine, look who stopped in!</i>\" Hel calls, waving you over until you slip down beside her, a warm, leathery tail quickly wrapping around your waist.");
@@ -1508,6 +1607,7 @@ public function maiVisitsHerKids():void {
 public function spiderBrosGift():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	flags[kFLAGS.SPIDER_BRO_GIFT] = 1;
 	outputText("As you're getting ready to head out for the day, you notice " + flags[kFLAGS.HELSPAWN_NAME] + " prancing around camp with a long, brightly-colored scarf wrapped around her neck, standing painfully in contrast with her midnight-black scales and pale flesh.");
 	
@@ -1531,6 +1631,7 @@ public function spiderBrosGift():void {
 public function hakonAndKiriComeVisit():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	flags[kFLAGS.HAKON_AND_KIRI_VISIT] = 1;
 	outputText("As you're returning to camp, you notice Helia running around like a chicken with her head cut off, fussing about damn near everything in her part of the camp");
 	if (camp.companionsCount() > 1) outputText(" and everyone else's too, much to their chagrin");
@@ -1583,6 +1684,7 @@ public function hakonAndKiriComeVisit():void {
 private function goHuntingBitches():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("\"<i>Sure,</i>\" you say, quickly earning approving nods from Hakon and Helia.");
 	outputText("\n\n\"<i>No mercy for gnolls!  Right, sweetheart?</i>\" Hel shouts, grabbing a mug of ale and lifting it in the air.");
 	
@@ -1597,6 +1699,7 @@ private function goHuntingBitches():void {
 private function noHuntingBitches():void {
 	clearOutput();
 	spriteChooser();
+	credits.authorText = "Savin";
 	outputText("\"<i>I'll pass,</i>\" you say with a laugh, earning a shrug from the salamanders.");
 	outputText("\n\n\"<i>Well, maybe you'll change your mind next time.  Plenty of evil furbags to go around!</i>\" Hel says with a laugh.  \"<i>C'mon, let's find something for the folks to eat, huh?</i>\"");
 	
@@ -1609,3 +1712,4 @@ private function noHuntingBitches():void {
 
 }
 }
+

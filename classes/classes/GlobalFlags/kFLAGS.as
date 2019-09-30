@@ -2314,7 +2314,7 @@ public static const ISABELLA_SPAR_VICTORIES:int                                 
 public static const MINERVA_SPAR_VICTORIES:int                                      = 2306;
 public static const VALERIA_SPAR_VICTORIES:int                                      = 2307;
 public static const AIKO_SPAR_VICTORIES:int											= 2308;
-public static const UNKNOWN_FLAG_NUMBER_02309:int                                   = 2309; // Reserved for additional sparrable partner.
+public static const BEHEMOTH_SPAR_VICTORIES:int                                     = 2309; // I know Behemoth is removed. In loving memory of Behemoth who was removed. 1.1.0 - 1.4.15 (2015-2019)
 public static const SANDWITCH_SERVICED:int                                          = 2310; // Number of times, the player has serviced a sand witch.
 public static const JOJO_STATUS:int                                                 = 2311; // Replacement for `CoC.monk` variable.
 public static const IZMA_BROFIED:int                                                = 2312;
@@ -2345,7 +2345,7 @@ public static const PABLO_FREAKED_OUT_OVER_WORMS:int                            
 public static const TIMES_MINO_MUTUAL:int                                   	    = 2337; //How many times the Minotaur's "minoMutual" scene been accessed
 public static const BIMBO_MINISKIRT_PROGRESS_DISABLED:int                           = 2338;
 public static const AMAROK_LOSSES:int                                               = 2339; //Counts losses to Amarok. 5 = bad end
-public static const MRAPIER_BOUGHT:int                                  	    = 2340; //You only get one due to its OPness
+public static const MRAPIER_BOUGHT:int                                              = 2340; //You only get one due to its OPness
 public static const GOTTEN_INQUISITOR_CORSET:int                                    = 2341;
 public static const GOTTEN_INQUISITOR_ROBES:int                                     = 2342;
 public static const GOBLIN_ELDER_FOREPLAY_COUNTER:int                               = 2343;
@@ -2382,12 +2382,14 @@ public static const TOTAL_HP_VICTORIES:int                                      
 public static const TENTACLE_BEASTS_KILLED:int                                      = 2374;
 public static const WORMS_MASS_KILLED:int                                           = 2375;
 public static const ACHIEVEMENT_PROGRESS_DAMAGE_SPONGE:int                          = 2376;
-public static const VAPULA_HIDING_DICK:int                                   		= 2377;
-public static const SHELIA_DEMON_BREED_PLAYER:int                                   = 2378;
-public static const SHELIA_DEMON_REJECTED:int                                   	= 2379;
-public static const UNKNOWN_FLAG_NUMBER_02380:int                                   = 2380;
-public static const UNKNOWN_FLAG_NUMBER_02381:int                                   = 2381;
-public static const UNKNOWN_FLAG_NUMBER_02382:int                                   = 2382;
+
+public static const DEMON_SOLDIERS_ENCOUNTERED:int                                  = 2377;
+public static const DEMON_SOLDIERS_KILLED:int                                       = 2378;
+public static const HELSPAWN_SPARRED_TODAY:int                                      = 2379;
+public static const VAPULA_HIDING_DICK:int                                   		= 2380;
+public static const SHELIA_DEMON_BREED_PLAYER:int                                   = 2381;
+public static const SHELIA_DEMON_REJECTED:int                                   	= 2382;
+
 public static const UNKNOWN_FLAG_NUMBER_02383:int                                   = 2383;
 public static const UNKNOWN_FLAG_NUMBER_02384:int                                   = 2384;
 public static const UNKNOWN_FLAG_NUMBER_02385:int                                   = 2385;
@@ -3013,4 +3015,3 @@ public static const SHARKGIRL_DAUGHTERS_PENDING:int                             
 public static const SHARKGIRL_DAUGHTERS_GROWUP_COUNTER:int                          = 3005; // Grow up countdown
 	}    
 }
-

@@ -820,6 +820,7 @@ package classes.Scenes.Monsters
 		
 		public function facefuckPiss():void{
 			clearOutput();
+			credits.modContent = true;
 			outputText("The goblin, depleted from the fight, drops down to her knees. A sheen of sweat glimmers on her green skin. She's panting rapidly, and each inhale presses the flesh of her breasts tight against the leather straps of her outfit. She turns away from you and lowers her head to the forest floor, presenting herself to you. She waits a moment, her head cocked to the side, with a wide eye cast toward you in surruptitious hope that you'll come to claim your prize. Her thighs quiver as little beads of moisture collect around the outer lips of her well-used pussy.");
 			outputText("\n\nAfter a few moments, the goblin grows impatient. She growls and turns toward you. Still weary from the fight, she stumbles a few steps toward you, her eyes locked on the package between your legs. She licks her lips hungrily as she reaches you, catching herself around one of your [legs].");
 			outputText("\n\nYou smirk to yourself and grab the girl by her hair, pulling her to the side by her head. Mumbling feebly in protest, her footing begins to give way as you hold her upright. You loosen the clasp on your [armor] and allow your [cock] to swing free. The goblin's expression brightens and she lets out an intemperate moan as she begins to paw down your thighs, as if to encourage you to drop her into the mud and slake her thirst for your seed.");

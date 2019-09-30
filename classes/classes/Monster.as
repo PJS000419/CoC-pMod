@@ -247,6 +247,17 @@
 					107][Math.round(this.level)] || 130);
 		}
 
+		protected function applySparIntensity(intensity:int, HPStep:int = 15, lustStep:int = 2, atkStep: int = 2, levelThreshold:int = 50):void
+		{
+			this.bonusHP += intensity * HPStep;
+			this.bonusLust += intensity * lustStep;
+			this.weaponAttack += intensity * atkStep;
+			if (intensity < levelThreshold) //The threshold basically slows down level increase to +1 every 10 intensity.
+				this.level += Math.floor(intensity / 5);
+			else 
+				this.level += Math.floor(levelThreshold / 5) + Math.floor((intensity - levelThreshold) / 10);
+		}
+		
 		public function Monster()
 		{
 			// trace("Generic Monster Constructor!");
@@ -678,10 +689,15 @@
 				outputText("</b> you with " + pronoun3 + " powerful " + weaponVerb + "! ");
 			}
 			if (damage > 0) {
-				if (flags[kFLAGS.ENEMY_CRITICAL] > 0) outputText("<b>Critical hit! </b>");
+				outputCritical();
 				outputText("<b>(<font color=\"#800000\">" + damage + "</font>)</b>");
 			}
 			else outputText("<b>(<font color=\"#000080\">" + damage + "</font>)</b>");
+		}
+		
+		public function outputCritical():void
+		{
+			if (flags[kFLAGS.ENEMY_CRITICAL] > 0) outputText("<b>Critical hit! </b>");
 		}
 
 		/**
@@ -1349,15 +1365,15 @@
 
 		override public function set HP(value:Number):void {
 			super.HP = value;
-			game.mainView.monsterStatsView.refreshStats(game);
+			game.mainViewManager.refreshStats();
 		}
 		override public function set lust(value:Number):void {
 			super.lust = value;
-			game.mainView.monsterStatsView.refreshStats(game);
+			game.mainViewManager.refreshStats();
 		}
 		override public function set fatigue(value:Number):void {
 			super.fatigue = value;
-			game.mainView.monsterStatsView.refreshStats(game);
+			game.mainViewManager.refreshStats();
 		}
 	}
 }

@@ -228,8 +228,8 @@ package classes
 		public var lumi:Lumi = new Lumi();
 		public var giacomoShop:Giacomo = new Giacomo();
 		// Scenes/Monsters/
-		public var goblinScene:GoblinScene;
-		public var goblinSpecialScene:GoblinSpecialScene = new GoblinSpecialScene();
+		public var demonSoldierScene:DemonSoldierScene = new DemonSoldierScene();
+		public var goblinScene:GoblinScene;		public var goblinSpecialScene:GoblinSpecialScene = new GoblinSpecialScene();
 		public var goblinElderScene:PriscillaScene = new PriscillaScene();
 		public var impScene:ImpScene;
 		public var mimicScene:MimicScene = new MimicScene();
@@ -285,6 +285,7 @@ package classes
 		public var urtaHeatRut:UrtaHeatRut = new UrtaHeatRut();
 		public var urtaPregs:UrtaPregs;
 		public var valeria:Valeria = new Valeria();
+
 		public var vapula:Vapula;
 		// Scenes/Places/;
 		public var bazaar:Bazaar = new Bazaar();
@@ -343,6 +344,9 @@ package classes
 		public var player:Player;
 		public var player2:Player;
 		public var monster:Monster;
+		public var monster2:Monster;
+		public var monster3:Monster;
+		public var monster4:Monster;
 		public var flags:DefaultDict;
 		public var achievements:DefaultDict;
 		private var _gameState:int;
@@ -416,7 +420,7 @@ package classes
 		public var date:Date = new Date();
 		
 		//Mod save version.
-		public var modSaveVersion:Number = 15;
+		public var modSaveVersion:Number = 16;
 		public var levelCap:Number = 120;
 		
 		//dungeoneering variables (If it ain't broke, don't fix it)
@@ -532,7 +536,8 @@ package classes
 			try
 			{
 				this.mainView = new MainView( /*this.model*/);
-				if (CoC_Settings.charviewEnabled)
+
+				if (GameSettings.charviewEnabled)
 					this.mainView.charView.reload();
 			}
 			catch (e:Error)
@@ -573,8 +578,9 @@ package classes
 			 * Debug, Version, etc
 			 */
 			debug = false; //DEBUG, used all over the place
-			ver = "1.0.2_mod_1.4.15"; //Version NUMBER
-			version = ver + " (<b>Tooltips & Achievements Bonanza!</b>)"; //Version TEXT
+
+			ver = "1.0.2_mod_1.4.17b"; //Version NUMBER
+			version = ver + " (<b>Prettah Level Up</b>)"; //Version TEXT
 			
 			//Indicates if building for mobile?
 			mobile = false;

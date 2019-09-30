@@ -38,6 +38,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		//INTRO
 		public function initialPalaceEncounter():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("Wandering across the snow and forest covered hills of the Rift, you continue to travel without finding anything of interest. Without warning, a torrential gust of wind nearly blows you over. Taking a moment to orient yourself, you catch your footing, only to see the makings of a blizzard flying in upon the wind. Thinking fast, you search for a place for refuge. A nearby hill covered in thick pines catches your eye. It’s far from ideal, but better than nothing.");
 			outputText("\n\nWhen the blizzard settles down, you look towards the horizon, where an exceptionally large hill which you haven’t seen before catches your attention. It looks completely normal, being covered with a forest of snowy pines, but has a strange detail: something that looks like a building is jutting out on one of its sides.");
@@ -51,6 +52,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function apporachInitialPalace():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("What could go wrong? You’re the Champion of Ingnam after all. If you’ve survived minotaurs, demons, giants and everything else that Mareth has to offer, whatever lives in that building shouldn’t be a problem if it decides to attack you. ");
 			if (flags[kFLAGS.LETHICE_DEFEATED] > 0 || flags[kFLAGS.CORRUPTED_MARAE_KILLED] > 0 || flags[kFLAGS.PURE_MARAE_ENDGAME] > 0) outputText("Even the so-called gods and lords of this land couldn’t stand against your might, so whoever, or whatever who resides there surely won’t be a threat.");
@@ -123,6 +125,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function leaveInitialPalace():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("Well, if this place looks dangerous enough to keep giants away, then it probably means whatever lives here is something that you want to avoid. Since it doesn’t look like an area inhabited by demons, it's none of your business.");
 			doNext(camp.returnToCampUseOneHour);
@@ -206,6 +209,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		}
 		private function anzuRelatLvl3Help():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("What kind of friend would leave him to suffer alone? You tell him that he has no reason to be ashamed. In fact, you’d like to help him to get some release.");
 			outputText("\n\n\"<i>What? No [name]. I couldn’t ask you such a thing. Well, we’re friends and all, but this is asking too much...</i>\"");
@@ -256,6 +260,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		}
 		private function anzuRelatLvl4Dont():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("You give an uncomfortable look at the avian, who despite being initially confused to your reaction, quickly understands what you mean, releasing you from his embrace.");
 			outputText("\n\n\"<i>Sorry [name], I think I let my mind fly around those strange ideas.</i>\" He says, visibly embarrassed \"<i>But if you don’t feel that way…</i>\"");
@@ -274,6 +279,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		//MENU & INTERACTIONS
 		public function anzuMenus():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("\"<i>Do you need anything?</i>\" Anzu asks patiently.");
 			menu();
@@ -294,6 +300,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		//Appearance
 		private function anzuAppearance():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("Anzu is a 18'2\" tall avian, with a strong and athletic build, worthy of a god.");
 			outputText("\n\nHis head is shaped like that of a predatory bird, with a beak and a long tongue. His ears have some resemblance with that of a cat, but they’re somewhat more elongated and streamlined, more adapted to flight. A gold earring with an amethyst gemstone hangs from his left ear. His hair is made of a crest of golden-orange fluffy feathers, with bright red feathers on the tip of his hair. The rest of his head is covered in orange feathers which shade to golden in an autumnal pattern. His eyes have a turquoise iris with a dark turquoise sclera.");
@@ -308,6 +315,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		//Talk
 		private function anzuTalkMenu():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("\"<i>What would you like to talk about, " + player.mf("boy", "girl") + "?</i>\" Anzu asks.");
 			menu();
@@ -321,6 +329,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function anzuTalkPast():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-talk-past"));
 			outputText("You ask Anzu about what was he doing before he lived in Mareth. He said he was an empty shell of his former power, and he protected a city called Mittani.");
@@ -346,6 +355,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		}
 		private function anzuTalkPalace():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-talk-palace"));
 			outputText("He said something about valkyries living here before he arrived. How was the palace before?");
@@ -391,6 +401,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		}
 		private function anzuTalkRift():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-talk-rift"));
 			outputText("Besides exploring and fighting some monsters, you know very few things about the Rift. Since Anzu has been living here for fifteen years, he could explain to you some details about the land. And, you still have doubts about how exactly he ended up in this place, and not, for example, the plains, or like you, the barrens.");
@@ -409,6 +420,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		}
 		private function anzuTalkPowers():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-talk-powers"));
 			outputText("Anzu said before he was a powerful deity. What are his powers exactly?");
@@ -456,6 +468,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		}
 		private function anzuTalkMaraeAndLethice():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-talk-marae-lethice"));
 			outputText("Anzu said he was aware of the war between Marae and Lethice. After fifteen years in the Rift, he hasn’t been tempted to support one side?");
@@ -495,6 +508,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		private function anzuSexMenu(showText:Boolean = true):void {
 			if (showText) {
 				clearOutput();
+				credits.modContent = true;
 				credits.authorText = "Coalsack";
 				outputText(images.showImage("anzu-sex-stripping"));
 				if (anzuSexCounter() == 0) {
@@ -534,6 +548,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function catchAnalPart1():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-sex-anal-catch"));
 			if (flags[kFLAGS.ANZU_ANAL_CATCH_COUNTER] == 0) {
@@ -567,6 +582,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function catchAnalPart2():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			var wasVirgin:Boolean = player.ass.analLooseness < 1;
 			outputText("Climbing over him, you " + (player.hasLongTongue() ? "wrap your nimble tongue around" : "start caressing and licking the sides of") + " his partially hard avian meat. After a bit of licking across its length, you switch you attentions to his tip, taking the point of the tapered penis on your mouth and sliding playfully your tongue on his cumslit. Soon, the forty-inch rod rises to full erection, and the first droplets of pre dribble from his tip and land in your tongue. You remove your mouth and take some of his leaking pre in your hand, smearing it carefully across your soon-to-be ravaged [asshole]. Despite being already lubed by your saliva, you take some more pre and use it for lube every corner of Anzu’s semi-hard maleness.");
@@ -646,6 +662,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function catchVaginal():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-sex-vaginal-catch"));
 			if (flags[kFLAGS.ANZU_VAGINAL_CATCH_COUNTER] == 0) {
@@ -697,6 +714,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function getBlown():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-sex-give-blowjob"));
 			if (flags[kFLAGS.ANZU_BLOWN_YOU_COUNTER] == 0) {
@@ -737,6 +755,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function suckOffDeitysCock():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-sex-receive-blowjob"));
 			if (flags[kFLAGS.ANZU_SUCKED_OFF_COUNTER] == 0) {
@@ -794,6 +813,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function fuckGodlyBirdButt():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-sex-analpitch"));
 			outputText("In the mood for some bird butt, you tell Anzu that you'd like a turn on his ass.");
@@ -837,6 +857,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function feedAnzu():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-sex-feeding"));
 			if (flags[kFLAGS.ANZU_FED_COUNTER] == 0) {
@@ -899,6 +920,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		//Racing
 		private function racingWithAnzu():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-racing-intro"));
 			if (flags[kFLAGS.ANZU_TIMES_RACED] == 0) {
@@ -918,6 +940,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function racingWithAnzuDecline():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("Letting him know that you’re pretty tired now, you tell him that you’ll have to pass this time. Next time maybe, with a little luck.");
 			outputText("\n\n“No problem. I understand. Flying tired isn’t exactly a relaxing activity ,”Anzu answers “Maybe, when you feel alright you could came here again...if you want, of course.” he continues “I usually fly at this hour almost every day.”");
@@ -925,6 +948,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		}
 		private function racingWithAnzuAccept():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-racing-scene"));
 			outputText("Well, a bit of extra exercise would certainly help your body. Telling Anzu that you agree on his offer, you stand next to him on the border of the roof. Thankfully, it seems like he keeps the place where you’re standing clear of snow, otherwise you’ll probably trip and end up falling from the—now you realize, somewhat frightening—height of the palace.");
@@ -950,6 +974,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		//Dinner
 		private function dinnerWithAnzu():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			if (getGame().time.hours < 8) {
 				outputText(images.showImage("anzu-prep-breakfast"));
@@ -1008,6 +1033,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function eatFoodWithAnzu():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			//Determine amount to refill hunger
 			var hungerRefillAmount:int = 50;
@@ -1087,6 +1113,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		}
 		private function dontEatFoodWithAnzu():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			//Scene GO!
 			if (getGame().time.hours < 8) {
@@ -1148,6 +1175,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		//------------
 		public function anzuBathTimeBeginning():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-bathtime-begin"));
 			outputText("Wandering again across the halls of the palace, you notice than Anzu isn't in his usual spot at this time of the day, reading a book in the tranquility of his living room. Actually, he isn’t in the kitchen either. A little confused about his whereabouts you search him across the palace, a task a bit difficult given its dimensions and the quantity of rooms.");
@@ -1167,6 +1195,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function anzuBathTimeAccept():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-bathtime-mid"));
 			outputText("Well, a warm bath sounds nice at this time of the day, and Anzu seems to be enjoying it, so, why not? " + player.clothedOrNaked("Leaving your " + player.armorDescript() + "aside, on a nearby table, y", "Y") + "ou get in the pool, not without making sure that Anzu gets a good view of your naked body when entering on it. When you return the look, you manage to see his avian manhood under the water, hanging limp and lazy between his legs. Even on it's unaroused state, it remains quite impressive. Under it, a pair of huge, feather-covered, nuts lie, moving slightly with the water.");
@@ -1191,6 +1220,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function anzuBathTimeSex():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-bathtime-sex"));
 			outputText("You take the initiative, rubbing your backside against Anzu’s maleness, who stands proudly erect, now smearing your back with avian pre, that is quickly washed away by the water.");
@@ -1206,6 +1236,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function anzuBathTimeRelax():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-bathtime-relax"));
 			outputText("As fun as it could be, you decided to take a bath for cleanse your body, no for making it dirtier, so you attention diverges from Anzu's rod. ");
@@ -1223,6 +1254,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		}
 		private function anzuBathTimeDecline():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("Not in the mood of getting your " + player.skin.desc + " wet (and sticky) at this time of day, you thanks him for his offer but explain that you’re not exactly in the mood to get wet. Bidding him farewell, you leave him to his own matters and return to your camp.");
 			kGAMECLASS.inDungeon = false;
@@ -1235,6 +1267,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		//------------
 		public function sleepWithAnzuInvitation():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-bed-begin"));
 			outputText("Satisfied in many senses, you feel a bit drowsy after all that cooking, eating and fucking, you let out a loud yawn and extend your body on one of the comfy couches in the living room.");
@@ -1249,6 +1282,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function declineSleepingWithAnzu():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("Tired as you are, a task is a task. You answer the avian that sadly, you have to keep guard tonight on the portal, so it will be on another time. Though a bit disappointed, the avian quickly cheers up and nuzzles your neck playfully, then he hugs you again and helps you to stand up. Gathering your things, you make it to the door, not without getting another playful nibble as you leave.");
 			outputText("\n\n\"<i>Be careful on your way to the camp, little friend</i>\" he says from the door while waving you. Waving him back you cross the Rift and return to your camp.");
@@ -1259,6 +1293,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function acceptSleepingWithAnzu():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-bed-mid"));
  			outputText("Well, with him as company, who wouldn’t want to stay in the palace for the night, you answer. The avian, overjoyed, despite being almost as tired as you, hugs you even tighter and proceeds to carry you on his arms, a " + (player.tallness >= 120 ? "a simple task, given his strength" : "a very easy task, given his strength and much larger frame") + ".");
@@ -1288,6 +1323,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function sleepingWithAnzuPart2():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("<b>At some moment, near midnight…</b>");
 			outputText("\n\nYaaaawn.");
@@ -1300,6 +1336,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 	
 		private function sleepingWithAnzuBlowjob():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText(images.showImage("anzu-bed-blowjob"));
 			outputText("Softy disentangling yourself from the avian’s embrace, you try to get off from the unsurprisingly tall bed, without luck, as your " + player.feet() + " get stuck with something as you climb down the bed. Then, a familiar wetness near the area where your [leg] got stuck, reinforced with a tugging from the thing that refrains you from leaving, makes you turn back, only to found that the thing entangled with your " + player.foot() + " is nothing less than the avian’s underwear.");
@@ -1328,6 +1365,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function sleepingWithAnzuNoBJ():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			outputText("You shake your head and close your eyes. It takes quite a while but eventually, you succeed in catching your sleep again and make your way back to the dreamland.");
 			doNext(sleepWithAnzuProcess);
@@ -1335,6 +1373,7 @@ package classes.Scenes.Dungeons.AnzuPalace
 		
 		private function sleepWithAnzuProcess():void {
 			clearOutput();
+			credits.modContent = true;
 			credits.authorText = "Coalsack";
 			kGAMECLASS.timeQ = 10;
 			goNext(timeQ, true);

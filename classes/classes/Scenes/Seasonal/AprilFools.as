@@ -98,6 +98,8 @@ import classes.Scenes.API.Encounters;
 		//DLC April Fools
 		public function DLCPrompt(dlcName:String, dlcPitch:String, dlcPrice:String, nextFunc:Function = null):void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kitteh6660;"
 			outputText(dlcPitch);
 			outputText("\n\nYou can purchase " + dlcName + " for " + dlcPrice + ". Would you like to purchase it now?");
 			menu();
@@ -107,6 +109,8 @@ import classes.Scenes.API.Encounters;
 		}
 		private function buyDLCPrompt(dlcName:String, dlcPrice:String, nextFunc:Function = null):void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kitteh6660;"
 			outputText("<b>Item:</b> " + dlcName + "\n");
 			outputText("<b>Price:</b> " + dlcPrice + "\n");
 			outputText("Please select a purchase method.");
@@ -119,6 +123,8 @@ import classes.Scenes.API.Encounters;
 		}
 		private function proceedToCheckout(method:String, nextFunc:Function = null):void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kitteh6660;"
 			if (method != "Gems") {
 				outputText("You will be taken to an external website to complete your checkout. Proceed?");
 			}
@@ -130,6 +136,8 @@ import classes.Scenes.API.Encounters;
 		//You just got TROLLED!
 		private function reallyCheckout():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kitteh6660;"
 			outputText(images.showImage("monster-troll"));
 			outputText("APRIL FOOLS! The game will ALWAYS be entirely free to play. :)");
 			flags[kFLAGS.DLC_APRIL_FOOLS] = 1;
@@ -138,6 +146,8 @@ import classes.Scenes.API.Encounters;
 		
 		public function pay2WinSelection():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kitteh6660;"
 			displayHeader("Premium Shop");
 			outputText("Don't feel like trying to earn these items? Need more gems? Why not purchase them yourself?");
 			outputText("\n\n<b><u>Gems</u></b>");

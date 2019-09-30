@@ -25,8 +25,8 @@ public class StatsView extends Block {
 	[Embed(source = "../../../res/ui/sidebarKaizo.png")]
 	public static const SidebarBgKaizo:Class;
 	public static const SidebarBackgrounds:Array = [SidebarBg1, SidebarBg2, SidebarBg3, SidebarBg4, null, SidebarBgKaizo];
-	public static const ValueFontOld:String    = 'Lucida Sans Typewriter';
-	public static const ValueFont:String       = 'Palatino Linotype';
+	public static const ValueFontOld:String    = 'Lucida Sans Typewriter, _typewriter';
+	public static const ValueFont:String       = 'Palatino Linotype, _serif';
 
 	private var sideBarBG:BitmapDataSprite;
 	private var nameText:TextField;
@@ -80,12 +80,13 @@ public class StatsView extends Block {
 			}
 		});
 		const LABEL_FORMAT:Object = {
-			font:'Palatino Linotype',
+			font:'Times New Roman, _serif',
+			align:'center',
 			bold:true,
 			size:22
 		};
 		const TIME_FORMAT:Object = {
-			font:'Lucida Sans Typewriter',
+			font:'Lucida Sans Typewriter, _typewriter',
 			size:18
 		};
 		StatBar.setDefaultOptions({
@@ -98,10 +99,20 @@ public class StatsView extends Block {
 			stretch: true
 		},{ ignore:true });
 		nameText      = addTextField({
-			defaultTextFormat: LABEL_FORMAT
+			width: MainView.STATBAR_W,
+			height: 30,
+			defaultTextFormat: {
+				font : 'Times New Roman, _serif',
+				size : 24,
+				align: 'center',
+				bold : true,
+				underline: true
+			}
 		});
 		coreStatsText = addTextField({
-			text: 'Core stats:',
+			text: '◄ Core Stats ►',
+			width: MainView.STATBAR_W - 8,
+			height: 30,
 			defaultTextFormat: LABEL_FORMAT
 		},{before:1});
 		addElement(strBar = new StatBar({statName: "Strength:"}));
@@ -115,7 +126,9 @@ public class StatsView extends Block {
 		addElement(senBar = new StatBar({statName: "Sensitivity:", maxValue: 100}));
 		addElement(corBar = new StatBar({statName: "Corruption:", maxValue: 100}));
 		combatStatsText = addTextField({
-			text: 'Combat stats',
+			text: '◄ Combat Stats ►',
+			width: MainView.STATBAR_W - 8,
+			height: 30,
 			defaultTextFormat: LABEL_FORMAT
 		},{before:1});
 		addElement(hpBar = new StatBar({
@@ -169,7 +182,9 @@ public class StatsView extends Block {
 			showMax : true
 		}));
 		advancementText = addTextField({
-			text:'Advancement',
+			text:'◄ Advancement ►',
+			width: MainView.STATBAR_W - 8,
+			height: 30,
 			defaultTextFormat: LABEL_FORMAT
 		},{before:1});
 		addElement(levelBar = new StatBar({
@@ -307,7 +322,7 @@ public class StatsView extends Block {
 	public function refreshStats(game:CoC):void {
 		var player:Player            = game.player;
 		var maxes:Object      = player.getAllMaxStats();
-		nameText.htmlText     = "<b>Name: " + player.short + "</b>";
+		nameText.htmlText     = "<b>" + player.short + "</b>";
 		strBar.maxValue       = maxes.str;
 		strBar.value          = player.str;
 		touBar.maxValue       = maxes.tou;
@@ -356,7 +371,7 @@ public class StatsView extends Block {
 		spiritstonesBar.visible       = !inPrison;
 		*/
 		if (inPrison) {
-			advancementText.htmlText = "<b>Prison Stats</b>";
+			advancementText.htmlText = "<b>◄ Prison Stats ►</b>";
 			esteemBar.maxValue       = 100;
 			esteemBar.value          = player.esteem;
 			willBar.maxValue         = 100;
@@ -364,7 +379,7 @@ public class StatsView extends Block {
 			obeyBar.maxValue         = 100;
 			obeyBar.value            = player.obey;
 		} else {
-			advancementText.htmlText = "<b>Advancement</b>";
+			advancementText.htmlText = "<b>◄ Advancement ►</b>";
 			levelBar.value           = player.level;
 			if (player.level < kGAMECLASS.levelCap) {
 				xpBar.maxValue  = player.requiredXP();
@@ -455,8 +470,11 @@ public class StatsView extends Block {
 		var targetValue:Number = args[1]; 
 		var timer:Timer = args[2];
 		bar.value = originalValue + (((targetValue - originalValue) / timer.repeatCount) * timer.currentCount);
-		if (timer.currentCount >= timer.repeatCount) bar.value = targetValue;
 		if (bar == hpBar) bar.bar.fillColor = Color.fromRgbFloat((1 - (bar.value / bar.maxValue)) * 0.8, (bar.value / bar.maxValue) * 0.8, 0);
+		//Normalize dat shit!
+		if (timer.currentCount >= timer.repeatCount) bar.value = targetValue;
+		if (bar.value < 0) bar.value = 0;
+		if (bar.value > bar.maxValue) bar.value = bar.maxValue;
 	}
 }
 }

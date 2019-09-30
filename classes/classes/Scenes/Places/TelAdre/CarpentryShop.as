@@ -18,6 +18,7 @@ package classes.Scenes.Places.TelAdre
 		public function enter():void {
 			clearOutput();
 			spriteSelect(SpriteDb.s_carpenter);
+			credits.modContent = true;
 			outputText("You enter the shop marked by a sign with hammer and saw symbol painted on it. There are array of tools all hung neatly. A six feet tall zebra-morph stallion stands behind the counter. He appears to be wearing typical lumberjack outfit.\n\n");
 			outputText("\"<i>Welcome to my hardware shop dear customer. Feel free to look around,</i>\" he says. \n\n");
 			unlockCodexEntry("Zebra-Morphs", kFLAGS.CODEX_ENTRY_ZEBRAS, false, false);
@@ -26,6 +27,7 @@ package classes.Scenes.Places.TelAdre
 
 		public function carpentryShopInside():void {
 			clearOutput();
+			credits.modContent = true;
 			outputText("\"<i>So what will it be?</i>\"\n\n");
 			if (player.hasKeyItem("Carpenter's Toolbox") >= 0) camp.cabinProgress.checkMaterials();
 			menu();

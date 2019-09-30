@@ -55,7 +55,7 @@ package classes.Items.Armors
 				else if (getGame().player.cor >= 66 || game.flags[kFLAGS.PC_FETISH] > 0) outputText("Regardless, you are happy with what you are right now. ");
 				outputText("You leave the silken loincloth in your possessions for the time being.");
 			}
-			outputText("\n\nYou admire the design of your armor. No wonder it looks so sexy!")
+			outputText("\n\nYou admire the design of your armor. No wonder it looks so sexy! ");
 		}
 	}
 }

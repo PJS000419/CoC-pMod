@@ -15,6 +15,14 @@ package classes.Scenes.NPCs
 			combatRoundOver();
 		}
 
+		private function kihaAbilityDmgMultiplier():Number {
+			var amt:Number = 1;
+			amt += game.player.newGamePlusMod() * 0.25; //Each tier of NG+ adds 0.25.
+			amt += game.kihaScene.kihaSparIntensity() * 0.02; //Intensity adds 0.02.
+			if (amt > 4) amt = 4; //Damage capped at 4x.
+			return amt;
+		}
+		
 		//This could be silly mode worthy! Should Expand? oh ok
 		private function sillyModeKihaAttack():void {
 			outputText("Before you can stop to think, the dragon-woman steps back - throwing her axe into the air before she starts sprinting towards you. In seconds she's reached a hair's distance between her lithe form and your own, her fist recoiling and time seemingly stopping to allow you to note the powerful energy seeping from her arms.  ");
@@ -26,9 +34,9 @@ package classes.Scenes.NPCs
 			}
 			else {
 				//Determine damage - str modified by enemy toughness!
-				var damage:int = int((str + weaponAttack) - rand(player.tou) - player.armorDef);
+				var damage:int = int((str + weaponAttack) * kihaAbilityDmgMultiplier());
 				damage += 5;
-				
+				damage = player.reduceDamage(damage);
 				outputText("A torrent of heat bursts from between her fingertips as she thrusts her clenched fist forward, the ball of intense flame writhing and burning with a fury unknown to mankind. With one fell swoop, the combined power of her love, anger, and sorrow pushes you backward, launching you out of the swamp and into Marble's pillowy chest. \"<i>Ara ara,</i>\" she begins, but you've already pushed yourself away from the milky hell-prison as you run back towards ");
 				if (!game.kihaFollower.followerKiha()) outputText("the swamp");
 				else outputText("the fight");
@@ -61,7 +69,8 @@ package classes.Scenes.NPCs
 			}
 			//HIT!
 			else {
-				var damage:int = int((str) - (player.armorDef));
+				var damage:int = int(str * kihaAbilityDmgMultiplier());
+				damage = player.reduceDamage(damage);
 				outputText("Before you can react, you're struck by the power of her blows, feeling an intense pain in your chest as each fist makes contact.  With a final thrust, you're pushed backwards onto the ground; the dragoness smiles as she pulls her axe out of the ground, her hands still steaming from the fingertips. ");
 				damage = player.takeDamage(damage, true);
 				outputText("\n");
@@ -87,7 +96,7 @@ package classes.Scenes.NPCs
 				outputText("Using your cat-like flexibility, you manage to sidestep the flames in the nick of time; much to the dragoness' displeasure.");
 			}
 			else {
-				var damage:Number = Math.round(90 + rand(10) + (player.newGamePlusMod() * 30));
+				var damage:Number = Math.round((90 + rand(10)) * kihaAbilityDmgMultiplier());
 				outputText("You try to avoid the flames, but you're too slow!  The inferno slams into you, setting you alight!  You drop and roll on the ground, putting out the fires as fast as you can.  As soon as the flames are out, you climb back up, smelling of smoke and soot. ");
 				damage = player.takeDamage(damage, true);
 				outputText("\n");
@@ -209,6 +218,7 @@ package classes.Scenes.NPCs
 			this.drop = new ChainedDrop().add(useables.D_SCALE, 0.2);
 			this.wings.type = Wings.DRACONIC_LARGE;
 			this.tail.type = Tail.LIZARD;
+			this.applySparIntensity(game.kihaScene.kihaSparIntensity(), 15, 2, 2, 50);
 			checkMonster();
 		}
 

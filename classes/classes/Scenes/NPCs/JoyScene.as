@@ -323,6 +323,8 @@ package classes.Scenes.NPCs
 		public function jojoPromptsAboutThief():void {
 			jojoScene.jojoSprite();
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("As you return to the camp; Jojo suddenly approaches you, a surprisingly grim look on his face. \"<i>[name], my friend? I believe we have a thief eyeing us as potential victims.</i>\" He suddenly declares, without any attempt at making conversation.");
 			outputText("\n\nSurprised, you ask him why would he think that?");
 			outputText("\n\n\"<i>I was patrolling around the camp when I saw a stranger going through your stash, he seemed to have taken an interest in a strange bottle you had...</i>\"  He stops to rub at his temple and recall what was written in the label.  \"<i>I think it was called Bimbo Liqueur... anyway, luckily I managed to chase it away and retrieve the stolen bottle, but we should take care, I’m pretty sure they were determined to get their hands on it, and will be back to try again; thieves always do.</i>\"");
@@ -338,6 +340,8 @@ package classes.Scenes.NPCs
 		//Attempt to catch thief, set flag to 2, route to bimbofication the next day.
 		private function letsCatchThief():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("That sounds like a good plan to be honest, so you tell Jojo that you’re leaving the matter in his hands, though you advise him to be careful.");
 			outputText("\"<i>I will be careful, don't worry, my friend. I assure you that everything will be fine.</i>\" Jojo insists. With that, he takes the bottle and leaves, clearly getting ready to lay a trap for the mysterious would-be thief.");
 			inventory.removeItemFromStorage(inventory.itemStorageDirectGet(), consumables.BIMBOLQ);
@@ -349,6 +353,8 @@ package classes.Scenes.NPCs
 		//Stay and guard stash, set flag to 1.
 		private function letsGuardStash():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You tell Jojo you’d rather have him just keep a close eye on your stash, it sounds less risky than having him catch the thief.");
 			outputText("\n\n\"<i>I’m not afraid of danger; don’t forget that the forest where we met is full of monsters, especially imps and tentacle beasts.  I can defend myself.</i>\" Jojo points out, sounding a little annoyed at being dismissed like this.");
 			outputText("\n\nEven so, you’d still rather he didn’t risk himself.  There’s no telling what this thief would do if they got your hands on your Bimbo Liqueur.");
@@ -364,6 +370,8 @@ package classes.Scenes.NPCs
 		public function jojoGetsBimbofied():void {
 			jojoScene.jojoSprite();
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("As you return to the camp, you decide to check up on Jojo and see if he had any success in catching the thief.");
 			outputText("\n\nYou spot Jojo returning to the camp with a  triumphant smile on his face, though he looks a bit dizzy...");
 			outputText("\n\n\"<i>I’m (hic) sorry, [name]... but I couldn’t stop the thief...</i>\" The mouse quietly burps and looks embarrassed, tottering along like someone who’s a bit drunker than is good for them.");
@@ -384,6 +392,8 @@ package classes.Scenes.NPCs
 		private function jojoGetsBimbofiedByYou():void {
 			jojoScene.jojoSprite();
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You ask Jojo how he would feel about beating the thief to the prize.");
 			outputText("\n\n\"<i>Oh?  What do you have in mind?</i>\" Jojo asks, with a puzzled voice.");
 			outputText("\n\nWhy... the thief won’t have anything to steal if you use the bottle before they can get at it right?  So why don’t the two of you break open this bottle and down it’s contents?  If you recall correctly, Jojo did have a drink or two back in his monastery, right?");
@@ -441,6 +451,8 @@ package classes.Scenes.NPCs
 		//------------
 		private function genericMenu(approach:Boolean = false):void {
 			spriteSelect(SpriteDb.s_joy);
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			if (!approach) {
 				clearOutput();
 				outputText("\"<i>Do you need, like, anything else?</i>\" Joy asks. Her tail waggles excitedly.");
@@ -508,6 +520,8 @@ package classes.Scenes.NPCs
 				outputText("You tell Joy you'd like to talk to her for a moment.");
 				outputText("\n\nThe bimbo mouse gives you a brainlessly happy grin. \"<i>Like, sure, [name]! So, what do you, like, wanna talk about?</i>\" She asks.");
 			}
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			menu();
 			// Copypaste this shit to use it for other talk menu.
 			var talkButton:Function = function(pos:int, text:String = "", func1:Function = null, arg1:* = -9000, arg2:* = -9000, arg3:* = -9000, toolTipText:String = "", toolTipHeader:String = ""):* {
@@ -524,6 +538,8 @@ package classes.Scenes.NPCs
 		
 		private function askJoyAboutYourself():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You decide to ask Joy what she thinks about you.");
 			outputText("\n\nJoy blinks and looks at you puzzled. \"<i>What do I, like, think of you? Okay...</i>\" She narrows her eyes, studying you intensely.\n\n");
 			//Race check
@@ -663,6 +679,8 @@ package classes.Scenes.NPCs
 		
 		private function askJoyAboutHerself():void { //For some reason, this talk topic is missing.
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("<b>Apparently, the document didn't include this scene.</b>");
 			flags[kFLAGS.JOY_TALKED_ABOUT_HERSELF]++;
 			doNext(playerMenu);
@@ -670,6 +688,8 @@ package classes.Scenes.NPCs
 		
 		private function askJoyAboutOldLife():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("Thinking back to your previous talk with Joy, you decide to ask her if she misses her old self at all.");
 			outputText("\n\nJoy cocks her head to the side in puzzlement. \"<i>Like, why would I miss my old self? I like being Joy. What did I have as Jojo that I don't have now? Plus, I got stuff that Jojo didn't.</i>\"");
 			outputText("\n\nYou explain to her that she is so different from Jojo, that you can scarcely believe that both her and Jojo are the same person...");
@@ -703,6 +723,8 @@ package classes.Scenes.NPCs
 		
 		private function askJoyAboutDemons():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You ask Joy if she has any tips for fighting the demons?");
 			outputText("\n\n\"<i>Um... lemme think...</i>\" The former monk furrows her brow in thought and paces back and forth. \"<i>Well... demons like to go for lust attacks over physical attacks; they, like, would rather you have all your strength so you'll, like, last longer when they fuck you. They're typically either very good at resisting lust or very bad at it... I'd, like, try to always attack 'em physically instead, because they, like, rarely train too hard at doing that.</i>\" She concludes.");
 			outputText("\n\nYou tell her that from your experience, demons also have some sort of lust inducing aura, any tips against that?");
@@ -715,6 +737,8 @@ package classes.Scenes.NPCs
 		
 		private function askJoyAboutBabies():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You smile and ask Joy how does she feel about being a parent?");
 			outputText("\n\nThe mouse purses her lips thoughtfully, then smiles. \"<i>It, like, feels wonderful; I had always kinda wanted to have kids.");
 			if (jojoScene.pregnancy.isPregnant) outputText(" I just, like, never once dreamed I'd be the one carrying 'em, y'know?");
@@ -737,12 +761,16 @@ package classes.Scenes.NPCs
 		//------------
 		private function joyMeditationHighCorruptionLetsGo():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("\"<i>Great! Sit down!</i>\" she instructs, happily.\n\n");
 			joyMeditationFull(false);
 		}
 		
 		private function joyMeditationHighCorruptionNoThanks():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You tell Joy you don't feel like meditating right now...");
 			outputText("\n\n\"<i>Ok, but don't let that icky stuff, like, control you or anything.</i>\" she says, then bites her lip and asks, \"<i>so... wanna touch my boobies? They're all soft and bouncy! And then you can rub my fun hole!</i>\" she giggles.");
 			doNext(genericMenu);
@@ -750,6 +778,8 @@ package classes.Scenes.NPCs
 		
 		private function meditateWithJoy():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You ask Joy if she'd be willing to help you meditate.");
 			outputText("\n\nShe grins and nods enthusiastically, then motions for you to sit down.");
 			joyMeditationFull(false);
@@ -757,6 +787,8 @@ package classes.Scenes.NPCs
 		
 		private function joyMeditationFull(clearText:Boolean = true):void {
 			if (clearText) clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("Once you've sat down Joy surprises you by sitting on your lap, the sudden movement startles you a bit, but it doesn't feel bad... specially since Joy's bottom is so... comfy...");
 			outputText("\n\nShe closes her eyes and instructs you to do the same, and clear your mind of all impure thoughts.");
 			//Exgartuan
@@ -861,6 +893,8 @@ package classes.Scenes.NPCs
 		
 		private function failedMeditateLetsFuck():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You tell her you'll 'help' her out.");
 			outputText("\n\n\"<i>Alright! Like, let's fuck!</i>\" She cheers, springing up - and hauling you painfully upright in the process because her tail is still looped around your neck, pulling you over onto your front. \"<i>Like, [name], this is no time to be lying down; we got sex to have.</i>\" She scolds when she turns to see what's happened to you.");
 			if (player.lust <= 33) dynStats("lus=", 33);
@@ -870,6 +904,8 @@ package classes.Scenes.NPCs
 		
 		private function failedMeditateNoThanks():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You decide you're not really in the mood right now and grab a hold of her rump; getting both of you up and pushing her away slightly you tell her you're not in the mood right now.");
 			outputText("\n\n\"<i>Awww... Like, that's not fair, [name]. I'm sooo horny...</i>\" She pouts, turning on her most sadly adorable look in an effort to break through your resistance. \"<i>Can't we, y'know, have just a quickie? Please...?</i>\" She begs in a childish manner, hands clasped in prayer before her.");
 			outputText("\n\nYou tell her you're really not in the mood now and proceed to leave, despite her oh so adorable puppy face... and sexy body... and nice smell... aww, dammit now you're getting horny too... still you soldier on and leave. ");
@@ -882,6 +918,8 @@ package classes.Scenes.NPCs
 		//------------
 		private function trainWithJoy():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You ask Joy if she'd be willing to help you train; you could use the workout.");
 			if (player.lust100 >= 70) { //Too horny!
 				outputText("\n\nThe bimbofied mouse looks you over, a mischievous expression on her face, and makes a show of sniffing the air. \"<i>My oh my, now if my senses aren't, like, telling me lies, you, my naughty little friend, are, like, way too horny to concentrate on training. Let's have some fun instead...</i>\" She coos, posing flirtatiously and waiting to see your response.");
@@ -903,6 +941,8 @@ package classes.Scenes.NPCs
 		
 		private function trainStrength():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You tell Joy that training your strength sounds good, and ask her how does she intend to help you with that?");
 			outputText("\n\n\"<i>Like, lemme think a moment...</i>\" She tells you, tapping her lip thoughtfully. Then she grins. \"<i>Okay; the best way to train your muscles is, like, to lift stuff? So, try lifting me.</i>\" She declares proudly.");
 			outputText("\n\nAt first you think she's joking but a second look at her makes it clear that she's serious... well it might be worth a try right? You walk towards her and loops one arm behind her back, the other one hooking behind her legs, and then you sweep her off her feet and lift her onto your arms. Joy is not that heavy to begin with, but you can see how it might be strenuous to lift her about.");
@@ -960,6 +1000,8 @@ package classes.Scenes.NPCs
 		
 		private function trainToughness():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You think on it, and suggest that you would like to try and get tougher.");
 			outputText("\n\n\"<i>Okay! Now, like, what is a good way of doing that...</i>\" Joy thinks, rubbing her chin. Then finally perks up as an idea hits her. \"<i>I know it! Like, sex takes a lot of energy. So let's, like, have a lot of sex!</i>\" she suggests, proud to have to come to this conclusion.");
 			outputText("\n\nYou have to confess " + (player.cor >= 50 ? "with a very great deal of reluctance " : "") + "that, as attractive as the idea sounds, you're not really sure that would give you a lot of actual improvement in your toughness.");
@@ -1034,6 +1076,8 @@ package classes.Scenes.NPCs
 		
 		private function trainSpeed():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You tell Joy that you really want to try and hone your speed.");
 			outputText("\n\n\"<i>Okay, just let me think...</i>\" Joy says, rubbing her chin in deep thought. Then suddenly she perks up as an idea hits her. \"<i>Wait here, [name]. I'll be back in, like, a second!</i>\" she says dashing off.");
 			outputText("\n\nYou wonder what it is that she intends, but wait patiently for her return.");
@@ -1081,6 +1125,8 @@ package classes.Scenes.NPCs
 		
 		private function screwTrainingLetsFuck():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You ARE feeling pretty horny right now... you smile at Joy and tell her having fun sounds good.");
 			outputText("\n\nThe mouse grins at you. \"<i>Well, like, what do you wanna do?</i>\" She coos, shaking her ass impatiently.");
 			joySexMenu();
@@ -1088,6 +1134,8 @@ package classes.Scenes.NPCs
 		
 		private function screwTrainingButNoThanks():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You tell Joy that despite being quite horny, you really don't want to have sex at the moment.");
 			outputText("\n\n\"<i>Like, aww, why not?</i>\" The bimbo mouse pouts. \"<i>Oh, well, it's, like, your choice.</i>\" She sniffs, turning her back on you disdainfully.");
 			doNext(playerMenu);
@@ -1100,6 +1148,8 @@ package classes.Scenes.NPCs
 			var hasValidItems:Boolean = false;
 			var buttonPos:int = 0;
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("Joy jumps and claps her hands in apparent excitement. \"<i>Oh goodie! What is it!?</i>\" she asks excitedly.");
 			menu();
 			//Scholar's Tea
@@ -1174,6 +1224,8 @@ package classes.Scenes.NPCs
 		//Scholar's Tea
 		private function giveJoyAScholarsTea():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			player.consumeItem(consumables.SMART_T, 1);
 			outputText("You hold up the small pouch of aromatic herbs and dried leaves and ask if Joy would like to have some tea. The bimbo mouse smiles and nods eagerly, and the two of you soon have a small fire blazing to heat up the water in which the tea is steeped. Joy takes the cup you offer her with surprising grace, closing her eyes and inhaling deeply through her nose. \"<i>That smells, like, so good...</i>\" She murmurs, then she slurps it down with obvious enjoyment. You watch as she drinks every last drop, but other than a curiously furrowed brow, nothing seems to happen. \"<i>My head feels all tingly.</i>\" She notes.");
 			outputText("\n\nStill, nothing about her seems to have changed, though... does her gaze look a little sharper? Her eyes a little clearer? Wondering if it's had any effect on her at all, you politely take your leave.");
@@ -1185,6 +1237,8 @@ package classes.Scenes.NPCs
 		//Incubi Draft
 		private function giveJoyAnIncubiDraft(purified:Boolean = false):void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You hand Joy " + (purified ? "a purified Incubus Draft" : "an Incubus Draft") + " and tell her you'd like her to drink it.");
 			if (!purified) { //She won't accept tainted ones.
 				outputText("\n\n\"<i>Ewww! This has, like, that black icky stuff all over it! It's gross!</i>\" she tells pushing the vial back into your hands and making a face. Looks like she'll only accept it if it's purified.");
@@ -1203,6 +1257,8 @@ package classes.Scenes.NPCs
 		}
 		private function giveJoyAnIncubiDraftForReal():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			player.consumeItem(consumables.P_DRAFT, 1);
 			if (joyHasCock()) { //Joy already has cock.
 				if (flags[kFLAGS.JOY_COCK_SIZE] >= 8.5) { //Maxed cock size.
@@ -1222,6 +1278,8 @@ package classes.Scenes.NPCs
 		}
 		private function dontGiveJoyAnIncubiDraft():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You tell her you changed your mind and get your vial back. Joy gives you a disappointed \"<i>Dawww...</i>\"");
 			doNext(genericMenu);
 		}
@@ -1229,6 +1287,8 @@ package classes.Scenes.NPCs
 		//Succubi Milk
 		private function giveJoyASuccubiMilk(purified:Boolean = false):void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You hand Joy a " + (purified ? "purified Succubi's Milk" : "Succubi's Milk") + " and tell her you'd like her to drink it.");
 			if (!purified) { //She won't accept tainted ones.
 				outputText("\n\n\"<i>Ewww! This has, like, that black icky stuff all over it! It's gross!</i>\" she tells pushing the vial back into your hands and making a face. Looks like she'll only accept it if it's purified.");
@@ -1242,6 +1302,8 @@ package classes.Scenes.NPCs
 		}
 		private function giveJoyASuccubiMilkForReal():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			player.consumeItem(consumables.P_S_MLK, 1);
 			outputText("Joy chugs the potion down, then moans as a wet spot begins forming on her shorts. She barely manages to remove it before a huge flood of girlcum escapes her drooling vagina; she squeaks and moans as more and more juices escape her clenching snatch. ");
 			if (flags[kFLAGS.JOY_VAGINAL_WETNESS] >= 5) { //Maxed vaginal wetness
@@ -1264,6 +1326,8 @@ package classes.Scenes.NPCs
 		}
 		private function dontGiveJoyASuccubiMilk():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You tell her you changed your mind and get your vial back. Joy gives you a disappointed \"<i>Dawww...</i>\"");
 			doNext(genericMenu);
 		}
@@ -1271,6 +1335,8 @@ package classes.Scenes.NPCs
 		//Pink Egg
 		private function giveJoyAPinkEgg(large:Boolean = false):void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You hand Joy a " + (large ? "large pink egg" : "pink egg") + " and tell her you want her to eat it.");
 			outputText("The bimbo mouse-herm looks at it and sniffs it. \"<i>Like, I dunno, [name]... I've got this odd feeling that it'll, like, remove my boy parts. I kinda like having them too, y'know; it means there's more fun we can do. Are you, y'know, sure you want me to eat this?</i>\"");
 			menu();
@@ -1278,6 +1344,8 @@ package classes.Scenes.NPCs
 		}
 		private function giveJoyAPinkEggForRealYouMonster(large:Boolean = false):void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			if (large) player.consumeItem(consumables.L_PNKEG, 1);
 			else player.consumeItem(consumables.PINKEGG, 1);
 			outputText("You tell Joy that you do want her to eat it.");
@@ -1289,6 +1357,8 @@ package classes.Scenes.NPCs
 		}
 		private function dontGiveJoyAPinkEggThanksGoodness():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You decide you'd rather she didn't and tell her so. The bimbo mouse happily gives you the egg back.");
 			doNext(genericMenu);
 		}
@@ -1296,6 +1366,8 @@ package classes.Scenes.NPCs
 		//Blue Egg
 		private function giveJoyABlueEgg(large:Boolean = false):void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			if (large) player.consumeItem(consumables.L_BLUEG, 1);
 			else player.consumeItem(consumables.BLUEEGG, 1);
 			outputText("You hand Joy a " + (large ? "large blue egg" : "blue egg") + " and ask her to eat it for you. She sniffs it experimentally, then cracks it open and sucks the yolk down, shuddering with disgust. \"<i>Blech! That tastes awful!</i>\" She complains, sticking her tongue out for emphasis. Then she shudders, and gives a squeak of shock; and you can see why - her breasts are shrinking! As you watch, her chest completely flattens itself out... then, a few moments later, it starts bubbling out again until her DD-cups are bouncing proudly on her chest once more, straining against her shirt even as her shorts are soaked by feminine fluid. She shivers and gives you a flat look. \"<i>Like, I don't know what you were hoping would happen, but that felt totally nasty. Please don't do it again, kay?</i>\" She asks.");
@@ -1308,6 +1380,8 @@ package classes.Scenes.NPCs
 		//Lactaid
 		private function giveJoyALactaidYummyMilkTime():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			player.consumeItem(consumables.LACTAID, 1);
 			outputText("You hand Joy a vial of Lactaid and tell her you'd like her to drink it.");
 			outputText("\n\nJoy opens it and sniffs the fluid inside. ");
@@ -1369,6 +1443,8 @@ package classes.Scenes.NPCs
 		//Reducto
 		private function giveJoyAReducto():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You hand Joy a salve marked as 'Reducto' and tell her that you'd like her to shrink her body parts.");
 			outputText("\n\n\"Do you want me to, like, make my boobies smaller?" + joyHasCockText(" Or make my funstick smaller? Is it too big for you?") + "\" Joy asks, teasingly.");
 			menu();
@@ -1378,6 +1454,8 @@ package classes.Scenes.NPCs
 		}
 		private function reductoJoysBreasts():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			player.consumeItem(consumables.REDUCTO, 1);
 			outputText("You tell Joy that she could shrink her breasts.");
 			outputText("\n\n\"<i>Okay! But won't you, like, miss me having bigger boobies?</i>\" Joy teases. Then she opens up her robes and applies Reducto all over her breasts and makes a disgusted expression. \"<i>That pasty thing smells, like, awful! And look at my boobies go!</i>\" Joy exclaims.");
@@ -1392,6 +1470,8 @@ package classes.Scenes.NPCs
 		}
 		private function reductoJoysCock():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			player.consumeItem(consumables.REDUCTO, 1);
 			outputText("You tell Joy that she could shrink her cock.");
 			outputText("\n\n\"<i>My funstick is, like, too big for you?</i>\" Joy teases. Then she removes her shorts and applies Reducto all over her cock and makes a disgusted expression. \"<i>That pasty thing smells, like, awful! And look at my funstick go!</i>\"");
@@ -1410,6 +1490,8 @@ package classes.Scenes.NPCs
 		//------------
 		private function initiateSexWithJoy():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			if (player.lust < 33) {
 				outputText("You consider telling Joy you're up for some fooling around, but truth is you're not really in the mood...");
 				outputText("\n\nMaybe you should try again when you're a bit hornier?");
@@ -1453,6 +1535,8 @@ package classes.Scenes.NPCs
 		
 		private function joySexMenu():void {
 			menu();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("\n");
 			if (player.hasCock()) {
 				//Vaginal penetration
@@ -1490,6 +1574,8 @@ package classes.Scenes.NPCs
 		private function penetrateJoysPussy():void {
 			var x:int = player.cockThatFits(joyVagCapacity());
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You " + player.clothedOrNakedLower("remove your [armor] and ") + "give " + player.cockDescript(x) + " a meaningful stroke, telling Joy you wish to penetrate her pussy.");
 			outputText("\n\nJoy wastes no time, she removes her prayer beads and sheds her robe; then she turns her back towards you and bend over, removing her tight shorts and exposing her glistening " + joyPussyDescript() + joyHasCockText(" and hardening " + joyCockDescript()) + ".");
 			outputText("\n\nKnowing that she has no patience for foreplay, you don't waste time with any, ");
@@ -1528,6 +1614,8 @@ package classes.Scenes.NPCs
 		private function fuckJoyInTheAss():void {
 			var x:int = player.cockThatFits(joyAnalCapacity());
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You " + player.clothedOrNakedLower("strip your [armor] and ") + " give your " + player.cockDescript(x) + " a meaningful stroke; then walk behind Joy to give her butt a little grope, telling her you've been thinking about doing her ass.");
 			outputText("\n\nThe bimbo mouse squeaks. \"<i>My butt? You want to stick your funstick up my butt?</i>\" She claps her hands protectively over her tailhole. \"<i>Like, isn't that supposed to go in my little hole in the front? Are you sure you, like, wouldn't rather stick it there?</i>\" She pleads.");
 			outputText("\n\nYou gently take her wrist and move her hands out of the way, then hold her waist and pull her towards you whispering in her ear that you REALLY like to stick your " + player.cockDescript(x) + " into her butt. You grind against her in hopes of coaxing her into agreeing with this.");
@@ -1575,6 +1663,8 @@ package classes.Scenes.NPCs
 		
 		private function lickJoysGina():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You scan Joy with your eyes until you set your gaze between her legs. You tell Joy you were wondering what she tastes like... " + joyHasCockText("then hastily add that you mean her girl-parts, not her boy-parts") + ".");
 			outputText("\n\nJoy giggles. \"<i>Well, I guess I can give you, like, a little taste-test.</i>\" She smirks and promptly wriggles out of her clothes right there and then. With a jaunty wriggling of her bum, she saunters over to a convenient spot and seats herself there, legs splayed" + joyHasCockText(" and " + joyCockDescript() + " jutting up, idly stroking her herm member") + ". \"<i>...Come and get it?</i>\" She teases.");
 			outputText("\n\nWith a grin you move closer and kneel between her legs, spreading them a bit more for better access. You inhale, taking in Joy's scent and pheromones, feeling the enticing combination burn a path of liquid heat inside you and further arousing you further. With a sigh, you exhale; then proceed to push an exploring finger inside Joy's wet depths.");
@@ -1607,6 +1697,8 @@ package classes.Scenes.NPCs
 		
 		private function suckJoysCock():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You slowly close in on Joy, making a grab for the bulge in her shorts, carefully sizing it up as it hardens under your touch. Then you grin at Joy and tell her you were wondering what she would taste like.");
 			outputText("\n\nThe bimbo mouse herm looks at you, puzzled for the briefest moment, then grins widely. \"<i>Then, like, how's about I give you a taste-test, hmm?</i>\" She coos, ducking forward and giving you a sloppy kiss on the lips. Wriggling out of your grip, she hikes up her robes and pulls down her shorts, letting her " + joyCockDescript() + " hang out freely, already starting to grow erect at your promise. She saunters over to a comfortable spot and sits down. \"<i>Well? Like, whatcha waiting?</i>\"");
 			outputText("\n\nIt's hard to believe how lusty this mouse can be... but since she looks so ready you see no reason to hesitate; you slowly lower yourself, examining Joy's " + joyCockDescript() + " as it grows to full mast. An idea hits you, and you decide to play with Joy for a little bit. You spread her legs wider to give you better access and slowly cup her furry sack in one hand, rolling the cum-producing orbs inside round on your palm, while your other hand moves under to tease Joy's slit.");
@@ -1643,6 +1735,8 @@ package classes.Scenes.NPCs
 		
 		private function frotWithJoy():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText(player.clothedOrNakedLower("You begin undressing and tell Joy to do the same.", "You present your naked body and tell Joy to strip naked for you."));
 			outputText("\n\nJoy smiles, unwraps her beads from around her waist, and steps easily out of her robe, allowing it to fall to the ground behind her as she bends over to slide off her shorts. Within moments, she is standing naked before you, thanks to the fact she doesn't bother with underpants.");
 			outputText("\n\nYou smile at her as you walk towards her, gently laying a hand on breast and looping your arm around her waist to pull her closer.");
@@ -1668,6 +1762,8 @@ package classes.Scenes.NPCs
 		
 		private function haveJoySuckYouOff():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You gaze at Joy's lips and decide to ask her if she'd be willing to use her mouth to have some fun.");
 			outputText("\n\nShe gives you a sultry smile. \"<i>Oh? Like, do you think you can handle me, big " + player.mf("boy", "girl") + "?</i>\" She coos, sucking pointedly on one of her pinky fingers.");
 			outputText("\n\nYou decide to tease her a little bit and tell her she's right, you really can't handle her so you'd better find someone else to give you what you want.");
@@ -1723,6 +1819,8 @@ package classes.Scenes.NPCs
 		
 		private function haveJoyLickYourGinas():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You " + player.clothedOrNakedLower("peel off your " + player.armorDescript() + " and then ") + "sit on a nearby rock, spreading your legs and showing Joy's hungry eyes your " + (player.hasCock() ? "hardening " + player.cockDescript() + " and " : "") + "rapidly moistening pussy. Then you ask Joy if she'd like a little taste of your love-hole.");
 			outputText("\n\nThe mouse doesn't answer verbally; instead, she springs at you in a pounce that purposefully falls short, leaving her crouched right before your " + player.vaginaDescript() + ". She grins up at you, then gives you a long, wet, slurpy lick up your pussy.");
 			outputText("\n\nYou moan, and grin at Joy's eagerness, patting her head; then you tell her that you were actually expecting some foreplay before she started.");
@@ -1757,6 +1855,8 @@ package classes.Scenes.NPCs
 		
 		private function haveJoyStuffYourPussy():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You " + player.clothedOrNakedLower("begin undressing, ", "put on a show, ") + "making sure to go as slowly as possible in order to put on a show for Joy.");
 			outputText("\n\nThe bimbo mouse certainly appreciates the show; her tongue is hanging out and she stares obliviously at your increasingly nude form, so caught up in looking she can't even think about removing her own clothes.");
 			outputText("\n\nWhen you're done, you're surprised to see she still has her clothes on, and ask her how does she intend to have sex still fully dressed?");
@@ -1791,6 +1891,8 @@ package classes.Scenes.NPCs
 		private function haveJoyStuffYourButthole():void {
 			var isVirgin:Boolean = (player.ass.analLooseness == 0);
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You " + player.clothedOrNakedLower("take off your [armor] and ") + "show Joy your naked body" + (player.hasCock() || player.hasVagina() ? " and" : "") + (player.hasCock() ? " your hardening " + player.cockDescript() : "") + (player.hasCock() && player.hasVagina() ? " and" : "") + (player.hasVagina() ? " moistening " + player.vaginaDescript() : "") + ". You close in on Joy and gently stroke her cheek, pulling her close for a quick kiss; then taking the opportunity grab at her " + joyCockDescript() + " through her shorts and whisper to her that you would like her up your butt.");
 			if (flags[kFLAGS.JOJO_ANAL_CATCH_COUNTER] == 0) {
 				outputText("\n\nJoy blushes and shuffles her feet from side to side. \"<i>Up-Up the butt?</i>\" She stammers. \"<i>Like, why would you want it shoved up there?</i>\" She asks, though you can feel her " + joyCockDescript() + " getting hard at the thought.");
@@ -1901,6 +2003,8 @@ package classes.Scenes.NPCs
 		
 		public function joyGivesBirth():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("As you stroll through the camp, a pained squeak catches your attention and you look to see Joy holding her belly in apparent pain.");
 			outputText("\n\nJoy staggers over to you, clutching her swollen belly and wincing. \"<i>Like, [name]? Can you give me a belly rub? Please? I got this horrible pain in my tummy.</i>\" She whimpers.");
 			outputText("\n\nNodding, you guide her to her tent and help her lay down; then you loosen her robes and start gently rubbing her belly. That's when you notice that the babies inside seem strangely agitated, and you feel what could only be a contraction accompanied by a pained squeak; a quick look at Joy's shorts confirms your thoughts as you notice a wet spot has formed. In one smooth motion you grab the rim of Joy's shorts and pull them off Joy.");
@@ -1924,6 +2028,8 @@ package classes.Scenes.NPCs
 		}
 		private function joyGivesBirthPart2():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			var babyGender1:int = 0;
 			var babyGender2:int = 0;
 			switch(rand(10)) { //Decide the gender of the first baby.
@@ -2030,6 +2136,8 @@ package classes.Scenes.NPCs
 		//Night fuck scene
 		public function hornyJoyIsPregnant():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You're about to head into your " + camp.homeDesc() + " to rest after a day of adventuring, when you see Joy approach you.");
 			outputText("\n\n\"<i>Like, [name]?</i>\" Joy pleads. \"<i>The babies, like, won't stop kicking in my belly, and I'm sooo horny, too. Can we, like, please have some sex? I don't think I'll ever be able to, y'know, get some sleep if I don't take the edge off and make the babies calm down.</i>\"");
 			doYesNo(acceptJoyNightFuck, declineJoyNightFuck)
@@ -2037,6 +2145,8 @@ package classes.Scenes.NPCs
 		
 		private function acceptJoyNightFuck():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You tell her since it was you that put the babies inside her, you might as well as help her through it.");
 			outputText("\n\n\"<i>Yay!</i>\" She cries, and claps her hands in delight. Then she pauses and rubs her chin thoughtfully. \"<i>Now, like, how do we do this...?</i>\" She murmurs, clearly unsure of how to proceed.");
 			outputText("\n\nYou take the initiative and draw her in for a kiss, rubbing her belly with a hand. Then you move behind her and begin pulling her clothes apart, slowly but teasingly undressing her.");
@@ -2074,6 +2184,8 @@ package classes.Scenes.NPCs
 		
 		public function wakeUpWithJoyPostFuck():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("Your dreaming take a turn to the sexy. In your dreams you're wandering through the fields when you feel your " + player.cockDescript() + " become engorged and throb, upon exposing your shaft you see it is painfully erect, beads of pre forming on the tip and quickly sliding down your shaft. You moan as pleasure fills you, even though you haven't even touched your shaft; despite that it feels like something or someone is giving you a wonderful blowjob...");
 			outputText("\n\nYou open your eyes and when you look down, you see Joy...");
 			outputText("\n\nThe gravid mouse is lying down while trying to avoid squishing her gravid belly and the precious cargo it contains, tail sweeping playfully from side to side in the air above her shapely rump as she bobs up and down on your erect " + player.cockDescript() + ", softly humming around the obstruction in her mouth. Seeing you awake, she pulls free with an audible pop, smacks her lips and grins at you. \"<i>Like, g'morning, [name]!</i>\" She squeaks happily, then starts to lick and slurp on your prick again without a care in the world.");
@@ -2110,6 +2222,8 @@ package classes.Scenes.NPCs
 		
 		private function declineJoyNightFuck():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("You tell Joy you're sorry, but you're just not in the mood right now... she'll have to find another way to relieve herself.");
 			outputText("\n\nThe bimbo mouse looks at you, and starts to sniffle, tears beginning to trickle down her cheeks. When she sees you aren't budging, though, she stops and sighs. \"<i>Like, if that's the way it's gotta be.</i>\" That said, she sadly shuffles away, stroking her belly and murmuring to her twins.");
 			doNext(camp.sleepWrapper);
@@ -2159,6 +2273,9 @@ package classes.Scenes.NPCs
 				default:
 					babyGender2 = 3;
 			}
+			spriteSelect(SpriteDb.s_joy);
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
 			outputText("As you wander through your camp, a heavy cramp hits you in the belly, followed by a rush of fluids that gush from your " + player.vaginaDescript() + ". Figuring it must be time, you yell, calling for Joy.");
 			outputText("\n\nThe mouse promptly wanders over. \"<i>Like, [name]? What's up? Why all the shouting? ...And " + player.clothedOrNakedLower("what happened to your [armor] - ") + "did you, like, pee yourself or something?</i>\" She asks, giving you a completely baffled expression.");
 			outputText("\n\nYou're in too much pain to explain right now, so you yell at Joy to help you undress, quick! And then to help you into your bed.");
@@ -2270,6 +2387,10 @@ package classes.Scenes.NPCs
 		
 		public function joyTakesTheBabiesAway():void {
 			clearOutput();
+			spriteSelect(SpriteDb.s_joy);
+			credits.modContent = true;
+			credits.authorText = "LukaDoc";
+			outputText("You wander back into your camp, but notice something seems to be amiss...");
 			outputText("You wander back into your camp, but notice something seems to be amiss...");
 			if (camp.amilyFollower()) { //Bonus points if Amily is in camp!
 				outputText("\n\n\"<i>Like, looking for our babies, [name]?</i>\" Joy asks, appearing at your side.");

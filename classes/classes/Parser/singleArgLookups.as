@@ -43,7 +43,7 @@
 				"cocks"						: function():* { return kGAMECLASS.player.multiCockDescriptLight(); },
 				"cunt"						: function():* { return kGAMECLASS.player.vaginaDescript(); },
 				"eachcock"					: function():* { return kGAMECLASS.player.sMultiCockDesc();},
-				"eachcockUC"				: function():* { return kGAMECLASS.player.SMultiCockDesc();},
+				"eachcockuc"				: function():* { return kGAMECLASS.player.SMultiCockDesc();},
 				"evade"						: function():* { return "[Evade]"; },
 				"extraeyes"					: function():* { return kGAMECLASS.player.extraEyesDescript();},
 				"extraeyesshort"			: function():* { return kGAMECLASS.player.extraEyesDescriptShort();},

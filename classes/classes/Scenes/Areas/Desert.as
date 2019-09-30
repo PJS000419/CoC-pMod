@@ -52,10 +52,10 @@ package classes.Scenes.Areas {
 						name  : "sandtrap",
 						chance: 0.5,
 						call  : sandTrapScene.encounterASandTarp
-					}, {
+					/*}, {
 						name  : "ghoul",
 						chance: 0.5,
-						call  : ghoulScene.ghoulEncounter
+						call  : ghoulScene.ghoulEncounter*/
 					}, {
 						name: "sandwitch",
 						when: function ():Boolean {

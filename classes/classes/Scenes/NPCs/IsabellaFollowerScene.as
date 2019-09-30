@@ -1617,6 +1617,7 @@
 		}
 
 		public function isabellaTalksAboutPotentialPregnancy():void {
+			credits.modContent = true;
 			spriteSelect(SpriteDb.s_isabella);
 			outputText("\nAs you head for your " + (camp.homeDesc() == "cabin" ? "bed" : "sleeping bag") + ", looking forward to the end of another long day, you notice Isabella approaching, seeming strangely nervous for the bovine warrior-woman.  You call out to her in greeting, asking if something is the matter.");
 			outputText("\n\n\"<i>Ah, [name], I was hoping to see you.</i>\" She replies.  Nervously looking at the ground, pawing at the dry earth with one cloven hoof, she suddenly blurts out, \"<i>what do you think of children, [name]?</i>\"");
@@ -1629,6 +1630,7 @@
 
 		private function toggleIsabellaContraceptives():void {
 			clearOutput();
+			credits.modContent = true;
 			if (flags[kFLAGS.ISABELLA_POTENCY_STATE] == 1) { //Not on contraceptives
 				outputText("You tell Isabella that you think maybe it’s best if she starts taking her contraceptives again.");
 				outputText("\n\nThe cowgirl nods her head reasonably. \"<i>Da, this makes sense.  It is a hard life we live out here; the times they are too dangerous to reasonably expect you to look after a pregnant woman and then a little baby, yes?");
@@ -1650,6 +1652,7 @@
 
 		private function isabellaCowifyPrompt():void {
 			clearOutput();
+			credits.modContent = true;
 			if (flags[kFLAGS.ISABELLA_COWMOTHER] == 0) {
 				outputText("As you chat to the expectant warrior-woman, you notice an occasional sad expression when she touches her bulging belly, and ask her what the matter is.  “It is nothing, [name].” She replies, at first, but you can tell that’s not the truth and continue probing until she sighs and explains.  \"<i>It is just, well... I am not human any more, but, from what I heard on the plains, my little babies will be human.  I do not regret giving up my humanity, but I do worry sometimes how it will affect them, to have a literal cow-woman like myself for a mother.</i>\"");
 				outputText("\n\nYou note that does sound like a bit of a worry, but, well, it’s not as if either of you have a way of changing that.");
@@ -1666,6 +1669,7 @@
 
 		private function yesToIsabellaTF():void {
 			clearOutput();
+			credits.modContent = true;
 			outputText("You tell Isabella that, after much consideration, you think she should use the lethicite on herself.  After all, didn’t her transformations make her bigger and stronger than any normal human?  While you do seek to topple the lord of the demons, you doubt that will make them all just vanish into the wind, so passing that strength on to her children would be the kindest thing to do.");
 			outputText("\n\n\"<i>...I had not thought of that.</i>\" Isabella admits.  She then " + (flags[kFLAGS.ISABELLA_COWMOTHER] == 0.5 ? "retrieves the wrapped bundle from her belongs and opens it before she " : "") + "takes the shard of crystalised soul-stuff in one hand, gently dropping the blankets to the ground next to her hoof.  She wraps her other hand around it and closes her eyes, looking like she is praying, before starting to gently murmur to herself.  You realise that what she’s speaking must be her own language; it expands upon her normal accent and thickens it until you cannot understand a word she is saying.  You idly wonder if maybe she can teach it to you before you are interrupted by a blinding flash of light.  When you can see again, Isabella is blinking her own vision back and opens her hands, revealing nothing.");
 			outputText("\n\n\"<i>Well... I guess that is that.</i>\" She declares, giving you a crooked smile.  \"<i>I suppose we will not know if it worked until this little one comes out to say hello.</i>\" She notes, rubbing her swollen midriff.");
@@ -1676,6 +1680,7 @@
 
 		private function noToIsabellaTF():void {
 			clearOutput();
+			credits.modContent = true;
 			if (flags[kFLAGS.ISABELLA_COWMOTHER] == 0) {
 				outputText("You tell Isabella that you think she should stay just the way she is - at least, until you’ve had a chance to think it over.  The bovine braud looks thankful and nods in understanding, wrapping the lethicite back up and putting it away.  You excuse yourself and wander back to your part of the camp, giving the matter some thought.");
 			}
@@ -1690,6 +1695,7 @@
 
 		private function isabellaTakesOviElixir():void {
 			clearOutput();
+			credits.modContent = true;
 			outputText("(Placeholder) You give a bottle of Ovi Elixir to Isabella. She ingests the contents inside.");
 			if (isabellaScene.pregnancy.incubation > 240) isabellaScene.pregnancy.knockUpForce(isabellaScene.pregnancy.type, isabellaScene.pregnancy.incubation - 240);
 			else isabellaScene.pregnancy.knockUpForce(isabellaScene.pregnancy.type, 1);
@@ -1704,6 +1710,7 @@
 
 		//Isabella Gives Birth!
 		public function isabellaGivesBirth():void {
+			credits.modContent = true;
 			spriteSelect(SpriteDb.s_isabella);
 			var babyGender:int = 0;
 			//Decide the gender (If Isabella is a cowmother, human offsprings will always be male. The rest is cowgirls.)

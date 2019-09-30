@@ -52,6 +52,8 @@ package classes.Scenes.Places.TelAdre
 		public function approachPablo():void {
 			spriteSelect(SpriteDb.s_pablo);
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "worldofdrakan";
 			if (flags[kFLAGS.PABLO_MET] == 0) {
 				outputText("You approach the imp-like creature, a whole swarm of questions flooding your mind. Noticing you, he hops down from his bar.");
 				outputText("\n\n\"<i><i>Hello there. I don’t believe we’ve met. The name’s Pablo. And you?</i></i>\"");

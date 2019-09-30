@@ -23,6 +23,13 @@
 //const PC_WIN_LAST_KIHA_FIGHT:int = 345;
 //const KIHA_CHOKED_OUT_PC:int = 432;
 
+	public function kihaSparIntensity():int {
+		var amount:int = Math.max(0, flags[kFLAGS.KIHA_SPAR_VICTORIES]);
+		if (amount > 10 && !getGame().kihaFollower.followerKiha()) amount = 10; //Capped at 10 for non-follower.
+		if (amount > 100) amount = 100; //Hard capped at 100. She'll be level 31!
+		return amount;
+	}
+
 //Encounter Dragon-Gal 
 public function encounterKiha():void {
 	var temp:Function;

@@ -47,6 +47,9 @@ package classes.Scenes.Areas.HighMountains
 		//Begin purification quest.
 		public function startPurification():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kinathis";
+
 			outputText("You had been thinking about what Minerva said the last time you talked to her. She had mentioned the source of her corruption and that it was the reason for her self imposed exile to her oasis. You gesture for Minerva to join you at the usual spot you take when talking, sitting by the spring on the soft pillowy moss. Clearly noticing your thoughtful expressing and desire to talk, Minerva pokes you gently in the side. \"<i>Hey, what's wrong? You're all lost in thought. Want to talk about it?</i>\" she asks, wondering just what it is that has you troubled so much.");
 			
 			outputText("\n\nNot sure exactly how to broach the subject you decide to tell her outright, putting a hand on her shoulder you tell the siren that you want to help her. Offering yourself to try and find a way to cure her and purify her body. The red-headed shark-like harpy breaks out into a bright toothy smile, showing off her jagged shark teeth before suddenly grabbing you and hugging you. ");
@@ -170,6 +173,8 @@ package classes.Scenes.Areas.HighMountains
 		//Minerva Gets Purified By Marae
 		public function purificationByMarae():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kinathis";
 			outputText("You return to Minerva's lair with great excitement, clutching the precious seed close against your heart. You call out to your siren lover, eager to share this exciting news with her.")
 			
 			if (flags[kFLAGS.MINERVA_CORRUPTION_PROGRESS] == 0) outputText("\n\nHearing your excited calls draws Minerva over from her place of rest near the pure spring, her curiosity clear on her face as she wonders what's making you so excited. \"<i>What is it, lover? What's gotten into you?</i>\" she questions you before her eyes widen and she brings a hand to her lips, biting it softly. \"<i>Did you... could it be that you found a way to purify me and purge my body of this disgusting creature?</i>\"");
@@ -233,6 +238,8 @@ package classes.Scenes.Areas.HighMountains
 		
 		public function purificationByJojoPart1():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kinathis";
 			outputText("You approach the murine monk with Minerva's fate weighing on your mind. As if he can sense your troubled thoughts, Jojo looks at you expectantly. \"<i>What troubles you, my friend?</i>\" he asks.");
 
 			outputText("\n\nYou talk to Jojo about Minerva, describing her condition, her worries, and her willingness to be purified. You ask if he has any idea on how he can possibly help her, and the monk looks thoughtful.");
@@ -243,6 +250,8 @@ package classes.Scenes.Areas.HighMountains
 		
 		public function purificationByJojoPart2():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kinathis";
 			outputText("The climb up the mountains feels longer and harder than before - maybe because Jojo, despite his admirable dedication, clearly isn't an experienced mountain hiker. Finally, however, you reach the tower and you head inside, calling out for Minerva to come and meet a friend of yours.");
 
 			if (flags[kFLAGS.MINERVA_CORRUPTION_PROGRESS] > 0) {
@@ -308,6 +317,8 @@ package classes.Scenes.Areas.HighMountains
 		
 		public function purificationByRathazul():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kinathis";
 			outputText("Carefully making sure you haven't broken the precious vial of potion, you hurry into Minerva's lair, where you call out to your siren lover, eager to share this exciting news with her.");
 			
 			if (flags[kFLAGS.MINERVA_CORRUPTION_PROGRESS] > 0) outputText("\n\nHearing your excited calls draws Minerva's attention from the harpy that is trying to get her attention from the harpies that fight for her touch, the bird woman/women trying all kinds of lewd things to get her to mate with her/them. Hearing your excited cries wins over the arousing actions and she moves away from them, running over to you to see just what's going on. \"<i>What is it, lover? What's gotten into you?</i>\" She questions you before her eyes widen and she brings a hand to her lips, biting it softly. \"<i>Did you... could it be that you found a way to purify me and purge my body of this disgusting creature, along with this strange lust I feel?</i>\""); 
@@ -360,6 +371,8 @@ package classes.Scenes.Areas.HighMountains
 		//Post-purification
 		public function growTreePostPurification():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kinathis (mostly)";
 			outputText("You tell her that you have a special seed Marae gave you. It'll make an excellent addition to her lair.");
 			
 			outputText("\n\nShe looks at you with wide eyes before gazing down at the seed with amazement, clearly wondering if this little seed could really be the key to being freed. After snapping out of her daze, Minerva turns to the spring and looks at it, her eyes darting around as if trying to find the perfect spot. \"<i>I know just where to plant it</i>\"");
@@ -384,6 +397,8 @@ package classes.Scenes.Areas.HighMountains
 		
 		public function agreeToMakeBaby():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kinathis";
 			//Male PCs
 			if (player.gender == 1) {
 				outputText("You don't have to think very hard to know your answer. With such a voluptuous woman asking you to be the father of her children you couldn't possibly say no. You slide your arms around her, your hands reaching back and grabbing her round juicy rump and squeezing her, drawing a surprised gasp from Minerva. Her wide brood-motherly hips feel so enticing against yours that your " + player.cockDescript() + " starts to swell. Grinning devilishly you tell her you can't wait to get started siring a new race with her right away, whispering to her that you think she would make a very sexy mom.");
@@ -427,6 +442,8 @@ package classes.Scenes.Areas.HighMountains
 		
 		public function declineToMakeBaby():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kinathis";
 			outputText("Looking at the new Minerva makes it hard to say no, but you're afraid you have to decline, at least for now. Your job as a champion is important and you have to focus on your duties, but you promise her that you would be honored to be the " + (player.hasCock() ? "father" : player.hasVagina() ? "mother" : player.mf("father", "mother")) + " of her young in the future. Your words put a disappointed look on the would-be broodmother's face. Clearly she was hoping you would help her start a family right here and now. When you promise to come back another time and help her she perks back up, though she still doesn't look as happy as she was before. \"<i>I'll hold you to that, my love. As the one who saved me from my fate, I want you to be the one who gives me my children and you better be ready! I want to have lots and lots of babies!</i>\" she says with a grin and, as if to emphasize her point, ");
 			if (player.gender == 1) outputText("her warm hand naughtily reaches down " + player.clothedOrNakedLower("and grabs the bulge in your " + player.armorName, "towards your naked crotch") + ", before gently squeezing");
 			else if (player.gender == 2) outputText("her warm hand reaches down and slips into your " + player.armorName + " teasingly, her fingers exploring until they find your womanhood and rub it gently, the golden siren giving you a naughty sharky grin. Clearly she can't wait to start her family with you.");
@@ -481,6 +498,8 @@ package classes.Scenes.Areas.HighMountains
 					outputText("\n\n<b>This text shouldn't happen.</b>");
 			}
 			pureMinervaMenu();
+			credits.modContent = true;
+			credits.authorText = "Kinathis";
 		}
 		
 		private function minervaSinging():void {
@@ -694,6 +713,10 @@ package classes.Scenes.Areas.HighMountains
 		//  TALKIE TALKIE
 		//------------------
 		private function minervaTalkSelect():void {
+			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kinathis";
+			
 			var talkChooser:int = rand(5);
 			if (flags[kFLAGS.MINERVA_TOWER_TREE] > 0) talkChooser = rand(6);
 			if (talkChooser == 0) {
@@ -723,9 +746,7 @@ package classes.Scenes.Areas.HighMountains
 		}
 		
 		//Some placeholder
-		private function talkingToMinervaAboutBackstory():void {
-			clearOutput();
-			
+		private function talkingToMinervaAboutBackstory():void {			
 			outputText(images.showImage("minerva-talk-backstory-pure"));
 			//PART 1 - DONE
 			if (flags[kFLAGS.MINERVA_BACKSTORY] == 0) {
@@ -790,7 +811,6 @@ package classes.Scenes.Areas.HighMountains
 		}
 		
 		private function talkToMinervaAboutSpring():void {
-			clearOutput();
 			outputText(images.showImage("minerva-talk-spring-pure"));
 			outputText("Informing Minerva that you want to sit down and talk with her seems to surprise her but a gentle smile quickly dawns on her face and she leads you over to a soft patch of moss. \"<i>Really, you want to talk to me? I thought we knew each other pretty well but if you wanted to talk I'd be happy to talk to you. What would you like to know, my love?</i>\" Looking over at the spring, you wonder about it, Minerva has been here for a while so perhaps she knows something about it.");
 			outputText("\n\n\"<i>The spring?</i>\" Minerva questions before looking over at the pure waters of the spring. \"<i> Well... truth be told I don't know really anything about it. ");
@@ -807,14 +827,12 @@ package classes.Scenes.Areas.HighMountains
 			doYesNo(pureMinervaSexMenu, declineSpringSex);
 		}
 		private function declineSpringSex():void {
-			clearOutput();
 			outputText("Staying like this for a while the two of you just rest and enjoy each others company, idly talking about a few things before you figure that its time you should go. Putting your " + player.armorName + " back on you gather your things as Minerva watches, pouting that you have to leave so soon. \"<i>Thank you so much for coming to visit. I had a lot of fun, don't be a stranger you hear, come back and visit again soon!</i>\" she says before sitting up and sighing contently.");
 			outputText("\n\nSmiling to her you promise to come back and visit soon before heading out and starting the hike back toward your camp.");
 			doNext(camp.returnToCampUseOneHour);
 		}
 		
 		private function talkToMinervaAboutSharkgirl():void {
-			clearOutput();
 			outputText(images.showImage("minerva-talk-sharkgirl-pure"));
 			outputText("Informing Minerva that you want to sit down and talk with her seems to surprise her but a gentle smile quickly dawns on her face and she leads you over to a soft patch of moss. \"<i>Really, you want to talk to me? I thought we knew each other pretty well but if you wanted to talk I'd be happy to talk to you. What would you like to know, my love?</i>\" remembering your past conversations with Minerva you remember her mentioning her mentioning that she had birthed a shark girl daughter at one point in her life, it seemed like a sensitive topic with her though. Really wanting to know more you ask to know more about this daughter of Minerva's");
 			outputText("\n\nThe golden siren's eyes widening when she hears you want to talk about her firstborn daughter, biting her lip she decides there is no harm in going into deeper detail about her shark-girl daughter \"<i>Well... alight, I don't see anything wrong with telling you. Ahhh...she was a sweet girl, so lively and playful, I remember the day she was born, the day I first held that little sweetie in my arms. She was much bigger than that anemone creature I birthed, you should have seen her, big red eyes, so bright with wonder as I held her in my arms, red and white hair, little fingers that reached out for her mama. I had never seen such a cute little girl, even though she was a shark-girl, that didn't matter; to me she was just my adorable baby girl.</i>\" Minerva says with a bright smile as she remembers her daughter. Hearing her describe it like this, you can't help but smile at the tender scenes the siren tells you about.");
@@ -833,7 +851,6 @@ package classes.Scenes.Areas.HighMountains
 		}
 		
 		private function talkToMinervaAboutMotherhood():void {
-			clearOutput();
 			outputText(images.showImage("minerva-talk-motherhood-pure"));
 			outputText("Telling Minerva that you want to sit down and talk with her seems to surprise her; she certainly didn't expect you to want to just talk with her. After her surprise, she smiled pleasantly. \"<i>Really, you want to talk to me? Alright, well what do you want to know?</i>\" She asks as she sits down cross-legged on the soft pillowy moss across from you. You rack your brain trying to think of what to talk about. Unable to really think about anything important to talk about you lean back and relax, Deciding to that you could talk for once instead of just listen about random things you have seen, creatures you have encountered, things that tried to sexually assault you, knock you up and try and force you to impregnate them.");
 			outputText("\n\nHappy to listen to you for a change Minerva leans against the tree with her legs stretched out, her shark tail laying between her legs. As you tell your tale to your siren friend you can't help but notice how she pays complete attention to you, wrapped up in your story. Wish such an attentive audience it would be a shame not to embellish, just a little.");
@@ -855,7 +872,6 @@ package classes.Scenes.Areas.HighMountains
 		}
 		
 		private function talkToMinervaAboutTree():void {
-			clearOutput();
 			outputText(images.showImage("minerva-talk-tree-pure"));
 			outputText("Telling Minerva that you want to talk with her brings a bright smile onto her face, Her eyes seem to sparkle as she grabs your hand and starts pulling you over to Marae's oak tree that stands at the center of the spring \"<i>Love! Come here! I have something to show you!</i>\" The redhead says with a grin");
 			outputText("\n\nCurious as to her current excitement you step into the pool and wade over to Marae's oak tree and take your place next to Minerva's white and gold form. Looking around the tree curiously before looking at Minerva, inquiring as to why she is so excited. \"<i>Well after the purification I got a tiny bit lonely at one point and started talking to the tree, I wasn't sure if Marae would come out of the tree again so I just started talking. She may not have come out of the tree but Marae did respond to me.</i>\" She said happily even as you look at her skeptically, it could be possible, after all Marae did herself did come out from the tree when she purified Minerva, so it couldn't be too farfetched.");
@@ -1144,7 +1160,7 @@ package classes.Scenes.Areas.HighMountains
 		private function chooseVagOrAss():void {
 			if (player.hasVagina()) {
 				clearOutput();
-				outputText("\"<i>So, which of your hole would you like me to fuck?</i>\" the siren asks.")
+				outputText("\"<i>So, which of your holes would you like me to fuck?</i>\" The siren asks.");
 				menu();
 				addButton(0, "Vagina", minervaLapSex);
 				addButton(1, "Ass", getButtFuckedYouSlut);

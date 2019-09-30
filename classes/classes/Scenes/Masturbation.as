@@ -3669,6 +3669,7 @@ package classes.Scenes {
 		
 		private function nagaTailsturbation():void {
 			clearOutput();
+			credits.modContent = true;
 			outputText(images.showImage("masti-naga-tailsex"));
 			//Naga tail go!
 			outputText("With a perverted grin, you decide to put your lengthy naga body to good use...");

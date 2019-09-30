@@ -20,6 +20,8 @@ package classes.Scenes.NPCs
 		//------------
 		public function brotizeIzma():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			outputText("You call Izma and take a moment to consider your tiger shark beta as she sashays over to you. Although it is always a pleasure to take in her toned, well-nigh perfect body, the more you look at her the more you come to realize that there's something which imperceptibly but endlessly annoys you about her. Perhaps it's in the way she smirks ever so slightly when you call her over. Or the way she moves around the camp with such swaggering confidence, as if she were the one who really owns it, and you're just filling in for her. Or the way she has that chest of hers within reach at all times, as if either you or one of your other followers could try and steal it at any time. Or her dick. Even now as she approaches you, she swings her hips faintly to make her formidable member swing beneath her skirt, hoping you'll notice it perhaps or reassuring herself with its heavy movement. It's so damn important to her, that dick; her entire damn world seems to revolve around it. You suppose you can't blame her. Beneath her flimsy attempts at intellect she is hardwired to be an alpha animal, to stick it into as many holes as she can, to fuck, sire and forget. This whole beta thing you've got going on is just a game to her, you see that clearly now; it doesn't matter how many times you assert your dominance, in her head she's still the daddy and you're the little girl. You realise you're building yourself into a needless rage with this train of thought, that you're probably being unfair, and yet you don't stop yourself- with the righteous anger, you feel, comes an ability to think clearer. To plot.");
 			outputText("\n\n\"<i>Alpha?</i>\" Izma is looking at you, amusement overlaying anxiety on her pretty, pointed face. \"<i>Is everything alright?</i>\" You assure her everything's fine, and ask if she's caught any fish in the stream today; you'd like to sit down and share a meal with her. \"<i>Oh, what a nice idea! I‘ve got two hung on the frame from the morning swarm. Uh... you prefer stuff cooked, don't you?</i>\" You sit down and watch her trot back towards the stream, tail swaying. You want to take her down several notches, quash forever the niggling suspicion she's fucking around with you. You suppose you could take away her cock, make her more sensitive... " + (flags[kFLAGS.IZMA_NO_COCK] > 0 ? "you sigh, remembering the hullabaloo that caused last time" : "") + ". No, it's not good enough. Doing that would merely validate her worldview that the ones with the biggest dicks are the ones naturally in control. If only you could damn her somehow with that all-important phallus of hers. How ironic that would be... it is then that something rounded and metal in one of your pockets digs into your side, as if it had been sat there waiting for this moment all along. A smile spreads over your face as the deliciously wicked idea forms.");
 			outputText("\n\nIzma soon returns, her catch proudly slung over one shoulder, and with the natural skill of someone who has lived next to a lake all her life soon has the fish gutted, scaled and roasting over a fire. You eat the tender white flesh carefully, watching the shark herm devour her share messily. Casually, you ask if she fancies a drink.");
@@ -51,6 +53,8 @@ package classes.Scenes.NPCs
 		// MENU
 		//------------
 		public function izmaelMenu():void {
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			menu();
 			addButton(0, "Appearance", izmaelAppearance).hint("Examine Izmael's appearance.");
 			addButton(1, "Books", getGame().izmaScene.IzmaCampBooks).hint("Ask Izmael if you can borrow his books.");
@@ -70,6 +74,8 @@ package classes.Scenes.NPCs
 		//------------
 		private function izmaelAppearance():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			outputText("Your personal boy toy, Izmael is a 6-foot 3-inch tall tigershark, with an incredibly toned athletic build; his sleek, rippling muscles are covered by coarse red sharkskin, marked with black stripes across his body. He is currently wearing the same grass skirt he wore as a herm, you can only assume because he cannot fit into clothing which restrains his dick. He has a wide, handsome face whose features are slightly reminiscent of a shark. His mouth contains a second row of retractable knife-like teeth in front of the normal blunt ones. His face's angularity accentuates his amiable masculinity. He has a shock of spiky, silver-white hair. His narrow hips bulge with cordlike muscle, and his tight ass is rock hard. He has a long shark-tail that grows down to his ankles, marked with the same tiger stripes as the rest of his body. He has two normal human legs ending in normal human feet.");
 			outputText("\n\nIzmael has a massive humanoid cock that his skirt simply cannot disguise. It's around 19 inches long and 3 inches thick. It has a dark red color like the rest of Izmael's skin, though it is devoid of tiger-stripes. A quad of bulging apple-sized testes swings heavily beneath his cock.");
 			outputText("\n\nHe has a tight asshole placed between his toned butt-cheeks, right where it belongs.");
@@ -80,6 +86,8 @@ package classes.Scenes.NPCs
 		//------------
 		private function izmaelTalk():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			outputText("\n\nWhen Izmael smiles at you, you notice - and not for the first time - the fairly intimidating array of shark teeth he has in his gums. Denuded of any of the feminine softness Izma had, his grin at you is every inch the leer of an apex ocean predator who has just spotted a pair of legs dangling below the surface, and no matter how confidently you tell yourself that smile has nothing but idiot good will behind it, the monkey part of your brain refuses to stop sending panic signals up and down your spine as it takes up your vision.");
 			outputText("\n\n\"<i>Sup, " + player.mf("boy", "girl") + "?</i>\"");
 			outputText("\n\nYou start in shock, but recover sufficiently to tell him that you are curious about what he actually eats. He shrugs. ");
@@ -117,6 +125,8 @@ package classes.Scenes.NPCs
 		
 		private function toggleIzmaelVirility():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			if (flags[kFLAGS.IZMA_PREGNANCY_DISCUSSED] == 0) {
 				outputText("You ask Izmael if he's eating anything he has stored in his trunk. The shark morph looks exasperated.");
 				outputText("\n\n\"<i>I only ate like three pages of that cookery book,</i>\" he says. \"<i>And I ain't gonna make that mistake again. Why you gotta keep making such a big deal out of that, alpha " + player.mf("dude", "chick") + "?</i>\" You say you mean anything green and herbal. He guffaws and waves his arms at you with sweet-tempered condescension. \"<i>Aw c'mon " + player.mf("boy", "girl") + ", everyone knows that herbal supplement stuff is totally bogus! I don't need any of that nonsense to keep this business in condition.</i>\" You say you'd like him to start eating the ones he'll find in a side compartment of his chest; you've been reading some health manuals recently and you are convinced they will give him a good complexion. Izmael shrugs and smirks. He obviously thinks you've fallen hook line and sinker for the pernicious health food industry, but he's perfectly willing to play along.");
@@ -141,6 +151,8 @@ package classes.Scenes.NPCs
 		//------------
 		private function izmaelSexMenu():void {
 			menu();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			if (player.hasCock()) addButton(0, "Buttfuck", buttfuckIzmael).hint("Fuck Izmael in the butt for some sexy gay times!");
 			else addButtonDisabled(0, "Buttfuck", "You need a cock to do this!");
 			if (player.hasVagina()) addButton(1, "Frenzy", frenzyTimeWithIzmael).hint("Get into a frenzy with Izmael and have him fill you vaginally.");
@@ -156,6 +168,8 @@ package classes.Scenes.NPCs
 		
 		private function buttfuckIzmael():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			outputText("You tell your beta to get on his hands and knees; you want to pound his ass. Izmael doesn't look thrilled by the prospect.");
 			outputText("\n\n\"<i>I dunno alpha " + player.mf("dude", "chick") + ",</i>\" he says slowly. \"<i>Isn't that pretty gay?</i>\"");
 			if (player.mf("m", "f") == "m") {
@@ -195,6 +209,8 @@ package classes.Scenes.NPCs
 		
 		private function frenzyTimeWithIzmael():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			outputText("Izmael grins " + (player.tallness < 72 ? "down" : "up") + " at you wrapped in his arms, his wide, jagged smile untouched by the slightest hint of malice or craft. He exists entirely in the moment, and his moment right now is you. You smile back at him winsomely and he takes that as a signal; his hands move downwards to cup your [butt], his massive trunk-like dick begins to harden and pushes into your side as he bends his face into your own... you take a step back.");
 			outputText("\n\n\"<i>Aw c'mon, alpha " + player.mf("bro", "chick") + "!</i>\" he says, boyish distress forming on his amiable features. He angles his hands downwards. \"<i>I'm blueballsing my brains out here, you </i>know<i> what you do to me. Any time you get close, any time I look at you, I can't... I get those gnarly... you know, those mondo...</i>\" His eyes go unfocused and his huge dick strains out of his grass kilt, pointing at you accusingly. You try not to laugh. You suppose you could give your big dumb boy toy a bit of a reward; but he's going to have to earn it. Heat begins to bloom below your gut as a way to make this extra spicy occurs...");
 			outputText("\n\n\"<i>All right beta,</i>\" you say, bringing him around with a start. \"<i>Perhaps alpha does need a service. A good... long... hard... service.</i>\" You put your hand up as the grinning shark morph advances. \"<i>But first, beta has to prove he's the right man for the job. Because only good boys get treats, don't they? Let's say...40 one handed pushups. Off you go.</i>\" Izmael is on the floor before you've even finished talking, one hand wrapped behind his back, the other thrust into the dirt and levering his lean frame up and down, his hungry eyes never leaving yours. You suspect that this show of pure machismo to win the " + silly() ? "priiiiiiiiiiiiiiiiiiiize" : "girl" + " you've set him appeals to his simple mind a great deal. As for you, well... you sit yourself down and watch his muscles tense, relax and flex, his swimmer's body a rippling river of muscle, beginning to glow with sweat as he grunts ten, his semi-flaccid pillar of a cock swinging underneath him, pushing into the flat hard lake of his stomach with each downward press, a dynamo of pure, brute masculinity, one which runs, spins and fucks at the snap of your fingers... yes, you could get used to watching this. That's not entirely why you're making him do it, though.");
@@ -240,6 +256,8 @@ package classes.Scenes.NPCs
 		
 		private function bathtimeWithIzmael():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			if (flags[kFLAGS.IZMAEL_BATHTIME_COUNTER] == 0) {
 				outputText("You give Izmael a look over. The shark morph seems to be in a constant state of nervous energy; even now, trying to be alert and ready for you, he shifts impatiently from foot to foot, practically twitching with the need to be doing something, anything. In this state having sex with him would rather be like getting fucked by a jackhammer- You feel in the mood for something a bit more relaxing, and yet you'd also like to see all that boyish energy being put to good use. A smirk spreads across your face as a way to fuck two birds with one dick slowly occurs to you.");
 				outputText("\n\n\"<i>How fit would you say you were, beta?</i>\" you say. ");
@@ -279,6 +297,8 @@ package classes.Scenes.NPCs
 		
 		private function bathtimeWithIzmaelRideDick():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			outputText("He looks up at you with his mouth open, eyes bleared, and for a moment you see yourself in his simple eyes: The alpha who not only has that beguiling, infuriatingly luscious body, that body that overrides all of his cognition and makes him a slave to his dick, but is also somehow able to exhaust him, trap him, control him physically and mentally. A " + player.mf("God", "Goddess") + ".");
 			if (player.isBiped()) outputText("\n\nYou smirk and slowly sink into the hot water yourself, placing one leg either side of Izmael and working your way back, sighing as you are encapsulated in wet heat.");
 			else if (player.isNaga()) outputText("\n\nYou smirk and slowly sink into the hot water yourself, lazily wrapping your coils around and around Izmael, sighing as you are encapsulated in wet heat.");
@@ -308,6 +328,8 @@ package classes.Scenes.NPCs
 		
 		private function bathtimeWithIzmaelFacesit():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			outputText("He looks up at you with his mouth open, eyes bleared, and for a moment you see yourself in his eyes: The alpha who not only has that beguiling, infuriatingly luscious body, that body that overrides all of his cognition and makes him a slave to his dick, but is also somehow able to exhaust him, trap him, control him physically and mentally.  A Goddess. ");
 			if (player.isBiped()) outputText("\n\nYou smirk and slowly step into the hot water yourself, placing one leg either side of Izmael's head and slowly sinking downward, sighing as your legs are encapsulated in wet heat beneath his body.");
 			else if (player.isNaga()) outputText("\n\nYou smirk and slowly slither into the hot water yourself, lazily wrapping your coils around and around Izmael, sighing as you are encapsulated in wet heat.");
@@ -331,6 +353,8 @@ package classes.Scenes.NPCs
 
 		private function bathtimeWithIzmaelGetBlown():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			outputText("He looks up at you with his mouth open, eyes bleared, and for a moment you see yourself through his simple eyes: The alpha who is not only his better, the being who dominated him into this new way of life, but the man/woman who is also somehow able to exhaust him, trap him, lead him by the dick, control him physically and mentally. A " + player.mf("God", "Goddess") + ".");
 			if (player.isBiped()) outputText("\n\nYou smirk and slowly step into the hot water yourself, placing one leg either side of Izmael's head and slowly sinking downward, sighing as your legs are encapsulated in wet heat beneath his body.");
 			else if (player.isNaga()) outputText("\n\nYou smirk and slowly slither into the hot water yourself, lazily wrapping your coils around and around Izmael, sighing as you are encapsulated in wet heat.");
@@ -351,6 +375,8 @@ package classes.Scenes.NPCs
 		
 		private function entrapIzmael():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			outputText("You notice Izmael's face light up when you call him, but has sunk slightly by the time he has gotten over to you. You ask him what's wrong.");
 			outputText("\n\n\"<i>Oh, nothing bro. It's just I could really do with finding some chicks, y'know? And before I remember it's you, when I look over you kind of look like...I mean, I'm not saying that...it's not that you don't look... uh...</i>\" He's turned a brighter shade of red than normal, his brain having finally caught up with his tongue. You find yourself grinning at his clumsiness, and yet beneath your amusement you can't help but feel slightly turned on. The tiger shark is after all incredibly, overbearingly masculine whilst you, it is true, can easily pass for a girl. You find yourself wondering how far you could follow this particular train of thought...");
 			outputText("\n\nSmiling with coyness now, you draw in close to Izmael and put a soft hand on his chest, lightly tracing one of his pecs. It really is too bad there are no girls around, you breathe. Still brushing him with the tips of your fingers, you send your other hand sliding deliberately down his abdomen, enjoying every taut ripple of his frame along the way. He is looking at with his mouth slightly open, evidently not yet capable of understanding- you sigh as you touch the thick base of it- why, his immense dick is starting to harden. You hate to see your big bro so frustrated and pent up, you say. You circle one of his hard nipples gently, this way and that, drawing a low noise from the back of his throat, his hot breath rolling over you. Your other hand glides further down his cock, slowly stroking what you can reach until it is bulging in your grasp. You look into his face and smile winsomely. Perhaps, you murmur... perhaps you could be big bro's girlfriend for the night?");
@@ -380,6 +406,8 @@ package classes.Scenes.NPCs
 		
 		private function threesomeIzmaelVapula():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Nonesuch";
 			outputText("You call your beta tigershark, telling him you have some use for his body. Izmael eagerly approaches you, although his usual smile turns to a wide grin when he sees the towering succubus accompanying you.. \"<i>Hey alpha guy/girl, sup? Who's the smokin babe over here?</i>\" Vapula only smirks at Izmael's excited reaction.");
 			outputText("\n\nYou gently explain that you intend to have some extra fun, which is why you brought this gorgeous creature to please you both. Izmael is entranced by Vapula and eagerly steps forward as he ogles the demon girl. You tell to him remove his grass kilt and turn around so you can have a clear view of his toned butt. ");
 			outputText("\n\n\"<i>Sure, okay, but why do I need to turn around, " + player.short + "?</i>\" ");
@@ -411,6 +439,8 @@ package classes.Scenes.NPCs
 		//------------
 		private function revertIzmaelPrompt():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kitteh6660";
 			outputText("This will revert Izmael back to Izma. This process cannot be undone and afterwards, you will no longer be able to remove her dick.");
 			outputText("\n\nAre you sure you want to do this?");
 			doYesNo(revertIzmael, izmaelMenu);
@@ -418,6 +448,8 @@ package classes.Scenes.NPCs
 		
 		private function revertIzmael():void {
 			clearOutput();
+			credits.modContent = true;
+			credits.authorText = "Kitteh6660";
 			outputText("(Placeholder) You give Izmael the bimbo liqueur and the debimbo. Izmael is now back to Izma. You won't be able to remove her dick.");
 			flags[kFLAGS.IZMA_BROFIED] = -1;
 			doNext(camp.returnToCampUseOneHour);

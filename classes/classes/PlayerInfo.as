@@ -4,9 +4,12 @@ package classes
 	import classes.GlobalFlags.*;
 	import classes.GlobalFlags.kGAMECLASS;
 	import classes.Scenes.NPCs.IsabellaScene;
+	import classes.display.LevelUpPane;
 	import classes.internals.*;
+	import coc.view.CoCButton;
 	import com.bit101.components.ComboBox;
 	import flash.events.Event;
+	import flash.text.TextField;
 	
 	/**
 	 * The new home of Stats and Perks
@@ -15,6 +18,8 @@ package classes
 	public class PlayerInfo extends BaseContent
 	{	
 		public function PlayerInfo() {}
+		
+		private var pane:LevelUpPane = new LevelUpPane();
 		
 		//------------
 		// STATS
@@ -513,6 +518,8 @@ package classes
 				interpersonStats += "<b>Helia Bonus Points:</b> " + Math.round(flags[kFLAGS.HEL_BONUS_POINTS]) + "\n";
 			if (getGame().helFollower.followerHel())
 				interpersonStats += "<b>Helia Spar Intensity:</b> " + getGame().helScene.heliaSparIntensity() + "\n";
+			if (getGame().helSpawnScene.helspawnSparIntensity() > 0)
+				interpersonStats += "<b>" + getGame().flags[kFLAGS.HELSPAWN_NAME] + " Spar Intensity:</b> " + getGame().helSpawnScene.helspawnSparIntensity() + "\n";
 			
 			if (flags[kFLAGS.ISABELLA_AFFECTION] > 0) {
 				interpersonStats += "<b>Isabella's Affection:</b> ";
@@ -522,6 +529,8 @@ package classes
 				else
 					interpersonStats += "100%\n";
 			}
+			if (getGame().isabellaScene.isabellaSparIntensity() > 0)
+				interpersonStats += "<b>Isabella Spar Intensity:</b> " + getGame().isabellaScene.isabellaSparIntensity() + "\n";
 			
 			if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3) {
 				interpersonStats += "<b>Joy's Intelligence:</b> " + flags[kFLAGS.JOY_INTELLIGENCE];
@@ -549,6 +558,7 @@ package classes
 					interpersonStats += "<b>Kiha's Affection:</b> " + 100 + "%\n";
 				else
 					interpersonStats += "<b>Kiha's Affection:</b> " + Math.round(flags[kFLAGS.KIHA_AFFECTION]) + "%\n";
+				interpersonStats += "<b>Kiha Spar Intensity:</b> " + getGame().kihaScene.kihaSparIntensity() + "\n";
 			}
 			//Lottie stuff
 			if (flags[kFLAGS.LOTTIE_ENCOUNTER_COUNTER] > 0)
@@ -559,6 +569,9 @@ package classes
 			
 			if (player.statusEffectv1(StatusEffects.Marble) > 0)
 				interpersonStats += "<b>Marble's Affection:</b> " + player.statusEffectv1(StatusEffects.Marble) + "%\n";
+				
+			if (flags[kFLAGS.MINERVA_SPAR_VICTORIES] > 0)
+				interpersonStats += "<b>Minerva Spar Intensity:</b> " + getGame().highMountains.minervaScene.minervaSparIntensity() + "\n";
 				
 			if (flags[kFLAGS.OWCAS_ATTITUDE] > 0)
 				interpersonStats += "<b>Owca's Attitude:</b> " + flags[kFLAGS.OWCAS_ATTITUDE] + "\n";
@@ -579,6 +592,8 @@ package classes
 			if (getGame().valeria.valeriaFluidsEnabled()) {
 				interpersonStats += "<b>Valeria's Fluid:</b> " + flags[kFLAGS.VALERIA_FLUIDS] + "%\n"
 			}
+			if (flags[kFLAGS.MINERVA_SPAR_VICTORIES] > 0)
+				interpersonStats += "<b>Valeria Spar Intensity:</b> " + getGame().valeria.valeriaSparIntensity() + "\n";
 			
 			if (flags[kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY] != 0) {
 				if (getGame().urta.urtaLove()) {
@@ -780,6 +795,10 @@ package classes
 		public function levelUpGo():void {
 			clearOutput();
 			hideMenus();
+			//First thing first...
+			if (!pane.initialized) {
+				pane.configureLevelUpMenu();
+			}
 			//Level up
 			if (player.XP >= player.requiredXP() && player.level < getGame().levelCap) {
 				player.XP -= player.requiredXP();
@@ -787,11 +806,13 @@ package classes
 				player.perkPoints++;
 				player.statPoints += 5;
 				if (player.level % 2 == 0) player.ascensionPerkPoints++;
-				outputText("<b>You are now level " + num2Text(player.level) + "!</b>\n\nYou have gained five attribute points and one perk point!");
-				doNext(attributeMenu);
+				(pane.getElementByName("LevelMessage") as TextField).htmlText = "You are now level " + player.level + "!";
+				pane.getElementByName("LevelMessage").visible = true;
+				attributeMenu();
 			}
 			//Spend attribute points
 			else if (player.statPoints > 0) {
+				pane.getElementByName("LevelMessage").visible = false;
 				attributeMenu();
 			}
 			//Spend perk points
@@ -807,43 +828,29 @@ package classes
 		//Attribute menu
 		private function attributeMenu():void {
 			clearOutput();
-			outputText("You have <b>" + (player.statPoints) + "</b> left to spend.\n\n");
-			
-			outputText("Strength: ");
-			if (player.str < player.getMaxStats("str")) outputText("" + Math.floor(player.str) + " + <b>" + player.tempStr + "</b> → " + Math.floor(player.str + player.tempStr) + "\n");
-			else outputText("" + Math.floor(player.str) + " (Maximum)\n");
-			
-			outputText("Toughness: ");
-			if (player.tou < player.getMaxStats("tou")) outputText("" + Math.floor(player.tou) + " + <b>" + player.tempTou + "</b> → " + Math.floor(player.tou + player.tempTou) + "\n");
-			else outputText("" + Math.floor(player.tou) + " (Maximum)\n");
-			
-			outputText("Speed: ");
-			if (player.spe < player.getMaxStats("spe")) outputText("" + Math.floor(player.spe) + " + <b>" + player.tempSpe + "</b> → " + Math.floor(player.spe + player.tempSpe) + "\n");
-			else outputText("" + Math.floor(player.spe) + " (Maximum)\n");
-			
-			outputText("Intelligence: ");
-			if (player.inte < player.getMaxStats("int")) outputText("" + Math.floor(player.inte) + " + <b>" + player.tempInt + "</b> → " + Math.floor(player.inte + player.tempInt) + "\n");
-			else outputText("" + Math.floor(player.inte) + " (Maximum)\n");
-
-			menu();
-			//Add
-			if (player.statPoints > 0) {
-				if ((player.str + player.tempStr) < player.getMaxStats("str")) addButton(0, "Add STR", addAttribute, "str", null, null, "Add 1 point to Strength.", "Add Strength");
-				if ((player.tou + player.tempTou) < player.getMaxStats("tou")) addButton(1, "Add TOU", addAttribute, "tou", null, null, "Add 1 point to Toughness.", "Add Toughness");
-				if ((player.spe + player.tempSpe) < player.getMaxStats("spe")) addButton(2, "Add SPE", addAttribute, "spe", null, null, "Add 1 point to Speed.", "Add Speed");
-				if ((player.inte + player.tempInt) < player.getMaxStats("int")) addButton(3, "Add INT", addAttribute, "int", null, null, "Add 1 point to Intelligence.", "Add Intelligence");
+			mainView.mainText.visible = false;
+			mainView.addChild(pane);
+			(pane.getElementByName("AttributeMessage") as TextField).htmlText = "You have <b>" + (player.statPoints > 0 ? player.statPoints : "no") + "</b> point" + (player.statPoints == 1 ? "" : "s") + " left to spend.";
+			//Those arrays work in parallel ways.
+			var attributes:Array = [player.str, player.tou, player.spe, player.inte];
+			var attributeTemps:Array = [player.tempStr, player.tempTou, player.tempSpe, player.tempInt];
+			var attributeStrings:Array = ["Str", "Tou", "Spe", "Int"];
+			//Run through the loop for a total of four times.
+			for (var i:int = 0; i < 4; i++) {
+				(pane.getElementByName("Number" + attributeStrings[i]) as TextField).htmlText = (Math.floor(attributes[i])).toString();
+				(pane.getElementByName("Number" + attributeStrings[i] + "Mod") as TextField).htmlText = "+" + attributeTemps[i];
+				(pane.getElementByName("Number" + attributeStrings[i] + "Mod") as TextField).alpha = (attributeTemps[i] > 0 ? 1 : 0.3);
+				(pane.getElementByName("Number" + attributeStrings[i] + "Rslt") as TextField).htmlText = "→" + (Math.floor(attributes[i] + attributeTemps[i])).toString();
+				//Addition & Subtraction buttons
+				(pane.getElementByName("Button" + attributeStrings[i] + "Plus") as CoCButton).disableIf(attributes[i] + attributeTemps[i] >= player.getMaxStats(attributeStrings[i].toLowerCase()) || player.statPoints <= 0);
+				(pane.getElementByName("Button" + attributeStrings[i] + "Minus") as CoCButton).disableIf(attributeTemps[i] <= 0);
 			}
-			//Subtract
-			if (player.tempStr > 0) addButton(5, "Sub STR", subtractAttribute, "str", null, null, "Subtract 1 point from Strength.", "Subtract Strength");
-			if (player.tempTou > 0) addButton(6, "Sub TOU", subtractAttribute, "tou", null, null, "Subtract 1 point from Toughness.", "Subtract Toughness");
-			if (player.tempSpe > 0) addButton(7, "Sub SPE", subtractAttribute, "spe", null, null, "Subtract 1 point from Speed.", "Subtract Speed");
-			if (player.tempInt > 0) addButton(8, "Sub INT", subtractAttribute, "int", null, null, "Subtract 1 point from Intelligence.", "Subtract Intelligence");
-			
-			addButton(4, "Reset", resetAttributes);
-			addButton(9, "Done", finishAttributes);
+			menu();
+			addButton(1, "Reset", resetAttributes);
+			addButton(3, "Done", finishAttributes);
 		}
 
-		private function addAttribute(attribute:String):void {
+		public function addAttribute(attribute:String):void {
 			switch(attribute) {
 				case "str":
 					player.tempStr++;
@@ -863,7 +870,7 @@ package classes
 			player.statPoints--;
 			attributeMenu();
 		}
-		private function subtractAttribute(attribute:String):void {
+		public function subtractAttribute(attribute:String):void {
 			switch(attribute) {
 				case "str":
 					player.tempStr--;
@@ -898,7 +905,9 @@ package classes
 			attributeMenu();
 		}
 		private function finishAttributes():void {
-			clearOutput()
+			mainView.removeChild(pane);
+			mainView.mainText.visible = true;
+			clearOutput();
 			if (player.tempStr > 0)
 			{
 				if (player.tempStr >= 3) outputText("Your muscles feel significantly stronger from your time adventuring.\n");
@@ -1013,8 +1022,8 @@ package classes
 			//Apply perk here.
 			outputText("<b>" + perk.perkName + "</b> gained!");
 			player.createPerk(perk.ptype, perk.value1, perk.value2, perk.value3, perk.value4);
-			if (perk.ptype == PerkLib.StrongBack2) player.itemSlot5.unlocked = true;
-			if (perk.ptype == PerkLib.StrongBack) player.itemSlot4.unlocked = true;
+			if (perk.ptype == PerkLib.StrongBack2) player.itemSlot(4).unlocked = true;
+			if (perk.ptype == PerkLib.StrongBack) player.itemSlot(3).unlocked = true;
 			if (perk.ptype == PerkLib.Tank2) {
 				player.HPChange(player.tou, false);
 				statScreenRefresh();
