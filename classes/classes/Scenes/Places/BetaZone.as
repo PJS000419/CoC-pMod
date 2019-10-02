@@ -14,7 +14,7 @@ package classes.Scenes.Places
 			credits.modContent = true;
 			credits.authorText = "Kitteh6660";
 			outputText("The bizarre zone is unlike anything you've ever experienced. Looking up, you make out the " + (time.hours < 20 ? "black" : "green") + " zeros and ones in Consolas covering the otherwise-" + (time.hours < 20 ? "white" : "black") + " sky.");
-			outputText("\n\nWhile the grassy terrain looks normal, it appears completely flat with no signs of hills nearby. Interestingly, paths run from where you originally entered to the various points of interest.");
+			outputText("\n\nThe surrounding landscapes appear to resemble something volcanic and infernal, with oddly-shaped rocks jutting from the ground that form crags. Interestingly, paths run from where you originally entered to the various points of interest.");
 			outputText("\n\nThe nearest object that catches your attention is a large sign. A bit further but still on your left is a camp consisting of a few tents. Occasionally, the purple-skinned horned creature steps out of a large tent for a breath of fresh debug-filled air."); 
 			outputText("\n\nTo the right is a set of doors. They all look different from each other, one being of wooden, one metallic and the last one being of stone design.");
 			outputText("\n\nFar away, you see what appears to be a subterranean-styled city under construction. Presently, the buildings appear to be constructed from seemingly-untextured colored rectangular prisms of varying sizes. A cursory glance at the sign by the unfinished city reveals the city to be named Suo'Jure when it's finished.");
@@ -35,12 +35,12 @@ package classes.Scenes.Places
 			outputText("<b>Ghoulish Hyena</b>\n  Status: Cut from the game and moved to Beta Zone.\n  Reason: Unfitting with the theme of the game.\n\n");
 			outputText("<b>Behemoth</b>\n  Status: Cut from the game and moved to Beta Zone.\n  Reason: Subpar quality of writing.\n\n");
 			outputText("<b>Corrupted Minerva</b>\n  Status: Not yet accessible.\n  Progress: Only the first few parts are coded. Coders are free to help bring this to reality.\n\n");
-			outputText("<b>Demon Soldiers</b>\n  Status: Not yet in the game.\n  Progress: Awaiting coding once proofreading is complete.\n\n");
+			outputText("<b>Demon Soldiers</b>\n  Status: Live\n  Progress: Finally coded into the game.\n\n");
 			outputText("<b><u>Locations</u></b>\n");
 			outputText("<b>The City of Suo'jure</b>\n  Status: City under construction, not yet accessible.\n  Progress: Document still incomplete since last checking.\n\n");
 			outputText("<b>Fetish Church</b>\n  Status: Still under construction.\n  Progress: Room layout still not coded.\n\n");
 			outputText("<b>Hellhound Complex</b>\n  Status: Layout established, rooms still placeholder.\n  Progress: Document still not being worked on yet.\n\n");
-			outputText("<b>Dragon City</b>\n  Status: Layout established, few placeholder rooms. No encounters yet.\n  Progress: Document still being checked. Partially complete but still missing important scenes.\n\n");
+			outputText("<b>Dragon City</b>\n  Status: All rooms established, some placeholder description. Kobolds in training.\n  Progress: Document still being checked. Partially complete but still missing important scenes. The foundation and basic structure have been laid to make it easier to possibly implement in the future.\n\n");
 			outputText("<b>Mistress Elly's Prison</b>\n  Status: Accessible in debug only.\n  Progress: Still many placeholder scenes, could do with expanding.\n\n");
 			doNext(betaZoneEntry);
 		}

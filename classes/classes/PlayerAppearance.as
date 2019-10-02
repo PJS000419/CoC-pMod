@@ -1663,7 +1663,7 @@ package classes
 				if (player.vaginas.length == 1)
 					outputText("You have a " + player.vaginaDescript(0) + ", with a " + inchesOrCentimetres(player.getClitLength()) + " clit " + ((player.vaginas[0].virgin) ? "and an intact hymen" : "") + ".");
 				else if (player.vaginas.length > 1)
-					outputText("\nYou have a " + inchesOrCentimetres(player.getClitLength()) + " clit and where a vagina would normally be located, your pussy lips spread to show grown pair of vaginas each with their own womb and birthing canal.");
+					outputText("\nYou have a " + inchesOrCentimetres(player.getClitLength()) + " clit and where a vagina would normally be located, your pussy lips spread to show a grown pair of vaginas each with their own womb and birthing canal.");
 				for (var vagina_index:int = 0; vagina_index < player.vaginas.length; vagina_index++) 
 				{
 						rando++;

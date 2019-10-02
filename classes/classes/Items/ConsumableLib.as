@@ -13,11 +13,13 @@ package classes.Items
 //		DEMONIC POTIONS
 		//Tainted
 		public const INCUBID:Consumable = new IncubiDraft(IncubiDraft.TAINTED);
+		public const OMNIJUC:Consumable = new OmnibiJuice(OmnibiJuice.TAINTED);
 		public const S_DREAM:Consumable = new SuccubisDream();
 		public const SDELITE:Consumable = new SuccubisDelight(SuccubisDelight.TAINTED);
 		public const SUCMILK:Consumable = new SuccubiMilk(SuccubiMilk.TAINTED);
 		//Untainted
 		public const P_DRAFT:Consumable = new IncubiDraft(IncubiDraft.PURIFIED);
+		public const POMNIJC:Consumable = new OmnibiJuice(OmnibiJuice.PURIFIED);
 		public const P_S_MLK:Consumable = new SuccubiMilk(SuccubiMilk.PURIFIED);
 		public const PSDELIT:Consumable = new SuccubisDelight(SuccubisDelight.PURIFIED);
 //		DYES
@@ -111,6 +113,7 @@ package classes.Items
 //		GROWERS/SHRINKERS
 		public const REDUCTO:Consumable = new Reducto();
 		public const GROPLUS:Consumable = new GroPlus();
+		public const GIRTHOP:Consumable = new GirthoPlus();
 //		MAGIC BOOKS
 		public const B__BOOK:Consumable = new BlackSpellBook();
 		public const W__BOOK:Consumable = new WhiteSpellBook();
@@ -171,6 +174,7 @@ package classes.Items
 		public const MOUSECO:Consumable = new MouseCocoa();
 		public const MINOBLO:Consumable = new MinotaurBlood();
 		public const MYSTJWL:Consumable = new FoxJewel(FoxJewel.MYSTIC);
+		public const NDRSOIL:Consumable = new SnakeOil(SnakeOil.NAGADRESS);
 		public const OCULUMA:Consumable = new OculumArachnae();
 		public const P_LBOVA:Consumable = new LaBova(LaBova.PURIFIED);
 		public const PIGTRUF:Consumable = new PigTruffle(false);

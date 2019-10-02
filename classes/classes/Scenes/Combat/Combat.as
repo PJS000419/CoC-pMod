@@ -167,11 +167,11 @@ package classes.Scenes.Combat
 		public function checkAchievementDamage(damage:Number):void
 		{
 			flags[kFLAGS.ACHIEVEMENT_PROGRESS_TOTAL_DAMAGE] += damage;
-			if (flags[kFLAGS.ACHIEVEMENT_PROGRESS_TOTAL_DAMAGE] >= 50000) kGAMECLASS.awardAchievement("Bloodletter", kACHIEVEMENTS.COMBAT_BLOOD_LETTER);
-			if (damage >= 50) kGAMECLASS.awardAchievement("Pain", kACHIEVEMENTS.COMBAT_PAIN);
-			if (damage >= 100) kGAMECLASS.awardAchievement("Fractured Limbs", kACHIEVEMENTS.COMBAT_FRACTURED_LIMBS);
-			if (damage >= 250) kGAMECLASS.awardAchievement("Broken Bones", kACHIEVEMENTS.COMBAT_BROKEN_BONES);
-			if (damage >= 500) kGAMECLASS.awardAchievement("Overkill", kACHIEVEMENTS.COMBAT_OVERKILL);
+			if (flags[kFLAGS.ACHIEVEMENT_PROGRESS_TOTAL_DAMAGE] >= 50000) kGAMECLASS.awardAchievement(kACHIEVEMENTS.COMBAT_BLOOD_LETTER);
+			if (damage >= 50) kGAMECLASS.awardAchievement(kACHIEVEMENTS.COMBAT_PAIN);
+			if (damage >= 100) kGAMECLASS.awardAchievement(kACHIEVEMENTS.COMBAT_FRACTURED_LIMBS);
+			if (damage >= 250) kGAMECLASS.awardAchievement(kACHIEVEMENTS.COMBAT_BROKEN_BONES);
+			if (damage >= 500) kGAMECLASS.awardAchievement(kACHIEVEMENTS.COMBAT_OVERKILL);
 		}
 		public function approachAfterKnockback():void
 		{
@@ -1046,7 +1046,7 @@ package classes.Scenes.Combat
 				else if (damage <= Math.min(monsterTarget.maxHP() * 0.2, 100))
 					outputText("You hit and wound " + monsterTarget.a + monsterTarget.short + "! ");
 				else if (damage <= Math.min(monsterTarget.maxHP() * 0.3, 150))
-					outputText("You stagger " + monsterTarget.a + monsterTarget.short + " with the force of your " + player.weaponVerb + "s! ");
+					outputText("You stagger " + monsterTarget.a + monsterTarget.short + " with the force of your " + player.weaponVerb + "! ");
 				else 
 					outputText("You <b>mutilate</b> " + monster.a + monsterTarget.short + " with your powerful " + player.weaponVerb + "! ");
 				if (crit) outputText("<b>Critical hit! </b>");
@@ -1387,7 +1387,7 @@ package classes.Scenes.Combat
 				flags[kFLAGS.ACHIEVEMENT_PROGRESS_EGG_HUNTER]++;
 			}
 			//Ring drops!
-			if (!plotFight && rand(200) <= 0 + Math.min(6, Math.floor(monster.level / 10))) { //Ring drops!
+			if (!plotFight && rand(200) <= Math.min(6, Math.floor(monster.level * 0.1))) { //Ring drops!
 				var ringDropTable:Array = [];
 				ringDropTable.push(jewelries.SILVRNG);
 				if (monster.level < 10) ringDropTable.push(jewelries.SILVRNG);
@@ -1505,6 +1505,7 @@ package classes.Scenes.Combat
 			inCombat = false;
 			player.gems += totalGems;
 			player.XP += totalXP;
+			if (player.weaponName == "fists" && player.armor.name == "nothing" && player.shieldName == "nothing" && monster.level >= 22) awardAchievement(kACHIEVEMENTS.GENERAL_LIKE_CHUCK_NORRIS);
 			mainView.statsView.showStatUp('xp');
 			dynStats("lust", 0, "scale", false); //Forces up arrow.
 		}
@@ -1886,7 +1887,7 @@ package classes.Scenes.Combat
 				a[i].onCombatRound();
 			}
 			regeneration(true);
-			if (player.lust >= player.maxLust()) doNext(endLustLoss);
+			if (player.lust >= player.maxLust() && !player.hasPerk(PerkLib.Indefatigable)) doNext(endLustLoss);
 			if (player.HP <= 0) doNext(endHpLoss);
 		}
 
@@ -2290,14 +2291,14 @@ package classes.Scenes.Combat
 				return;
 			}
 			clearOutput();
-			if (inCombat && player.hasStatusEffect(StatusEffects.Sealed) && player.statusEffectv2(StatusEffects.Sealed) == 4) {
+			if (inCombat && player.hasStatusEffect(StatusEffects.Sealed) && player.statusEffectv2(StatusEffects.Sealed) == 4 && !debug) {
 				clearOutput();
 				outputText("You try to run, but you just can't seem to escape.  <b>Your ability to run was sealed, and now you've wasted a chance to attack!</b>\n\n");
 				enemyTurn();
 				return;
 			}
 			//Rut doesnt let you run from dicks.
-			if (player.inRut && monster.totalCocks() > 0) {
+			if (player.inRut && monster.totalCocks() > 0 && !debug) {
 				outputText("The thought of another male in your area competing for all the pussy infuriates you!  No way will you run!");
 		//Pass false to combatMenu instead:		menuLoc = 3;
 		//		doNext(combatMenu);

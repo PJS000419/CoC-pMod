@@ -57,6 +57,8 @@ package classes
 	import classes.StatusEffect;
 	import classes.Vagina;
 	import classes.display.SpriteDb;
+	import classes.display.AchievementPane;
+	import classes.display.LevelUpPane;
 	import classes.internals.*;
 	import classes.internals.Utils;
 	import classes.Time;
@@ -190,7 +192,7 @@ package classes
 		public var shields:ShieldLib = new ShieldLib();
 		public var miscItems:MiscItemLib = new MiscItemLib();
 		// Scenes/
-		public var achievementList:Achievements = new Achievements();
+		public var achievementList:AchievementMenu = new AchievementMenu();
 		public var camp:Camp = new Camp(campInitialize);
 		public var dreams:Dreams = new Dreams();
 		public var dungeons:DungeonCore;
@@ -578,9 +580,8 @@ package classes
 			 * Debug, Version, etc
 			 */
 			debug = false; //DEBUG, used all over the place
-
-			ver = "1.0.2_mod_1.4.17b"; //Version NUMBER
-			version = ver + " (<b>Prettah Level Up</b>)"; //Version TEXT
+			ver = "1.0.2_mod_1.4.18b"; //Version NUMBER
+			version = ver + " (<b>Achievements 2.0 + Bugfix Mk.IV</b>)"; //Version TEXT
 			
 			//Indicates if building for mobile?
 			mobile = false;
@@ -705,14 +706,25 @@ package classes
 			this.addFrameScript(0, this.run);
 		}
 		
+		public function preLoadInterfaces():void
+		{
+			achievementList.achievementsPane = new AchievementPane(mainView.mainText.x, mainView.mainText.y, mainView.mainText.width + 16, mainView.mainText.height);
+			achievementList.achievementsPane.configureAchievementPane();
+			playerInfo.levelUpPane = new LevelUpPane();
+			playerInfo.levelUpPane.configureLevelUpMenu();
+			gameSettings.configurePanes();
+			mainMenu.configureMainMenu();
+		}
+		
 		public function run():void
 		{
 			//Set up stage
 			stage.focus = kGAMECLASS.mainView.mainText;
 			mainView.eventTestInput.x = -10207.5;
 			mainView.eventTestInput.y = -1055.1;
-			mainViewManager.startUpButtons();
 			saves.loadPermObject();
+			mainViewManager.startUpButtons();
+			preLoadInterfaces();
 			mainViewManager.setTheme();
 			mainView.setTextBackground(flags[kFLAGS.TEXT_BACKGROUND_STYLE]);
 			//Now enter the main menu.

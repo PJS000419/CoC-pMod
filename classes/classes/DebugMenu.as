@@ -255,12 +255,14 @@ package classes
 			transformativeArray.push(consumables.MINOBLO);
 			transformativeArray.push(consumables.MYSTJWL);
 			transformativeArray.push(consumables.OCULUMA);
+			transformativeArray.push(consumables.OMNIJUC);
 			transformativeArray.push(consumables.P_LBOVA);
 			transformativeArray.push(consumables.PIGTRUF);
 			transformativeArray.push(consumables.PRFRUIT);
 			transformativeArray.push(consumables.PROBOVA);
-			transformativeArray.push(consumables.P_DRAFT);
 			//Page 4
+			transformativeArray.push(consumables.P_DRAFT);
+			transformativeArray.push(consumables.POMNIJC);
 			transformativeArray.push(consumables.P_S_MLK);
 			transformativeArray.push(consumables.PSDELIT);
 			transformativeArray.push(consumables.PURHONY);
@@ -271,9 +273,9 @@ package classes
 			transformativeArray.push(consumables.RDRROOT);
 			transformativeArray.push(consumables.REPTLUM);
 			transformativeArray.push(consumables.RINGFIG);
+			//Page 5
 			transformativeArray.push(consumables.RIZZART);
 			transformativeArray.push(consumables.S_GOSSR);
-			//Page 5
 			transformativeArray.push(consumables.SALAMFW);
 			transformativeArray.push(consumables.SHARK_T);
 			transformativeArray.push(consumables.SNAKOIL);
@@ -284,9 +286,9 @@ package classes
 			transformativeArray.push(consumables.TSCROLL);
 			transformativeArray.push(consumables.TSTOOTH);
 			transformativeArray.push(consumables.VIXVIGR);
+			//Page 6
 			transformativeArray.push(consumables.W_FRUIT);
 			transformativeArray.push(consumables.WETCLTH);
-			//Page 6
 			transformativeArray.push(consumables.WOLF_PP);
 			transformativeArray.push(consumables.UBMBOTT);
 			
@@ -302,11 +304,12 @@ package classes
 			consumableArray.push(consumables.EXTSERM);
 			consumableArray.push(consumables.F_DRAFT);
 			consumableArray.push(consumables.GROPLUS);
+			consumableArray.push(consumables.GIRTHOP);
 			consumableArray.push(consumables.H_PILL);
 			consumableArray.push(consumables.HRBCNT);
 			consumableArray.push(consumables.ICICLE_);
-			consumableArray.push(consumables.KITGIFT);
 			//Page 2
+			consumableArray.push(consumables.KITGIFT);
 			consumableArray.push(consumables.L_DRAFT);
 			consumableArray.push(consumables.LACTAID);
 			consumableArray.push(consumables.LUSTSTK);
@@ -318,8 +321,8 @@ package classes
 			consumableArray.push(consumables.PEPPWHT);
 			consumableArray.push(consumables.PPHILTR);
 			consumableArray.push(consumables.PRNPKR);
-			consumableArray.push(consumables.PROMEAD);
 			//Page 3
+			consumableArray.push(consumables.PROMEAD);
 			consumableArray.push(consumables.REDUCTO);
 			consumableArray.push(consumables.SENSDRF);
 			consumableArray.push(consumables.SMART_T);
@@ -331,8 +334,8 @@ package classes
 			consumableArray.push(consumables.BIMBOCH);
 			consumableArray.push(consumables.C_BREAD);
 			consumableArray.push(consumables.CCUPCAK);
-			consumableArray.push(consumables.FISHFIL);
 			//Page 4
+			consumableArray.push(consumables.FISHFIL);
 			consumableArray.push(consumables.FR_BEER);
 			consumableArray.push(consumables.GODMEAD);
 			consumableArray.push(consumables.H_BISCU);
@@ -344,13 +347,12 @@ package classes
 			consumableArray.push(consumables.PURPEAC);
 			consumableArray.push(consumables.SHEEPMK);
 			consumableArray.push(consumables.S_WATER);
-			consumableArray.push(consumables.NPNKEGG);
 			//Page 5
+			consumableArray.push(consumables.NPNKEGG);
 			consumableArray.push(consumables.DRGNEGG);
 			consumableArray.push(consumables.W_PDDNG);
 			consumableArray.push(consumables.TRAILMX);
 			consumableArray.push(consumables.URTACUM);
-			consumableArray.push(null);
 			consumableArray.push(null);
 			consumableArray.push(null);
 			consumableArray.push(null);
@@ -472,7 +474,9 @@ package classes
 			shieldArray.push(shields.DRGNSHL);
 			shieldArray.push(shields.GRTSHL0);
 			shieldArray.push(shields.KITESH0);
+			shieldArray.push(shields.RUNESHL);
 			shieldArray.push(shields.TOWRSH0);
+			shieldArray.push(shields.WOODSHL);
 			
 			//------------
 			// Armours
@@ -509,14 +513,15 @@ package classes
 			armourArray.push(armors.LTHRROB);
 			armourArray.push(armors.M_ROBES);
 			armourArray.push(armors.TBARMOR);
+			armourArray.push(armors.NAGASLK);
 			armourArray.push(armors.NURSECL);
 			armourArray.push(armors.OVERALL);
 			armourArray.push(armors.R_BDYST);
 			armourArray.push(armors.RBBRCLT);
 			armourArray.push(armors.S_SWMWR);
 			armourArray.push(armors.SAMUARM);
-			armourArray.push(armors.SCALEML);
 			//Page 4
+			armourArray.push(armors.SCALEML);
 			armourArray.push(armors.SEDUCTA);
 			armourArray.push(armors.SEDUCTU);
 			armourArray.push(armors.SS_ROBE);

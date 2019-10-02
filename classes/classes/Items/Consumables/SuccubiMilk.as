@@ -42,7 +42,7 @@ package classes.Items.Consumables
 				case PURIFIED:
 					id = "P.S.Mlk";
 					shortName = "P.S.Mlk";
-					longName = "";
+					longName = "an untainted bottle of Succubi milk";
 					description = 'This milk-bottle is filled to the brim with a creamy white milk of dubious origin.'
 					             +' A pink label proudly labels it as "<i>Succubi Milk</i>".'
 					             +' In small text at the bottom of the label it reads: "<i>To bring out the succubus in YOU!</i>"'
@@ -169,7 +169,7 @@ package classes.Items.Consumables
 				outputText("\n\nAn itching starts in your crotch and spreads vertically.  You reach down and discover an opening.  You have grown a <b>new " + player.vaginaDescript(0) + "</b>!");
 			}
 			//Increase pussy wetness or grow one!!
-			else if (rando > 75 && rando < 90) {
+			else if (rando > 75 && rando < 89) {
 				//Shrink cawk
 				if (player.cocks.length > 0 && !flags[kFLAGS.HYPER_HAPPY]) {
 					outputText("\n\n");
@@ -227,7 +227,7 @@ package classes.Items.Consumables
 					}
 				}
 			}
-			if (rando >= 90) {
+			if (rando >= 89) {
 				if (!tainted || player.skin.tone == "blue" || player.skin.tone == "purple" || player.skin.tone == "indigo" || player.skin.tone == "shiny black") {
 					if (player.vaginas.length > 0) {
 						outputText("\n\nYour heart begins beating harder and harder as heat floods to your groin.  You feel your clit peeking out from under its hood, growing larger and longer as it takes in more and more blood.");

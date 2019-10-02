@@ -19,7 +19,7 @@ package classes
 	{	
 		public function PlayerInfo() {}
 		
-		private var pane:LevelUpPane = new LevelUpPane();
+		public var levelUpPane:LevelUpPane = new LevelUpPane();
 		
 		//------------
 		// STATS
@@ -795,10 +795,6 @@ package classes
 		public function levelUpGo():void {
 			clearOutput();
 			hideMenus();
-			//First thing first...
-			if (!pane.initialized) {
-				pane.configureLevelUpMenu();
-			}
 			//Level up
 			if (player.XP >= player.requiredXP() && player.level < getGame().levelCap) {
 				player.XP -= player.requiredXP();
@@ -806,13 +802,13 @@ package classes
 				player.perkPoints++;
 				player.statPoints += 5;
 				if (player.level % 2 == 0) player.ascensionPerkPoints++;
-				(pane.getElementByName("LevelMessage") as TextField).htmlText = "You are now level " + player.level + "!";
-				pane.getElementByName("LevelMessage").visible = true;
+				(levelUpPane.getElementByName("LevelMessage") as TextField).htmlText = "You are now level " + player.level + "!";
+				levelUpPane.getElementByName("LevelMessage").visible = true;
 				attributeMenu();
 			}
 			//Spend attribute points
 			else if (player.statPoints > 0) {
-				pane.getElementByName("LevelMessage").visible = false;
+				levelUpPane.getElementByName("LevelMessage").visible = false;
 				attributeMenu();
 			}
 			//Spend perk points
@@ -829,21 +825,21 @@ package classes
 		private function attributeMenu():void {
 			clearOutput();
 			mainView.mainText.visible = false;
-			mainView.addChild(pane);
-			(pane.getElementByName("AttributeMessage") as TextField).htmlText = "You have <b>" + (player.statPoints > 0 ? player.statPoints : "no") + "</b> point" + (player.statPoints == 1 ? "" : "s") + " left to spend.";
+			levelUpPane.show();
+			(levelUpPane.getElementByName("AttributeMessage") as TextField).htmlText = "You have <b>" + (player.statPoints > 0 ? player.statPoints : "no") + "</b> point" + (player.statPoints == 1 ? "" : "s") + " left to spend.";
 			//Those arrays work in parallel ways.
 			var attributes:Array = [player.str, player.tou, player.spe, player.inte];
 			var attributeTemps:Array = [player.tempStr, player.tempTou, player.tempSpe, player.tempInt];
 			var attributeStrings:Array = ["Str", "Tou", "Spe", "Int"];
 			//Run through the loop for a total of four times.
 			for (var i:int = 0; i < 4; i++) {
-				(pane.getElementByName("Number" + attributeStrings[i]) as TextField).htmlText = (Math.floor(attributes[i])).toString();
-				(pane.getElementByName("Number" + attributeStrings[i] + "Mod") as TextField).htmlText = "+" + attributeTemps[i];
-				(pane.getElementByName("Number" + attributeStrings[i] + "Mod") as TextField).alpha = (attributeTemps[i] > 0 ? 1 : 0.3);
-				(pane.getElementByName("Number" + attributeStrings[i] + "Rslt") as TextField).htmlText = "→" + (Math.floor(attributes[i] + attributeTemps[i])).toString();
+				(levelUpPane.getElementByName("Number" + attributeStrings[i]) as TextField).htmlText = (Math.floor(attributes[i])).toString();
+				(levelUpPane.getElementByName("Number" + attributeStrings[i] + "Mod") as TextField).htmlText = "+" + attributeTemps[i];
+				(levelUpPane.getElementByName("Number" + attributeStrings[i] + "Mod") as TextField).alpha = (attributeTemps[i] > 0 ? 1 : 0.3);
+				(levelUpPane.getElementByName("Number" + attributeStrings[i] + "Rslt") as TextField).htmlText = "→" + (Math.floor(attributes[i] + attributeTemps[i])).toString();
 				//Addition & Subtraction buttons
-				(pane.getElementByName("Button" + attributeStrings[i] + "Plus") as CoCButton).disableIf(attributes[i] + attributeTemps[i] >= player.getMaxStats(attributeStrings[i].toLowerCase()) || player.statPoints <= 0);
-				(pane.getElementByName("Button" + attributeStrings[i] + "Minus") as CoCButton).disableIf(attributeTemps[i] <= 0);
+				(levelUpPane.getElementByName("Button" + attributeStrings[i] + "Plus") as CoCButton).disableIf(attributes[i] + attributeTemps[i] >= player.getMaxStats(attributeStrings[i].toLowerCase()) || player.statPoints <= 0);
+				(levelUpPane.getElementByName("Button" + attributeStrings[i] + "Minus") as CoCButton).disableIf(attributeTemps[i] <= 0);
 			}
 			menu();
 			addButton(1, "Reset", resetAttributes);
@@ -905,7 +901,7 @@ package classes
 			attributeMenu();
 		}
 		private function finishAttributes():void {
-			mainView.removeChild(pane);
+			levelUpPane.hide();
 			mainView.mainText.visible = true;
 			clearOutput();
 			if (player.tempStr > 0)
@@ -942,9 +938,12 @@ package classes
 			else
 				doNext(playerMenu);
 		}
+		
 		public var boxPerks:ComboBox;
 		//Perk menu
 		private function perkBuyMenu():void {
+			levelUpPane.hide();
+			mainView.mainText.visible = true;
 			clearOutput();
 			var preList:Array = [];
 			preList = buildPerkList();
@@ -979,6 +978,8 @@ package classes
 			}
 		}
 		private function perkSkip():void {
+			levelUpPane.hide();
+			mainView.mainText.visible = true;
 			mainView.stage.focus = null;
 			if (boxPerks != null) {
 				mainView.removeChild(boxPerks);
